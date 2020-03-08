@@ -7,5 +7,6 @@
     <color name="lightGreen">#6FCF78</color>
     <color name="green">#09790e</color>
     <color name="darkGreen">#015e0b</color>
+    <color name="selectedIcon">#005700</color>
     <color name="darkBlue">#020024</color>
 </resources>
