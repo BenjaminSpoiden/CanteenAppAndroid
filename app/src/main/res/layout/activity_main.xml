@@ -25,8 +25,8 @@
         app:mbn_backgroundBottomColor="#58BAB9"
         app:mbn_countBackgroundColor="@color/grey"
         app:mbn_countTextColor="#ffffff"
-        app:mbn_defaultIconColor="#006B6B"
+        app:mbn_defaultIconColor="@color/defaultIcon"
         app:mbn_rippleColor="#2f424242"
-        app:mbn_selectedIconColor="@color/selectedIcon"
-        app:mbn_shadowColor="#1f212121"/>
+        app:mbn_selectedIconColor="@color/darkBlue"
+        app:mbn_shadowColor="@color/grey"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
