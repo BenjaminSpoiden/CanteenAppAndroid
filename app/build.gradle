@@ -13,7 +13,6 @@ android {
         versionCode 1
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -44,6 +43,8 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'com.etebarian:meow-bottom-navigation:1.2.0'
     implementation 'com.github.armcha:SpaceNavigationView:1.6.0'
+    implementation 'com.github.martinstamenkovski:ARIndicatorView:2.0.0'
+    implementation "ru.tinkoff.scrollingpagerindicator:scrollingpagerindicator:1.0.0"
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

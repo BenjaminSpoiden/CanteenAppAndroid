@@ -27,7 +27,31 @@
             tools:ignore="SmallSp" />
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
+        android:layout_above="@id/bottom_layout_onboarding"
+        android:layout_below="@id/skip_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_onboarding"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/indicator_recyclerview" />
+
+        <com.arindicatorview.ARIndicatorView
+            android:id="@+id/indicator_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="0dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"/>
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/bottom_layout_onboarding"
         android:orientation="vertical"
         android:layout_alignParentBottom="true"
@@ -47,19 +71,5 @@
             android:background="@drawable/btn_bg_gradient"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_above="@id/bottom_layout_onboarding"
-        android:layout_below="@id/skip_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_onboarding"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent">
-
-        </androidx.recyclerview.widget.RecyclerView>
     </RelativeLayout>
 </RelativeLayout>
