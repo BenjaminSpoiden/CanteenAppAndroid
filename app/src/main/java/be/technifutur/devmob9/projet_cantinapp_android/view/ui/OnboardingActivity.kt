@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +20,7 @@ import be.technifutur.devmob9.projet_cantinapp_android.model.OnboardingData
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.OnboardingAdapter
 import com.arindicatorview.ARIndicatorView
 import kotlinx.android.synthetic.main.activity_onboarding.*
+import kotlinx.android.synthetic.main.onboarding_view_pager_container.*
 
 class OnboardingActivity : AppCompatActivity() {
 
@@ -32,7 +34,8 @@ class OnboardingActivity : AppCompatActivity() {
 
         val recyclerViewOnboarding = recycler_view_onboarding.findViewById<RecyclerView>(R.id.recycler_view_onboarding)
         val bottomLayout = bottom_layout_onboarding.findViewById<RelativeLayout>(R.id.bottom_layout_onboarding)
-        val skipLayout: LinearLayout = skip_layout.findViewById(R.id.skip_layout)
+        //val skipLayout: LinearLayout = findViewById(R.id.skip_button)
+        val skipButton: Button = findViewById(R.id.skip_button)
 
         val onboardingAdapter = OnboardingAdapter(items, this)
         recyclerViewOnboarding.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
@@ -49,7 +52,7 @@ class OnboardingActivity : AppCompatActivity() {
 
         animations(recyclerViewOnboarding, recyclerViewOnboarding.context, 1)
         animations(bottomLayout, bottomLayout.context, 2)
-        animations(skipLayout, skipLayout.context, 3)
+        animations(container, skipButton.context, 3)
 
     }
 
