@@ -15,6 +15,7 @@ import android.widget.RelativeLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.ViewPager
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.model.OnboardingData
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.OnboardingAdapter
@@ -49,6 +50,7 @@ class OnboardingActivity : AppCompatActivity() {
         fillingOnboardingList("FRUITS", "loremipsumlenrjenjjejejnfjnfjofneizonfezfnezebdfebdeuirbebzeiebizuerieuziuerbuzeiziuehr", R.drawable.fruits_logo)
 
         arIndicatorView.attachTo(recyclerViewOnboarding, true)
+
 
         animations(recyclerViewOnboarding, recyclerViewOnboarding.context, 1)
         animations(bottomLayout, bottomLayout.context, 2)

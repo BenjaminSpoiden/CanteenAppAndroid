@@ -8,9 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
-import com.luseen.spacenavigation.SpaceItem
-import com.luseen.spacenavigation.SpaceNavigationView
-import com.luseen.spacenavigation.SpaceOnClickListener
 import java.util.*
 
 class MainActivity: AppCompatActivity() {
