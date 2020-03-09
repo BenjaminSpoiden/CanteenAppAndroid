@@ -1,27 +1,19 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui
 
 
-import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.ViewGroup
-import android.view.animation.AnimationUtils
-import android.view.animation.LayoutAnimationController
 import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager.widget.ViewPager
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.model.OnboardingData
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.OnboardingAdapter
 import com.arindicatorview.ARIndicatorView
 import kotlinx.android.synthetic.main.activity_onboarding.*
-import kotlinx.android.synthetic.main.onboarding_view_pager_container.*
+
 
 class OnboardingActivity : AppCompatActivity() {
 
@@ -32,17 +24,15 @@ class OnboardingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_onboarding)
 
-
         val recyclerViewOnboarding = recycler_view_onboarding.findViewById<RecyclerView>(R.id.recycler_view_onboarding)
         val bottomLayout = bottom_layout_onboarding.findViewById<RelativeLayout>(R.id.bottom_layout_onboarding)
-        //val skipLayout: LinearLayout = findViewById(R.id.skip_button)
-        val skipButton: Button = findViewById(R.id.skip_button)
+        val skipButton = findViewById<Button>(R.id.skip_button)
 
         val onboardingAdapter = OnboardingAdapter(items, this)
         recyclerViewOnboarding.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         recyclerViewOnboarding.adapter = onboardingAdapter
         val arIndicatorView: ARIndicatorView = findViewById(R.id.indicator_recyclerview)
-//        PagerSnapHelper().attachToRecyclerView(recyclerViewOnboarding)
+
 
 
         fillingOnboardingList("TIME", "loremipsumlenrjenjjejejnfjnfjofneizonfezfnezebdfebdeuirbebzeiebizuerieuziuerbuzeiziuehr", R.drawable.time_logo)
@@ -52,41 +42,14 @@ class OnboardingActivity : AppCompatActivity() {
         arIndicatorView.attachTo(recyclerViewOnboarding, true)
 
 
-        animations(recyclerViewOnboarding, recyclerViewOnboarding.context, 1)
-        animations(bottomLayout, bottomLayout.context, 2)
-        animations(container, skipButton.context, 3)
+        Animations().animations(recyclerViewOnboarding, recyclerViewOnboarding.context, 1)
+        Animations().animations(bottomLayout, bottomLayout.context, 2)
+        Animations().animations(container, skipButton.context, 3)
 
     }
 
     private fun fillingOnboardingList(title: String, desc: String, logo: Int){
         items.add(OnboardingData(title, desc, logo))
-    }
-
-    private fun animations(viewGroup: ViewGroup, context: Context, type: Int){
-        val animationController: LayoutAnimationController
-        when(type){
-            1 -> {
-                animationController = AnimationUtils.loadLayoutAnimation(context,
-                    R.anim.layout_fall_down
-                )
-                viewGroup.layoutAnimation = animationController
-                viewGroup.startLayoutAnimation()
-            }
-
-            2 -> {
-                animationController = AnimationUtils.loadLayoutAnimation(context,
-                    R.anim.layout_slide_from_bottom
-                )
-                viewGroup.layoutAnimation = animationController
-                viewGroup.startLayoutAnimation()
-            }
-
-            3 -> {
-                animationController = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_slide_from_top)
-                viewGroup.layoutAnimation = animationController
-                viewGroup.startLayoutAnimation()
-            }
-        }
     }
 }
 

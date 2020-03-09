@@ -9,13 +9,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.model.OnboardingData
-import kotlinx.android.synthetic.main.view_item_onboarding.view.*
+import kotlinx.android.synthetic.main.onboarding_view_item.view.*
 
 class OnboardingAdapter(private val items: List<OnboardingData>, private val context: Context): RecyclerView.Adapter<OnboardingAdapter.CustomViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
-        val view: View = LayoutInflater.from(context).inflate(R.layout.view_item_onboarding, parent, false)
+        val view: View = LayoutInflater.from(context).inflate(R.layout.onboarding_view_item, parent, false)
         return CustomViewHolder(
             view
         )
