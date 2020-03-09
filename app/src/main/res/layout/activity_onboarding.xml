@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_time">
+
+    <LinearLayout
+        android:id="@+id/skip_layout"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/skip_button"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="10dp"
+            android:text="SKIP"
+            android:textSize="12sp"
+            android:textColor="@android:color/white"
+            android:background="@drawable/btn_bg_gradient"
+            android:layout_gravity="end"
+            tools:ignore="SmallSp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_above="@id/bottom_layout_onboarding"
+        android:layout_below="@id/skip_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_onboarding"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/indicator_recyclerview" />
+
+        <com.arindicatorview.ARIndicatorView
+            android:id="@+id/indicator_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="0dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/bottom_layout_onboarding"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:background="@drawable/vector_deco"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/sign_up_btn"
+            android:textColor="@android:color/white"
+            android:text="SIGN UP"
+            android:layout_gravity="center"
+            android:layout_marginTop="120dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:padding="12dp"
+            android:background="@drawable/btn_bg_gradient"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</RelativeLayout>
