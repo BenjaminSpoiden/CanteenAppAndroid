@@ -10,4 +10,6 @@
     <color name="defaultIcon">#022F24</color>
     <color name="darkBlue">#020024</color>
     <color name="pastelGray">#DEDCE0</color>
+    <color name="startGradient">#56ab2f</color>
+    <color name="endGradient">#a8e063</color>
 </resources>

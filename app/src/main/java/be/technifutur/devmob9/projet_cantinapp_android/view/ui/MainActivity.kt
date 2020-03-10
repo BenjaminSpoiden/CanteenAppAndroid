@@ -6,6 +6,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 import java.util.*
@@ -23,5 +26,17 @@ class MainActivity: AppCompatActivity() {
         bottomNavigation.add(MeowBottomNavigation.Model(4, R.drawable.ic_more_menu))
         textTest.text = "Menu 1"
 
+        if (savedInstanceState == null) {
+            setFragment(R.id.fragment_container, CredentialsFragment())
+        }
+
+    }
+
+
+    fun setFragment(layout: Int, fragment: Fragment){
+        supportFragmentManager
+            .beginTransaction()
+            .add(layout, fragment)
+            .commit()
     }
 }

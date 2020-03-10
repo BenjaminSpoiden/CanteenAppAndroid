@@ -6,7 +6,7 @@ import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
 import be.technifutur.devmob9.projet_cantinapp_android.R
 
-class Animations{
+class Animations {
 
     public fun animations(viewGroup: ViewGroup, context: Context, type: Int){
         val animationController: LayoutAnimationController
