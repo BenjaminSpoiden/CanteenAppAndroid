@@ -1,24 +1,29 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui
 
+import android.app.Activity
+import android.content.Context
+import android.graphics.Rect
 import android.os.Bundle
-import android.os.PersistableBundle
+import android.view.View
+import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
-import java.util.*
+
 
 class MainActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        changeUI(findViewById(R.id.root_layout))
         val textTest: TextView = findViewById(R.id.test)
-
+        var isKeyboardOn: Boolean = false
         val bottomNavigation = findViewById<MeowBottomNavigation>(R.id.bottom_navigation)
         bottomNavigation.add(MeowBottomNavigation.Model(1, R.drawable.ic_repas_menu))
         bottomNavigation.add(MeowBottomNavigation.Model(2, R.drawable.ic_sandwich_menu))
@@ -29,9 +34,46 @@ class MainActivity: AppCompatActivity() {
         if (savedInstanceState == null) {
             setFragment(R.id.fragment_container, CredentialsFragment())
         }
+        val constraintLayout = findViewById<ViewGroup>(R.id.root_layout)
+        constraintLayout.viewTreeObserver.addOnGlobalLayoutListener {
+            val rect = Rect()
+            constraintLayout.getWindowVisibleDisplayFrame(rect)
 
+            val screenHeight = constraintLayout.rootView.height
+            val keypadHeight = screenHeight - rect.bottom
+
+            if (keypadHeight > screenHeight * 0.15) {
+                isKeyboardOn = true
+                Toast.makeText(this@MainActivity, "VISIBLE KEYBOARD", Toast.LENGTH_SHORT).show()
+//                CredentialsFragment().adaptScreenHeight(isKeyboardOn)
+            } else {
+                isKeyboardOn = false
+                Toast.makeText(this@MainActivity, "NO KEYBOARD", Toast.LENGTH_SHORT).show()
+//                CredentialsFragment().adaptScreenHeight(isKeyboardOn)
+            }
+        }
+        hideKeyboard(this)
     }
 
+    fun hideKeyboard(activity: Activity){
+        val inputMethodManager: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(activity.currentFocus?.windowToken, 0)
+    }
+
+    fun changeUI(view: View){
+        if(view !is EditText){
+            view.setOnTouchListener { v, event ->
+                hideKeyboard(this)
+                false
+            }
+        }
+        if (view is ViewGroup) {
+            for (i in 0 until view.childCount) {
+                val innerView = view.getChildAt(i)
+                changeUI(innerView)
+            }
+        }
+    }
 
     fun setFragment(layout: Int, fragment: Fragment){
         supportFragmentManager
