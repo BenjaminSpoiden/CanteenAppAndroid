@@ -23,7 +23,6 @@ class MainActivity: AppCompatActivity() {
         setContentView(R.layout.activity_main)
         changeUI(findViewById(R.id.root_layout))
         val textTest: TextView = findViewById(R.id.test)
-        var isKeyboardOn: Boolean = false
         val bottomNavigation = findViewById<MeowBottomNavigation>(R.id.bottom_navigation)
         bottomNavigation.add(MeowBottomNavigation.Model(1, R.drawable.ic_repas_menu))
         bottomNavigation.add(MeowBottomNavigation.Model(2, R.drawable.ic_sandwich_menu))
@@ -34,24 +33,7 @@ class MainActivity: AppCompatActivity() {
         if (savedInstanceState == null) {
             setFragment(R.id.fragment_container, CredentialsFragment())
         }
-        val constraintLayout = findViewById<ViewGroup>(R.id.root_layout)
-        constraintLayout.viewTreeObserver.addOnGlobalLayoutListener {
-            val rect = Rect()
-            constraintLayout.getWindowVisibleDisplayFrame(rect)
 
-            val screenHeight = constraintLayout.rootView.height
-            val keypadHeight = screenHeight - rect.bottom
-
-            if (keypadHeight > screenHeight * 0.15) {
-                isKeyboardOn = true
-                Toast.makeText(this@MainActivity, "VISIBLE KEYBOARD", Toast.LENGTH_SHORT).show()
-//                CredentialsFragment().adaptScreenHeight(isKeyboardOn)
-            } else {
-                isKeyboardOn = false
-                Toast.makeText(this@MainActivity, "NO KEYBOARD", Toast.LENGTH_SHORT).show()
-//                CredentialsFragment().adaptScreenHeight(isKeyboardOn)
-            }
-        }
         hideKeyboard(this)
     }
 
