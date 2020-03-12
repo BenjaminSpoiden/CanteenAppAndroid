@@ -1,43 +1,30 @@
 package be.technifutur.devmob9.projet_cantinapp_android.viewmodel
 
-import android.text.Editable
-import android.text.TextWatcher
+import android.view.View
+import android.widget.Button
 import androidx.lifecycle.ViewModel
-import be.technifutur.devmob9.projet_cantinapp_android.model.CredentialsData
+import be.technifutur.devmob9.projet_cantinapp_android.R
+import be.technifutur.devmob9.projet_cantinapp_android.interfaces.AuthListener
 
-class LoginViewModel(): ViewModel(){
-    private val user: CredentialsData = CredentialsData("", "")
+class LoginViewModel: ViewModel(){
+    var username: String? = null
+    var password: String? = null
+    var isCredentialsValid: Boolean? = false
 
-    val textWatcher: TextWatcher
-        get() = object: TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                user.username = s.toString()
-            }
+    var authListener: AuthListener? = null
+    fun onLoginButtonClicked(view: View){
+        authListener?.onStarted()
+        val loginButton: Button = view.findViewById(R.id.login_button)
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-            }
-
+        if(username.isNullOrEmpty() || password.isNullOrEmpty()){
+            authListener?.onError("Invalid username or password")
+            isCredentialsValid = false
+            return
         }
 
-    val passwordTextWatcher: TextWatcher
-        get() = object: TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                user.password = s.toString()
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-            }
-
+        if(!username.isNullOrEmpty() && password!!.length > 6){
+            isCredentialsValid = true
         }
-
+        authListener?.onSuccess()
+    }
 }

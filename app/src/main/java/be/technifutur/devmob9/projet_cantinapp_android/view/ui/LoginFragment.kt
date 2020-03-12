@@ -1,44 +1,50 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui
 
 import android.app.Activity
-import android.content.Context
-import android.graphics.Color
-import android.graphics.Rect
-import android.graphics.drawable.GradientDrawable
-import android.graphics.drawable.StateListDrawable
-import android.graphics.drawable.TransitionDrawable
 import android.os.Bundle
-import android.transition.Transition
-import android.transition.TransitionManager
-import android.util.DisplayMetrics
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Toast
 import androidx.constraintlayout.motion.widget.MotionLayout
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.interpolator.view.animation.FastOutSlowInInterpolator
+import androidx.lifecycle.ViewModelProviders
 import be.technifutur.devmob9.projet_cantinapp_android.R
+import be.technifutur.devmob9.projet_cantinapp_android.databinding.CredentialsLoginFragmentBinding
+import be.technifutur.devmob9.projet_cantinapp_android.interfaces.AuthListener
 import be.technifutur.devmob9.projet_cantinapp_android.utils.ActivityUtils
-import kotlinx.android.synthetic.main.credentials_login_fragment.*
-import kotlinx.android.synthetic.main.credentials_login_fragment.view.*
+import be.technifutur.devmob9.projet_cantinapp_android.utils.toast
+import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.LoginViewModel
 
-
-class LoginFragment: Fragment() {
-
+class LoginFragment: Fragment(), AuthListener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.credentials_login_fragment, container, false)
+        val binding = DataBindingUtil.inflate<CredentialsLoginFragmentBinding>(inflater, R.layout.credentials_login_fragment, container, false)
+        val viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
+        val view: View = binding.root
+
+        binding.viewModel = viewModel
+        viewModel.authListener = this
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val constraintRoot: MotionLayout = view.findViewById(R.id.sign_in_root)
         ActivityUtils().switchLayoutAnimationKeyboard(constraintRoot = constraintRoot)
+    }
+
+    override fun onStarted() {
+        Toast.makeText(context, "Started", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onSuccess() {
+        Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onError(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
 }

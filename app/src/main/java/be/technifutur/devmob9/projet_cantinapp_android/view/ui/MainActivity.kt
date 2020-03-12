@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.utils.ActivityUtils
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
+import be.technifutur.devmob9.projet_cantinapp_android.utils.toast
 
 
 class MainActivity: AppCompatActivity() {
@@ -24,6 +25,7 @@ class MainActivity: AppCompatActivity() {
         setContentView(R.layout.activity_main)
 //        changeUI(findViewById(R.id.root_layout))
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+
 
 
 //        val textTest: TextView = findViewById(R.id.test)

@@ -1,7 +1,7 @@
 package be.technifutur.devmob9.projet_cantinapp_android.utils
-
-
+import android.content.Context
 import android.graphics.Rect
+import android.widget.Toast
 import androidx.constraintlayout.motion.widget.MotionLayout
 
 class ActivityUtils{
@@ -24,4 +24,7 @@ class ActivityUtils{
             }
         }
     }
+}
+fun Context.toast(message: String){
+    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 }
