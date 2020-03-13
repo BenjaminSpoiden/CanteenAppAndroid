@@ -1,6 +1,5 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +13,6 @@ import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.databinding.CredentialsLoginFragmentBinding
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.AuthListener
 import be.technifutur.devmob9.projet_cantinapp_android.utils.ActivityUtils
-import be.technifutur.devmob9.projet_cantinapp_android.utils.toast
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.LoginViewModel
 
 class LoginFragment: Fragment(), AuthListener {
