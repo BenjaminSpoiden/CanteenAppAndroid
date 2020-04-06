@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Projet-Cantinapp-Android</string>
+    <string name="CLIENT_ID">g03Fvz4gn99WyQijKSik63kDWvGsFuNo</string>
+    <string name="DOMAIN">canteenapp.eu.auth0.com</string>
 </resources>
