@@ -4,9 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable
-            name="logoutViewModel"
-            type="be.technifutur.devmob9.projet_cantinapp_android.viewmodel.AuthViewModel" />
 
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,17 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/black">
-
-        <Button
-            android:id="@+id/logout_button"
-            android:onClick="@{() -> logoutViewModel.logout()}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="LOGOUT"
-            app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <com.etebarian.meowbottomnavigation.MeowBottomNavigation
             android:id="@+id/bottom_navigation"

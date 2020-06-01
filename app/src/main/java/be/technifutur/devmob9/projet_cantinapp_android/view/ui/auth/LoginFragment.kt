@@ -1,18 +1,14 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui.auth
 
-import android.content.Context.MODE_PRIVATE
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.CheckBox
 import android.widget.Toast
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import be.technifutur.devmob9.projet_cantinapp_android.R
@@ -23,12 +19,6 @@ import be.technifutur.devmob9.projet_cantinapp_android.utils.fragmentTransaction
 import be.technifutur.devmob9.projet_cantinapp_android.view.ui.MainMenuFragment
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.AuthViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.AuthViewModelFactory
-import com.google.firebase.auth.AuthCredential
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
@@ -36,7 +26,7 @@ import org.kodein.di.generic.instance
 class LoginFragment: Fragment(), AuthListener, KodeinAware {
 
     override val kodein by kodein()
-    private val factory: AuthViewModelFactory by instance()
+    private val factory: AuthViewModelFactory by instance<AuthViewModelFactory>()
     private lateinit var viewModel: AuthViewModel
 
 

@@ -16,7 +16,7 @@ class MainActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        addFragment(LoginFragment(), R.id.fragment_container)
+        addFragment(MainMenuFragment(), R.id.fragment_container)
 
     }
 

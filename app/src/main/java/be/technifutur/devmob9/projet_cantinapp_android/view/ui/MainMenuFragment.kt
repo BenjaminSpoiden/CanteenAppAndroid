@@ -4,15 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.databinding.FragmentMainMenuBinding
-import be.technifutur.devmob9.projet_cantinapp_android.utils.fragmentTransaction
-import be.technifutur.devmob9.projet_cantinapp_android.view.ui.auth.LoginFragment
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.AuthViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.AuthViewModelFactory
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
@@ -23,28 +19,13 @@ import org.kodein.di.generic.instance
 class MainMenuFragment: Fragment(), KodeinAware {
 
     override val kodein by kodein()
-    private val factory: AuthViewModelFactory by instance()
+    private val factory: AuthViewModelFactory by instance<AuthViewModelFactory>()
     private lateinit var viewModel: AuthViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = DataBindingUtil.inflate<FragmentMainMenuBinding>(inflater, R.layout.fragment_main_menu, container, false)
         viewModel = ViewModelProviders.of(this, factory).get(AuthViewModel::class.java)
-        val view = binding.root
-        binding.logoutViewModel = viewModel
-
-        viewModel.userLoggedIn.observe(viewLifecycleOwner, Observer {
-            if(!it){
-                onDestroy()
-            }
-        })
-        return view
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Thread.sleep(300)
-        fragmentTransaction(LoginFragment(), R.id.fragment_container)
-        Toast.makeText(context, "Au revoir", Toast.LENGTH_SHORT).show()
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

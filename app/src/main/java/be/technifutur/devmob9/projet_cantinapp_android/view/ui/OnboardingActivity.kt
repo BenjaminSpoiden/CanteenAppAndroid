@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_onboarding.*
 
 class OnboardingActivity : AppCompatActivity() {
 
-    val items: ArrayList<OnboardingData> = ArrayList()
+    private val items: ArrayList<OnboardingData> = ArrayList()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
