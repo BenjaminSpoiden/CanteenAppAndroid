@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/repasFragment"
+        android:icon="@drawable/ic_repas_menu"
+        android:title="REPAS"/>
+    <item
+        android:id="@+id/sandwichFragment"
+        android:icon="@drawable/ic_sandwich_menu"
+        android:title="SANDWICH"/>
+    <item
+        android:id="@+id/croissantFragment"
+        android:icon="@drawable/ic_croissant_menu"
+        android:title="CROISSANT"/>
+
+    <item
+        android:id="@+id/moreMenuFragment"
+        android:icon="@drawable/ic_more_menu"
+        android:title="COMPTE"/>
+
+</menu>

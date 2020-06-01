@@ -10,17 +10,49 @@
         android:id="@+id/root_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/black">
+        android:background="@android:color/white">
 
-        <com.etebarian.meowbottomnavigation.MeowBottomNavigation
-            android:id="@+id/bottom_navigation"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/calendar_recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:mbn_backgroundBottomColor="#ffffff"
-            app:mbn_defaultIconColor="@color/defaultIcon"
-            app:mbn_selectedIconColor="@color/darkBlue"
-            app:mbn_rippleColor="#2f424242"/>
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            app:spanCount="5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/spacer"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="#7AD378"
+            android:layout_marginTop="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/calendar_recyclerview" />
+
+        <FrameLayout
+            android:id="@+id/fragment_container_mainMenu"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/bottomBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spacer" />
+
+
+        <me.ibrahimsn.lib.SmoothBottomBar
+            android:id="@+id/bottomBar"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            app:menu="@menu/bottom_menu"
+            app:backgroundColor="@android:color/white"
+            app:textSize="12sp"
+            app:textColor="@android:color/black"
+            app:iconTint="@android:color/black"
+            app:iconTintActive="@android:color/black"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

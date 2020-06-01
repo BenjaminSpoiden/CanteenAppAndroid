@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingEnd="10dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:ignore="RtlSymmetry">
+
+
+    <ImageView
+        android:id="@+id/calendar_bg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/calendar_day_bg"
+        android:background="#43CE40"
+        app:layout_constraintTop_toTopOf="@id/calendar_overlay"
+        app:layout_constraintStart_toStartOf="@id/calendar_overlay"
+        app:layout_constraintEnd_toEndOf="@id/calendar_overlay"/>
+
+    <ImageView
+        android:id="@+id/calendar_overlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/calendar_day_overlay"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/day_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@id/calendar_bg"
+        app:layout_constraintTop_toTopOf="@id/calendar_bg"
+        app:layout_constraintStart_toStartOf="@id/calendar_bg"
+        app:layout_constraintBottom_toBottomOf="@id/calendar_bg"
+        tools:text="LUNDI" />
+
+    <TextView
+        android:id="@+id/day_number_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="36sp"
+        android:textColor="#8D8D8D"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/calendar_overlay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calendar_bg"
+        tools:text="01" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
