@@ -4,13 +4,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-
+        <variable
+            name="mainMenuViewModel"
+            type="be.technifutur.devmob9.projet_cantinapp_android.viewmodel.MainMenuViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/root_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white">
+        android:background="@drawable/background_img">
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/calendar_recyclerview"
@@ -41,18 +44,31 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spacer" />
 
+        <Button
+            android:id="@+id/buttonTest"
+            android:text="CLICK"
+            android:onClick="@{() -> mainMenuViewModel.testingFirebaseData()}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/fragment_container_mainMenu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/fragment_container_mainMenu"
+            app:layout_constraintTop_toBottomOf="@+id/spacer" />
+
 
         <me.ibrahimsn.lib.SmoothBottomBar
             android:id="@+id/bottomBar"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            app:menu="@menu/bottom_menu"
             app:backgroundColor="@android:color/white"
-            app:textSize="12sp"
-            app:textColor="@android:color/black"
             app:iconTint="@android:color/black"
-            app:iconTintActive="@android:color/black"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:iconTintActive="#1F901C"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/bottom_menu"
+            app:textColor="@android:color/black"
+            app:textSize="12sp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

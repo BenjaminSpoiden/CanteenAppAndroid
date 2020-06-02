@@ -9,4 +9,6 @@ class UserRepository(private val firebaseSource: FirebaseSource) {
 
     fun currentUser() = firebaseSource.currentUser()
     fun logout() = firebaseSource.logout()
+
+    fun getDateFromMeal() = firebaseSource.getDateFromMeal()
 }

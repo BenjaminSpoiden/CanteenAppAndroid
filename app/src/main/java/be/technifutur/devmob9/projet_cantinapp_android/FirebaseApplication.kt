@@ -3,7 +3,8 @@ package be.technifutur.devmob9.projet_cantinapp_android
 import android.app.Application
 import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.FirebaseSource
 import be.technifutur.devmob9.projet_cantinapp_android.model.repositories.UserRepository
-import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.AuthViewModelFactory
+import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.AuthViewModelFactory
+import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.MainMenuViewModelFactory
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.androidXModule
@@ -19,7 +20,14 @@ class FirebaseApplication: Application(), KodeinAware {
 
         bind() from singleton { FirebaseSource() }
         bind() from singleton { UserRepository(instance()) }
-        bind() from provider { AuthViewModelFactory(instance()) }
+        bind() from provider {
+            AuthViewModelFactory(
+                instance()
+            )
+        }
+        bind() from provider {
+            MainMenuViewModelFactory(instance())
+        }
     }
 
 }

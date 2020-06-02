@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProviders
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.databinding.CredentialsSignupFragmentBinding
@@ -17,7 +16,7 @@ import be.technifutur.devmob9.projet_cantinapp_android.interfaces.AuthListener
 import be.technifutur.devmob9.projet_cantinapp_android.utils.ActivityUtils
 import be.technifutur.devmob9.projet_cantinapp_android.utils.fragmentTransaction
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.AuthViewModel
-import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.AuthViewModelFactory
+import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.AuthViewModelFactory
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance

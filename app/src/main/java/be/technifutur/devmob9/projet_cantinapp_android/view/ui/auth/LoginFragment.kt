@@ -18,7 +18,7 @@ import be.technifutur.devmob9.projet_cantinapp_android.utils.ActivityUtils
 import be.technifutur.devmob9.projet_cantinapp_android.utils.fragmentTransaction
 import be.technifutur.devmob9.projet_cantinapp_android.view.ui.MainMenuFragment
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.AuthViewModel
-import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.AuthViewModelFactory
+import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.AuthViewModelFactory
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
