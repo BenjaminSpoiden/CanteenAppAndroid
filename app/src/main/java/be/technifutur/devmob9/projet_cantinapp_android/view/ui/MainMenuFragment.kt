@@ -49,12 +49,7 @@ class MainMenuFragment: Fragment(), KodeinAware {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bottomBar.onItemSelected = {
-            when(it) {
-                0 -> Toast.makeText(context, "", Toast.LENGTH_SHORT).show()
-                1 -> Toast.makeText(context, "", Toast.LENGTH_SHORT).show()
-                2 -> Toast.makeText(context, "", Toast.LENGTH_SHORT).show()
-                3 -> Toast.makeText(context, "", Toast.LENGTH_SHORT).show()
-            }
+            //...
         }
     }
 

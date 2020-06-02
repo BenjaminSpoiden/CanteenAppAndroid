@@ -1,6 +1,8 @@
 package be.technifutur.devmob9.projet_cantinapp_android.model.firebase
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import be.technifutur.devmob9.projet_cantinapp_android.utils.security.MD5Hashing
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -13,6 +15,11 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.firestoreSettings
 import com.google.firebase.ktx.Firebase
 import io.reactivex.Completable
+import java.text.DateFormat
+import java.util.*
+import java.time.*
+import java.time.format.DateTimeFormatter
+import kotlin.collections.HashMap
 
 class FirebaseSource{
 
@@ -76,10 +83,15 @@ class FirebaseSource{
     fun logout() = firebaseAuth.signOut()
     fun currentUser() = firebaseAuth.currentUser
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun getDateFromMeal() {
         db.firestoreSettings = settings
 
-        db.collection(COLLECTION_ID).document("TEST")
+        val current = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ROOT)
+        val formatted = current.format(formatter)
+
+        db.collection(COLLECTION_ID).document(formatted)
             .get()
             .addOnCompleteListener {
                 if(it.isSuccessful){
