@@ -114,6 +114,18 @@ class FirebaseSource{
 //            }
     }
 
+//    private fun getRawDateFromFirebaseDoc(){
+//        var rawDate = ""
+//        val meals = db.collection(FirebaseSource.COLLECTION_ID)
+//        meals.document(getDateTime()).addSnapshotListener { documentSnapshot, _ ->
+//            documentSnapshot?.get(FieldPath.of("meals/${getDateTime()}"))
+//            Log.d(FirebaseSource.TAG, "Document Name: ${documentSnapshot?.id}")
+//            rawDate = documentSnapshot?.id.toString()
+//        }
+//    }
+
+
+
     @RequiresApi(Build.VERSION_CODES.O)
     private fun getDateTime(): String {
         val current = LocalDateTime.now()

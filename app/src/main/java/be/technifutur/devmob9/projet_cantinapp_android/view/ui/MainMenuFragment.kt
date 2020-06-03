@@ -29,10 +29,7 @@ import java.util.*
 class MainMenuFragment: Fragment(), KodeinAware {
 
     override val kodein by kodein()
-    private val factory: AuthViewModelFactory by instance<AuthViewModelFactory>()
     private val mainMenuFactory: MainMenuViewModelFactory by instance<MainMenuViewModelFactory>()
-
-    private lateinit var viewModel: AuthViewModel
     private lateinit var mainMenuViewModel: MainMenuViewModel
 
     private lateinit var calendarRecyclerView: RecyclerView

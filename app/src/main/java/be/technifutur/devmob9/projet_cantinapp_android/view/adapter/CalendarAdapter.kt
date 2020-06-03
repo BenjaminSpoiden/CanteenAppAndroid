@@ -25,7 +25,7 @@ class CalendarAdapter(private val calendarModelList: List<CalendarModel>): Recyc
 
     override fun onBindViewHolder(holder: CalendarViewHolder, position: Int) {
         val calendarItem = calendarModelList[position]
-        holder.day.text = calendarItem.day
+        holder.day.text = calendarItem.dayName
         holder.dayNumber.text = calendarItem.dayNumber
     }
 }
