@@ -2,12 +2,8 @@ package be.technifutur.devmob9.projet_cantinapp_android.utils
 
 import android.util.Log
 import be.technifutur.devmob9.projet_cantinapp_android.model.CalendarModel
-import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.FirebaseSource
-import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.CalendarAdapter
-import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ListenerRegistration
 import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.ResolverStyle
@@ -25,46 +21,55 @@ class CalendarDayManager {
     val calendarList: List<CalendarModel>
         get() = mutableCalendarModelList
 
-    fun getRawDateFromFirebaseDoc(): ListenerRegistration{
-       return db.collection(FirebaseSource.COLLECTION_ID).addSnapshotListener { querySnapshot, e ->
+    fun getRawDateFromFirebaseDoc(){
+        db.collection(Constants.COLLECTION_ID).addSnapshotListener { querySnapshot, e ->
             if(e != null) {
-                Log.d(FirebaseSource.TAG, "Listen error", e)
+                Log.d(Constants.FIREBASE_TAG, "Listen error", e)
                 return@addSnapshotListener
             }
-
             querySnapshot?.let {
                 for (document in it.documentChanges) {
                     when (document.type) {
                         DocumentChange.Type.ADDED -> {
-                            fillingCalendarDayList(document.document.id, mutableCalendarModelList)
+                            fillingCalendarDayList(document.document.id, mutableCalendarModelList).forEach {calendarModel ->
+                                mutableCalendarModelList.add(calendarModel)
+                            }
+                            Log.d(Constants.FIREBASE_TAG, "calendarList: $mutableCalendarModelList")
                         }
-                        else -> Log.d(FirebaseSource.TAG, "")
+                        else -> Log.d(Constants.FIREBASE_TAG, "")
                     }
                 }
-                Log.d(FirebaseSource.TAG, "calendarList: $calendarList")
+                Log.d(Constants.FIREBASE_TAG, "calendarList: $calendarList")
             }
         }
     }
+
+
 
     private fun fillingCalendarDayList(date: String, mutableList: MutableList<CalendarModel>): List<CalendarModel> {
+        mutableList.clear()
         if(checksIfDateIsGood(date)) {
-            mutableList.clear()
             try {
-                val convertToDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("uuuu-MM-dd", Locale.ROOT).withResolverStyle(ResolverStyle.STRICT))
-                val convertedToDayOfWeek = convertToDate.dayOfWeek.name
-                val convertedToDayNumber = convertToDate.toString().split("-")
-                if(convertedToDayNumber[2].isNotEmpty()) {
-                    mutableList.add(CalendarModel(convertedToDayOfWeek, convertedToDayNumber[2]))
-                }
-
+                val convertToDate = toDateConversion(date)
+                mutableList.add(CalendarModel(extractDayNameFromDate(convertToDate), extractDayFromDate(convertToDate)))
             }catch (e: Exception) {
-                Log.d(FirebaseSource.TAG, "${e.message}")
+                Log.d(Constants.FIREBASE_TAG, "${e.message}")
             }
         }
-        mutableList.forEach {
-            Log.d(FirebaseSource.TAG, "New Date from fillingCalendar(Bingo le gogo): $it")
-        }
+        Log.d(Constants.FIREBASE_TAG, "calendarListFromFilling(): ${calendarList.size}")
         return mutableList
     }
+
     private fun checksIfDateIsGood(date: String) = date.matches("([0-9]{4})-([0-9]{2})-([0-9]{2})".toRegex())
+    private fun toDateConversion(date: String) = LocalDate.parse(date, DateTimeFormatter.ofPattern("uuuu-MM-dd", Locale.ROOT).withResolverStyle(ResolverStyle.STRICT))
+    private fun extractDayNameFromDate(inputDate: LocalDate) = inputDate.dayOfWeek.name
+    private fun extractDayFromDate(inputDate: LocalDate): String {
+        val splitter = inputDate.toString().split("-")
+
+        return if(splitter[2].isNotEmpty()){
+            splitter[2]
+        }else {
+            "N/A"
+        }
+    }
 }

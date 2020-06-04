@@ -7,16 +7,14 @@ import androidx.lifecycle.ViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.model.CalendarModel
 import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.FirebaseSource
 import be.technifutur.devmob9.projet_cantinapp_android.model.repositories.UserRepository
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants
 
 class MainMenuViewModel(private val userRepository: UserRepository): ViewModel() {
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    val calendarModel = CalendarModel("", "")
-    @RequiresApi(Build.VERSION_CODES.O)
     fun testingFirebaseData() {
-        Log.d(FirebaseSource.TAG, "Clicked on Button")
+        Log.d(Constants.FIREBASE_TAG, "Clicked on Button")
 //        userRepository.addDateToDB()
-        Log.d(FirebaseSource.TAG, "Added data")
-        userRepository.getDateFromMeal()
+//        Log.d(Constants.FIREBASE_TAG, "Added data")
+//        userRepository.getDateFromMeal()
     }
 }
