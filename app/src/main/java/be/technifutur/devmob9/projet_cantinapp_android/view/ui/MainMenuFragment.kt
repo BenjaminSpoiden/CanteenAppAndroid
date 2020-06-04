@@ -1,10 +1,13 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui
 
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -14,11 +17,14 @@ import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.databinding.FragmentMainMenuBinding
 import be.technifutur.devmob9.projet_cantinapp_android.model.CalendarModel
+import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.FirebaseSource
+import be.technifutur.devmob9.projet_cantinapp_android.utils.CalendarDayManager
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.CalendarAdapter
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.AuthViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.MainMenuViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.AuthViewModelFactory
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.MainMenuViewModelFactory
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import kotlinx.android.synthetic.main.fragment_main_menu.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
@@ -34,7 +40,7 @@ class MainMenuFragment: Fragment(), KodeinAware {
 
     private lateinit var calendarRecyclerView: RecyclerView
     private lateinit var calendarAdapter: CalendarAdapter
-    private lateinit var calendarModelList: ArrayList<CalendarModel>
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = DataBindingUtil.inflate<FragmentMainMenuBinding>(inflater, R.layout.fragment_main_menu, container, false)
@@ -49,27 +55,14 @@ class MainMenuFragment: Fragment(), KodeinAware {
             //...
         }
     }
-
     override fun onStart() {
         super.onStart()
         view?.let {
             calendarRecyclerView = it.findViewById(R.id.calendar_recyclerview)
         }
-        calendarAdapter = CalendarAdapter(fillingCalendarList())
+//        calendarAdapter = CalendarAdapter()
         calendarRecyclerView.adapter = calendarAdapter
+        calendarAdapter.notifyDataSetChanged()
         calendarRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-    }
-
-    private fun fillingCalendarList(): List<CalendarModel> {
-        calendarModelList = ArrayList<CalendarModel>()
-        calendarModelList.add(CalendarModel("LUNDI", "01"))
-        calendarModelList.add(CalendarModel("MARDI", "02"))
-        calendarModelList.add(CalendarModel("MERCREDI", "01"))
-        calendarModelList.add(CalendarModel("JEUDI", "02"))
-        calendarModelList.add(CalendarModel("VENDREDI", "01"))
-        calendarModelList.add(CalendarModel("LUNDI", "02"))
-        calendarModelList.add(CalendarModel("MARDI", "01"))
-        calendarModelList.add(CalendarModel("MARDI", "02"))
-        return calendarModelList
     }
 }

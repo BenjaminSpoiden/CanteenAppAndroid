@@ -5,6 +5,7 @@ import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.FirebaseSo
 import be.technifutur.devmob9.projet_cantinapp_android.model.repositories.UserRepository
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.AuthViewModelFactory
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.MainMenuViewModelFactory
+import com.jakewharton.threetenabp.AndroidThreeTen
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.androidXModule
@@ -30,4 +31,8 @@ class FirebaseApplication: Application(), KodeinAware {
         }
     }
 
+    override fun onCreate() {
+        super.onCreate()
+        AndroidThreeTen.init(this)
+    }
 }

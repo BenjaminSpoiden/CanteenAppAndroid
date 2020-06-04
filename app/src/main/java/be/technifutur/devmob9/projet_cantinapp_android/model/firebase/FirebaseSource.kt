@@ -15,9 +15,8 @@ import com.google.firebase.ktx.Firebase
 import io.reactivex.Completable
 import java.text.DateFormat
 import java.util.*
-import java.time.*
-import java.time.format.DateTimeFormatter
 import kotlin.collections.HashMap
+import org.threeten.bp.*
 
 class FirebaseSource{
 
@@ -78,7 +77,7 @@ class FirebaseSource{
     fun currentUser() = firebaseAuth.currentUser
 
 
-    @RequiresApi(Build.VERSION_CODES.O)
+
     fun addDateToDB(){
         val city = hashMapOf(
             "name" to getDateTime(),
@@ -97,7 +96,6 @@ class FirebaseSource{
 
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun getDateFromMeal() {
 //        val current = LocalDateTime.now()
 //        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ROOT)
@@ -125,11 +123,9 @@ class FirebaseSource{
 //    }
 
 
-
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun getDateTime(): String {
         val current = LocalDateTime.now()
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ROOT)
+        val formatter = org.threeten.bp.format.DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ROOT)
         return formatter.format(current)
     }
 }
