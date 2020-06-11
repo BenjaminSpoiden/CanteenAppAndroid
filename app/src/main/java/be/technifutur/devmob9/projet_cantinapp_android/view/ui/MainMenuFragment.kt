@@ -1,8 +1,6 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,12 +13,10 @@ import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.databinding.FragmentMainMenuBinding
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.CalendarListener
 import be.technifutur.devmob9.projet_cantinapp_android.model.CalendarModel
-import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.FirebaseSource
-import be.technifutur.devmob9.projet_cantinapp_android.utils.CalendarDayManager
+import be.technifutur.devmob9.projet_cantinapp_android.view.CalendarDayManager
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.CalendarItemAdapter
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.MainMenuViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.MainMenuViewModelFactory
-import com.google.firebase.firestore.*
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import kotlinx.android.synthetic.main.fragment_main_menu.*
@@ -39,7 +35,6 @@ class MainMenuFragment: Fragment(), KodeinAware, CalendarListener {
     private val itemAdapter = ItemAdapter<CalendarItemAdapter>()
     private val fastAdapter = FastAdapter.with(itemAdapter)
     private val manager = CalendarDayManager.getInstance()
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = DataBindingUtil.inflate<FragmentMainMenuBinding>(inflater, R.layout.fragment_main_menu, container, false)

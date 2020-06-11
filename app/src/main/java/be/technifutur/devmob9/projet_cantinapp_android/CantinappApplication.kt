@@ -15,11 +15,10 @@ import org.kodein.di.generic.instance
 import org.kodein.di.generic.provider
 import org.kodein.di.generic.singleton
 
-class FirebaseApplication: Application(), KodeinAware {
+class CantinappApplication: Application(), KodeinAware {
 
     override val kodein: Kodein = Kodein.lazy {
-        import(androidXModule(this@FirebaseApplication))
-
+        import(androidXModule(this@CantinappApplication))
         bind() from singleton { FirebaseSource() }
         bind() from singleton { UserRepository(instance()) }
         bind() from provider {

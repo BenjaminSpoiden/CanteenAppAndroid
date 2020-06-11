@@ -15,6 +15,7 @@ import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.databinding.CredentialsLoginFragmentBinding
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.AuthListener
 import be.technifutur.devmob9.projet_cantinapp_android.utils.ActivityUtils
+import be.technifutur.devmob9.projet_cantinapp_android.utils.ActivityUtils.switchLayoutAnimationKeyboard
 import be.technifutur.devmob9.projet_cantinapp_android.utils.fragmentTransaction
 import be.technifutur.devmob9.projet_cantinapp_android.view.ui.MainMenuFragment
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.AuthViewModel
@@ -54,9 +55,8 @@ class LoginFragment: Fragment(), AuthListener, KodeinAware {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val constraintRoot: MotionLayout = view.findViewById(R.id.sign_in_root)
-        ActivityUtils().switchLayoutAnimationKeyboard(constraintRoot = constraintRoot)
+        switchLayoutAnimationKeyboard(constraintRoot = constraintRoot)
     }
-
 
     override fun onStarted() {
         Toast.makeText(context, "Started", Toast.LENGTH_SHORT).show()
