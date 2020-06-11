@@ -39,7 +39,9 @@ class FirebaseSource{
         Firebase.firestore
     }
 
-
+    companion object {
+        const val COLLECTION_ID = "meals"
+    }
 
     //Completable allow to maintain something that will complete. We can get an indication when it is completed or not.
 

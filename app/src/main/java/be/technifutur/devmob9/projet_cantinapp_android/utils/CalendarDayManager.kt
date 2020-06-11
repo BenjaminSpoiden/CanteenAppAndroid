@@ -4,6 +4,7 @@ import android.util.Log
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.CalendarListener
 import be.technifutur.devmob9.projet_cantinapp_android.model.CalendarModel
 import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.FirebaseSource
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.COLLECTION_ID
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.EventListener
 import org.threeten.bp.LocalDate
@@ -24,18 +25,17 @@ class CalendarDayManager {
         db.collection(FirebaseSource.COLLECTION_ID).addSnapshotListener(object : EventListener<QuerySnapshot> {
             override fun onEvent(query: QuerySnapshot?, exception: FirebaseFirestoreException?) {
                 if (exception != null) {
-                    Log.d(FirebaseSource.TAG, "Listen error: ", exception)
                     return
                 }
-                query?.let {
+                query?.let { it ->
                     for (dc: DocumentChange in it.documentChanges) {
                         when (dc.type) {
                             DocumentChange.Type.ADDED -> {
-                                formattingRawDataToDate(dc.document.id).forEach {
-                                    calendarListener?.onCalendarReceived(CalendarModel(it.dayName, it.dayNumber))
+                                formattingRawDataToDate(dc.document.id).forEach { calendarModel ->
+                                    calendarListener?.onCalendarReceived(CalendarModel(calendarModel.dayName, calendarModel.dayNumber))
                                 }
                             }
-                            else -> Log.d(FirebaseSource.TAG, "")
+                            else -> Log.d("TAG", "")
                         }
                     }
                 }
@@ -62,11 +62,10 @@ class CalendarDayManager {
                 }
 
             }catch (e: Exception) {
-                Log.d(FirebaseSource.TAG, "${e.cause}")
+                Log.d("TAG", "${e.cause}")
             }
         }
         return calendarList
     }
-
     private fun checksIfDateIsGood(date: String) = date.matches("([0-9]{4})-([0-9]{2})-([0-9]{2})".toRegex())
 }
