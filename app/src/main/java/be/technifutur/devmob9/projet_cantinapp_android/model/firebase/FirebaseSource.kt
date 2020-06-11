@@ -96,32 +96,6 @@ class FirebaseSource{
 
     }
 
-    fun getDateFromMeal() {
-//        val current = LocalDateTime.now()
-//        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ROOT)
-//        val formatted = formatter.format(current)
-//
-//        db.collection(COLLECTION_ID).document(getDateTime())
-//            .get()
-//            .addOnCompleteListener {
-//                if(it.isSuccessful){
-//                    Log.d(TAG, "DocumentSnapshot Data: ${it.result}")
-//                }else {
-//                    Log.d(TAG, "No such document", it.exception)
-//                }
-//            }
-    }
-
-//    private fun getRawDateFromFirebaseDoc(){
-//        var rawDate = ""
-//        val meals = db.collection(FirebaseSource.COLLECTION_ID)
-//        meals.document(getDateTime()).addSnapshotListener { documentSnapshot, _ ->
-//            documentSnapshot?.get(FieldPath.of("meals/${getDateTime()}"))
-//            Log.d(FirebaseSource.TAG, "Document Name: ${documentSnapshot?.id}")
-//            rawDate = documentSnapshot?.id.toString()
-//        }
-//    }
-
 
     private fun getDateTime(): String {
         val current = LocalDateTime.now()

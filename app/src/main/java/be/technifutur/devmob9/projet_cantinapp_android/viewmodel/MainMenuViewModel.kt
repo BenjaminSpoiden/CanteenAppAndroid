@@ -17,6 +17,5 @@ class MainMenuViewModel(private val userRepository: UserRepository): ViewModel()
         Log.d(FirebaseSource.TAG, "Clicked on Button")
 //        userRepository.addDateToDB()
         Log.d(FirebaseSource.TAG, "Added data")
-        userRepository.getDateFromMeal()
     }
 }

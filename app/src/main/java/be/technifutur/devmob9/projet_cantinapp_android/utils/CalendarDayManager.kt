@@ -1,13 +1,11 @@
 package be.technifutur.devmob9.projet_cantinapp_android.utils
 
 import android.util.Log
+import be.technifutur.devmob9.projet_cantinapp_android.interfaces.CalendarListener
 import be.technifutur.devmob9.projet_cantinapp_android.model.CalendarModel
 import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.FirebaseSource
-import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.CalendarAdapter
-import com.google.android.gms.tasks.Task
-import com.google.firebase.firestore.DocumentChange
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ListenerRegistration
+import com.google.firebase.firestore.*
+import com.google.firebase.firestore.EventListener
 import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.ResolverStyle
@@ -15,56 +13,60 @@ import java.lang.Exception
 import java.util.*
 
 class CalendarDayManager {
-
-    private val db = FirebaseFirestore.getInstance()
-
     companion object {
         fun getInstance() = CalendarDayManager()
     }
-    private val mutableCalendarModelList: MutableList<CalendarModel> = ArrayList()
-    val calendarList: List<CalendarModel>
-        get() = mutableCalendarModelList
+    private val db = FirebaseFirestore.getInstance()
+    private val calendarList = ArrayList<CalendarModel>()
+    var calendarListener: CalendarListener? = null
 
-    fun getRawDateFromFirebaseDoc(): ListenerRegistration{
-       return db.collection(FirebaseSource.COLLECTION_ID).addSnapshotListener { querySnapshot, e ->
-            if(e != null) {
-                Log.d(FirebaseSource.TAG, "Listen error", e)
-                return@addSnapshotListener
-            }
-
-            querySnapshot?.let {
-                for (document in it.documentChanges) {
-                    when (document.type) {
-                        DocumentChange.Type.ADDED -> {
-                            fillingCalendarDayList(document.document.id, mutableCalendarModelList)
+    init {
+        db.collection(FirebaseSource.COLLECTION_ID).addSnapshotListener(object : EventListener<QuerySnapshot> {
+            override fun onEvent(query: QuerySnapshot?, exception: FirebaseFirestoreException?) {
+                if (exception != null) {
+                    Log.d(FirebaseSource.TAG, "Listen error: ", exception)
+                    return
+                }
+                query?.let {
+                    for (dc: DocumentChange in it.documentChanges) {
+                        when (dc.type) {
+                            DocumentChange.Type.ADDED -> {
+                                formattingRawDataToDate(dc.document.id).forEach {
+                                    calendarListener?.onCalendarReceived(CalendarModel(it.dayName, it.dayNumber))
+                                }
+                            }
+                            else -> Log.d(FirebaseSource.TAG, "")
                         }
-                        else -> Log.d(FirebaseSource.TAG, "")
                     }
                 }
-                Log.d(FirebaseSource.TAG, "calendarList: $calendarList")
             }
-        }
+        })
     }
 
-    private fun fillingCalendarDayList(date: String, mutableList: MutableList<CalendarModel>): List<CalendarModel> {
+    private fun formattingRawDataToDate(date: String): List<CalendarModel> {
         if(checksIfDateIsGood(date)) {
-            mutableList.clear()
+            calendarList.clear()
             try {
-                val convertToDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("uuuu-MM-dd", Locale.ROOT).withResolverStyle(ResolverStyle.STRICT))
-                val convertedToDayOfWeek = convertToDate.dayOfWeek.name
-                val convertedToDayNumber = convertToDate.toString().split("-")
-                if(convertedToDayNumber[2].isNotEmpty()) {
-                    mutableList.add(CalendarModel(convertedToDayOfWeek, convertedToDayNumber[2]))
+                val toDateConversion = LocalDate.parse(date, DateTimeFormatter.ofPattern("uuuu-MM-dd", Locale.ROOT).withResolverStyle(ResolverStyle.STRICT))
+
+                val toDayOfWeekConversion = toDateConversion.dayOfWeek.name
+                val toDayNumberConversion = toDateConversion.toString().split("-")
+
+                /**
+                 * Les dates sont de formes 2020-01-01, donc le split permet de séparer en année/mois/jours.
+                 * Le toDayNumberConversion[2] permet de reprendre le jour.
+                 */
+
+                if(toDayNumberConversion[2].isNotEmpty()) {
+                    calendarList.add(CalendarModel(toDayOfWeekConversion, toDayNumberConversion[2]))
                 }
 
             }catch (e: Exception) {
-                Log.d(FirebaseSource.TAG, "${e.message}")
+                Log.d(FirebaseSource.TAG, "${e.cause}")
             }
         }
-        mutableList.forEach {
-            Log.d(FirebaseSource.TAG, "New Date from fillingCalendar(Bingo le gogo): $it")
-        }
-        return mutableList
+        return calendarList
     }
+
     private fun checksIfDateIsGood(date: String) = date.matches("([0-9]{4})-([0-9]{2})-([0-9]{2})".toRegex())
 }
