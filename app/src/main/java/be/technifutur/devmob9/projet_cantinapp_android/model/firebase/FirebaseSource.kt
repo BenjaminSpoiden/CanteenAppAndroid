@@ -4,6 +4,7 @@ import android.nfc.Tag
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants
 import be.technifutur.devmob9.projet_cantinapp_android.utils.security.MD5Hashing
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -19,13 +20,6 @@ import kotlin.collections.HashMap
 import org.threeten.bp.*
 
 class FirebaseSource{
-
-    companion object{
-        const val USERS: String = "users"
-        const val COLLECTION_ID: String = "meals"
-        const val TAG = "FirebaseTest"
-    }
-
     private val firebaseAuth: FirebaseAuth by lazy {
         FirebaseAuth.getInstance()
     }
@@ -64,7 +58,7 @@ class FirebaseSource{
                         val hashMap: HashMap<String, String> = HashMap()
                         hashMap["email"] = email
                         hashMap["password"] = password.MD5Hashing()
-                        databaseReference.child(USERS).child(it).setValue(hashMap)
+                        databaseReference.child(Constants.USERS).child(it).setValue(hashMap)
                     }
                     emitter.onComplete()
                 }else{
@@ -85,13 +79,13 @@ class FirebaseSource{
             "country" to "USA"
         )
 
-        db.collection(COLLECTION_ID).document(getDateTime())
+        db.collection(Constants.COLLECTION_ID).document(getDateTime())
             .set(city)
             .addOnSuccessListener {
-                Log.d(TAG, "Successful -> $it")
+                Log.d(Constants.FIREBASE_TAG, "Successful -> $it")
             }
             .addOnFailureListener{
-                Log.d(TAG, "Not successful", it)
+                Log.d(Constants.FIREBASE_TAG, "Not successful", it)
             }
 
     }
