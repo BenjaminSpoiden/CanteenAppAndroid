@@ -63,7 +63,6 @@ class MainMenuFragment: Fragment(), KodeinAware, CalendarListener {
     }
 
     override fun onCalendarReceived(calendarModel: CalendarModel) {
-        Log.d(FirebaseSource.TAG, "calendar model: $calendarModel")
         itemAdapter.add(CalendarItemAdapter(calendarModel))
         fastAdapter.notifyAdapterDataSetChanged()
     }

@@ -10,12 +10,4 @@ import be.technifutur.devmob9.projet_cantinapp_android.model.repositories.UserRe
 
 class MainMenuViewModel(private val userRepository: UserRepository): ViewModel() {
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    val calendarModel = CalendarModel("", "")
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun testingFirebaseData() {
-        Log.d(FirebaseSource.TAG, "Clicked on Button")
-//        userRepository.addDateToDB()
-        Log.d(FirebaseSource.TAG, "Added data")
-    }
 }
