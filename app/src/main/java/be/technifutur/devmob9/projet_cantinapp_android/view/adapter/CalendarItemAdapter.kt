@@ -9,7 +9,6 @@ import com.mikepenz.fastadapter.items.AbstractItem
 
 class CalendarItemAdapter(val calendarModel: CalendarModel): AbstractItem<CalendarItemAdapter.CalendarViwHolder>() {
 
-
     override val layoutRes: Int
         get() = R.layout.calendar_item
     override val type: Int
@@ -23,7 +22,7 @@ class CalendarItemAdapter(val calendarModel: CalendarModel): AbstractItem<Calend
         private val calendarDayName = view.findViewById<TextView>(R.id.day_tv)
         private val calendarDayNumber = view.findViewById<TextView>(R.id.day_number_tv)
 
-        override fun bindView(item: CalendarItemAdapter, payloads: MutableList<Any>) {
+        override fun bindView(item: CalendarItemAdapter, payloads: List<Any>) {
             calendarDayName.text = item.calendarModel.dayName
             calendarDayNumber.text = item.calendarModel.dayNumber
         }
@@ -32,6 +31,5 @@ class CalendarItemAdapter(val calendarModel: CalendarModel): AbstractItem<Calend
             calendarDayName.text = null
             calendarDayNumber.text = null
         }
-
     }
 }

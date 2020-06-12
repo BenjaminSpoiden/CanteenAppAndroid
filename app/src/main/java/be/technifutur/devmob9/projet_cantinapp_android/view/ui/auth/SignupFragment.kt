@@ -14,6 +14,7 @@ import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.databinding.CredentialsSignupFragmentBinding
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.AuthListener
 import be.technifutur.devmob9.projet_cantinapp_android.utils.ActivityUtils
+import be.technifutur.devmob9.projet_cantinapp_android.utils.ActivityUtils.switchLayoutAnimationKeyboard
 import be.technifutur.devmob9.projet_cantinapp_android.utils.fragmentTransaction
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.AuthViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.AuthViewModelFactory
@@ -46,7 +47,7 @@ class SignupFragment: Fragment(), AuthListener, KodeinAware {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val constraintRoot: MotionLayout = view.findViewById(R.id.signup_root)
-        ActivityUtils().switchLayoutAnimationKeyboard(constraintRoot = constraintRoot)
+        switchLayoutAnimationKeyboard(constraintRoot = constraintRoot)
     }
 
 

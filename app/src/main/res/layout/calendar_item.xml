@@ -3,29 +3,25 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:paddingEnd="10dp"
-    android:paddingTop="5dp"
-    android:paddingBottom="5dp"
+    android:padding="5dp"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     tools:ignore="RtlSymmetry"
     android:id="@+id/calendar_item_id">
 
-
     <ImageView
         android:id="@+id/calendar_bg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/calendar_day_bg"
-        android:background="#43CE40"
+        android:layout_width="0dp"
+        android:layout_height="25dp"
+        android:background="@drawable/calendar_day_bg"
         app:layout_constraintTop_toTopOf="@id/calendar_overlay"
         app:layout_constraintStart_toStartOf="@id/calendar_overlay"
         app:layout_constraintEnd_toEndOf="@id/calendar_overlay"/>
 
     <ImageView
         android:id="@+id/calendar_overlay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="90dp"
         android:src="@drawable/calendar_day_overlay"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:textSize="36sp"
+        android:textSize="48sp"
         android:textColor="#8D8D8D"
         android:layout_marginBottom="5dp"
         app:layout_constraintBottom_toBottomOf="@+id/calendar_overlay"

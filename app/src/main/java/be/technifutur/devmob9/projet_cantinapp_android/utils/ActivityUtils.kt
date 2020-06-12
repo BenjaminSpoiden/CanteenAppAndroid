@@ -9,8 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.fragment.app.Fragment
 
-class ActivityUtils{
-
+object ActivityUtils{
     fun switchLayoutAnimationKeyboard(constraintRoot: MotionLayout){
         var isActive: Boolean
         constraintRoot.viewTreeObserver.addOnGlobalLayoutListener {
@@ -29,16 +28,4 @@ class ActivityUtils{
             }
         }
     }
-}
-fun Fragment.hideKeyboard(){
-    view?.let {
-        activity?.hideKeyboard(it)
-    }
-}
-fun Activity.hideKeyboard(){
-    hideKeyboard(currentFocus ?: View(this))
-}
-fun Context.hideKeyboard(view: View){
-    val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-    inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
 }

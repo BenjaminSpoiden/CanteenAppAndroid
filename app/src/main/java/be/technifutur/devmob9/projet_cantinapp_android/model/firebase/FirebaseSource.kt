@@ -1,30 +1,20 @@
 package be.technifutur.devmob9.projet_cantinapp_android.model.firebase
 
-import android.nfc.Tag
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants
 import be.technifutur.devmob9.projet_cantinapp_android.utils.security.MD5Hashing
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
-import com.google.firebase.database.ktx.getValue
-import com.google.firebase.firestore.*
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.firestoreSettings
 import com.google.firebase.ktx.Firebase
 import io.reactivex.Completable
-import java.text.DateFormat
+import org.threeten.bp.LocalDateTime
 import java.util.*
 import kotlin.collections.HashMap
-import org.threeten.bp.*
 
 class FirebaseSource{
-
-    companion object{
-        const val USERS: String = "users"
-        const val COLLECTION_ID: String = "meals"
-        const val TAG = "FirebaseTest"
-    }
 
     private val firebaseAuth: FirebaseAuth by lazy {
         FirebaseAuth.getInstance()
@@ -39,11 +29,6 @@ class FirebaseSource{
         Firebase.firestore
     }
 
-    companion object {
-        const val COLLECTION_ID = "meals"
-    }
-
-    //Completable allow to maintain something that will complete. We can get an indication when it is completed or not.
 
     fun login(email: String, password: String) = Completable.create { emitter ->
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
@@ -66,7 +51,7 @@ class FirebaseSource{
                         val hashMap: HashMap<String, String> = HashMap()
                         hashMap["email"] = email
                         hashMap["password"] = password.MD5Hashing()
-                        databaseReference.child(USERS).child(it).setValue(hashMap)
+                        databaseReference.child(Constants.USERS).child(it).setValue(hashMap)
                     }
                     emitter.onComplete()
                 }else{
@@ -87,13 +72,13 @@ class FirebaseSource{
             "country" to "USA"
         )
 
-        db.collection(COLLECTION_ID).document(getDateTime())
+        db.collection(Constants.COLLECTION_ID).document(getDateTime())
             .set(city)
             .addOnSuccessListener {
-                Log.d(TAG, "Successful -> $it")
+                Log.d(Constants.FIREBASE_TAG, "Successful -> $it")
             }
             .addOnFailureListener{
-                Log.d(TAG, "Not successful", it)
+                Log.d(Constants.FIREBASE_TAG, "Not successful", it)
             }
 
     }
