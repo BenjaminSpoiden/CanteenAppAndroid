@@ -11,6 +11,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import io.reactivex.Completable
 import org.threeten.bp.LocalDateTime
+import org.threeten.bp.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -64,6 +65,9 @@ class FirebaseSource{
     fun currentUser() = firebaseAuth.currentUser
 
 
+    /**
+     * Test of Adding data to firebase firestore
+     */
 
     fun addDateToDB(){
         val city = hashMapOf(
@@ -80,13 +84,10 @@ class FirebaseSource{
             .addOnFailureListener{
                 Log.d(Constants.FIREBASE_TAG, "Not successful", it)
             }
-
     }
-
-
     private fun getDateTime(): String {
         val current = LocalDateTime.now()
-        val formatter = org.threeten.bp.format.DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ROOT)
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ROOT)
         return formatter.format(current)
     }
 }

@@ -1,4 +1,4 @@
-package be.technifutur.devmob9.projet_cantinapp_android.view.ui
+package be.technifutur.devmob9.projet_cantinapp_android.view.ui.activities
 
 
 
@@ -9,8 +9,9 @@ import android.widget.RelativeLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.R
-import be.technifutur.devmob9.projet_cantinapp_android.model.OnboardingData
+import be.technifutur.devmob9.projet_cantinapp_android.model.data.OnboardingData
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.OnboardingAdapter
+import be.technifutur.devmob9.projet_cantinapp_android.view.ui.Animations
 import com.arindicatorview.ARIndicatorView
 import kotlinx.android.synthetic.main.activity_onboarding.*
 
@@ -42,14 +43,23 @@ class OnboardingActivity : AppCompatActivity() {
         arIndicatorView.attachTo(recyclerViewOnboarding, true)
 
 
-        Animations().animations(recyclerViewOnboarding, recyclerViewOnboarding.context, 1)
-        Animations().animations(bottomLayout, bottomLayout.context, 2)
-        Animations().animations(container, skipButton.context, 3)
+        Animations()
+            .animations(recyclerViewOnboarding, recyclerViewOnboarding.context, 1)
+        Animations()
+            .animations(bottomLayout, bottomLayout.context, 2)
+        Animations()
+            .animations(container, skipButton.context, 3)
 
     }
 
     private fun fillingOnboardingList(title: String, desc: String, logo: Int){
-        items.add(OnboardingData(title, desc, logo))
+        items.add(
+            OnboardingData(
+                title,
+                desc,
+                logo
+            )
+        )
     }
 }
 

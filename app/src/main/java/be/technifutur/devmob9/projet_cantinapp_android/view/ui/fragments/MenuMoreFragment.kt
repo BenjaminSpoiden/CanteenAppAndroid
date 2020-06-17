@@ -1,0 +1,26 @@
+package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import be.technifutur.devmob9.projet_cantinapp_android.R
+
+class MenuMoreFragment: Fragment() {
+    companion object {
+        fun getInstance() = MenuMoreFragment()
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_menu_more, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
+}

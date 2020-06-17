@@ -4,7 +4,7 @@ import android.app.Application
 import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.FirebaseSource
 import be.technifutur.devmob9.projet_cantinapp_android.model.repositories.UserRepository
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.AuthViewModelFactory
-import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.MainMenuViewModelFactory
+import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.HomeViewModelFactory
 import com.google.firebase.iid.FirebaseInstanceId
 import com.jakewharton.threetenabp.AndroidThreeTen
 import org.kodein.di.Kodein
@@ -27,7 +27,7 @@ class CantinappApplication: Application(), KodeinAware {
             )
         }
         bind() from provider {
-            MainMenuViewModelFactory(instance())
+            HomeViewModelFactory(instance())
         }
     }
 

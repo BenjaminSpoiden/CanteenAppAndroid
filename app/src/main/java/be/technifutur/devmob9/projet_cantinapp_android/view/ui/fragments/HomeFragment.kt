@@ -1,0 +1,103 @@
+package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
+
+import android.content.Context
+import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import be.technifutur.devmob9.projet_cantinapp_android.R
+import be.technifutur.devmob9.projet_cantinapp_android.databinding.FragmentHomeBinding
+import be.technifutur.devmob9.projet_cantinapp_android.interfaces.CalendarListener
+import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
+import be.technifutur.devmob9.projet_cantinapp_android.model.data.CalendarModel
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.CONTEXT_TEST
+import be.technifutur.devmob9.projet_cantinapp_android.view.CalendarDayManager
+import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.CalendarItemAdapter
+import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.HomeViewModel
+import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.HomeViewModelFactory
+import com.mikepenz.fastadapter.FastAdapter
+import com.mikepenz.fastadapter.adapters.ItemAdapter
+import kotlinx.android.synthetic.main.fragment_home.*
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.kodein
+import org.kodein.di.generic.instance
+
+
+class HomeFragment: Fragment(), KodeinAware, CalendarListener {
+
+    companion object {
+        fun getInstance() =
+            HomeFragment()
+    }
+
+    private var fragmentListener: FragmentListener? = null
+    private val manager = CalendarDayManager.getInstance()
+
+    override val kodein by kodein()
+    private val homeFactory: HomeViewModelFactory by instance<HomeViewModelFactory>()
+
+    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var calendarRecyclerView: RecyclerView
+    private val itemAdapter = ItemAdapter<CalendarItemAdapter>()
+    private val fastAdapter = FastAdapter.with(itemAdapter)
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val binding = DataBindingUtil.inflate<FragmentHomeBinding>(inflater, R.layout.fragment_home, container, false)
+        homeViewModel = ViewModelProvider(this, homeFactory).get(HomeViewModel::class.java)
+        binding.homeViewModel = homeViewModel
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        manager.calendarListener = this
+        calendarRecyclerView = view.findViewById(R.id.calendar_recyclerview)
+        calendarRecyclerView.apply {
+            this.adapter = fastAdapter
+            this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        }
+
+        bottomBar.onItemSelected = {
+            fragmentListener?.onFragmentSelectedFromMenu(it)
+        }
+    }
+
+    /**
+     * Calling [MenuRepasFragment] at the start of this fragment
+     */
+    override fun onStart() {
+        super.onStart()
+        fragmentListener?.onFragmentSelectedFromMenu(0)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if(context is FragmentListener){
+            Log.d(CONTEXT_TEST, "onAttach()")
+            fragmentListener = context
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        fragmentListener = null
+        Log.d(CONTEXT_TEST, "onDetach()")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        fragmentListener = null
+        Log.d(CONTEXT_TEST, "onDestroy()")
+    }
+
+    override fun onCalendarReceived(calendarModel: CalendarModel) {
+        itemAdapter.add(CalendarItemAdapter(calendarModel))
+        fastAdapter.notifyAdapterDataSetChanged()
+    }
+}

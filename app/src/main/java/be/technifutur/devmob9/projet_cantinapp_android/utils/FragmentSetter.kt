@@ -14,12 +14,6 @@ fun AppCompatActivity.addFragment(fragment: Fragment, id: Int){
     }
 }
 
-fun AppCompatActivity.replaceFragment(fragment: Fragment, id: Int){
-    supportFragmentManager.inTransaction {
-        replace(id, fragment)
-    }
-}
-
 inline fun FragmentManager.inTransaction(function: FragmentTransaction.() -> FragmentTransaction){
     beginTransaction().function().commit()
 }

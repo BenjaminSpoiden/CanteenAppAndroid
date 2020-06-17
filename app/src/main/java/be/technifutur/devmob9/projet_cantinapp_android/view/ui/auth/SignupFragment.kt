@@ -13,9 +13,8 @@ import androidx.lifecycle.ViewModelProviders
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.databinding.CredentialsSignupFragmentBinding
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.AuthListener
-import be.technifutur.devmob9.projet_cantinapp_android.utils.ActivityUtils
-import be.technifutur.devmob9.projet_cantinapp_android.utils.ActivityUtils.switchLayoutAnimationKeyboard
 import be.technifutur.devmob9.projet_cantinapp_android.utils.fragmentTransaction
+import be.technifutur.devmob9.projet_cantinapp_android.utils.switchLayoutAnimationKeyboard
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.AuthViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.AuthViewModelFactory
 import org.kodein.di.KodeinAware

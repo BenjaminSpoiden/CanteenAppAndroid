@@ -2,7 +2,7 @@ package be.technifutur.devmob9.projet_cantinapp_android.view
 
 import android.util.Log
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.CalendarListener
-import be.technifutur.devmob9.projet_cantinapp_android.model.CalendarModel
+import be.technifutur.devmob9.projet_cantinapp_android.model.data.CalendarModel
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.COLLECTION_ID
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.FIREBASE_TAG
 import com.google.firebase.firestore.*
@@ -37,7 +37,12 @@ class CalendarDayManager {
                         when (dc.type) {
                             DocumentChange.Type.ADDED -> {
                                 formattingRawDataToDate(dc.document.id).forEach { calendarModel ->
-                                    calendarListener?.onCalendarReceived(CalendarModel(calendarModel.dayName, calendarModel.dayNumber))
+                                    calendarListener?.onCalendarReceived(
+                                        CalendarModel(
+                                            calendarModel.dayName,
+                                            calendarModel.dayNumber
+                                        )
+                                    )
                                 }
                             }
                             else -> Log.d(FIREBASE_TAG, "")
@@ -63,7 +68,12 @@ class CalendarDayManager {
                  */
 
                 if(toDayNumberConversion[2].isNotEmpty()) {
-                    calendarList.add(CalendarModel(toDayOfWeekConversion, toDayNumberConversion[2]))
+                    calendarList.add(
+                        CalendarModel(
+                            toDayOfWeekConversion,
+                            toDayNumberConversion[2]
+                        )
+                    )
                 }
             }catch (e: Exception) {
                 Log.d(FIREBASE_TAG, "${e.cause}")

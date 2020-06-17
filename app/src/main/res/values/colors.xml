@@ -12,4 +12,6 @@
     <color name="pastelGray">#DEDCE0</color>
     <color name="startGradient">#56ab2f</color>
     <color name="endGradient">#a8e063</color>
+    <color name="backgroundAppColor">#EAEAEA</color>
+    <color name="textDayColor">#3E4A3D</color>
 </resources>
