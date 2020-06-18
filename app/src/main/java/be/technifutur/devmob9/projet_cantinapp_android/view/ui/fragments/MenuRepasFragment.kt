@@ -12,6 +12,7 @@ import be.technifutur.devmob9.projet_cantinapp_android.model.data.MenuItemModel
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.LAYOUT
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.LAYOUT_ID
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.MenuItemAdapter
+import be.technifutur.devmob9.projet_cantinapp_android.view.ui.activities.MainActivity
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 
@@ -37,6 +38,11 @@ class MenuRepasFragment: Fragment() {
             this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
         mockDataItemAdapter()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        (activity as MainActivity).setToolBarTitle("Menu")
     }
 
     private fun mockDataItemAdapter(layout: Int = LAYOUT, layoutID: Int = LAYOUT_ID) {

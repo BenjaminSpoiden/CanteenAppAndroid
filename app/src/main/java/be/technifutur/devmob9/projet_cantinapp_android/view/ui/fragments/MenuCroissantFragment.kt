@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import be.technifutur.devmob9.projet_cantinapp_android.R
+import be.technifutur.devmob9.projet_cantinapp_android.view.ui.activities.MainActivity
 
 class MenuCroissantFragment: Fragment() {
 
@@ -23,6 +24,10 @@ class MenuCroissantFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+    }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        (activity as MainActivity).setToolBarTitle("Croissant")
     }
 }

@@ -5,6 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center|top"
+    android:paddingBottom="10dp"
     android:id="@+id/recycler_view_item_id">
 
     <ImageView
@@ -46,12 +47,13 @@
         app:layout_constraintTop_toBottomOf="@id/menu_illustration"
         app:layout_constraintStart_toStartOf="@id/menu_illustration"
         android:layout_marginStart="10dp"/>
+
     <TextView
         android:id="@+id/menu_description"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:textSize="12sp"
-        android:textColor="@android:color/darker_gray"
+        android:textColor="@color/darkerGrey"
         android:text="@string/mock_desc"
         android:justificationMode="inter_word"
         android:layout_marginStart="10dp"

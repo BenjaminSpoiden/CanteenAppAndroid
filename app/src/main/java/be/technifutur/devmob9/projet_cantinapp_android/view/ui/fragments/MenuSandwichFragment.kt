@@ -13,6 +13,8 @@ import be.technifutur.devmob9.projet_cantinapp_android.model.data.MenuItemModel
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.LAYOUT
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.LAYOUT_ID
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.MenuItemAdapter
+import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.SandwichItemAdapter
+import be.technifutur.devmob9.projet_cantinapp_android.view.ui.activities.MainActivity
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 
@@ -23,7 +25,7 @@ class MenuSandwichFragment: Fragment() {
     }
 
     private lateinit var sandwichRecyclerView: RecyclerView
-    private val itemAdapter = ItemAdapter<MenuItemAdapter>()
+    private val itemAdapter = ItemAdapter<SandwichItemAdapter>()
     private val fastAdapter = FastAdapter.with(itemAdapter)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -40,10 +42,18 @@ class MenuSandwichFragment: Fragment() {
         mockDataItemAdapter()
     }
 
-    private fun mockDataItemAdapter(layout: Int = LAYOUT, layoutID: Int = LAYOUT_ID) {
-        itemAdapter.add(MenuItemAdapter(MenuItemModel("DAGOBERT", getString(R.string.mock_desc), R.drawable.menu_illustration), layout, layoutID))
-        itemAdapter.add(MenuItemAdapter(MenuItemModel("THON", getString(R.string.mock_desc), R.drawable.menu_illustration), layout, layoutID))
-        itemAdapter.add(MenuItemAdapter(MenuItemModel("JAMBOM FROMAGE", getString(R.string.mock_desc), R.drawable.menu_illustration), layout, layoutID))
+    private fun mockDataItemAdapter(layout: Int = R.layout.recyclerview_sandwich_item, layoutID: Int = R.id.recycler_view_sandwich_item_id) {
+        itemAdapter.add(SandwichItemAdapter(MenuItemModel("DAGOBERT", getString(R.string.sandwich_desc), R.drawable.sandwich_illustration)))
+        itemAdapter.add(SandwichItemAdapter(MenuItemModel("THON", getString(R.string.sandwich_desc), R.drawable.sandwich_illustration)))
+        itemAdapter.add(SandwichItemAdapter(MenuItemModel("JAMBOM FROMAGE", getString(R.string.sandwich_desc), R.drawable.sandwich_illustration)))
+        itemAdapter.add(SandwichItemAdapter(MenuItemModel("DAGOBERT", getString(R.string.sandwich_desc), R.drawable.sandwich_illustration)))
+        itemAdapter.add(SandwichItemAdapter(MenuItemModel("THON", getString(R.string.sandwich_desc), R.drawable.sandwich_illustration)))
+        itemAdapter.add(SandwichItemAdapter(MenuItemModel("JAMBOM FROMAGE", getString(R.string.sandwich_desc), R.drawable.sandwich_illustration)))
+        fastAdapter.notifyAdapterDataSetChanged()
+    }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        (activity as MainActivity).setToolBarTitle("Sandwich")
     }
 }

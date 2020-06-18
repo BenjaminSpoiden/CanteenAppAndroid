@@ -36,9 +36,7 @@ class HomeFragment: Fragment(), KodeinAware, CalendarListener {
             HomeFragment()
     }
 
-    private var fragmentListener: FragmentListener? = null
     private val manager = CalendarDayManager.getInstance()
-
     override val kodein by kodein()
     private val homeFactory: HomeViewModelFactory by instance<HomeViewModelFactory>()
 
@@ -57,43 +55,12 @@ class HomeFragment: Fragment(), KodeinAware, CalendarListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         manager.calendarListener = this
+
         calendarRecyclerView = view.findViewById(R.id.calendar_recyclerview)
         calendarRecyclerView.apply {
             this.adapter = fastAdapter
             this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
-
-        bottomBar.onItemSelected = {
-            fragmentListener?.onFragmentSelectedFromMenu(it)
-        }
-    }
-
-    /**
-     * Calling [MenuRepasFragment] at the start of this fragment
-     */
-    override fun onStart() {
-        super.onStart()
-        fragmentListener?.onFragmentSelectedFromMenu(0)
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if(context is FragmentListener){
-            Log.d(CONTEXT_TEST, "onAttach()")
-            fragmentListener = context
-        }
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        fragmentListener = null
-        Log.d(CONTEXT_TEST, "onDetach()")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        fragmentListener = null
-        Log.d(CONTEXT_TEST, "onDestroy()")
     }
 
     override fun onCalendarReceived(calendarModel: CalendarModel) {

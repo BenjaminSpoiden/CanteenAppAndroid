@@ -37,12 +37,7 @@ class CalendarDayManager {
                         when (dc.type) {
                             DocumentChange.Type.ADDED -> {
                                 formattingRawDataToDate(dc.document.id).forEach { calendarModel ->
-                                    calendarListener?.onCalendarReceived(
-                                        CalendarModel(
-                                            calendarModel.dayName,
-                                            calendarModel.dayNumber
-                                        )
-                                    )
+                                    calendarListener?.onCalendarReceived(CalendarModel(calendarModel.dayName, calendarModel.dayNumber))
                                 }
                             }
                             else -> Log.d(FIREBASE_TAG, "")
