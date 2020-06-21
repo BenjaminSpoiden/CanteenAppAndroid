@@ -13,7 +13,7 @@ import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_main.*
 
-class MainFragment: Fragment() {
+class MainFragment: BaseFragment() {
 
     companion object {
         fun getInstance() = MainFragment()
@@ -27,7 +27,7 @@ class MainFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        initFirstFragment()
         bottomBar.onItemSelected = {
             fragmentListener?.onFragmentSelectedFromMenu(it)
         }
@@ -36,7 +36,7 @@ class MainFragment: Fragment() {
     /**
      * Calling [MenuRepasFragment] at the start of this fragment
      */
-    override fun onStart() {
+    private fun initFirstFragment(){
         super.onStart()
         activity?.let {
             it.supportFragmentManager.beginTransaction().add(R.id.fragment_container_main, HomeFragment.getInstance()).commit()
@@ -44,10 +44,17 @@ class MainFragment: Fragment() {
         fragmentListener?.onFragmentSelectedFromMenu(0)
     }
 
+//    override fun onStart() {
+//        super.onStart()
+//        activity?.let {
+//            it.supportFragmentManager.beginTransaction().add(R.id.fragment_container_main, HomeFragment.getInstance()).commit()
+//        }
+//        fragmentListener?.onFragmentSelectedFromMenu(0)
+//    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if(context is FragmentListener){
-            Log.d(Constants.CONTEXT_TEST, "onAttach()")
             fragmentListener = context
         }
     }
@@ -55,6 +62,5 @@ class MainFragment: Fragment() {
     override fun onDetach() {
         super.onDetach()
         fragmentListener = null
-        Log.d(Constants.CONTEXT_TEST, "onDetach()")
     }
 }

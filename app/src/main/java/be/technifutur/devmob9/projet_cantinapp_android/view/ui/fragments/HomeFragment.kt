@@ -27,9 +27,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
-
-
-class HomeFragment: Fragment(), KodeinAware, CalendarListener {
+class HomeFragment: BaseFragment(), KodeinAware, CalendarListener {
 
     companion object {
         fun getInstance() =
@@ -55,7 +53,6 @@ class HomeFragment: Fragment(), KodeinAware, CalendarListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         manager.calendarListener = this
-
         calendarRecyclerView = view.findViewById(R.id.calendar_recyclerview)
         calendarRecyclerView.apply {
             this.adapter = fastAdapter
@@ -66,5 +63,16 @@ class HomeFragment: Fragment(), KodeinAware, CalendarListener {
     override fun onCalendarReceived(calendarModel: CalendarModel) {
         itemAdapter.add(CalendarItemAdapter(calendarModel))
         fastAdapter.notifyAdapterDataSetChanged()
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        calendarRecyclerView.adapter = null
+        calendarRecyclerView.layoutManager = null
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        manager.calendarListener = null
     }
 }
