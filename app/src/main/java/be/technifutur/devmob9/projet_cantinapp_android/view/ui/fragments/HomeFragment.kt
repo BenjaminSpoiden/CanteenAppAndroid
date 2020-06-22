@@ -1,38 +1,35 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.databinding.FragmentHomeBinding
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.CalendarListener
-import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.CalendarModel
-import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.CONTEXT_TEST
 import be.technifutur.devmob9.projet_cantinapp_android.view.CalendarDayManager
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.CalendarItemAdapter
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.HomeViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.HomeViewModelFactory
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
-import kotlinx.android.synthetic.main.fragment_home.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
-class HomeFragment: BaseFragment(), KodeinAware, CalendarListener {
 
+class HomeFragment: BaseFragment(), KodeinAware, CalendarListener {
     companion object {
         fun getInstance() =
             HomeFragment()
     }
+
+    override val title: String
+        get() = ""
 
     private val manager = CalendarDayManager.getInstance()
     override val kodein by kodein()

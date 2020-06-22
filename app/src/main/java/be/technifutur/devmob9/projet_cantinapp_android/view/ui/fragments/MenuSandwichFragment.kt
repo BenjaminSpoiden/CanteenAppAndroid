@@ -9,15 +9,15 @@ import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.MenuItemModel
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.GenericMenuItemAdapter
-import be.technifutur.devmob9.projet_cantinapp_android.view.ui.activities.MainActivity
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 
 class MenuSandwichFragment: BaseFragment() {
-
     companion object {
         fun getInstance() = MenuSandwichFragment()
     }
+    override val title: String
+        get() = "Sandwich"
 
     private lateinit var sandwichRecyclerView: RecyclerView
     private val itemAdapter = ItemAdapter<GenericMenuItemAdapter>()
@@ -29,7 +29,6 @@ class MenuSandwichFragment: BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as MainActivity).setToolBarTitle("Sandwich")
         sandwichRecyclerView = view.findViewById(R.id.sandwich_recycler_view)
         sandwichRecyclerView.apply {
             this.adapter = fastAdapter

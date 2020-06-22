@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="4dp"
                 android:background="#7AD378"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="7dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/calendar_recyclerview" />
