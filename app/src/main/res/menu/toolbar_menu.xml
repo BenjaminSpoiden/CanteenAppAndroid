@@ -3,10 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/toolbar_back"
-        android:icon="@drawable/ic_arrow_back_black_24dp"
+        android:id="@+id/toolbar_cart"
+        android:icon="@drawable/ic_shopping_cart_black_24dp"
         android:orderInCategory="0"
-        android:layout_gravity="start"
         app:showAsAction="always"
-        android:title="Back" />
+        android:title="Cart"
+        android:actionLayout="@layout/custom_action_item"/>
 </menu>

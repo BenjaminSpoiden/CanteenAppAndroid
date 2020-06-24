@@ -48,25 +48,25 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/spacer" />
 
-            <ImageView
-                android:id="@+id/added_item_action_button"
-                android:layout_width="42dp"
-                android:layout_height="42dp"
-                android:layout_marginEnd="26dp"
-                android:src="@drawable/ic_shopping_cart_black_24dp"
-                app:layout_constraintBottom_toTopOf="@+id/fragment_container_mainMenu"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spacer" />
+<!--            <ImageView-->
+<!--                android:id="@+id/added_item_action_button"-->
+<!--                android:layout_width="42dp"-->
+<!--                android:layout_height="42dp"-->
+<!--                android:layout_marginEnd="26dp"-->
+<!--                android:src="@drawable/ic_shopping_cart_black_24dp"-->
+<!--                app:layout_constraintBottom_toTopOf="@+id/fragment_container_mainMenu"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/spacer" />-->
 
-            <ImageView
-                android:id="@+id/card_badge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_shopping_cart_badge"
-                android:layout_marginBottom="24dp"
-                android:layout_marginStart="22dp"
-                app:layout_constraintBottom_toBottomOf="@+id/added_item_action_button"
-                app:layout_constraintStart_toStartOf="@+id/added_item_action_button" />
+<!--            <ImageView-->
+<!--                android:id="@+id/card_badge"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:src="@drawable/ic_shopping_cart_badge"-->
+<!--                android:layout_marginBottom="24dp"-->
+<!--                android:layout_marginStart="22dp"-->
+<!--                app:layout_constraintBottom_toBottomOf="@+id/added_item_action_button"-->
+<!--                app:layout_constraintStart_toStartOf="@+id/added_item_action_button" />-->
 
             <FrameLayout
                 android:id="@+id/fragment_container_mainMenu"

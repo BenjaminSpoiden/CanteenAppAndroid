@@ -4,8 +4,10 @@ import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -26,7 +28,6 @@ class MainActivity: AppCompatActivity(), FragmentListener {
     }
 
     private lateinit var toggle: ActionBarDrawerToggle
-    private var toolbarListenerRegistered: Boolean = false
 
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,10 +35,9 @@ class MainActivity: AppCompatActivity(), FragmentListener {
         setContentView(R.layout.activity_main)
         addFragment(MainFragment.getInstance(), R.id.fragment_container)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        setSupportActionBar(findViewById(R.id.toolbar))
 
 
-        toggle = ActionBarDrawerToggle(this, root_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        toggle = ActionBarDrawerToggle(this, root_layout, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         toggle.isDrawerIndicatorEnabled = true
         toggle.syncState()
         root_layout.addDrawerListener(toggle)
@@ -49,17 +49,6 @@ class MainActivity: AppCompatActivity(), FragmentListener {
         setupBurgerMenuItems()
     }
 
-
-    override fun onPostCreate(savedInstanceState: Bundle?) {
-        super.onPostCreate(savedInstanceState)
-        toggle.syncState()
-    }
-
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        toggle.onConfigurationChanged(newConfig)
-    }
-
     override fun onBackPressed() {
         if(root_layout.isDrawerOpen(GravityCompat.START)){
             root_layout.closeDrawer(GravityCompat.START)
@@ -68,6 +57,30 @@ class MainActivity: AppCompatActivity(), FragmentListener {
             supportFragmentManager.popBackStack()
         }
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val mCartItemCount = 1
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+        val menuItem = menu?.findItem(R.id.toolbar_cart)
+        val actionView = menuItem?.actionView
+        val textCart: TextView? = actionView?.findViewById(R.id.cart_badge)
+
+        if (textCart != null) {
+            if (mCartItemCount == 0) {
+                if (textCart.visibility != View.GONE) {
+                    textCart.visibility = View.GONE
+                }
+            } else {
+                textCart.setText(mCartItemCount.coerceAtMost(99))
+                if (textCart.visibility != View.VISIBLE) {
+                    textCart.visibility = View.VISIBLE
+                }
+            }
+        }
+
+        return true
+    }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(toggle.onOptionsItemSelected(item)){
@@ -90,6 +103,10 @@ class MainActivity: AppCompatActivity(), FragmentListener {
         }
     }
 
+    override fun getFragmentTitle(title: String) {
+        supportActionBar?.title = title
+    }
+
     private fun replaceFragmentMenu(fragment: Fragment, layout: Int = R.id.fragment_container_mainMenu) {
         supportFragmentManager
             .beginTransaction()
@@ -105,9 +122,9 @@ class MainActivity: AppCompatActivity(), FragmentListener {
             .commit()
     }
 
-    private fun mockFragmentImpl(){
+    private fun mockFragmentImpl(fragment: Fragment){
         Toast.makeText(applicationContext, "Clicked", Toast.LENGTH_SHORT).show()
-        replaceWithMoreMenuFragment(MenuMoreFragment.getInstance())
+        replaceWithMoreMenuFragment(fragment)
         root_layout.closeDrawer(GravityCompat.START)
     }
 
@@ -115,25 +132,25 @@ class MainActivity: AppCompatActivity(), FragmentListener {
         navigationView.setNavigationItemSelectedListener {
             when(it.itemId) {
                 R.id.activity_main_drawer_profile -> {
-                    mockFragmentImpl()
+                    mockFragmentImpl(MenuMoreFragment.getInstance())
                 }
                 R.id.activity_main_drawer_payment -> {
-                    mockFragmentImpl()
+                    mockFragmentImpl(PaymentHistory.getInstance())
                 }
                 R.id.activity_main_drawer_gdpr -> {
-                    mockFragmentImpl()
+                    mockFragmentImpl(MenuMoreFragment.getInstance())
                 }
                 R.id.activity_main_drawer_contact -> {
-                    mockFragmentImpl()
+                    mockFragmentImpl(MenuMoreFragment.getInstance())
                 }
                 R.id.activity_main_drawer_allergies -> {
-                    mockFragmentImpl()
+                    mockFragmentImpl(MenuMoreFragment.getInstance())
                 }
                 R.id.activity_main_drawer_tos -> {
-                    mockFragmentImpl()
+                    mockFragmentImpl(MenuMoreFragment.getInstance())
                 }
                 R.id.activity_main_drawer_tutorial -> {
-                    mockFragmentImpl()
+                    mockFragmentImpl(MenuMoreFragment.getInstance())
                 }
             }
             true
