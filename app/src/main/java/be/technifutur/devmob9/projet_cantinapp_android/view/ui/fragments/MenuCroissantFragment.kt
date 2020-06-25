@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.MenuItemModel
+import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.CroissantItemAdapter
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.MenuItemAdapter
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
@@ -25,7 +26,7 @@ class MenuCroissantFragment: BaseFragment() {
         get() = "Croissant"
 
     private lateinit var croissantRecyclerView: RecyclerView
-    private val itemAdapter = ItemAdapter<MenuItemAdapter>()
+    private val itemAdapter = ItemAdapter<CroissantItemAdapter>()
     private val fastAdapter = FastAdapter.with(itemAdapter)
     private var fragmentListener: FragmentListener? = null
 
@@ -43,20 +44,26 @@ class MenuCroissantFragment: BaseFragment() {
         croissantRecyclerView = view.findViewById(R.id.croissant_recycler_view)
         croissantRecyclerView.apply {
             this.adapter = fastAdapter
-            this.layoutManager = GridLayoutManager(context, 3)
+            this.layoutManager = GridLayoutManager(context, 2)
         }
         mockDataItemAdapter()
 
-        fastAdapter.addEventHook(object: ClickEventHook<MenuItemAdapter>() {
+        fastAdapter.addEventHook(object: ClickEventHook<CroissantItemAdapter>() {
             override fun onBind(viewHolder: RecyclerView.ViewHolder): View? {
-                return if(viewHolder is MenuItemAdapter.MenuItemViewHolder) {
+                return if(viewHolder is CroissantItemAdapter.CroissantViewHolder) {
                     viewHolder.detail
                 } else {
                     null
                 }
             }
-            override fun onClick(v: View, position: Int, fastAdapter: FastAdapter<MenuItemAdapter>, item: MenuItemAdapter) {
+            override fun onClick(
+                v: View,
+                position: Int,
+                fastAdapter: FastAdapter<CroissantItemAdapter>,
+                item: CroissantItemAdapter
+            ) {
                 Toast.makeText(context, "Clicked on detail: $position", Toast.LENGTH_SHORT).show()
+                fragmentListener?.openDetailFragment()
             }
         })
     }
@@ -75,19 +82,10 @@ class MenuCroissantFragment: BaseFragment() {
         fragmentListener = null
     }
 
-    private fun mockDataItemAdapter(layout: Int = R.layout.recyclerview_croissant_item, layoutID: Int = R.id.recycler_view_croissant_item_id) {
-        itemAdapter.add(MenuItemAdapter(MenuItemModel("CROISSANT", getString(R.string.croissant_desc), R.drawable.croissant_illustration), layout, layoutID))
-        itemAdapter.add(MenuItemAdapter(MenuItemModel("CROISSANT", getString(R.string.croissant_desc), R.drawable.croissant_illustration), layout, layoutID))
-        itemAdapter.add(MenuItemAdapter(MenuItemModel("CROISSANT", getString(R.string.croissant_desc), R.drawable.croissant_illustration), layout, layoutID))
-        itemAdapter.add(MenuItemAdapter(MenuItemModel("CROISSANT", getString(R.string.croissant_desc), R.drawable.croissant_illustration), layout, layoutID))
-        itemAdapter.add(MenuItemAdapter(MenuItemModel("CROISSANT", getString(R.string.croissant_desc), R.drawable.croissant_illustration), layout, layoutID))
-        itemAdapter.add(MenuItemAdapter(MenuItemModel("CROISSANT", getString(R.string.croissant_desc), R.drawable.croissant_illustration), layout, layoutID))
-        itemAdapter.add(MenuItemAdapter(MenuItemModel("CROISSANT", getString(R.string.croissant_desc), R.drawable.croissant_illustration), layout, layoutID))
-        itemAdapter.add(MenuItemAdapter(MenuItemModel("CROISSANT", getString(R.string.croissant_desc), R.drawable.croissant_illustration), layout, layoutID))
-        itemAdapter.add(MenuItemAdapter(MenuItemModel("CROISSANT", getString(R.string.croissant_desc), R.drawable.croissant_illustration), layout, layoutID))
-        itemAdapter.add(MenuItemAdapter(MenuItemModel("CROISSANT", getString(R.string.croissant_desc), R.drawable.croissant_illustration), layout, layoutID))
-        itemAdapter.add(MenuItemAdapter(MenuItemModel("CROISSANT", getString(R.string.croissant_desc), R.drawable.croissant_illustration), layout, layoutID))
-        itemAdapter.add(MenuItemAdapter(MenuItemModel("CROISSANT", getString(R.string.croissant_desc), R.drawable.croissant_illustration), layout, layoutID))
+    private fun mockDataItemAdapter() {
+        for (i in 1..10) {
+            itemAdapter.add(CroissantItemAdapter(MenuItemModel("CROISSANT", getString(R.string.croissant_desc), R.drawable.sandwich_illustration)))
+        }
         fastAdapter.notifyAdapterDataSetChanged()
     }
 }

@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import android.widget.Toast
 import be.technifutur.devmob9.projet_cantinapp_android.R
-import com.google.android.material.snackbar.Snackbar
+import be.technifutur.devmob9.projet_cantinapp_android.view.ui.custom.AllergiesSnackBar
 
 class DetailsFragment: BaseFragment() {
 
@@ -28,5 +26,9 @@ class DetailsFragment: BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    private fun snackBars(view: View, text: String){
+        AllergiesSnackBar.make(view, R.drawable.croissant_illustration, text).show()
     }
 }

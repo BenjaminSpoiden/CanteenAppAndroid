@@ -6,15 +6,78 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/detail_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:text="Boulet Frites"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:src="@drawable/detail_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detail_title" />
+
+    <ImageView
+        android:id="@+id/allergies_noix"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="105dp"
+        android:src="@drawable/noix_free"
+        app:layout_constraintStart_toStartOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/detail_illustration" />
+
+    <ImageView
+        android:id="@+id/allergies_peanuts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="105dp"
+        android:src="@drawable/peanut_free"
+        app:layout_constraintStart_toEndOf="@+id/allergies_noix"
+        app:layout_constraintTop_toBottomOf="@+id/detail_illustration" />
+
+    <ImageView
+        android:id="@+id/detail_illustration"
+        android:layout_width="370dp"
+        android:layout_height="120dp"
+        android:src="@drawable/detail_illustration"
+        app:layout_constraintEnd_toEndOf="@+id/imageView2"
+        app:layout_constraintStart_toStartOf="@id/imageView2"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+    <TextView
+        android:id="@+id/detail_description"
+        android:layout_width="346dp"
+        android:layout_height="77dp"
+        android:layout_marginTop="16dp"
+        android:text="knrieznrielm,knfpzpznenrnrpuuuuyiuyifuiuifuifuytifyuifyuiftuizrnzpernpzrnzmernzekprezprzprnzprnezprnzirnezrnznkzetnkreztnkzmntrpeznrpznrpeznrpzrniinriiireppinrenpierpinerznipipneripneipreirepipezrezrzerzerezrzezr"
+        android:textColor="@color/darkerGrey"
+        app:layout_constraintEnd_toEndOf="@+id/imageView2"
+        app:layout_constraintStart_toStartOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/detail_illustration" />
+
     <ImageView
         android:id="@+id/detail_nutriment_bg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginBottom="136dp"
+        android:layout_marginTop="22dp"
         android:src="@drawable/detail_nutriment_bg"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <ImageView
         android:id="@+id/sugar"
@@ -31,10 +94,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
-        android:layout_marginBottom="136dp"
+        android:layout_marginTop="22dp"
         android:src="@drawable/detail_nutriment_bg"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/detail_nutriment_bg" />
+        app:layout_constraintStart_toEndOf="@+id/detail_nutriment_bg"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <ImageView
         android:id="@+id/fat"
@@ -50,11 +113,11 @@
         android:id="@+id/detail_nutriment_bg3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
-        android:layout_marginBottom="136dp"
+        android:layout_marginTop="22dp"
         android:src="@drawable/detail_nutriment_bg"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/detail_nutriment_bg2" />
+        app:layout_constraintEnd_toStartOf="@+id/detail_nutriment_bg4"
+        app:layout_constraintStart_toEndOf="@+id/detail_nutriment_bg2"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <ImageView
         android:id="@+id/protein"
@@ -70,11 +133,11 @@
         android:id="@+id/detail_nutriment_bg4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="136dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="32dp"
         android:src="@drawable/detail_nutriment_bg"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <ImageView
         android:id="@+id/cal"
@@ -97,7 +160,7 @@
         app:layout_constraintEnd_toEndOf="@+id/detail_nutriment_bg"
         app:layout_constraintStart_toStartOf="@+id/detail_nutriment_bg"
         app:layout_constraintTop_toBottomOf="@+id/sugar"
-        tools:text="240g" />
+        android:text="240g" />
 
     <TextView
         android:id="@+id/fat_amount"
@@ -110,7 +173,7 @@
         app:layout_constraintEnd_toEndOf="@+id/detail_nutriment_bg2"
         app:layout_constraintStart_toStartOf="@+id/detail_nutriment_bg2"
         app:layout_constraintTop_toBottomOf="@+id/fat"
-        tools:text="110g" />
+        android:text="110g" />
 
     <TextView
         android:id="@+id/protein_amount"
@@ -123,7 +186,7 @@
         app:layout_constraintEnd_toEndOf="@+id/detail_nutriment_bg3"
         app:layout_constraintStart_toStartOf="@+id/detail_nutriment_bg3"
         app:layout_constraintTop_toBottomOf="@+id/protein"
-        tools:text="80g" />
+        android:text="80g" />
 
     <TextView
         android:id="@+id/cal_amount"
@@ -136,7 +199,7 @@
         app:layout_constraintEnd_toEndOf="@+id/detail_nutriment_bg4"
         app:layout_constraintStart_toStartOf="@+id/detail_nutriment_bg4"
         app:layout_constraintTop_toBottomOf="@+id/cal"
-        tools:text="2000Kcal" />
+        android:text="2000Kcal" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

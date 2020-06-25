@@ -54,12 +54,14 @@ class MenuRepasFragment: BaseFragment() {
             }
             override fun onClick(v: View, position: Int, fastAdapter: FastAdapter<MenuItemAdapter>, item: MenuItemAdapter) {
                 Toast.makeText(context, "Clicked on detail: $position", Toast.LENGTH_SHORT).show()
-//                item.menuItemModel.menuIllustration //Int
-//                item.menuItemModel.menuType //String
-//                item.menuItemModel.menuDescription //String
                 fragmentListener?.openDetailFragment()
             }
         })
+
+        fastAdapter.onClickListener = { v, adapter, item, position ->
+            Toast.makeText(context, "TEST", Toast.LENGTH_SHORT).show()
+            true
+        }
 
     }
 

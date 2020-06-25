@@ -31,7 +31,6 @@ class MenuItemAdapter(val menuItemModel: MenuItemModel, override val layoutRes: 
         override fun unbindView(item: MenuItemAdapter) {
             typeMenu.text = null
             descriptionMenu.text = null
-            detail.setOnClickListener(null)
         }
     }
 }
