@@ -2,7 +2,6 @@ package be.technifutur.devmob9.projet_cantinapp_android.view.ui.activities
 
 import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -28,6 +27,7 @@ class MainActivity: AppCompatActivity(), FragmentListener {
     }
 
     private lateinit var toggle: ActionBarDrawerToggle
+    private lateinit var drawerLayout: DrawerLayout
 
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,12 +35,12 @@ class MainActivity: AppCompatActivity(), FragmentListener {
         setContentView(R.layout.activity_main)
         addFragment(MainFragment.getInstance(), R.id.fragment_container)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        drawerLayout = findViewById(R.id.root_layout)
 
-
-        toggle = ActionBarDrawerToggle(this, root_layout, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         toggle.isDrawerIndicatorEnabled = true
         toggle.syncState()
-        root_layout.addDrawerListener(toggle)
+        drawerLayout.addDrawerListener(toggle)
 
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -50,17 +50,19 @@ class MainActivity: AppCompatActivity(), FragmentListener {
     }
 
     override fun onBackPressed() {
-        if(root_layout.isDrawerOpen(GravityCompat.START)){
-            root_layout.closeDrawer(GravityCompat.START)
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START)
         } else {
             super.onBackPressed()
-            supportFragmentManager.popBackStack()
+//            supportFragmentManager.popBackStack()
         }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val mCartItemCount = 1
         menuInflater.inflate(R.menu.toolbar_menu, menu)
+
+
+        val mCartItemCount = 1
         val menuItem = menu?.findItem(R.id.toolbar_cart)
         val actionView = menuItem?.actionView
         val textCart: TextView? = actionView?.findViewById(R.id.cart_badge)
@@ -78,6 +80,19 @@ class MainActivity: AppCompatActivity(), FragmentListener {
             }
         }
 
+        /**
+         * Can only Access [OrdersFragment] if there's an item in the cart
+         */
+
+        menuItem?.setOnMenuItemClickListener {
+            if(mCartItemCount > 0) {
+                replaceFragmentWithBackStack(OrdersFragment.getInstance())
+                true
+            }else {
+                Toast.makeText(this, "You don't have anything in your cart", Toast.LENGTH_SHORT).show()
+                false
+            }
+        }
         return true
     }
 
@@ -107,6 +122,10 @@ class MainActivity: AppCompatActivity(), FragmentListener {
         supportActionBar?.title = title
     }
 
+    override fun openDetailFragment() {
+        replaceFragmentWithBackStack(DetailsFragment.getInstance())
+    }
+
     private fun replaceFragmentMenu(fragment: Fragment, layout: Int = R.id.fragment_container_mainMenu) {
         supportFragmentManager
             .beginTransaction()
@@ -114,7 +133,7 @@ class MainActivity: AppCompatActivity(), FragmentListener {
             .commit()
     }
 
-    private fun replaceWithMoreMenuFragment(fragment: Fragment) {
+    private fun replaceFragmentWithBackStack(fragment: Fragment) {
         supportFragmentManager
             .beginTransaction()
             .addToBackStack(null)
@@ -124,7 +143,7 @@ class MainActivity: AppCompatActivity(), FragmentListener {
 
     private fun mockFragmentImpl(fragment: Fragment){
         Toast.makeText(applicationContext, "Clicked", Toast.LENGTH_SHORT).show()
-        replaceWithMoreMenuFragment(fragment)
+        replaceFragmentWithBackStack(fragment)
         root_layout.closeDrawer(GravityCompat.START)
     }
 

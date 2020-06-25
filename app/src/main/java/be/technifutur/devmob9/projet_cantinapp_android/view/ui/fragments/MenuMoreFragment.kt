@@ -1,5 +1,6 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
+import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.*
@@ -15,7 +16,7 @@ class MenuMoreFragment: BaseFragment() {
     }
 
     override val title: String
-        get() = "Detail"
+        get() = "Not yet implemented"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,6 +30,5 @@ class MenuMoreFragment: BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
         activity?.actionBar?.setDisplayShowTitleEnabled(false)
-
     }
 }
