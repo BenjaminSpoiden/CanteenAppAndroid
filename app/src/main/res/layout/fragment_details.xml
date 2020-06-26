@@ -29,25 +29,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detail_title" />
 
-    <ImageView
-        android:id="@+id/allergies_noix"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="105dp"
-        android:src="@drawable/noix_free"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/detail_illustration" />
-
-    <ImageView
-        android:id="@+id/allergies_peanuts"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="105dp"
-        android:src="@drawable/peanut_free"
-        app:layout_constraintStart_toEndOf="@+id/allergies_noix"
-        app:layout_constraintTop_toBottomOf="@+id/detail_illustration" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/allergies_recyclerview"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintEnd_toEndOf="@+id/detail_description"
+        app:layout_constraintStart_toStartOf="@+id/detail_description"
+        app:layout_constraintTop_toBottomOf="@+id/detail_description" />
 
     <ImageView
         android:id="@+id/detail_illustration"
@@ -74,10 +65,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="12dp"
         android:src="@drawable/detail_nutriment_bg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <ImageView
+        android:id="@+id/red_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/red_amount"
+        app:layout_constraintBottom_toBottomOf="@+id/detail_nutriment_bg"
+        app:layout_constraintEnd_toEndOf="@+id/detail_nutriment_bg"
+        app:layout_constraintStart_toStartOf="@+id/detail_nutriment_bg"
+        app:layout_constraintTop_toTopOf="@+id/detail_nutriment_bg" />
 
     <ImageView
         android:id="@+id/sugar"
@@ -94,10 +95,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="12dp"
         android:src="@drawable/detail_nutriment_bg"
         app:layout_constraintStart_toEndOf="@+id/detail_nutriment_bg"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <ImageView
+        android:id="@+id/orange_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/orange_amount"
+        app:layout_constraintBottom_toBottomOf="@+id/detail_nutriment_bg2"
+        app:layout_constraintEnd_toEndOf="@+id/detail_nutriment_bg2"
+        app:layout_constraintStart_toStartOf="@+id/detail_nutriment_bg2"
+        app:layout_constraintTop_toTopOf="@+id/detail_nutriment_bg2" />
 
     <ImageView
         android:id="@+id/fat"
@@ -113,11 +124,21 @@
         android:id="@+id/detail_nutriment_bg3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="12dp"
         android:src="@drawable/detail_nutriment_bg"
         app:layout_constraintEnd_toStartOf="@+id/detail_nutriment_bg4"
         app:layout_constraintStart_toEndOf="@+id/detail_nutriment_bg2"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <ImageView
+        android:id="@+id/green_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/green_amount"
+        app:layout_constraintBottom_toBottomOf="@+id/detail_nutriment_bg3"
+        app:layout_constraintEnd_toEndOf="@+id/detail_nutriment_bg3"
+        app:layout_constraintStart_toStartOf="@+id/detail_nutriment_bg3"
+        app:layout_constraintTop_toTopOf="@+id/detail_nutriment_bg3" />
 
     <ImageView
         android:id="@+id/protein"
@@ -133,11 +154,21 @@
         android:id="@+id/detail_nutriment_bg4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="32dp"
         android:src="@drawable/detail_nutriment_bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <ImageView
+        android:id="@+id/orange_amount2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/orange_amount2"
+        app:layout_constraintBottom_toBottomOf="@+id/detail_nutriment_bg4"
+        app:layout_constraintEnd_toEndOf="@+id/detail_nutriment_bg4"
+        app:layout_constraintStart_toStartOf="@+id/detail_nutriment_bg4"
+        app:layout_constraintTop_toTopOf="@+id/detail_nutriment_bg4" />
 
     <ImageView
         android:id="@+id/cal"
