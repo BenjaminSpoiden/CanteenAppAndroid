@@ -1,5 +1,6 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.R
+import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.OrdersModel
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.OrdersAdapter
 import com.mikepenz.fastadapter.FastAdapter
@@ -26,6 +28,7 @@ class OrdersFragment : BaseFragment() {
     private lateinit var orderRecyclerView: RecyclerView
     private val itemAdapter = ItemAdapter<OrdersAdapter>()
     private val fastAdapter = FastAdapter.with(itemAdapter)
+    private var listener: FragmentListener? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_orders, container, false)
@@ -36,7 +39,7 @@ class OrdersFragment : BaseFragment() {
         orderRecyclerView = view.findViewById(R.id.order_recyclerview)
 
         payment_checkout_btn.setOnClickListener {
-            Toast.makeText(context, "You clicked on the button", Toast.LENGTH_SHORT).show()
+            listener?.openCheckoutFragment()
         }
     }
 
@@ -47,6 +50,18 @@ class OrdersFragment : BaseFragment() {
             this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
         mockData()
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if(context is FragmentListener){
+            listener = context
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
     }
 
     override fun onStop() {

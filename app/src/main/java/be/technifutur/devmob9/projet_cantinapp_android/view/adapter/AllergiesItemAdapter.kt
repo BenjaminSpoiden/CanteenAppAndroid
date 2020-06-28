@@ -27,7 +27,7 @@ class AllergiesItemAdapter(val allergiesModel: AllergiesModel): AbstractItem<All
         }
 
         override fun unbindView(item: AllergiesItemAdapter) {
-
+            //
         }
     }
 }

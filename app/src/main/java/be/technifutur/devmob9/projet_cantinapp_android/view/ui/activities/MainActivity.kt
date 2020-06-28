@@ -126,6 +126,10 @@ class MainActivity: AppCompatActivity(), FragmentListener {
         replaceFragmentWithBackStack(DetailsFragment.getInstance())
     }
 
+    override fun openCheckoutFragment() {
+        replaceFragmentWithBackStack(CheckoutFragment.getInstance())
+    }
+
     private fun replaceFragmentMenu(fragment: Fragment, layout: Int = R.id.fragment_container_mainMenu) {
         supportFragmentManager
             .beginTransaction()
@@ -163,7 +167,7 @@ class MainActivity: AppCompatActivity(), FragmentListener {
                     mockFragmentImpl(MenuMoreFragment.getInstance())
                 }
                 R.id.activity_main_drawer_allergies -> {
-                    mockFragmentImpl(MenuMoreFragment.getInstance())
+                    mockFragmentImpl(AllergiesInfoFragment.getInstance())
                 }
                 R.id.activity_main_drawer_tos -> {
                     mockFragmentImpl(MenuMoreFragment.getInstance())

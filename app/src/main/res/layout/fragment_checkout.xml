@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/lightGreen">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/payment_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:animateLayoutChanges="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/payment_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Moyen de paiment"
+                android:textColor="@color/darkerGrey"
+                android:textStyle="bold"
+                android:layout_margin="5dp"
+                style="@style/TextAppearance.AppCompat.Title" />
+            <View
+                android:id="@+id/spacer1"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_margin="5dp"
+                android:background="@android:color/darker_gray"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/card_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/payment_bg"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/ic_card_payment_bg"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/payment_card"
+                    app:layout_constraintBottom_toBottomOf="@+id/payment_bg"
+                    app:layout_constraintEnd_toEndOf="@+id/payment_bg"
+                    app:layout_constraintStart_toStartOf="@+id/payment_bg"
+                    app:layout_constraintTop_toTopOf="@+id/payment_bg" />
+
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="VISA ****1234"
+                    android:layout_marginStart="20dp"
+                    android:textColor="@android:color/darker_gray"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/payment_bg"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginEnd="20dp"
+                    android:src="@drawable/payment_visa"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_margin="5dp"
+                android:background="@android:color/darker_gray" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/paypal_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/payment_bg_2"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/ic_card_payment_bg"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/payment_paypal"
+                    app:layout_constraintBottom_toBottomOf="@+id/payment_bg_2"
+                    app:layout_constraintEnd_toEndOf="@+id/payment_bg_2"
+                    app:layout_constraintStart_toStartOf="@+id/payment_bg_2"
+                    app:layout_constraintTop_toTopOf="@+id/payment_bg_2" />
+
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="compte.compte@compte.com"
+                    android:layout_marginStart="20dp"
+                    android:textColor="@android:color/darker_gray"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/payment_bg_2"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_margin="5dp"
+                android:background="@android:color/darker_gray" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/bank_type_payment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp">
+
+                <ImageView
+                    android:id="@+id/payment_bg_3"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/ic_card_payment_bg"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/payment_bank"
+                    app:layout_constraintBottom_toBottomOf="@+id/payment_bg_3"
+                    app:layout_constraintEnd_toEndOf="@+id/payment_bg_3"
+                    app:layout_constraintStart_toStartOf="@+id/payment_bg_3"
+                    app:layout_constraintTop_toTopOf="@+id/payment_bg_3" />
+
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Enregistrer un compte"
+                    android:layout_marginStart="20dp"
+                    android:textColor="@android:color/darker_gray"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/payment_bg_3"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <LinearLayout
+                android:id="@+id/register_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="5dp"
+                android:layout_margin="5dp"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Enregistrer un compte"
+                    android:textColor="@color/darkerGrey"
+                    android:textStyle="bold"
+                    android:layout_margin="5dp"
+                    style="@style/TextAppearance.AppCompat.Title"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_margin="5dp"
+                    android:background="@android:color/darker_gray" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent">
+                    
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="Prenom"
+                        android:background="@android:color/transparent"/>
+                    
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,4 +8,6 @@ interface FragmentListener {
     fun getFragmentTitle(title: String)
 
     fun openDetailFragment()
+
+    fun openCheckoutFragment()
 }
