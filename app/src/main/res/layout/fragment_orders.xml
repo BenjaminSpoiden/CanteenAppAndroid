@@ -114,7 +114,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/payment_checkout_btn"
         android:layout_width="219dp"
-        android:layout_height="39dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/indicator_selected"
         android:text="Procéder au payment"
         android:textSize="12sp"

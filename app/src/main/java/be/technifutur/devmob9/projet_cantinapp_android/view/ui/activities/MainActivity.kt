@@ -54,13 +54,11 @@ class MainActivity: AppCompatActivity(), FragmentListener {
             drawerLayout.closeDrawer(GravityCompat.START)
         } else {
             super.onBackPressed()
-//            supportFragmentManager.popBackStack()
         }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
-
 
         val mCartItemCount = 1
         val menuItem = menu?.findItem(R.id.toolbar_cart)
@@ -145,8 +143,9 @@ class MainActivity: AppCompatActivity(), FragmentListener {
             .commit()
     }
 
-    private fun mockFragmentImpl(fragment: Fragment){
+    private fun drawerFragmentImpl(fragment: Fragment){
         Toast.makeText(applicationContext, "Clicked", Toast.LENGTH_SHORT).show()
+        supportFragmentManager.popBackStack()
         replaceFragmentWithBackStack(fragment)
         root_layout.closeDrawer(GravityCompat.START)
     }
@@ -155,25 +154,25 @@ class MainActivity: AppCompatActivity(), FragmentListener {
         navigationView.setNavigationItemSelectedListener {
             when(it.itemId) {
                 R.id.activity_main_drawer_profile -> {
-                    mockFragmentImpl(MenuMoreFragment.getInstance())
+                    drawerFragmentImpl(AccountFragment.getInstance())
                 }
                 R.id.activity_main_drawer_payment -> {
-                    mockFragmentImpl(PaymentHistory.getInstance())
+                    drawerFragmentImpl(PaymentHistory.getInstance())
                 }
                 R.id.activity_main_drawer_gdpr -> {
-                    mockFragmentImpl(MenuMoreFragment.getInstance())
+                    drawerFragmentImpl(MenuMoreFragment.getInstance())
                 }
                 R.id.activity_main_drawer_contact -> {
-                    mockFragmentImpl(MenuMoreFragment.getInstance())
+                    drawerFragmentImpl(MenuMoreFragment.getInstance())
                 }
                 R.id.activity_main_drawer_allergies -> {
-                    mockFragmentImpl(AllergiesInfoFragment.getInstance())
+                    drawerFragmentImpl(AllergiesInfoFragment.getInstance())
                 }
                 R.id.activity_main_drawer_tos -> {
-                    mockFragmentImpl(MenuMoreFragment.getInstance())
+                    drawerFragmentImpl(MenuMoreFragment.getInstance())
                 }
                 R.id.activity_main_drawer_tutorial -> {
-                    mockFragmentImpl(MenuMoreFragment.getInstance())
+                    // Onboarding
                 }
             }
             true
