@@ -15,6 +15,10 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_1_ORDER
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_2_PAYMENTS
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_3_ALLERGIES
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_4_SETTINGS
 import be.technifutur.devmob9.projet_cantinapp_android.utils.addFragment
 import be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -41,7 +45,6 @@ class MainActivity: AppCompatActivity(), FragmentListener {
         toggle.isDrawerIndicatorEnabled = true
         toggle.syncState()
         drawerLayout.addDrawerListener(toggle)
-
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
@@ -128,6 +131,15 @@ class MainActivity: AppCompatActivity(), FragmentListener {
         replaceFragmentWithBackStack(CheckoutFragment.getInstance())
     }
 
+    override fun onProfileMenuSelection(selectedRowPosition: Int) {
+        when(selectedRowPosition){
+            POSITION_1_ORDER -> replaceFragmentWithBackStack(OrdersFragment.getInstance())
+            POSITION_2_PAYMENTS -> Toast.makeText(this, "Fragment that loads the payment of the day", Toast.LENGTH_SHORT).show()
+            POSITION_3_ALLERGIES -> replaceFragmentWithBackStack(AllergiesSelectionFragment.getInstance())
+            POSITION_4_SETTINGS -> Toast.makeText(this, "Settings Fragment", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     private fun replaceFragmentMenu(fragment: Fragment, layout: Int = R.id.fragment_container_mainMenu) {
         supportFragmentManager
             .beginTransaction()
@@ -143,14 +155,8 @@ class MainActivity: AppCompatActivity(), FragmentListener {
             .commit()
     }
 
-    private fun drawerFragmentImpl(fragment: Fragment){
-        Toast.makeText(applicationContext, "Clicked", Toast.LENGTH_SHORT).show()
-        supportFragmentManager.popBackStack()
-        replaceFragmentWithBackStack(fragment)
-        root_layout.closeDrawer(GravityCompat.START)
-    }
-
     private fun setupBurgerMenuItems(){
+
         navigationView.setNavigationItemSelectedListener {
             when(it.itemId) {
                 R.id.activity_main_drawer_profile -> {
@@ -169,7 +175,7 @@ class MainActivity: AppCompatActivity(), FragmentListener {
                     drawerFragmentImpl(AllergiesInfoFragment.getInstance())
                 }
                 R.id.activity_main_drawer_tos -> {
-                    drawerFragmentImpl(MenuMoreFragment.getInstance())
+                    drawerFragmentImpl(TermsOfServicesFragment.getInstance())
                 }
                 R.id.activity_main_drawer_tutorial -> {
                     // Onboarding
@@ -177,5 +183,11 @@ class MainActivity: AppCompatActivity(), FragmentListener {
             }
             true
         }
+    }
+
+    private fun drawerFragmentImpl(fragment: Fragment){
+        supportFragmentManager.popBackStack()
+        replaceFragmentWithBackStack(fragment)
+        root_layout.closeDrawer(GravityCompat.START)
     }
 }
