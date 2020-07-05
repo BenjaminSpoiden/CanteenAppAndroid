@@ -135,7 +135,7 @@ class MainActivity: AppCompatActivity(), FragmentListener {
         when(selectedRowPosition){
             POSITION_1_ORDER -> replaceFragmentWithBackStack(OrdersFragment.getInstance())
             POSITION_2_PAYMENTS -> Toast.makeText(this, "Fragment that loads the payment of the day", Toast.LENGTH_SHORT).show()
-            POSITION_3_ALLERGIES -> replaceFragmentWithBackStack(AllergiesSelectionFragment.getInstance())
+            POSITION_3_ALLERGIES -> replaceFragmentWithBackStack(AllergiesAccountFragment.getInstance())
             POSITION_4_SETTINGS -> Toast.makeText(this, "Settings Fragment", Toast.LENGTH_SHORT).show()
         }
     }
