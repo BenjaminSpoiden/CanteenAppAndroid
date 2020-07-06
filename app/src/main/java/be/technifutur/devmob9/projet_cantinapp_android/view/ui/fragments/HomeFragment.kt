@@ -33,7 +33,7 @@ class HomeFragment: BaseFragment(), KodeinAware, CalendarListener {
 
     private val manager = CalendarDayManager.getInstance()
     override val kodein by kodein()
-    private val homeFactory: HomeViewModelFactory by instance<HomeViewModelFactory>()
+    private val homeFactory: HomeViewModelFactory by instance()
 
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var calendarRecyclerView: RecyclerView
@@ -64,12 +64,16 @@ class HomeFragment: BaseFragment(), KodeinAware, CalendarListener {
 
     override fun onDetach() {
         super.onDetach()
-        calendarRecyclerView.adapter = null
-        calendarRecyclerView.layoutManager = null
+//        calendarRecyclerView.adapter = null
+//        calendarRecyclerView.layoutManager = null
+        manager.calendarListener = null
     }
 
     override fun onDestroy() {
+        calendarRecyclerView.apply {
+            this.adapter = null
+            this.layoutManager = null
+        }
         super.onDestroy()
-        manager.calendarListener = null
     }
 }

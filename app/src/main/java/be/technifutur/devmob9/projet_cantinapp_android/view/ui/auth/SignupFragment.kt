@@ -24,7 +24,7 @@ import org.kodein.di.generic.instance
 class SignupFragment: Fragment(), AuthListener, KodeinAware {
 
     override val kodein by kodein()
-    private val factory: AuthViewModelFactory by instance<AuthViewModelFactory>()
+    private val factory: AuthViewModelFactory by instance()
     private lateinit var viewModel: AuthViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

@@ -23,10 +23,10 @@ class CalendarDayManager {
     var calendarListener: CalendarListener? = null
 
     init {
-        gettingFirebaseQuery()
+        getFirebaseQuery()
     }
 
-    private fun gettingFirebaseQuery() {
+    private fun getFirebaseQuery() {
         db.collection(COLLECTION_ID).addSnapshotListener(object : EventListener<QuerySnapshot> {
             override fun onEvent(query: QuerySnapshot?, exception: FirebaseFirestoreException?) {
                 if (exception != null) {
@@ -40,6 +40,7 @@ class CalendarDayManager {
                                     calendarListener?.onCalendarReceived(CalendarModel(calendarModel.dayName, calendarModel.dayNumber))
                                 }
                             }
+
                             else -> Log.d(FIREBASE_TAG, "")
                         }
                     }

@@ -14,6 +14,9 @@ object Constants {
     const val POSITION_3_ALLERGIES = 3
     const val POSITION_4_SETTINGS = 4
 
+    const val EMAIL = "email"
+    const val PASSWORD = "password"
+
     val listOfAllergies = listOf(
         R.drawable.ic_gluten,
         R.drawable.ic_celery,

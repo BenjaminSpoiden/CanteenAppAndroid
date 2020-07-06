@@ -156,7 +156,6 @@ class MainActivity: AppCompatActivity(), FragmentListener {
     }
 
     private fun setupBurgerMenuItems(){
-
         navigationView.setNavigationItemSelectedListener {
             when(it.itemId) {
                 R.id.activity_main_drawer_profile -> {

@@ -26,11 +26,7 @@ class AllergiesAccountFragment : BaseFragment() {
     override val title: String
         get() = "Mes Allergies"
 
-
     private lateinit var highTierRecyclerView: RecyclerView
-    private lateinit var mediumTierRecyclerView: RecyclerView
-    private lateinit var lowTierRecyclerView: RecyclerView
-
     private lateinit var allergyDialog: Dialog
 
 //    private val itemAdapter = ItemAdapter<AllergiesSelectionAdapter>()
@@ -39,14 +35,12 @@ class AllergiesAccountFragment : BaseFragment() {
     private val allergyHighTierAdapter = ItemAdapter<AllergyTierHighAdapter>()
     private val allergyHighTierFastAdapter = FastAdapter.with(allergyHighTierAdapter)
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_account_allergies, container, false)
-        return view
+        return inflater.inflate(R.layout.fragment_account_allergies, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,9 +49,6 @@ class AllergiesAccountFragment : BaseFragment() {
         allergyDialog = context?.let { Dialog(it) }!!
 
         highTierRecyclerView = view.findViewById(R.id.high_tier_recyclerView)
-        mediumTierRecyclerView = view.findViewById(R.id.mid_tier_recyclerview)
-        lowTierRecyclerView = view.findViewById(R.id.low_tier_recyclerview)
-
 
         highTierRecyclerView.apply {
             this.adapter = allergyHighTierFastAdapter
@@ -70,8 +61,6 @@ class AllergiesAccountFragment : BaseFragment() {
             allergyDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             allergyDialog.show()
         }
-
-
     }
 
     private fun loadData() {
@@ -87,9 +76,5 @@ class AllergiesAccountFragment : BaseFragment() {
             this.layoutManager = null
         }
         super.onDestroy()
-    }
-
-    private fun hashMapOf(key: String): List<Int>{
-        return emptyList()
     }
 }
