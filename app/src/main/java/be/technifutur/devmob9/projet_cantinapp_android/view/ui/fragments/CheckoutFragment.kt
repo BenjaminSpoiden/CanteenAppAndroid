@@ -15,25 +15,11 @@ class CheckoutFragment: BaseFragment() {
     override val title: String
         get() = "Payment"
 
-    private var isClicked: Boolean = false
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_checkout, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        bank_type_payment.setOnClickListener {
-            TransitionManager.beginDelayedTransition(payment_card_view)
-            if(isClicked) {
-                isClicked = false
-                register_account.visibility = View.VISIBLE
-
-            }else {
-                isClicked = true
-                register_account.visibility = View.GONE
-            }
-        }
     }
 }
