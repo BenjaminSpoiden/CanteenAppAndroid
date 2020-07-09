@@ -42,6 +42,7 @@ class MenuRepasFragment: BaseFragment() {
             this.adapter = fastAdapter
             this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
+
         mockDataItemAdapter()
 
         fastAdapter.addEventHook(object: ClickEventHook<MenuItemAdapter>() {
@@ -82,5 +83,13 @@ class MenuRepasFragment: BaseFragment() {
     override fun onDetach() {
         super.onDetach()
         fragmentListener = null
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        menuRecyclerView.apply {
+            this.adapter = null
+            this.layoutManager = null
+        }
     }
 }

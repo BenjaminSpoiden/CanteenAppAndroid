@@ -26,7 +26,7 @@ import org.kodein.di.generic.instance
 class LoginFragment: Fragment(), AuthListener, KodeinAware {
 
     override val kodein by kodein()
-    private val factory: AuthViewModelFactory by instance<AuthViewModelFactory>()
+    private val factory: AuthViewModelFactory by instance()
     private lateinit var viewModel: AuthViewModel
 
 
@@ -36,7 +36,6 @@ class LoginFragment: Fragment(), AuthListener, KodeinAware {
         val view: View = binding.root
         binding.loginViewModel = viewModel
         viewModel.authListener = this
-
 
         //Allow to check if the user is logged in, if so we directly load the MainMenuFragment
         viewModel.userLoggedIn.observe(viewLifecycleOwner, Observer {

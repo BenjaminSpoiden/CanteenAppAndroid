@@ -1,4 +1,4 @@
-package be.technifutur.devmob9.projet_cantinapp_android.view
+package be.technifutur.devmob9.projet_cantinapp_android.view.ui.custom
 
 import android.util.Log
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.CalendarListener
@@ -14,6 +14,7 @@ import java.lang.Exception
 import java.util.*
 
 class CalendarDayManager {
+
     companion object {
         fun getInstance() =
             CalendarDayManager()
@@ -53,9 +54,16 @@ class CalendarDayManager {
         if(checksIfDateIsGood(date)) {
             calendarList.clear()
             try {
-                val toDateConversion = LocalDate.parse(date, DateTimeFormatter.ofPattern("uuuu-MM-dd", Locale.FRENCH).withResolverStyle(ResolverStyle.STRICT))
+
+                /**
+                 * Regarder pour les traductions des jours en fonction du langage du téléphone
+                 */
+
+                val toDateConversion = LocalDate.parse(date, DateTimeFormatter.ofPattern("uuuu-MM-dd", Locale.ROOT).withResolverStyle(ResolverStyle.STRICT))
 
                 val toDayOfWeekConversion = toDateConversion.dayOfWeek.name
+
+                //TOUT KAKER (optmisation)
                 val toDayNumberConversion = toDateConversion.toString().split("-")
 
                 /**

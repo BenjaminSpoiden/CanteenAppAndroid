@@ -18,6 +18,7 @@ import java.util.*
 import kotlin.collections.HashMap
 
 class FirebaseSource{
+
     private val firebaseAuth: FirebaseAuth by lazy {
         FirebaseAuth.getInstance()
     }
