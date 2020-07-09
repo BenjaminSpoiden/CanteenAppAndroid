@@ -12,4 +12,9 @@
     <color name="pastelGray">#DEDCE0</color>
     <color name="startGradient">#56ab2f</color>
     <color name="endGradient">#a8e063</color>
+    <color name="backgroundAppColor">#EAEAEA</color>
+    <color name="textDayColor">#3E4A3D</color>
+    <color name="darkerGrey">#5C5C5C</color>
+    <color name="spacerColor">#7AD378</color>
+    <color name="slightlyTurquoise">#37BA89</color>
 </resources>

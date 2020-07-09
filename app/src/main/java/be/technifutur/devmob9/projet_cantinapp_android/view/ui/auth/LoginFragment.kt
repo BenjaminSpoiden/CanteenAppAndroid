@@ -14,10 +14,9 @@ import androidx.lifecycle.ViewModelProviders
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.databinding.CredentialsLoginFragmentBinding
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.AuthListener
-import be.technifutur.devmob9.projet_cantinapp_android.utils.ActivityUtils
-import be.technifutur.devmob9.projet_cantinapp_android.utils.ActivityUtils.switchLayoutAnimationKeyboard
 import be.technifutur.devmob9.projet_cantinapp_android.utils.fragmentTransaction
-import be.technifutur.devmob9.projet_cantinapp_android.view.ui.MainMenuFragment
+import be.technifutur.devmob9.projet_cantinapp_android.utils.switchLayoutAnimationKeyboard
+import be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments.HomeFragment
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.AuthViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.AuthViewModelFactory
 import org.kodein.di.KodeinAware
@@ -27,7 +26,7 @@ import org.kodein.di.generic.instance
 class LoginFragment: Fragment(), AuthListener, KodeinAware {
 
     override val kodein by kodein()
-    private val factory: AuthViewModelFactory by instance<AuthViewModelFactory>()
+    private val factory: AuthViewModelFactory by instance()
     private lateinit var viewModel: AuthViewModel
 
 
@@ -38,11 +37,10 @@ class LoginFragment: Fragment(), AuthListener, KodeinAware {
         binding.loginViewModel = viewModel
         viewModel.authListener = this
 
-
         //Allow to check if the user is logged in, if so we directly load the MainMenuFragment
         viewModel.userLoggedIn.observe(viewLifecycleOwner, Observer {
             if(it){
-                fragmentTransaction(MainMenuFragment(), R.id.fragment_container)
+                fragmentTransaction(HomeFragment.getInstance(), R.id.fragment_container)
             }
         })
         val registerButton: Button = view.findViewById(R.id.register_button)
@@ -57,6 +55,8 @@ class LoginFragment: Fragment(), AuthListener, KodeinAware {
         val constraintRoot: MotionLayout = view.findViewById(R.id.sign_in_root)
         switchLayoutAnimationKeyboard(constraintRoot = constraintRoot)
     }
+
+
 
     override fun onStarted() {
         Toast.makeText(context, "Started", Toast.LENGTH_SHORT).show()

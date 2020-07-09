@@ -13,9 +13,9 @@
         android:icon="@drawable/ic_menu_croissant"
         android:title=""/>
 
-    <item
-        android:id="@+id/moreMenuFragment"
-        android:icon="@drawable/ic_more_horiz_black_24dp"
-        android:title=""/>
+<!--    <item-->
+<!--        android:id="@+id/moreMenuFragment"-->
+<!--        android:icon="@drawable/ic_more_horiz_black_24dp"-->
+<!--        android:title=""/>-->
 
 </menu>

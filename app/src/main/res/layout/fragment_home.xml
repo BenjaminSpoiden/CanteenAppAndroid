@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="homeViewModel"
+            type="be.technifutur.devmob9.projet_cantinapp_android.viewmodel.HomeViewModel" />
+    </data>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/root_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/backgroundAppColor">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/calendar_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_margin="10dp"
+                app:spanCount="5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layoutAnimation="@anim/menu_recyclerview_animation"/>
+            <View
+                android:id="@+id/spacer"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:background="@color/spacerColor"
+                android:layout_marginTop="7dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/calendar_recyclerview" />
+
+            <TextView
+                android:id="@+id/dayOfWeek"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MERCREDI"
+                android:textColor="@color/textDayColor"
+                android:textSize="36sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/fragment_container_mainMenu"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spacer" />
+
+<!--            <ImageView-->
+<!--                android:id="@+id/added_item_action_button"-->
+<!--                android:layout_width="42dp"-->
+<!--                android:layout_height="42dp"-->
+<!--                android:layout_marginEnd="26dp"-->
+<!--                android:src="@drawable/ic_shopping_cart_black_24dp"-->
+<!--                app:layout_constraintBottom_toTopOf="@+id/fragment_container_mainMenu"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/spacer" />-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/card_badge"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:src="@drawable/ic_shopping_cart_badge"-->
+<!--                android:layout_marginBottom="24dp"-->
+<!--                android:layout_marginStart="22dp"-->
+<!--                app:layout_constraintBottom_toBottomOf="@+id/added_item_action_button"-->
+<!--                app:layout_constraintStart_toStartOf="@+id/added_item_action_button" />-->
+
+            <FrameLayout
+                android:id="@+id/fragment_container_mainMenu"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="65dp"
+                android:layoutAnimation="@anim/menu_recyclerview_animation"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spacer" />
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -11,7 +11,4 @@ class UserRepository(private val firebaseSource: FirebaseSource) {
 
     fun currentUser() = firebaseSource.currentUser()
     fun logout() = firebaseSource.logout()
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun addDateToDB() = firebaseSource.addDateToDB()
 }
