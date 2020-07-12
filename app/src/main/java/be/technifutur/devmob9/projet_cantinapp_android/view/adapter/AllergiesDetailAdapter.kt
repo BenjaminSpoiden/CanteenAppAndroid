@@ -7,6 +7,10 @@ import be.technifutur.devmob9.projet_cantinapp_android.model.data.AllergiesModel
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.items.AbstractItem
 
+/**
+ * CHANGER ADAPTER EN ITEM
+ */
+
 class AllergiesDetailAdapter(val allergiesModel: AllergiesModel): AbstractItem<AllergiesDetailAdapter.AllergiesDetailVH>() {
 
     override val layoutRes: Int

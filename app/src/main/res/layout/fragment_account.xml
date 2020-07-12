@@ -105,48 +105,48 @@
                 android:layout_marginBottom="10dp"
                 android:background="@color/lightGreen" />
 
-            <RelativeLayout
-                android:id="@+id/my_order_row"
-                android:background="?android:attr/selectableItemBackground"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="20dp"
-                android:orientation="horizontal">
+<!--            <RelativeLayout-->
+<!--                android:id="@+id/my_order_row"-->
+<!--                android:background="?android:attr/selectableItemBackground"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:layout_marginStart="20dp"-->
+<!--                android:layout_marginEnd="20dp"-->
+<!--                android:layout_marginBottom="20dp"-->
+<!--                android:orientation="horizontal">-->
 
-                <ImageView
-                    android:id="@+id/icon_order"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentBottom="true"
-                    android:src="@drawable/ic_shopping_basket_black_24dp" />
+<!--                <ImageView-->
+<!--                    android:id="@+id/icon_order"-->
+<!--                    android:layout_width="24dp"-->
+<!--                    android:layout_height="24dp"-->
+<!--                    android:layout_alignParentTop="true"-->
+<!--                    android:layout_alignParentBottom="true"-->
+<!--                    android:src="@drawable/ic_shopping_basket_black_24dp" />-->
 
-                <com.google.android.material.textview.MaterialTextView
-                    style="@style/TextAppearance.MaterialComponents.Body2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginBottom="0dp"
-                    android:layout_toEndOf="@+id/icon_order"
-                    android:gravity="center"
-                    android:text="Mes Commandes"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold" />
+<!--                <com.google.android.material.textview.MaterialTextView-->
+<!--                    style="@style/TextAppearance.MaterialComponents.Body2"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:layout_alignParentTop="true"-->
+<!--                    android:layout_marginStart="10dp"-->
+<!--                    android:layout_marginTop="0dp"-->
+<!--                    android:layout_marginBottom="0dp"-->
+<!--                    android:layout_toEndOf="@+id/icon_order"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="Mes Commandes"-->
+<!--                    android:textColor="@android:color/black"-->
+<!--                    android:textStyle="bold" />-->
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="0dp"
-                    android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
-                    tools:ignore="PrivateResource" />
-            </RelativeLayout>
+<!--                <ImageView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:layout_alignParentEnd="true"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_marginEnd="0dp"-->
+<!--                    android:src="@drawable/ic_keyboard_arrow_right_black_24dp"-->
+<!--                    tools:ignore="PrivateResource" />-->
+<!--            </RelativeLayout>-->
 
             <RelativeLayout
                 android:id="@+id/my_payment_row"
@@ -156,6 +156,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="20dp"
+                android:layout_marginTop="20sp"
                 android:orientation="horizontal">
 
                 <ImageView

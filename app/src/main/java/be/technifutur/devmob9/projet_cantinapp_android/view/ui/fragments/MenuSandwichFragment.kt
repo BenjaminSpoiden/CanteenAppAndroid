@@ -34,6 +34,11 @@ class MenuSandwichFragment: BaseFragment() {
         return inflater.inflate(R.layout.fragment_menu_sandwich, container, false)
     }
 
+    /**
+     * Faire une sorte d'extension pour centraliser le code qui se ressemble
+     * Potentiel section comme sur iOs
+     */
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         sandwichRecyclerView = view.findViewById(R.id.sandwich_recycler_view)

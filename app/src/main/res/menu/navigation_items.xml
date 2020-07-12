@@ -13,10 +13,6 @@
         <menu>
             <group android:checkableBehavior="single">
                 <item
-                    android:id="@+id/activity_main_drawer_payment"
-                    android:icon="@drawable/ic_credit_card_white_24dp"
-                    android:title="Historique de payment"/>
-                <item
                     android:id="@+id/activity_main_drawer_gdpr"
                     android:icon="@drawable/ic_gdpr"
                     android:title="GDPR"/>

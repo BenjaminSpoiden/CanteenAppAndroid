@@ -4,15 +4,15 @@ import be.technifutur.devmob9.projet_cantinapp_android.R
 
 object Constants {
     const val FIREBASE_TAG = "FirebaseTest"
-    const val COLLECTION_ID: String = "meals"
+    const val COLLECTION_ID: String = "days"
     const val USERS: String = "users"
+
     const val LAYOUT_ID = R.id.recycler_view_item_id
     const val LAYOUT = R.layout.recyclerview_menu_item
 
-    const val POSITION_1_ORDER = 1
-    const val POSITION_2_PAYMENTS = 2
-    const val POSITION_3_ALLERGIES = 3
-    const val POSITION_4_SETTINGS = 4
+    const val POSITION_1_PAYMENTS = 1
+    const val POSITION_2_ALLERGIES = 2
+    const val POSITION_3_SETTINGS = 3
 
     const val EMAIL = "email"
     const val PASSWORD = "password"

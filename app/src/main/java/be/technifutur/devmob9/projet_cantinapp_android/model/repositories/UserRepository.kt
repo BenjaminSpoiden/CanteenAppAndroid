@@ -1,14 +1,12 @@
 package be.technifutur.devmob9.projet_cantinapp_android.model.repositories
 
-import android.os.Build
-import androidx.annotation.RequiresApi
-import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.FirebaseSource
+import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.AuthManager
 
-class UserRepository(private val firebaseSource: FirebaseSource) {
+class UserRepository(private val authManager: AuthManager) {
 
-    fun login(email: String, password: String) = firebaseSource.login(email, password)
-    fun register(email: String, password: String) = firebaseSource.register(email, password)
+    fun login(email: String, password: String) = authManager.login(email, password)
+    fun register(email: String, password: String) = authManager.register(email, password)
 
-    fun currentUser() = firebaseSource.currentUser()
-    fun logout() = firebaseSource.logout()
+    fun currentUser() = authManager.currentUser()
+    fun logout() = authManager.logout()
 }

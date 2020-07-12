@@ -1,7 +1,7 @@
 package be.technifutur.devmob9.projet_cantinapp_android
 
 import android.app.Application
-import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.FirebaseSource
+import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.AuthManager
 import be.technifutur.devmob9.projet_cantinapp_android.model.repositories.UserRepository
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.AuthViewModelFactory
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.HomeViewModelFactory
@@ -19,7 +19,7 @@ class CantinappApplication: Application(), KodeinAware {
 
     override val kodein: Kodein = Kodein.lazy {
         import(androidXModule(this@CantinappApplication))
-        bind() from singleton { FirebaseSource() }
+        bind() from singleton { AuthManager() }
         bind() from singleton { UserRepository(instance()) }
         bind() from provider {
             AuthViewModelFactory(

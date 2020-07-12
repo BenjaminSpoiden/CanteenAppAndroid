@@ -7,10 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
-import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_1_ORDER
-import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_2_PAYMENTS
-import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_3_ALLERGIES
-import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_4_SETTINGS
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_1_PAYMENTS
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_2_ALLERGIES
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_3_SETTINGS
 import kotlinx.android.synthetic.main.fragment_account.*
 
 class AccountFragment: BaseFragment() {
@@ -37,17 +36,14 @@ class AccountFragment: BaseFragment() {
     }
 
     private fun onRowSelected() {
-        my_order_row.setOnClickListener {
-            listener?.onProfileMenuSelection(POSITION_1_ORDER)
-        }
         my_payment_row.setOnClickListener {
-            listener?.onProfileMenuSelection(POSITION_2_PAYMENTS)
+            listener?.onProfileMenuSelection(POSITION_1_PAYMENTS)
         }
         my_allergies_row.setOnClickListener {
-            listener?.onProfileMenuSelection(POSITION_3_ALLERGIES)
+            listener?.onProfileMenuSelection(POSITION_2_ALLERGIES)
         }
         parameters_row.setOnClickListener {
-            listener?.onProfileMenuSelection(POSITION_4_SETTINGS)
+            listener?.onProfileMenuSelection(POSITION_3_SETTINGS)
         }
     }
 
@@ -61,9 +57,5 @@ class AccountFragment: BaseFragment() {
     override fun onDetach() {
         super.onDetach()
         listener = null
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 }

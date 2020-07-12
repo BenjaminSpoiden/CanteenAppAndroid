@@ -131,7 +131,7 @@
                 android:layout_margin="10dp"
                 android:justificationMode="inter_word"
                 android:text="@string/tos_placeholder_1"
-                android:textColor="@android:color/darker_gray"
+                android:textColor="@color/darkerGrey"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
@@ -190,7 +190,7 @@
                 android:layout_margin="10dp"
                 android:justificationMode="inter_word"
                 android:text="@string/tos_placeholder_2"
-                android:textColor="@android:color/darker_gray"
+                android:textColor="@color/darkerGrey"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
@@ -249,7 +249,7 @@
                 android:layout_margin="10dp"
                 android:justificationMode="inter_word"
                 android:text="@string/tos_placeholder_2"
-                android:textColor="@android:color/darker_gray"
+                android:textColor="@color/darkerGrey"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout4" />
@@ -309,7 +309,7 @@
                 android:layout_margin="10dp"
                 android:justificationMode="inter_word"
                 android:text="@string/tos_placeholder_2"
-                android:textColor="@android:color/darker_gray"
+                android:textColor="@color/darkerGrey"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout5" />
@@ -369,7 +369,7 @@
                 android:layout_margin="10dp"
                 android:justificationMode="inter_word"
                 android:text="@string/tos_placeholder_3"
-                android:textColor="@android:color/darker_gray"
+                android:textColor="@color/darkerGrey"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout6" />

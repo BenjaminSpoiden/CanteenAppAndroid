@@ -17,7 +17,7 @@ import org.threeten.bp.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.HashMap
 
-class FirebaseSource{
+class AuthManager{
 
     private val firebaseAuth: FirebaseAuth by lazy {
         FirebaseAuth.getInstance()
@@ -87,8 +87,6 @@ class FirebaseSource{
                 Log.d(Constants.FIREBASE_TAG, "Not successful", it)
             }
     }
-
-
     private fun getDateTime(): String {
         val current = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ROOT)

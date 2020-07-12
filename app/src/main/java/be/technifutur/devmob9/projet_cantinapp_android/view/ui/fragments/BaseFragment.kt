@@ -1,6 +1,9 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
-
+/**
+ * FAIRE COMME TELEGRAM !
+ * VERY IMPORTANT
+ */
 import android.content.Context
 import android.os.Bundle
 import android.view.View
@@ -10,6 +13,7 @@ import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
 
 abstract class BaseFragment: Fragment() {
+
     abstract val title: String
 
     private var listener: FragmentListener? = null

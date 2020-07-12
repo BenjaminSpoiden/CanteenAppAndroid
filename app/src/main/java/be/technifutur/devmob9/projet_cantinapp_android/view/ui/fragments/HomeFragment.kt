@@ -12,7 +12,7 @@ import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.databinding.FragmentHomeBinding
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.CalendarListener
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.CalendarModel
-import be.technifutur.devmob9.projet_cantinapp_android.view.ui.custom.CalendarDayManager
+import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.CalendarDayManager
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.CalendarItemAdapter
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.HomeViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.HomeViewModelFactory
