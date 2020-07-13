@@ -9,8 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.AllergiesModel
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.listOfAllergies
-import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.AllergiesDetailAdapter
-import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.AllergiesItemAdapter
+import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.AllergiesDetailItem
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 
@@ -24,7 +23,7 @@ class AllergiesInfoFragment : BaseFragment() {
         get() = "Allergies"
 
     private lateinit var allergiesRecyclerView: RecyclerView
-    private val itemAdapter = ItemAdapter<AllergiesDetailAdapter>()
+    private val itemAdapter = ItemAdapter<AllergiesDetailItem>()
     private val fastAdapter = FastAdapter.with(itemAdapter)
 
 
@@ -50,7 +49,7 @@ class AllergiesInfoFragment : BaseFragment() {
 
     private fun setupMockAllergies() {
         listOfAllergies.forEach {
-            itemAdapter.add(AllergiesDetailAdapter(AllergiesModel(it)))
+            itemAdapter.add(AllergiesDetailItem(AllergiesModel(it)))
         }
         fastAdapter.notifyAdapterDataSetChanged()
     }

@@ -9,7 +9,7 @@ import be.technifutur.devmob9.projet_cantinapp_android.model.data.OrdersModel
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.items.AbstractItem
 
-class OrdersAdapter(val ordersModel: OrdersModel): AbstractItem<OrdersAdapter.OrdersViewHolder>(){
+class OrdersItem(val ordersModel: OrdersModel): AbstractItem<OrdersItem.OrdersViewHolder>(){
 
     override val layoutRes: Int
         get() = R.layout.recyclerview_order_item
@@ -19,7 +19,7 @@ class OrdersAdapter(val ordersModel: OrdersModel): AbstractItem<OrdersAdapter.Or
     override fun getViewHolder(v: View): OrdersViewHolder = OrdersViewHolder(v)
 
 
-    inner class OrdersViewHolder(v: View): FastAdapter.ViewHolder<OrdersAdapter>(v) {
+    inner class OrdersViewHolder(v: View): FastAdapter.ViewHolder<OrdersItem>(v) {
         private val orderIllustration: ImageView = v.findViewById(R.id.order_illustration)
         private val orderName: TextView = v.findViewById(R.id.order_name)
         private val orderPrice: TextView = v.findViewById(R.id.order_price)
@@ -28,7 +28,7 @@ class OrdersAdapter(val ordersModel: OrdersModel): AbstractItem<OrdersAdapter.Or
 
 
         @SuppressLint("SetTextI18n")
-        override fun bindView(item: OrdersAdapter, payloads: List<Any>) {
+        override fun bindView(item: OrdersItem, payloads: List<Any>) {
             orderIllustration.setImageResource(R.drawable.menu_illustration)
             orderName.text = item.ordersModel.orderName
             orderPrice.text = "${item.ordersModel.orderPrice},00 €"
@@ -36,7 +36,7 @@ class OrdersAdapter(val ordersModel: OrdersModel): AbstractItem<OrdersAdapter.Or
             orderNumberOfItems.text = item.ordersModel.orderNumberOfItems.toString()
         }
 
-        override fun unbindView(item: OrdersAdapter) {
+        override fun unbindView(item: OrdersItem) {
             orderName.text = null
             orderPrice.text = null
             orderKCal.text = null

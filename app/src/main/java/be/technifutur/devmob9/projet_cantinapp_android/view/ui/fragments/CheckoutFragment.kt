@@ -1,27 +1,27 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
-import android.app.AlertDialog
-import android.content.Context
-import android.content.DialogInterface
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import be.technifutur.devmob9.projet_cantinapp_android.R
-import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
 import be.technifutur.devmob9.projet_cantinapp_android.utils.closeKeyboard
+import kotlinx.android.synthetic.main.custom_dialog_allergies.*
 import kotlinx.android.synthetic.main.fragment_checkout.*
 
 class CheckoutFragment: BaseFragment() {
+
     companion object {
         fun getInstance() = CheckoutFragment()
     }
     override val title: String
         get() = "Payment"
 
+    private lateinit var allergyDialog: Dialog
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_checkout, container, false)
@@ -29,18 +29,36 @@ class CheckoutFragment: BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         closeKeyboard(view)
 
+        allergyDialog = context?.let { Dialog(it) }!!
+
+        customAlertDialog()
+    }
+
+    private fun customAlertDialog() {
+
         checkout_cart_holder.setOnClickListener {
-            AlertDialog.Builder(context)
-                .setTitle("Ceci est un titre")
-                .setMessage("Ceci est un message")
-                .setPositiveButton("OK") { dialog, which ->
-                    Toast.makeText(context, "Clicked on OK", Toast.LENGTH_SHORT).show()
-                    dialog.cancel()
-                }
-                .show()
+            allergyDialog.setContentView(R.layout.custom_dialog_allergies)
+            allergyDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+            allergyDialog.card_payment.setOnClickListener {
+                Toast.makeText(context, "Test", Toast.LENGTH_SHORT).show()
+                allergyDialog.dismiss()
+            }
+            allergyDialog.card_delete.setOnClickListener {
+                Toast.makeText(context, "Test", Toast.LENGTH_SHORT).show()
+                allergyDialog.dismiss()
+            }
+            allergyDialog.card_frozen.setOnClickListener {
+                Toast.makeText(context, "Test", Toast.LENGTH_SHORT).show()
+                allergyDialog.dismiss()
+            }
+            allergyDialog.card_show.setOnClickListener {
+                Toast.makeText(context, "Test", Toast.LENGTH_SHORT).show()
+                allergyDialog.dismiss()
+            }
+            allergyDialog.show()
         }
     }
 }

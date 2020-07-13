@@ -13,7 +13,7 @@ import be.technifutur.devmob9.projet_cantinapp_android.databinding.FragmentHomeB
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.CalendarListener
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.CalendarModel
 import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.CalendarDayManager
-import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.CalendarItemAdapter
+import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.CalendarItem
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.HomeViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.HomeViewModelFactory
 import com.mikepenz.fastadapter.FastAdapter
@@ -37,7 +37,7 @@ class HomeFragment: BaseFragment(), KodeinAware, CalendarListener {
 
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var calendarRecyclerView: RecyclerView
-    private val itemAdapter = ItemAdapter<CalendarItemAdapter>()
+    private val itemAdapter = ItemAdapter<CalendarItem>()
     private val fastAdapter = FastAdapter.with(itemAdapter)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -58,7 +58,7 @@ class HomeFragment: BaseFragment(), KodeinAware, CalendarListener {
     }
 
     override fun onCalendarReceived(calendarModel: CalendarModel) {
-        itemAdapter.add(CalendarItemAdapter(calendarModel))
+        itemAdapter.add(CalendarItem(calendarModel))
         fastAdapter.notifyAdapterDataSetChanged()
     }
 

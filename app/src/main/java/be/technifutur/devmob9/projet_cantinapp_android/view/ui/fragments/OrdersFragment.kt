@@ -5,14 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.OrdersModel
-import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.OrdersAdapter
+import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.OrdersItem
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import kotlinx.android.synthetic.main.fragment_orders.*
@@ -26,7 +24,7 @@ class OrdersFragment : BaseFragment() {
         get() = "Panier"
 
     private lateinit var orderRecyclerView: RecyclerView
-    private val itemAdapter = ItemAdapter<OrdersAdapter>()
+    private val itemAdapter = ItemAdapter<OrdersItem>()
     private val fastAdapter = FastAdapter.with(itemAdapter)
     private var listener: FragmentListener? = null
 
@@ -74,7 +72,7 @@ class OrdersFragment : BaseFragment() {
 
     private fun mockData(){
         for(i in 0..10) {
-            itemAdapter.add(OrdersAdapter(OrdersModel(null, "Boulet Frite", 4, "2000 Kcal", 0)))
+            itemAdapter.add(OrdersItem(OrdersModel(null, "Boulet Frite", 4, "2000 Kcal", 0)))
         }
         fastAdapter.notifyAdapterDataSetChanged()
     }

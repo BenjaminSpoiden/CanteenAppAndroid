@@ -3,11 +3,10 @@ package be.technifutur.devmob9.projet_cantinapp_android.view.adapter
 import android.view.View
 import android.widget.ImageView
 import be.technifutur.devmob9.projet_cantinapp_android.R
-import com.google.android.material.card.MaterialCardView
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.items.AbstractItem
 
-class AllergiesSelectionAdapter(val illustration: Int): AbstractItem<AllergiesSelectionAdapter.AllergiesSelectionVH>() {
+class AllergiesSelectionItem(val illustration: Int): AbstractItem<AllergiesSelectionItem.AllergiesSelectionVH>() {
 
     override val layoutRes: Int
         get() = R.layout.recyclerview_allergies_selection
@@ -19,15 +18,15 @@ class AllergiesSelectionAdapter(val illustration: Int): AbstractItem<AllergiesSe
         return AllergiesSelectionVH(v)
     }
 
-    inner class AllergiesSelectionVH(v: View): FastAdapter.ViewHolder<AllergiesSelectionAdapter>(v) {
+    inner class AllergiesSelectionVH(v: View): FastAdapter.ViewHolder<AllergiesSelectionItem>(v) {
 
         private val allergiesSelectionImage: ImageView = v.findViewById(R.id.rv_allergies_selection_image)
 
-        override fun bindView(item: AllergiesSelectionAdapter, payloads: List<Any>) {
+        override fun bindView(item: AllergiesSelectionItem, payloads: List<Any>) {
             allergiesSelectionImage.setImageResource(item.illustration)
         }
 
-        override fun unbindView(item: AllergiesSelectionAdapter) {
+        override fun unbindView(item: AllergiesSelectionItem) {
 
         }
     }

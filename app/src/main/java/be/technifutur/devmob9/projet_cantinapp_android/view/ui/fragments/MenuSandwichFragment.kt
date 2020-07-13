@@ -5,18 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.MenuItemModel
-import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.MenuItemAdapter
-import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.SandwichItemAdapter
+import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.SandwichItem
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.listeners.ClickEventHook
-import com.mikepenz.fastadapter.listeners.EventHook
 
 class MenuSandwichFragment: BaseFragment() {
     companion object {
@@ -26,7 +23,7 @@ class MenuSandwichFragment: BaseFragment() {
         get() = "Sandwich"
 
     private lateinit var sandwichRecyclerView: RecyclerView
-    private val itemAdapter = ItemAdapter<SandwichItemAdapter>()
+    private val itemAdapter = ItemAdapter<SandwichItem>()
     private val fastAdapter = FastAdapter.with(itemAdapter)
     private var fragmentListener: FragmentListener? = null
 
@@ -48,16 +45,16 @@ class MenuSandwichFragment: BaseFragment() {
         }
         mockDataItemAdapter()
 
-        fastAdapter.addEventHook(object: ClickEventHook<SandwichItemAdapter>() {
+        fastAdapter.addEventHook(object: ClickEventHook<SandwichItem>() {
             override fun onBind(viewHolder: RecyclerView.ViewHolder): View? {
-                return if(viewHolder is SandwichItemAdapter.ViewHolder){
+                return if(viewHolder is SandwichItem.ViewHolder){
                     viewHolder.detail
                 }else {
                     null
                 }
             }
 
-            override fun onClick(v: View, position: Int, fastAdapter: FastAdapter<SandwichItemAdapter>, item: SandwichItemAdapter) {
+            override fun onClick(v: View, position: Int, fastAdapter: FastAdapter<SandwichItem>, item: SandwichItem) {
                 fragmentListener?.openDetailFragment()
             }
         })
@@ -79,12 +76,12 @@ class MenuSandwichFragment: BaseFragment() {
     }
 
     private fun mockDataItemAdapter() {
-        itemAdapter.add(SandwichItemAdapter(MenuItemModel("DAGOBERT", getString(R.string.sandwich_desc), R.drawable.sandwich_illustration)))
-        itemAdapter.add(SandwichItemAdapter(MenuItemModel("THON", getString(R.string.sandwich_desc), R.drawable.sandwich_illustration)))
-        itemAdapter.add(SandwichItemAdapter(MenuItemModel("JAMBOM FROMAGE", getString(R.string.sandwich_desc), R.drawable.sandwich_illustration)))
-        itemAdapter.add(SandwichItemAdapter(MenuItemModel("DAGOBERT", getString(R.string.sandwich_desc), R.drawable.sandwich_illustration)))
-        itemAdapter.add(SandwichItemAdapter(MenuItemModel("THON", getString(R.string.sandwich_desc), R.drawable.sandwich_illustration)))
-        itemAdapter.add(SandwichItemAdapter(MenuItemModel("JAMBOM FROMAGE", getString(R.string.sandwich_desc), R.drawable.sandwich_illustration)))
+        itemAdapter.add(SandwichItem(MenuItemModel("DAGOBERT", getString(R.string.sandwich_desc), R.drawable.sandwich_illustration)))
+        itemAdapter.add(SandwichItem(MenuItemModel("THON", getString(R.string.sandwich_desc), R.drawable.sandwich_illustration)))
+        itemAdapter.add(SandwichItem(MenuItemModel("JAMBOM FROMAGE", getString(R.string.sandwich_desc), R.drawable.sandwich_illustration)))
+        itemAdapter.add(SandwichItem(MenuItemModel("DAGOBERT", getString(R.string.sandwich_desc), R.drawable.sandwich_illustration)))
+        itemAdapter.add(SandwichItem(MenuItemModel("THON", getString(R.string.sandwich_desc), R.drawable.sandwich_illustration)))
+        itemAdapter.add(SandwichItem(MenuItemModel("JAMBOM FROMAGE", getString(R.string.sandwich_desc), R.drawable.sandwich_illustration)))
         fastAdapter.notifyAdapterDataSetChanged()
     }
 }

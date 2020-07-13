@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.OnboardingData
-import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.OnboardingAdapter
+import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.OnboardingItem
 import be.technifutur.devmob9.projet_cantinapp_android.view.ui.Animations
 import com.arindicatorview.ARIndicatorView
 import kotlinx.android.synthetic.main.activity_onboarding.*
@@ -29,7 +29,7 @@ class OnboardingActivity : AppCompatActivity() {
         val bottomLayout = bottom_layout_onboarding.findViewById<RelativeLayout>(R.id.bottom_layout_onboarding)
         val skipButton = findViewById<Button>(R.id.skip_button)
 
-        val onboardingAdapter = OnboardingAdapter(items, this)
+        val onboardingAdapter = OnboardingItem(items, this)
         recyclerViewOnboarding.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         recyclerViewOnboarding.adapter = onboardingAdapter
         val arIndicatorView: ARIndicatorView = findViewById(R.id.indicator_recyclerview)

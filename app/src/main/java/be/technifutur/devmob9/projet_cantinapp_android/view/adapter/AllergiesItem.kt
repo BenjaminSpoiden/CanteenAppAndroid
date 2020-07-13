@@ -7,7 +7,7 @@ import be.technifutur.devmob9.projet_cantinapp_android.model.data.AllergiesModel
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.items.AbstractItem
 
-class AllergiesItemAdapter(val allergiesModel: AllergiesModel): AbstractItem<AllergiesItemAdapter.AllergiesViewHolder>() {
+class AllergiesItem(val allergiesModel: AllergiesModel): AbstractItem<AllergiesItem.AllergiesViewHolder>() {
 
     override val layoutRes: Int
         get() = R.layout.recyclerview_allergies_item
@@ -18,15 +18,15 @@ class AllergiesItemAdapter(val allergiesModel: AllergiesModel): AbstractItem<All
 
     override fun getViewHolder(v: View): AllergiesViewHolder = AllergiesViewHolder(v)
 
-    inner class AllergiesViewHolder(v: View): FastAdapter.ViewHolder<AllergiesItemAdapter>(v) {
+    inner class AllergiesViewHolder(v: View): FastAdapter.ViewHolder<AllergiesItem>(v) {
 
         private val allergyIllustration: ImageView = v.findViewById(R.id.allergy_image_item)
 
-        override fun bindView(item: AllergiesItemAdapter, payloads: List<Any>) {
+        override fun bindView(item: AllergiesItem, payloads: List<Any>) {
             allergyIllustration.setImageResource(item.allergiesModel.allergyIllustration)
         }
 
-        override fun unbindView(item: AllergiesItemAdapter) {
+        override fun unbindView(item: AllergiesItem) {
             //
         }
     }
