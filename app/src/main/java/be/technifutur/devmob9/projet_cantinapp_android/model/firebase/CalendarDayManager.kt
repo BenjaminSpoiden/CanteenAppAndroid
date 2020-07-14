@@ -1,4 +1,4 @@
-package be.technifutur.devmob9.projet_cantinapp_android.view.ui.custom
+package be.technifutur.devmob9.projet_cantinapp_android.model.firebase
 
 import android.util.Log
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.CalendarListener
@@ -19,6 +19,7 @@ class CalendarDayManager {
         fun getInstance() =
             CalendarDayManager()
     }
+
     private val db = FirebaseFirestore.getInstance()
     private val calendarList = ArrayList<CalendarModel>()
     var calendarListener: CalendarListener? = null

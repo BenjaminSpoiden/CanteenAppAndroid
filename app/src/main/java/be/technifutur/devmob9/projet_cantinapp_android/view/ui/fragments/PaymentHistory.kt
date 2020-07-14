@@ -4,13 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.PaymentHistoriqueModel
-import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.PaymentHistoriqueAdapter
+import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.PaymentHistoriqueItem
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 
@@ -24,7 +23,7 @@ class PaymentHistory : BaseFragment() {
         get() = "Historique de Payment"
 
     private lateinit var recyclerView: RecyclerView
-    private val itemAdapter = ItemAdapter<PaymentHistoriqueAdapter>()
+    private val itemAdapter = ItemAdapter<PaymentHistoriqueItem>()
     private val fastAdapter = FastAdapter.with(itemAdapter)
 
     override fun onCreateView(
@@ -52,7 +51,7 @@ class PaymentHistory : BaseFragment() {
 
     private fun mockData(){
         for (i in 0..20){
-            itemAdapter.add(PaymentHistoriqueAdapter(PaymentHistoriqueModel("8 Septembre", "Boulet Frite, Salade, Dessert", "VISA", "8,40€")))
+            itemAdapter.add(PaymentHistoriqueItem(PaymentHistoriqueModel("8 Septembre", "Boulet Frite, Salade, Dessert", "VISA", "8,40€")))
         }
         fastAdapter.notifyAdapterDataSetChanged()
     }

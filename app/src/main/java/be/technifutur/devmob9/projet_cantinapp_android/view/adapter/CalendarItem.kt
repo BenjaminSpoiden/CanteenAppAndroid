@@ -4,11 +4,10 @@ import android.view.View
 import android.widget.TextView
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.CalendarModel
-import com.facebook.shimmer.ShimmerFrameLayout
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.items.AbstractItem
 
-class CalendarItemAdapter(val calendarModel: CalendarModel): AbstractItem<CalendarItemAdapter.CalendarViwHolder>() {
+class CalendarItem(val calendarModel: CalendarModel): AbstractItem<CalendarItem.CalendarViwHolder>() {
 
     override val layoutRes: Int
         get() = R.layout.calendar_item
@@ -20,16 +19,16 @@ class CalendarItemAdapter(val calendarModel: CalendarModel): AbstractItem<Calend
         return CalendarViwHolder(v)
     }
 
-    inner class CalendarViwHolder(view: View): FastAdapter.ViewHolder<CalendarItemAdapter>(view) {
+    inner class CalendarViwHolder(view: View): FastAdapter.ViewHolder<CalendarItem>(view) {
         private val calendarDayName = view.findViewById<TextView>(R.id.day_tv)
         private val calendarDayNumber = view.findViewById<TextView>(R.id.day_number_tv)
 
-        override fun bindView(item: CalendarItemAdapter, payloads: List<Any>) {
+        override fun bindView(item: CalendarItem, payloads: List<Any>) {
             calendarDayName.text = item.calendarModel.dayName
             calendarDayNumber.text = item.calendarModel.dayNumber
         }
 
-        override fun unbindView(item: CalendarItemAdapter) {
+        override fun unbindView(item: CalendarItem) {
             calendarDayName.text = null
             calendarDayNumber.text = null
         }

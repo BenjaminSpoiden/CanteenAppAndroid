@@ -8,7 +8,7 @@ import be.technifutur.devmob9.projet_cantinapp_android.model.data.MenuItemModel
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.items.AbstractItem
 
-class CroissantItemAdapter(val menuItemModel: MenuItemModel): AbstractItem<CroissantItemAdapter.CroissantViewHolder>() {
+class CroissantItem(val menuItemModel: MenuItemModel): AbstractItem<CroissantItem.CroissantViewHolder>() {
 
     override val layoutRes: Int
         get() = R.layout.recyclerview_croissant_item
@@ -17,19 +17,19 @@ class CroissantItemAdapter(val menuItemModel: MenuItemModel): AbstractItem<Crois
 
     override fun getViewHolder(v: View): CroissantViewHolder = CroissantViewHolder(v)
 
-    inner class CroissantViewHolder(v: View): FastAdapter.ViewHolder<CroissantItemAdapter>(v){
+    inner class CroissantViewHolder(v: View): FastAdapter.ViewHolder<CroissantItem>(v){
         private val typeMenu: TextView = itemView.findViewById(R.id.type_croissant)
         private val descriptionMenu: TextView = itemView.findViewById(R.id.croissant_description)
         private val illustrationMenu: ImageView = itemView.findViewById(R.id.croissant_illustration)
         val detail: ImageView = itemView.findViewById(R.id.croissant_detail_btn)
 
-        override fun bindView(item: CroissantItemAdapter, payloads: List<Any>) {
+        override fun bindView(item: CroissantItem, payloads: List<Any>) {
             typeMenu.text = item.menuItemModel.menuType
             descriptionMenu.text = item.menuItemModel.menuDescription
             item.menuItemModel.menuIllustration?.let { illustrationMenu.setImageResource(it) }
         }
 
-        override fun unbindView(item: CroissantItemAdapter) {
+        override fun unbindView(item: CroissantItem) {
             typeMenu.text = null
             descriptionMenu.text = null
         }

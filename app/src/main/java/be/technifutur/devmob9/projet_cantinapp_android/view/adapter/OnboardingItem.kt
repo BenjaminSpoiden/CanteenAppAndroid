@@ -11,7 +11,7 @@ import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.OnboardingData
 import kotlinx.android.synthetic.main.onboarding_view_item.view.*
 
-class OnboardingAdapter(private val items: List<OnboardingData>, private val context: Context): RecyclerView.Adapter<OnboardingAdapter.CustomViewHolder>() {
+class OnboardingItem(private val items: List<OnboardingData>, private val context: Context): RecyclerView.Adapter<OnboardingItem.CustomViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {

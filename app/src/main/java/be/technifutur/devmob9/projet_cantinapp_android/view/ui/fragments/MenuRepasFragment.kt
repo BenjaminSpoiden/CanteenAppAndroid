@@ -13,12 +13,13 @@ import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListen
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.MenuItemModel
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.LAYOUT
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.LAYOUT_ID
-import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.MenuItemAdapter
+import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.MenuItem
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.listeners.ClickEventHook
 
 class MenuRepasFragment: BaseFragment() {
+
     companion object {
         fun getInstance() = MenuRepasFragment()
     }
@@ -27,7 +28,7 @@ class MenuRepasFragment: BaseFragment() {
         get() = "Menu"
 
     private lateinit var menuRecyclerView: RecyclerView
-    private val itemAdapter = ItemAdapter<MenuItemAdapter>()
+    private val itemAdapter = ItemAdapter<MenuItem>()
     private val fastAdapter = FastAdapter.with(itemAdapter)
     private var fragmentListener: FragmentListener? = null
 
@@ -45,15 +46,15 @@ class MenuRepasFragment: BaseFragment() {
 
         mockDataItemAdapter()
 
-        fastAdapter.addEventHook(object: ClickEventHook<MenuItemAdapter>() {
+        fastAdapter.addEventHook(object: ClickEventHook<MenuItem>() {
             override fun onBind(viewHolder: RecyclerView.ViewHolder): View? {
-                return if(viewHolder is MenuItemAdapter.MenuItemViewHolder) {
+                return if(viewHolder is MenuItem.MenuItemViewHolder) {
                     viewHolder.detail
                 } else {
                     null
                 }
             }
-            override fun onClick(v: View, position: Int, fastAdapter: FastAdapter<MenuItemAdapter>, item: MenuItemAdapter) {
+            override fun onClick(v: View, position: Int, fastAdapter: FastAdapter<MenuItem>, item: MenuItem) {
                 Toast.makeText(context, "Clicked on detail: $position", Toast.LENGTH_SHORT).show()
                 fragmentListener?.openDetailFragment()
             }
@@ -67,9 +68,9 @@ class MenuRepasFragment: BaseFragment() {
     }
 
     private fun mockDataItemAdapter(layout: Int = LAYOUT, layoutID: Int = LAYOUT_ID) {
-        itemAdapter.add(MenuItemAdapter(MenuItemModel("ENTREE", getString(R.string.mock_desc), R.drawable.menu_illustration), layout, layoutID))
-        itemAdapter.add(MenuItemAdapter(MenuItemModel("PLAT", getString(R.string.mock_desc), R.drawable.menu_illustration), layout, layoutID))
-        itemAdapter.add(MenuItemAdapter(MenuItemModel("DESSERT", getString(R.string.mock_desc), R.drawable.menu_illustration), layout, layoutID))
+        itemAdapter.add(MenuItem(MenuItemModel("ENTREE", getString(R.string.mock_desc), R.drawable.menu_illustration), layout, layoutID))
+        itemAdapter.add(MenuItem(MenuItemModel("PLAT", getString(R.string.mock_desc), R.drawable.menu_illustration), layout, layoutID))
+        itemAdapter.add(MenuItem(MenuItemModel("DESSERT", getString(R.string.mock_desc), R.drawable.menu_illustration), layout, layoutID))
     }
 
 

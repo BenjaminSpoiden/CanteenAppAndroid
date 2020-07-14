@@ -15,10 +15,9 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
-import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_1_ORDER
-import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_2_PAYMENTS
-import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_3_ALLERGIES
-import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_4_SETTINGS
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_1_PAYMENTS
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_2_ALLERGIES
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_3_SETTINGS
 import be.technifutur.devmob9.projet_cantinapp_android.utils.addFragment
 import be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -133,10 +132,9 @@ class MainActivity: AppCompatActivity(), FragmentListener {
 
     override fun onProfileMenuSelection(selectedRowPosition: Int) {
         when(selectedRowPosition){
-            POSITION_1_ORDER -> replaceFragmentWithBackStack(OrdersFragment.getInstance())
-            POSITION_2_PAYMENTS -> Toast.makeText(this, "Fragment that loads the payment of the day", Toast.LENGTH_SHORT).show()
-            POSITION_3_ALLERGIES -> replaceFragmentWithBackStack(AllergiesAccountFragment.getInstance())
-            POSITION_4_SETTINGS -> Toast.makeText(this, "Settings Fragment", Toast.LENGTH_SHORT).show()
+            POSITION_1_PAYMENTS -> replaceFragmentWithBackStack(PaymentHistory.getInstance())
+            POSITION_2_ALLERGIES -> replaceFragmentWithBackStack(AllergiesAccountFragment.getInstance())
+            POSITION_3_SETTINGS -> Toast.makeText(this, "Settings Fragment", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -160,9 +158,6 @@ class MainActivity: AppCompatActivity(), FragmentListener {
             when(it.itemId) {
                 R.id.activity_main_drawer_profile -> {
                     drawerFragmentImpl(AccountFragment.getInstance())
-                }
-                R.id.activity_main_drawer_payment -> {
-                    drawerFragmentImpl(PaymentHistory.getInstance())
                 }
                 R.id.activity_main_drawer_gdpr -> {
                     drawerFragmentImpl(MenuMoreFragment.getInstance())

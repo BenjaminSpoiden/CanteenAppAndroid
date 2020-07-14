@@ -11,8 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.MenuItemModel
-import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.CroissantItemAdapter
-import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.MenuItemAdapter
+import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.CroissantItem
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.listeners.ClickEventHook
@@ -26,7 +25,7 @@ class MenuCroissantFragment: BaseFragment() {
         get() = "Croissant"
 
     private lateinit var croissantRecyclerView: RecyclerView
-    private val itemAdapter = ItemAdapter<CroissantItemAdapter>()
+    private val itemAdapter = ItemAdapter<CroissantItem>()
     private val fastAdapter = FastAdapter.with(itemAdapter)
     private var fragmentListener: FragmentListener? = null
 
@@ -48,9 +47,9 @@ class MenuCroissantFragment: BaseFragment() {
         }
         mockDataItemAdapter()
 
-        fastAdapter.addEventHook(object: ClickEventHook<CroissantItemAdapter>() {
+        fastAdapter.addEventHook(object: ClickEventHook<CroissantItem>() {
             override fun onBind(viewHolder: RecyclerView.ViewHolder): View? {
-                return if(viewHolder is CroissantItemAdapter.CroissantViewHolder) {
+                return if(viewHolder is CroissantItem.CroissantViewHolder) {
                     viewHolder.detail
                 } else {
                     null
@@ -59,8 +58,8 @@ class MenuCroissantFragment: BaseFragment() {
             override fun onClick(
                 v: View,
                 position: Int,
-                fastAdapter: FastAdapter<CroissantItemAdapter>,
-                item: CroissantItemAdapter
+                fastAdapter: FastAdapter<CroissantItem>,
+                item: CroissantItem
             ) {
                 Toast.makeText(context, "Clicked on detail: $position", Toast.LENGTH_SHORT).show()
                 fragmentListener?.openDetailFragment()
@@ -84,7 +83,7 @@ class MenuCroissantFragment: BaseFragment() {
 
     private fun mockDataItemAdapter() {
         for (i in 1..10) {
-            itemAdapter.add(CroissantItemAdapter(MenuItemModel("CROISSANT", getString(R.string.croissant_desc), R.drawable.sandwich_illustration)))
+            itemAdapter.add(CroissantItem(MenuItemModel("CROISSANT", getString(R.string.croissant_desc), R.drawable.sandwich_illustration)))
         }
         fastAdapter.notifyAdapterDataSetChanged()
     }

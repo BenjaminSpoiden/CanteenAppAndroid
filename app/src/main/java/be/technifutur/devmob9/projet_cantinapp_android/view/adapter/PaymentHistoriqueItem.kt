@@ -8,7 +8,7 @@ import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.items.AbstractItem
 
 
-class PaymentHistoriqueAdapter(val paymentHistoriqueModel: PaymentHistoriqueModel): AbstractItem<PaymentHistoriqueAdapter.PaymentHistoriqueViewHolder>(){
+class PaymentHistoriqueItem(val paymentHistoriqueModel: PaymentHistoriqueModel): AbstractItem<PaymentHistoriqueItem.PaymentHistoriqueViewHolder>(){
 
     override val layoutRes: Int
         get() = R.layout.recyclerview_payment_historique_item
@@ -19,21 +19,21 @@ class PaymentHistoriqueAdapter(val paymentHistoriqueModel: PaymentHistoriqueMode
     override fun getViewHolder(v: View): PaymentHistoriqueViewHolder = PaymentHistoriqueViewHolder(v)
 
 
-    inner class PaymentHistoriqueViewHolder(itemView: View): FastAdapter.ViewHolder<PaymentHistoriqueAdapter>(itemView) {
+    inner class PaymentHistoriqueViewHolder(itemView: View): FastAdapter.ViewHolder<PaymentHistoriqueItem>(itemView) {
 
         val day: TextView = itemView.findViewById(R.id.day)
         val orderDetail: TextView = itemView.findViewById(R.id.commande_detail)
         val typeOfPayment: TextView = itemView.findViewById(R.id.type_of_payment)
         val price: TextView = itemView.findViewById(R.id.price)
 
-        override fun bindView(item: PaymentHistoriqueAdapter, payloads: List<Any>) {
+        override fun bindView(item: PaymentHistoriqueItem, payloads: List<Any>) {
             day.text = item.paymentHistoriqueModel.day
             orderDetail.text = item.paymentHistoriqueModel.orderDetail
             typeOfPayment.text = item.paymentHistoriqueModel.typeOfPayment
             price.text = item.paymentHistoriqueModel.price
         }
 
-        override fun unbindView(item: PaymentHistoriqueAdapter) {
+        override fun unbindView(item: PaymentHistoriqueItem) {
             day.text = null
             orderDetail.text = null
             typeOfPayment.text = null

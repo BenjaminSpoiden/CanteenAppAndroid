@@ -1,5 +1,9 @@
 package be.technifutur.devmob9.projet_cantinapp_android.utils
+
+import android.content.Context
 import android.graphics.Rect
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.constraintlayout.motion.widget.MotionLayout
 
 fun switchLayoutAnimationKeyboard(constraintRoot: MotionLayout){
@@ -17,6 +21,15 @@ fun switchLayoutAnimationKeyboard(constraintRoot: MotionLayout){
             constraintRoot.transitionToEnd()
         }else{
             constraintRoot.transitionToStart()
+        }
+    }
+}
+
+fun closeKeyboard(view: View) {
+    view.setOnClickListener {
+        it.apply {
+            val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+            imm?.hideSoftInputFromWindow(this.windowToken, 0)
         }
     }
 }
