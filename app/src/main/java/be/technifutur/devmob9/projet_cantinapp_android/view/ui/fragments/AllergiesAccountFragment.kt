@@ -51,6 +51,7 @@ class AllergiesAccountFragment : BaseFragment() {
     }
 
     private fun loadData() {
+
         listOfAllergies.forEach {
             allergyHighTierAdapter.add(AllergyTierHighItem(it))
         }
