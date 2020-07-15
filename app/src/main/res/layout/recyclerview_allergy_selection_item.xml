@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:id="@+id/recyclerview_allergy_selection_item_id"
+    android:orientation="vertical"
+    android:foreground="?android:attr/selectableItemBackground">
+
+    <ImageView
+        android:id="@+id/allergy_selection_item_illustration"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/ic_gluten"/>
+
+    <TextView
+        android:id="@+id/allergy_selection_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/lightGreen"
+        android:text="Gluten"
+        android:layout_marginTop="5dp"
+        style="@style/TextAppearance.AppCompat.Body2"
+        android:textSize="16sp"
+        android:layout_gravity="center"
+        android:textStyle="bold|italic" />
+</LinearLayout>

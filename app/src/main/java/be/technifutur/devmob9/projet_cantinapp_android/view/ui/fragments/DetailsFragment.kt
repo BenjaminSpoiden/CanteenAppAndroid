@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.AllergiesModel
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.listOfAllergies
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.AllergiesItem
 import be.technifutur.devmob9.projet_cantinapp_android.view.ui.custom.AllergiesSnackBar
 import com.mikepenz.fastadapter.FastAdapter
@@ -66,18 +67,8 @@ class DetailsFragment: BaseFragment() {
         }
     }
     private fun setupMockAllergies() {
-        itemAdapter.add(AllergiesItem(AllergiesModel(R.drawable.ic_gluten)))
-        itemAdapter.add(AllergiesItem(AllergiesModel(R.drawable.ic_celery)))
-        itemAdapter.add(AllergiesItem(AllergiesModel(R.drawable.ic_almond)))
-        itemAdapter.add(AllergiesItem(AllergiesModel(R.drawable.ic_crustaceans)))
-        itemAdapter.add(AllergiesItem(AllergiesModel(R.drawable.ic_egg)))
-        itemAdapter.add(AllergiesItem(AllergiesModel(R.drawable.ic_fish)))
-        itemAdapter.add(AllergiesItem(AllergiesModel(R.drawable.ic_lupin)))
-        itemAdapter.add(AllergiesItem(AllergiesModel(R.drawable.ic_milk)))
-        itemAdapter.add(AllergiesItem(AllergiesModel(R.drawable.ic_mollusc)))
-        itemAdapter.add(AllergiesItem(AllergiesModel(R.drawable.ic_mustard)))
-        itemAdapter.add(AllergiesItem(AllergiesModel(R.drawable.ic_sesame)))
-        itemAdapter.add(AllergiesItem(AllergiesModel(R.drawable.ic_soybean)))
-        itemAdapter.add(AllergiesItem(AllergiesModel(R.drawable.ic_sulfide)))
+        listOfAllergies.forEach {
+            itemAdapter.add(AllergiesItem(AllergiesModel(it)))
+        }
     }
 }
