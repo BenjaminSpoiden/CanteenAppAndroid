@@ -60,7 +60,7 @@ class MenuRepasFragment: BaseFragment() {
             }
         })
 
-        fastAdapter.onClickListener = { v, adapter, item, position ->
+        fastAdapter.onClickListener = { v, _, _, _ ->
             Toast.makeText(context, "TEST", Toast.LENGTH_SHORT).show()
             true
         }

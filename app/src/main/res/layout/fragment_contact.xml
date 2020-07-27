@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="contactViewModel"
+            type="be.technifutur.devmob9.projet_cantinapp_android.viewmodel.ContactPageViewModel" />
+    </data>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@color/lightGreen"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:elevation="1dp"/>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/materialCardView9"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                app:cardCornerRadius="120dp"
+                app:layout_constraintBottom_toBottomOf="@+id/view3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/logo_contact"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:src="@drawable/logo_transparent"
+                    app:layout_constraintBottom_toBottomOf="@+id/view3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/person_contact"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_marginStart="10dp"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.48"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="Service à contacter"
+                app:boxBackgroundMode="outline"
+                app:endIconMode="dropdown_menu"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view3">
+
+                <AutoCompleteTextView
+                    android:id="@+id/person_contact_dropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@={contactViewModel.serviceToContact}"
+                    android:editable="false"
+                    android:inputType="none"
+                    android:maxLines="1" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/type_contact"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
+                android:hint="Objet"
+                app:boxBackgroundMode="outline"
+                app:endIconMode="dropdown_menu"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/person_contact"
+                app:layout_constraintTop_toBottomOf="@+id/view3"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.45">
+
+                <AutoCompleteTextView
+                    android:id="@+id/type_contact_dropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@={contactViewModel.objectContact}"
+                    android:editable="false"
+                    android:maxLines="1" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/command_contact"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="Numéro de commande (Optionnel)"
+                app:boxBackgroundMode="outline"
+                app:endIconMode="dropdown_menu"
+                app:layout_constraintEnd_toEndOf="@+id/type_contact"
+                app:layout_constraintStart_toStartOf="@+id/person_contact"
+                app:layout_constraintTop_toBottomOf="@+id/type_contact">
+
+                <AutoCompleteTextView
+                    android:id="@+id/command_contact_dropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:editable="false"
+                    android:maxLines="1" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/contact_message"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="Corps du message"
+                app:boxBackgroundMode="outline"
+                app:counterEnabled="true"
+                app:counterMaxLength="200"
+                app:layout_constraintEnd_toEndOf="@+id/command_contact"
+                app:layout_constraintStart_toStartOf="@+id/command_contact"
+                app:layout_constraintTop_toBottomOf="@+id/command_contact">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:text="@={contactViewModel.message}"
+                    android:layout_height="match_parent" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/receipt_contact"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:checked="@={contactViewModel.isCheckboxChecked}"
+                android:text="Envoyez une copie du message à votre adresse e-mail"
+                app:layout_constraintEnd_toEndOf="@+id/contact_message"
+                app:layout_constraintStart_toStartOf="@+id/contact_message"
+                app:layout_constraintTop_toBottomOf="@+id/contact_message" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/add_file_contact"
+                android:onClick="@{() -> contactViewModel.onClickChoosingFile()}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Joindre un fichier"
+                app:layout_constraintStart_toStartOf="@+id/receipt_contact"
+                app:layout_constraintTop_toBottomOf="@+id/receipt_contact" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/joined_file_contact"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Document Choisi (Optionnel)"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                app:boxBackgroundMode="outline"
+                app:layout_constraintBottom_toBottomOf="@+id/add_file_contact"
+                app:layout_constraintEnd_toEndOf="@+id/receipt_contact"
+                app:layout_constraintStart_toEndOf="@+id/add_file_contact"
+                app:layout_constraintTop_toTopOf="@+id/add_file_contact">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@{contactViewModel.chosenFile}"
+                    android:textColor="@android:color/black"
+                    android:editable="false"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/contact_send_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Envoyer"
+                app:icon="@drawable/ic_send_black_24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/add_file_contact" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>
+
+
+

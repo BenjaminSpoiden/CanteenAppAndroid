@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,6 +13,8 @@ import be.technifutur.devmob9.projet_cantinapp_android.model.data.PaymentHistori
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.PaymentHistoriqueItem
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
+import com.mikepenz.fastadapter.listeners.ClickEventHook
+import kotlinx.android.synthetic.main.recyclerview_payment_historique_item.*
 
 class PaymentHistory : BaseFragment() {
 
@@ -42,6 +45,24 @@ class PaymentHistory : BaseFragment() {
             this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             this.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
         }
+
+        fastAdapter.addEventHook(object: ClickEventHook<PaymentHistoriqueItem>() {
+            override fun onBind(viewHolder: RecyclerView.ViewHolder): View? {
+                return if(viewHolder is PaymentHistoriqueItem.PaymentHistoriqueViewHolder) {
+                    viewHolder.downloadPayment
+                }else {
+                    null
+                }
+            }
+            override fun onClick(
+                v: View,
+                position: Int,
+                fastAdapter: FastAdapter<PaymentHistoriqueItem>,
+                item: PaymentHistoriqueItem
+            ) {
+                Toast.makeText(context, "Clicked on download: $position", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     override fun onStart() {

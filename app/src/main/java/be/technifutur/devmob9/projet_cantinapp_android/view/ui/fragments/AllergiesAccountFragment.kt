@@ -4,7 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.core.view.isEmpty
+import androidx.core.view.isVisible
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +19,7 @@ import be.technifutur.devmob9.projet_cantinapp_android.model.data.AllergiesSelec
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.hashMapOfAllergies
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.AllergySelectedItem
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.AllergySelectionItem
+import be.technifutur.devmob9.projet_cantinapp_android.view.ui.custom.AllergiesSnackBar
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import kotlinx.android.synthetic.main.fragment_account_allergies.*
@@ -35,6 +42,7 @@ class AllergiesAccountFragment : BaseFragment() {
     private val allergySelectedItemAdapter = ItemAdapter<AllergySelectedItem>()
     private val allergySelectedFastAdapter = FastAdapter.with(allergySelectedItemAdapter)
 
+    private val selectedAllergiesHashMap = HashMap<String, Int>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,12 +71,15 @@ class AllergiesAccountFragment : BaseFragment() {
             this.layoutManager = setLinearLayout(LinearLayoutManager.HORIZONTAL)
         }
 
-        allergySelectionFastAdapter.onClickListener = { v, adapter, item, position ->
-            val allergiesHashmap = HashMap<String, Int>()
-            allergiesHashmap[item.allergySelectionName] = item.allergySelectionIllustration
-            allergySelectedItemAdapter.add(AllergySelectedItem(AllergiesSelectedModel(allergiesHashmap)))
+        allergySelectionFastAdapter.onClickListener = { _, _, item, position ->
+            selectedAllergiesHashMap[item.allergySelectionName] = item.allergySelectionIllustration
+            allergySelectedItemAdapter.add(AllergySelectedItem(item.allergySelectionName, item.allergySelectionIllustration))
+            allergySelectionItemAdapter.remove(position)
+            allergySelectionFastAdapter.notifyAdapterDataSetChanged()
             allergySelectedFastAdapter.notifyAdapterDataSetChanged()
+
             isRecyclerViewSelectedEmpty(false)
+
             true
         }
     }

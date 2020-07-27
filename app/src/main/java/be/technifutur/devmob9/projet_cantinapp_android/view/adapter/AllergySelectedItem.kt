@@ -8,7 +8,7 @@ import be.technifutur.devmob9.projet_cantinapp_android.model.data.AllergiesSelec
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.items.AbstractItem
 
-class AllergySelectedItem(val allergiesSelectedModel: AllergiesSelectedModel): AbstractItem<AllergySelectedItem.AllergiesSelectionVH>() {
+class AllergySelectedItem(val allergySelectionName: String, val allergySelectionIllustration: Int): AbstractItem<AllergySelectedItem.AllergiesSelectionVH>() {
 
     override val layoutRes: Int
         get() = R.layout.recyclerview_allergy_selected_item
@@ -26,10 +26,8 @@ class AllergySelectedItem(val allergiesSelectedModel: AllergiesSelectedModel): A
         private val allergySelectedImage: ImageView = v.findViewById(R.id.allergy_selected_item_illustration)
 
         override fun bindView(item: AllergySelectedItem, payloads: List<Any>) {
-            item.allergiesSelectedModel.allergySelectedItems.forEach {
-                allergySelectedName.text = it.key
-                allergySelectedImage.setImageResource(it.value)
-            }
+            allergySelectedName.text = item.allergySelectionName
+            allergySelectedImage.setImageResource(item.allergySelectionIllustration)
         }
 
         override fun unbindView(item: AllergySelectedItem) {

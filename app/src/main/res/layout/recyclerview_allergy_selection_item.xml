@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
@@ -13,17 +14,34 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginTop="5dp"
-        android:src="@drawable/ic_gluten"/>
+        android:src="@drawable/ic_gluten"
+        app:layout_constraintBottom_toTopOf="@+id/allergy_selection_item_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/allergies_selection_check"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="@drawable/check"
+        android:layout_margin="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/allergy_selection_item_name"
+        style="@style/TextAppearance.AppCompat.Body2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/lightGreen"
+        android:layout_margin="10dp"
         android:text="Gluten"
-        android:layout_marginTop="5dp"
-        style="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="@color/lightGreen"
         android:textSize="16sp"
-        android:layout_gravity="center"
-        android:textStyle="bold|italic" />
-</LinearLayout>
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/allergy_selection_item_illustration" />
+</androidx.constraintlayout.widget.ConstraintLayout>

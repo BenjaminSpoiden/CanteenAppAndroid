@@ -62,7 +62,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Veuillez choisir une ou plusieurs allergies"
+                android:padding="20dp"
+                android:text="Appuyez sur le ou les allergène(s) pour les ajouter à la liste"
                 android:textColor="@color/lightGreen"
                 android:textStyle="italic|bold"
                 android:visibility="visible"
@@ -145,6 +146,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/materialCardView7" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

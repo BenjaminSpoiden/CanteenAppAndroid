@@ -163,7 +163,7 @@ class MainActivity: AppCompatActivity(), FragmentListener {
                     drawerFragmentImpl(MenuMoreFragment.getInstance())
                 }
                 R.id.activity_main_drawer_contact -> {
-                    drawerFragmentImpl(MenuMoreFragment.getInstance())
+                    drawerFragmentImpl(ContactFragment.getInstance())
                 }
                 R.id.activity_main_drawer_allergies -> {
                     drawerFragmentImpl(AllergiesInfoFragment.getInstance())
