@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.databinding.FragmentContactBinding
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.ContactPageViewModel
@@ -23,7 +24,9 @@ class ContactFragment: BaseFragment(), KodeinAware {
 
     override val kodein by kodein()
     private val contactPageVMFactory: ContactPageVMFactory by instance()
+
     private lateinit var contactPageViewModel: ContactPageViewModel
+
     companion object {
         fun getInstance() = ContactFragment()
     }
@@ -31,11 +34,9 @@ class ContactFragment: BaseFragment(), KodeinAware {
     override val title: String
         get() = "Contact"
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = DataBindingUtil.inflate<FragmentContactBinding>(inflater, R.layout.fragment_contact, container, false)
         contactPageViewModel = ViewModelProvider(this, contactPageVMFactory).get(ContactPageViewModel::class.java)
-
         val view = binding.root
         binding.contactViewModel = contactPageViewModel
         return view
@@ -74,7 +75,6 @@ class ContactFragment: BaseFragment(), KodeinAware {
         contactPageViewModel.isCheckboxChecked.observe(viewLifecycleOwner, Observer {
             Toast.makeText(requireContext(), "$it", Toast.LENGTH_SHORT).show()
         })
-
     }
 
     private fun settingUpArrayAdapter(list: List<String>, autoCompleteTextView: AutoCompleteTextView) {
@@ -86,5 +86,4 @@ class ContactFragment: BaseFragment(), KodeinAware {
             autoCompleteTextView.setAdapter(it)
         }
     }
-
 }

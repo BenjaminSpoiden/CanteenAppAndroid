@@ -6,7 +6,6 @@ import be.technifutur.devmob9.projet_cantinapp_android.model.repositories.Contac
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.ContactPageViewModel
 
 class ContactPageVMFactory(private val contactPageRepository: ContactPageRepository): ViewModelProvider.NewInstanceFactory() {
-
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return ContactPageViewModel(contactPageRepository) as T

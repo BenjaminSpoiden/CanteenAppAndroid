@@ -8,60 +8,71 @@
     android:paddingBottom="10dp"
     android:id="@+id/recycler_view_item_id">
 
-    <ImageView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/menu_bg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/menu_bg"
+        app:cardBackgroundColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:cardCornerRadius="5dp">
 
-    <ImageView
-        android:id="@+id/menu_illustration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/menu_illustration"
-        app:layout_constraintTop_toTopOf="@id/menu_bg"
-        app:layout_constraintStart_toStartOf="@id/menu_bg"
-        app:layout_constraintEnd_toEndOf="@id/menu_bg"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/menu_detail_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_menu_detail_button"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="7dp"
-        android:padding="10dp"
-        app:layout_constraintTop_toTopOf="@id/menu_illustration"
-        app:layout_constraintEnd_toEndOf="@id/menu_illustration"/>
+            <ImageView
+                android:id="@+id/menu_illustration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/menu_illustration"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-    <TextView
-        android:id="@+id/type_menu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ENTREE"
-        android:textStyle="bold"
-        android:textSize="24sp"
-        android:textColor="@android:color/black"
-        app:layout_constraintTop_toBottomOf="@id/menu_illustration"
-        app:layout_constraintStart_toStartOf="@id/menu_illustration"
-        android:layout_marginStart="10dp"/>
-    <TextView
-        android:id="@+id/menu_description"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:textSize="12sp"
-        android:textColor="@color/darkerGrey"
-        android:text="kzenkeznrezkf nzk fezngrzpignzorpnfopnezrntrongsdkgpfgnfpipfdg,fdppfdgnfdpngfpdfpgnfidpgnfdipgnpdfgnfpdignpdfgnfdpingfidpgnffiezniezngezonf"
-        android:justificationMode="inter_word"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintTop_toBottomOf="@id/type_menu"
-        app:layout_constraintEnd_toEndOf="@id/menu_illustration"
-        app:layout_constraintStart_toStartOf="@id/menu_illustration"
-        app:layout_constraintBottom_toBottomOf="@id/menu_bg"/>
+            <ImageView
+                android:id="@+id/menu_detail_button"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:padding="10dp"
+                android:src="@drawable/info_btn"
+                app:layout_constraintStart_toEndOf="@+id/type_menu"
+                app:layout_constraintTop_toBottomOf="@+id/menu_illustration" />
+
+            <TextView
+                android:id="@+id/type_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ENTREE"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:textColor="@android:color/black"
+                app:layout_constraintTop_toBottomOf="@id/menu_illustration"
+                app:layout_constraintStart_toStartOf="@id/menu_illustration"
+                android:layout_marginStart="10dp"/>
+
+            <TextView
+                android:id="@+id/menu_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:justificationMode="inter_word"
+                android:text="kzenkeznrezkf nzk fezngrzpignzorpnfopnezrntrongsdkgpfgnfpipfdg,fdppfdgnfdpngfpdfpgnfidpgnfdipgnpdfgnfpdignpdfgnfdpingfidpgnffiezniezngezonf"
+                android:textColor="@color/darkTurquoise"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/menu_illustration"
+                app:layout_constraintTop_toBottomOf="@+id/type_menu" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

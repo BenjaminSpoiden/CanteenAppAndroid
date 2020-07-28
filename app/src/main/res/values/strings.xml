@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Projet-Cantinapp-Android</string>
     <string name="toolbar_name">%s</string>
-    <string name="mock_desc">kzenrezkfnzkfezngrzpignzorpnfopnezrntrongsdkgpfgnfpipfdg,fdppfdgnfdpngfpdfpgnfidpgnfdipgnpdfgnfpdignpdfgnfdpingfidpgnffiezniezngezonfdddkdskksdbfjkdbfkdsfbdkkdsfbldsfnlsdnfdlsd</string>
+    <string name="mock_desc">Soupe de Cyprine sur son nid de giclette</string>
     <string name="sandwich_desc">Delicieux sandwich fait avec amour qui mettra vos sens en plein eveil</string>
     <string name="croissant_desc">Lorem ipsum Lorem ipsum</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
