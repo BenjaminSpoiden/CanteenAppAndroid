@@ -9,9 +9,12 @@ import be.technifutur.devmob9.projet_cantinapp_android.R
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.custom_snackbar.view.*
 
+
+@Deprecated("OBSOLETE")
 class AllergiesSnackBar{
     companion object {
         @SuppressLint("InflateParams")
+        @Deprecated("OBSOLETE")
         fun make(view: View, illustration: Int, text: String, listener: View.OnClickListener?): Snackbar {
             val snackbar = Snackbar.make(view, "", Snackbar.LENGTH_LONG)
             val customView = LayoutInflater.from(view.context).inflate(R.layout.custom_snackbar, null)

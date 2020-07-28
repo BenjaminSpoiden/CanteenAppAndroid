@@ -1,6 +1,7 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.adapter
 
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.PaymentHistoriqueModel
@@ -21,10 +22,12 @@ class PaymentHistoriqueItem(val paymentHistoriqueModel: PaymentHistoriqueModel):
 
     inner class PaymentHistoriqueViewHolder(itemView: View): FastAdapter.ViewHolder<PaymentHistoriqueItem>(itemView) {
 
-        val day: TextView = itemView.findViewById(R.id.day)
-        val orderDetail: TextView = itemView.findViewById(R.id.commande_detail)
-        val typeOfPayment: TextView = itemView.findViewById(R.id.type_of_payment)
-        val price: TextView = itemView.findViewById(R.id.price)
+        private val day: TextView = itemView.findViewById(R.id.day)
+        private val orderDetail: TextView = itemView.findViewById(R.id.commande_detail)
+        private val typeOfPayment: TextView = itemView.findViewById(R.id.type_of_payment)
+        private val price: TextView = itemView.findViewById(R.id.price)
+
+        val downloadPayment: ImageView = itemView.findViewById(R.id.download_btn)
 
         override fun bindView(item: PaymentHistoriqueItem, payloads: List<Any>) {
             day.text = item.paymentHistoriqueModel.day

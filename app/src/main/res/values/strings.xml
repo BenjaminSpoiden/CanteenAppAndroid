@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Projet-Cantinapp-Android</string>
     <string name="toolbar_name">%s</string>
-    <string name="mock_desc">kzenrezkfnzkfezngrzpignzorpnfopnezrntrongsdkgpfgnfpipfdg,fdppfdgnfdpngfpdfpgnfidpgnfdipgnpdfgnfpdignpdfgnfdpingfidpgnffiezniezngezonfdddkdskksdbfjkdbfkdsfbdkkdsfbldsfnlsdnfdlsd</string>
+    <string name="mock_desc">Soupe de Cyprine sur son nid de giclette</string>
     <string name="sandwich_desc">Delicieux sandwich fait avec amour qui mettra vos sens en plein eveil</string>
     <string name="croissant_desc">Lorem ipsum Lorem ipsum</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -25,4 +25,5 @@ Some states do not allow the exclusion of implied warranties or limitation of li
     <string name="tos_placeholder_3">We reserve the right, at Our sole discretion, to modify or replace these Terms at any time. If a revision is material We will make reasonable efforts to provide at least 30 days\' notice prior to any new terms taking effect. What constitutes a material change will be determined at Our sole discretion.
 
 By continuing to access or use Our Service after those revisions become effective, You agree to be bound by the revised terms. If You do not agree to the new terms, in whole or in part, please stop using the website and the Service.</string>
+
 </resources>

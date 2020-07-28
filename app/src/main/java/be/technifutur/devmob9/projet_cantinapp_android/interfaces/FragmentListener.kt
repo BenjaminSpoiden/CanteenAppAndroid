@@ -9,6 +9,5 @@ interface FragmentListener {
 
     fun openCheckoutFragment()
 
-
     fun onProfileMenuSelection(selectedRowPosition: Int)
 }

@@ -2,8 +2,11 @@ package be.technifutur.devmob9.projet_cantinapp_android
 
 import android.app.Application
 import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.AuthManager
+import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.ContactPageManager
+import be.technifutur.devmob9.projet_cantinapp_android.model.repositories.ContactPageRepository
 import be.technifutur.devmob9.projet_cantinapp_android.model.repositories.UserRepository
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.AuthViewModelFactory
+import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.ContactPageVMFactory
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.HomeViewModelFactory
 import com.google.firebase.iid.FirebaseInstanceId
 import com.jakewharton.threetenabp.AndroidThreeTen
@@ -20,7 +23,9 @@ class CantinappApplication: Application(), KodeinAware {
     override val kodein: Kodein = Kodein.lazy {
         import(androidXModule(this@CantinappApplication))
         bind() from singleton { AuthManager() }
+        bind() from singleton { ContactPageManager() }
         bind() from singleton { UserRepository(instance()) }
+        bind() from singleton { ContactPageRepository(instance()) }
         bind() from provider {
             AuthViewModelFactory(
                 instance()
@@ -28,6 +33,10 @@ class CantinappApplication: Application(), KodeinAware {
         }
         bind() from provider {
             HomeViewModelFactory(instance())
+        }
+
+        bind() from provider {
+            ContactPageVMFactory(instance())
         }
     }
 
