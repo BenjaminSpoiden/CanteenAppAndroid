@@ -72,7 +72,7 @@ class OrdersFragment : BaseFragment() {
 
     private fun mockData(){
         for(i in 0..10) {
-            itemAdapter.add(OrdersItem(OrdersModel(null, "Boulet Frite", 4, "2000 Kcal", 0)))
+            itemAdapter.add(OrdersItem(OrdersModel(null, "Boulet Frite", 4, 0)))
         }
         fastAdapter.notifyAdapterDataSetChanged()
     }

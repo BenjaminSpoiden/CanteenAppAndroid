@@ -2,102 +2,145 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:paddingBottom="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="5dp"
+    android:layout_marginTop="5dp"
     android:layout_gravity="center|top"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/order_items_id">
 
-    <ImageView
-        android:id="@+id/order_bg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/orders_bg"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/order_item_card"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageView
-        android:id="@+id/order_illustration"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="15dp"
-        android:scaleType="centerCrop"
-        android:layout_marginBottom="32dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:src="@drawable/menu_illustration" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp">
 
-    <TextView
-        android:id="@+id/order_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="28dp"
-        android:textColor="@android:color/black"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/order_illustration"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Boulet Frites" />
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/order_illustration_card"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="15dp"
+                app:cardCornerRadius="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/order_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="0dp"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/order_illustration"
-        app:layout_constraintTop_toBottomOf="@+id/order_name"
-        tools:text="Prix: 8,40€" />
+                <ImageView
+                    android:id="@+id/order_illustration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/menu_illustration" />
 
-    <TextView
-        android:id="@+id/order_kcal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
-        android:layout_marginStart="5dp"
-        android:textColor="@android:color/black"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/order_illustration"
-        tools:text="2000 Kcal" />
+            </com.google.android.material.card.MaterialCardView>
 
-    <ImageView
-        android:id="@+id/order_plus"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:layout_marginTop="34dp"
-        android:layout_marginEnd="24dp"
-        android:src="@drawable/plus"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/order_minus"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="36dp"
-        android:src="@drawable/minus"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/order_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/black"
-        android:textStyle="bold"
-        android:layout_marginEnd="28dp"
-        app:layout_constraintBottom_toTopOf="@+id/order_minus"
-        app:layout_constraintEnd_toEndOf="@+id/order_bg"
-        app:layout_constraintTop_toBottomOf="@+id/order_plus"
-        tools:text="1" />
+            <TextView
+                android:id="@+id/order_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="20dp"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/order_illustration_card"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Boulet Frites" />
+
+            <TextView
+                android:id="@+id/order_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="25dp"
+                android:textColor="@color/darkTurquoise"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/order_illustration_card"
+                app:layout_constraintTop_toBottomOf="@id/order_name"
+                tools:text="8,40€" />
+
+<!--            <TextView-->
+<!--                android:id="@+id/order_kcal"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="40dp"-->
+<!--                android:layout_marginStart="5dp"-->
+<!--                android:textColor="@android:color/black"-->
+<!--                android:textSize="12sp"-->
+<!--                android:textStyle="bold"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/order_illustration"-->
+<!--                tools:text="2000 Kcal" />-->
+
+            <ImageView
+                android:id="@+id/order_plus"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginTop="27dp"
+                android:layout_marginEnd="24dp"
+                android:src="@drawable/plus"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/order_minus"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="26dp"
+                android:src="@drawable/minus"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+
+            <EditText
+                android:id="@+id/order_number"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginEnd="21dp"
+                android:background="@drawable/rounded_corner"
+                android:text="1"
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+
+<!--            <TextView-->
+<!--                android:id="@+id/order_number"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textColor="@android:color/black"-->
+<!--                android:textStyle="bold"-->
+<!--                android:layout_marginEnd="28dp"-->
+<!--                android:layout_marginBottom="2dp"-->
+<!--                app:layout_constraintBottom_toTopOf="@id/order_minus"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/order_plus"-->
+<!--                tools:text="1" />-->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,14 +16,11 @@ import be.technifutur.devmob9.projet_cantinapp_android.interfaces.ItemSelectedLi
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.MenuItemModel
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.LAYOUT
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.LAYOUT_ID
-import be.technifutur.devmob9.projet_cantinapp_android.utils.fragmentTransaction
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.MenuItem
-import be.technifutur.devmob9.projet_cantinapp_android.view.ui.custom.AddingItemFragment
 import com.google.android.material.card.MaterialCardView
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.listeners.ClickEventHook
-import kotlinx.android.synthetic.main.fragment_menu_repas.*
 
 class MenuRepasFragment: BaseFragment(){
 
@@ -41,7 +38,7 @@ class MenuRepasFragment: BaseFragment(){
     private var fragmentListener: FragmentListener? = null
     private var itemSelectedListener: ItemSelectedListener? = null
 
-    private val getInstanceAddingItemFragment = AddingItemFragment.getInstance()
+//    private val getInstanceAddingItemFragment = AddingItemFragment.getInstance()
 
     private var isSelected: Boolean = false
 
@@ -51,7 +48,7 @@ class MenuRepasFragment: BaseFragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fragmentTransaction(getInstanceAddingItemFragment, R.id.display_selected_item_fragment)
+//        fragmentTransaction(getInstanceAddingItemFragment, R.id.display_selected_item_fragment)
 
         menuRecyclerView = view.findViewById(R.id.menu_recycler_view)
         menuRecyclerView.apply {
@@ -82,8 +79,7 @@ class MenuRepasFragment: BaseFragment(){
                 this.isSelected = !this.isSelected
                 isMenuItemSelected(isSelected, check, menuCardView)
             }
-            itemSelectedListener?.onNumberItemSelected(position)
-            display_selected_item_fragment.visibility = View.VISIBLE
+//            itemSelectedListener?.onNumberItemSelected(position)
             Toast.makeText(context, "TEST", Toast.LENGTH_SHORT).show()
             true
         }
@@ -102,7 +98,7 @@ class MenuRepasFragment: BaseFragment(){
             background.setCardBackgroundColor(Color.parseColor("#DBF9D8"))
 
         }else {
-            check.visibility = View.GONE
+            check.visibility = View.INVISIBLE
             background.setCardBackgroundColor(Color.parseColor("#FFFFFF"))
         }
     }
@@ -112,13 +108,13 @@ class MenuRepasFragment: BaseFragment(){
         if(context is FragmentListener) {
             fragmentListener = context
         }
-        itemSelectedListener = getInstanceAddingItemFragment
+//        itemSelectedListener = getInstanceAddingItemFragment
     }
 
     override fun onDetach() {
         super.onDetach()
         fragmentListener = null
-        itemSelectedListener = null
+//        itemSelectedListener = null
     }
 
     override fun onDestroy() {

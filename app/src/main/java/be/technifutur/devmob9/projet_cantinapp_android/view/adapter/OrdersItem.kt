@@ -2,10 +2,12 @@ package be.technifutur.devmob9.projet_cantinapp_android.view.adapter
 
 import android.annotation.SuppressLint
 import android.view.View
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.OrdersModel
+import com.google.android.material.textfield.TextInputEditText
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.items.AbstractItem
 
@@ -23,8 +25,7 @@ class OrdersItem(val ordersModel: OrdersModel): AbstractItem<OrdersItem.OrdersVi
         private val orderIllustration: ImageView = v.findViewById(R.id.order_illustration)
         private val orderName: TextView = v.findViewById(R.id.order_name)
         private val orderPrice: TextView = v.findViewById(R.id.order_price)
-        private val orderKCal: TextView = v.findViewById(R.id.order_kcal)
-        private val orderNumberOfItems: TextView = v.findViewById(R.id.order_number)
+        private val orderNumberOfItems: EditText = v.findViewById(R.id.order_number)
 
 
         @SuppressLint("SetTextI18n")
@@ -32,14 +33,13 @@ class OrdersItem(val ordersModel: OrdersModel): AbstractItem<OrdersItem.OrdersVi
             orderIllustration.setImageResource(R.drawable.menu_illustration)
             orderName.text = item.ordersModel.orderName
             orderPrice.text = "${item.ordersModel.orderPrice},00 €"
-            orderKCal.text = item.ordersModel.orderKCal
-            orderNumberOfItems.text = item.ordersModel.orderNumberOfItems.toString()
+            orderNumberOfItems.setText(item.ordersModel.orderNumberOfItems.toString())
         }
 
         override fun unbindView(item: OrdersItem) {
             orderName.text = null
             orderPrice.text = null
-            orderKCal.text = null
+            orderNumberOfItems.text = null
             orderNumberOfItems.text = null
         }
     }
