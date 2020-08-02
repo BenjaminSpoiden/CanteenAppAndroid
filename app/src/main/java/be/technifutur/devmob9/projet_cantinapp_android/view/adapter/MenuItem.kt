@@ -22,9 +22,11 @@ class MenuItem(val menuItemModel: MenuItemModel, override val layoutRes: Int, ov
         val detail: ImageView = itemView.findViewById(R.id.menu_detail_button)
 
         override fun bindView(item: MenuItem, payloads: List<Any>) {
-            typeMenu.text = item.menuItemModel.menuType
+            typeMenu.text = item.menuItemModel.menuItemName
             descriptionMenu.text = item.menuItemModel.menuDescription
-            item.menuItemModel.menuIllustration?.let { illustrationMenu.setImageResource(it) }
+            item.menuItemModel.menuIllustration?.let {
+                illustrationMenu.setImageResource(it)
+            }
 
         }
 

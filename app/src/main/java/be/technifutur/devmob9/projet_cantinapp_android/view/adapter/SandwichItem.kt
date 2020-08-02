@@ -24,7 +24,7 @@ class SandwichItem(val menuItemModel: MenuItemModel): AbstractItem<SandwichItem.
         val detail: ImageView = itemView.findViewById(R.id.sandwich_detail_btn)
 
         override fun bindView(item: SandwichItem, payloads: List<Any>) {
-            typeMenu.text = item.menuItemModel.menuType
+            typeMenu.text = item.menuItemModel.menuItemName
             descriptionMenu.text = item.menuItemModel.menuDescription
             item.menuItemModel.menuIllustration?.let { illustrationMenu.setImageResource(it) }
         }

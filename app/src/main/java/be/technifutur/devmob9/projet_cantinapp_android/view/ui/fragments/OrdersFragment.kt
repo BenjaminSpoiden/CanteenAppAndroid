@@ -10,13 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.OrdersModel
-import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.OrdersItem
-import com.mikepenz.fastadapter.FastAdapter
-import com.mikepenz.fastadapter.adapters.ItemAdapter
+import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.order.OrdersSectionAdapter
+import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.order.OrdersSections
 import kotlinx.android.synthetic.main.fragment_orders.*
+import java.util.ArrayList
 
 class OrdersFragment : BaseFragment() {
-
     companion object {
         fun getInstance() = OrdersFragment()
     }
@@ -24,9 +23,14 @@ class OrdersFragment : BaseFragment() {
         get() = "Panier"
 
     private lateinit var orderRecyclerView: RecyclerView
-    private val itemAdapter = ItemAdapter<OrdersItem>()
-    private val fastAdapter = FastAdapter.with(itemAdapter)
+    private lateinit var ordersSectionAdapter: OrdersSectionAdapter
+
+//    private val itemAdapter = ItemAdapter<OrdersItem>()
+//    private val fastAdapter = FastAdapter.with(itemAdapter)
+
     private var listener: FragmentListener? = null
+
+    private var sectionOrdersArrayList = ArrayList<OrdersSections>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_orders, container, false)
@@ -34,7 +38,11 @@ class OrdersFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         orderRecyclerView = view.findViewById(R.id.order_recyclerview)
+        ordersSectionAdapter = OrdersSectionAdapter(sectionOrdersArrayList)
+        ordersSectionAdapter.notifyDataSetChanged()
+
 
         payment_checkout_btn.setOnClickListener {
             listener?.openCheckoutFragment()
@@ -43,16 +51,21 @@ class OrdersFragment : BaseFragment() {
 
     override fun onStart() {
         super.onStart()
+
+        val listOfDates = listOf("23/07", "24/07", "25/07")
+        listOfDates.forEach {
+            mockInitData(it, listMockOrderModel())
+        }
+
         orderRecyclerView.apply {
-            this.adapter = fastAdapter
+            this.adapter = ordersSectionAdapter
             this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
-        mockData()
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if(context is FragmentListener){
+        if(context is FragmentListener) {
             listener = context
         }
     }
@@ -70,10 +83,31 @@ class OrdersFragment : BaseFragment() {
         }
     }
 
-    private fun mockData(){
-        for(i in 0..10) {
-            itemAdapter.add(OrdersItem(OrdersModel(null, "Boulet Frite", 4, 0)))
-        }
-        fastAdapter.notifyAdapterDataSetChanged()
+    private fun hashMapOfData(sectionName: String, sectionItems: List<OrdersModel>): HashMap<String, List<OrdersModel>> {
+        return hashMapOf(
+            sectionName to sectionItems
+        )
     }
+
+    private fun mockInitData(sectionName: String, listOfModel: List<OrdersModel>) {
+        val sections = hashMapOfData(sectionName, listOfModel)
+        sections.forEach {
+            sectionOrdersArrayList.add(OrdersSections(it.key, it.value))
+        }
+    }
+
+    private fun listMockOrderModel(): List<OrdersModel> {
+        val listOfOrders = ArrayList<OrdersModel>()
+        listOfOrders.add(OrdersModel(null, "Boulet Frite", 4, 0))
+        listOfOrders.add(OrdersModel(null, "Soupe d'oignon", 4, 1))
+        listOfOrders.add(OrdersModel(null, "Viande de Cathy", 4, 99))
+        return listOfOrders
+    }
+
+//    private fun mockData(){
+//        listMockOrderModel().forEach {
+//            itemAdapter.add(OrdersItem(it))
+//        }
+//        fastAdapter.notifyAdapterDataSetChanged()
+//    }
 }

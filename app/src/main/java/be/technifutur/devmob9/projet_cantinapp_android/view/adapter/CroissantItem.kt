@@ -24,7 +24,7 @@ class CroissantItem(val menuItemModel: MenuItemModel): AbstractItem<CroissantIte
         val detail: ImageView = itemView.findViewById(R.id.croissant_detail_btn)
 
         override fun bindView(item: CroissantItem, payloads: List<Any>) {
-            typeMenu.text = item.menuItemModel.menuType
+            typeMenu.text = item.menuItemModel.menuItemName
             descriptionMenu.text = item.menuItemModel.menuDescription
             item.menuItemModel.menuIllustration?.let { illustrationMenu.setImageResource(it) }
         }

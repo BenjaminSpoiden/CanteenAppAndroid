@@ -3,6 +3,7 @@ package be.technifutur.devmob9.projet_cantinapp_android.view.ui.activities
 import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -11,19 +12,22 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.core.view.MenuItemCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
+import be.technifutur.devmob9.projet_cantinapp_android.interfaces.ItemSelectedListener
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_1_PAYMENTS
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_2_ALLERGIES
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_3_SETTINGS
 import be.technifutur.devmob9.projet_cantinapp_android.utils.addFragment
+import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.menus.MenuChildAdapter
 import be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity: AppCompatActivity(), FragmentListener {
+class MainActivity: AppCompatActivity(), FragmentListener, ItemSelectedListener {
 
     companion object {
         fun getInstance() = MainActivity()
@@ -31,6 +35,9 @@ class MainActivity: AppCompatActivity(), FragmentListener {
 
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var drawerLayout: DrawerLayout
+
+    private var mCartItemCount = 0
+
 
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,6 +58,11 @@ class MainActivity: AppCompatActivity(), FragmentListener {
         setupBurgerMenuItems()
     }
 
+    override fun onNumberItemSelected(numberOfItems: Int) {
+        Toast.makeText(this, "$numberOfItems", Toast.LENGTH_SHORT).show()
+        mCartItemCount = numberOfItems
+    }
+
     override fun onBackPressed() {
         if(drawerLayout.isDrawerOpen(GravityCompat.START)){
             drawerLayout.closeDrawer(GravityCompat.START)
@@ -62,38 +74,32 @@ class MainActivity: AppCompatActivity(), FragmentListener {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
 
-        val mCartItemCount = 1
         val menuItem = menu?.findItem(R.id.toolbar_cart)
+        menuItem?.setActionView(R.layout.custom_action_item)
+
         val actionView = menuItem?.actionView
         val textCart: TextView? = actionView?.findViewById(R.id.cart_badge)
 
-        if (textCart != null) {
-            if (mCartItemCount == 0) {
-                if (textCart.visibility != View.GONE) {
-                    textCart.visibility = View.GONE
-                }
-            } else {
-                textCart.setText(mCartItemCount.coerceAtMost(99))
-                if (textCart.visibility != View.VISIBLE) {
-                    textCart.visibility = View.VISIBLE
-                }
-            }
-        }
+        textCart?.text = mCartItemCount.toString()
+
+//        if (mCartItemCount > 0) {
+//           textCart?.text = mCartItemCount.toString()
+//        } else {
+//            textCart?.text = mCartItemCount.toString()
+//        }
 
         /**
          * Can only Access [OrdersFragment] if there's an item in the cart
          */
 
-        menuItem?.setOnMenuItemClickListener {
+        menuItem?.actionView?.rootView?.setOnClickListener {
             if(mCartItemCount > 0) {
                 replaceFragmentWithBackStack(OrdersFragment.getInstance())
-                true
             }else {
                 Toast.makeText(this, "You don't have anything in your cart", Toast.LENGTH_SHORT).show()
-                false
             }
         }
-        return true
+        return super.onCreateOptionsMenu(menu)
     }
 
 
@@ -101,6 +107,7 @@ class MainActivity: AppCompatActivity(), FragmentListener {
         if(toggle.onOptionsItemSelected(item)){
             return true
         }
+
         return super.onOptionsItemSelected(item)
     }
 
@@ -125,6 +132,12 @@ class MainActivity: AppCompatActivity(), FragmentListener {
     override fun openDetailFragment() {
         replaceFragmentWithBackStack(DetailsFragment.getInstance())
     }
+
+    override fun onDetailFragmentClick(holder: MenuChildAdapter.MenuChildViewHolder) {
+        Log.d("ClickEvent", "${holder.menuName.text}")
+        replaceFragmentWithBackStack(DetailsFragment.getInstance())
+    }
+
 
     override fun openCheckoutFragment() {
         replaceFragmentWithBackStack(CheckoutFragment.getInstance())
