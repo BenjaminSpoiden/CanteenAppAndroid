@@ -7,9 +7,6 @@ object Constants {
     const val COLLECTION_ID: String = "days"
     const val USERS: String = "users"
 
-    const val LAYOUT_ID = R.id.recycler_view_item_id
-    const val LAYOUT = R.layout.recyclerview_menu_item
-
     const val TYPE_HEADER = 0
     const val TYPE_ITEM = 1
 

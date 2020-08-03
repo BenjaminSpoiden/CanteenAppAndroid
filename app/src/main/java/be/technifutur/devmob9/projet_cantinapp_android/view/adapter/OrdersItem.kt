@@ -30,7 +30,6 @@ class OrdersItem(val ordersModel: OrdersModel): AbstractItem<OrdersItem.OrdersVi
 
         @SuppressLint("SetTextI18n")
         override fun bindView(item: OrdersItem, payloads: List<Any>) {
-
             orderIllustration.setImageResource(R.drawable.menu_illustration)
             orderName.text = item.ordersModel.orderName
             orderPrice.text = "${item.ordersModel.orderPrice},00 €"
