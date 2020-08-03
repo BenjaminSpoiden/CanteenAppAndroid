@@ -22,9 +22,12 @@ import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_2_ALLERGIES
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_3_SETTINGS
 import be.technifutur.devmob9.projet_cantinapp_android.utils.addFragment
-import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.menus.MenuChildAdapter
 import be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments.*
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.root_layout
+import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_main.*
 
 
 class MainActivity: AppCompatActivity(), FragmentListener, ItemSelectedListener {
@@ -82,11 +85,6 @@ class MainActivity: AppCompatActivity(), FragmentListener, ItemSelectedListener 
 
         textCart?.text = mCartItemCount.toString()
 
-//        if (mCartItemCount > 0) {
-//           textCart?.text = mCartItemCount.toString()
-//        } else {
-//            textCart?.text = mCartItemCount.toString()
-//        }
 
         /**
          * Can only Access [OrdersFragment] if there's an item in the cart
@@ -96,7 +94,12 @@ class MainActivity: AppCompatActivity(), FragmentListener, ItemSelectedListener 
             if(mCartItemCount > 0) {
                 replaceFragmentWithBackStack(OrdersFragment.getInstance())
             }else {
-                Toast.makeText(this, "You don't have anything in your cart", Toast.LENGTH_SHORT).show()
+                Snackbar
+                    .make(this.root_layout, "You don't have anything in your cart", Snackbar.LENGTH_LONG)
+                    .setAnchorView(bottomBar)
+                    .setAction("Close") {
+                        //...
+                    }.show()
             }
         }
         return super.onCreateOptionsMenu(menu)
@@ -133,10 +136,10 @@ class MainActivity: AppCompatActivity(), FragmentListener, ItemSelectedListener 
         replaceFragmentWithBackStack(DetailsFragment.getInstance())
     }
 
-    override fun onDetailFragmentClick(holder: MenuChildAdapter.MenuChildViewHolder) {
-        Log.d("ClickEvent", "${holder.menuName.text}")
-        replaceFragmentWithBackStack(DetailsFragment.getInstance())
-    }
+//    override fun onDetailFragmentClick(holder: MenuChildAdapter.MenuChildViewHolder) {
+//        Log.d("ClickEvent", "${holder.menuName.text}")
+//        replaceFragmentWithBackStack(DetailsFragment.getInstance())
+//    }
 
 
     override fun openCheckoutFragment() {

@@ -1,4 +1,4 @@
-package be.technifutur.devmob9.projet_cantinapp_android.view.ui.auth
+package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments.auth
 
 import android.os.Bundle
 import android.view.LayoutInflater

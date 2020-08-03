@@ -16,8 +16,9 @@ import be.technifutur.devmob9.projet_cantinapp_android.interfaces.ItemSelectedLi
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.MenuItemModel
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.LAYOUT
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.LAYOUT_ID
+import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.DataAdapter
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.MenuItem
-import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.menus.MenuSectionAdapter
+//import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.menus.MenuSectionAdapter
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.menus.MenuSections
 import be.technifutur.devmob9.projet_cantinapp_android.view.ui.activities.MainActivity
 import com.google.android.material.card.MaterialCardView
@@ -36,15 +37,15 @@ class MenuRepasFragment: BaseFragment(){
         get() = "Menu"
 
     private lateinit var menuRecyclerView: RecyclerView
-    private lateinit var menuSectionsAdapter: MenuSectionAdapter
+//    private lateinit var menuSectionsAdapter: MenuSectionAdapter
+
+    private lateinit var dataAdapter: DataAdapter
 
 //    private val itemAdapter = ItemAdapter<MenuItem>()
 //    private val fastAdapter = FastAdapter.with(itemAdapter)
 
-    private var fragmentListener: FragmentListener? = null
+//    private var fragmentListener: FragmentListener? = null
     private var itemSelectedListener: ItemSelectedListener? = null
-
-    private val getInstanceAddingItemFragment = MainActivity()
 
 //    private var isSelected: Boolean = false
 
@@ -58,8 +59,11 @@ class MenuRepasFragment: BaseFragment(){
         super.onViewCreated(view, savedInstanceState)
 
         menuRecyclerView = view.findViewById(R.id.menu_recycler_view)
-        menuSectionsAdapter = MenuSectionAdapter(sectionMenuArrayList, requireContext())
-        menuSectionsAdapter.notifyDataSetChanged()
+//        menuSectionsAdapter = MenuSectionAdapter(sectionMenuArrayList, requireContext())
+//        menuSectionsAdapter.notifyDataSetChanged()
+
+        dataAdapter = DataAdapter(mockInitModelData(), "Name")
+        dataAdapter.notifyDataSetChanged()
 
 
 //        fastAdapter.addEventHook(object: ClickEventHook<MenuItem>() {
@@ -99,7 +103,7 @@ class MenuRepasFragment: BaseFragment(){
         }
 
         menuRecyclerView.apply {
-            this.adapter = menuSectionsAdapter
+            this.adapter = dataAdapter
             this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
     }
@@ -143,19 +147,19 @@ class MenuRepasFragment: BaseFragment(){
 //        }
 //    }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if(context is FragmentListener) {
-            fragmentListener = context
-        }
-//        itemSelectedListener = getInstanceAddingItemFragment
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        fragmentListener = null
-//        itemSelectedListener = null
-    }
+//    override fun onAttach(context: Context) {
+//        super.onAttach(context)
+//        if(context is FragmentListener) {
+//            fragmentListener = context
+//        }
+////        itemSelectedListener = getInstanceAddingItemFragment
+//    }
+//
+//    override fun onDetach() {
+//        super.onDetach()
+//        fragmentListener = null
+////        itemSelectedListener = null
+//    }
 
     override fun onDestroy() {
         super.onDestroy()

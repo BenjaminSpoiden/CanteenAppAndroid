@@ -1,6 +1,6 @@
 package be.technifutur.devmob9.projet_cantinapp_android.interfaces
 
-import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.menus.MenuChildAdapter
+//import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.menus.MenuChildAdapter
 
 interface FragmentListener {
     fun onFragmentSelectedFromMenu(position: Int)
@@ -9,7 +9,7 @@ interface FragmentListener {
 
     fun openDetailFragment()
 
-    fun onDetailFragmentClick(holder: MenuChildAdapter.MenuChildViewHolder)
+//    fun onDetailFragmentClick(holder: MenuChildAdapter.MenuChildViewHolder)
 
     fun openCheckoutFragment()
 
