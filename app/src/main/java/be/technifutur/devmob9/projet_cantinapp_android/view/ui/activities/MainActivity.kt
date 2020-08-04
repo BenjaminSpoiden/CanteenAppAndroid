@@ -32,13 +32,17 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.root_layout
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_main.*
+import org.kodein.di.Kodein
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.kodein
 
 
-class MainActivity: AppCompatActivity(), FragmentListener, ItemSelectedListener {
+class MainActivity: AppCompatActivity(), FragmentListener, ItemSelectedListener{
 
     companion object {
         fun getInstance() = MainActivity()
     }
+
 
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var drawerLayout: DrawerLayout

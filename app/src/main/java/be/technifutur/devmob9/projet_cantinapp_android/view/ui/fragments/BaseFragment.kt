@@ -11,18 +11,22 @@ import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import be.technifutur.devmob9.projet_cantinapp_android.R
-import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.MainFragmentViewModel
+import org.kodein.di.Kodein
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.kodein
+import org.kodein.di.generic.instance
 
 abstract class BaseFragment: Fragment() {
 
+    private lateinit var mainFragmentViewModel: MainFragmentViewModel
     abstract val title: String
 
 //    private var listener: FragmentListener? = null
 
-    private lateinit var mainFragmentViewModel: MainFragmentViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -10,7 +10,7 @@ class MainFragmentViewModel: ViewModel() {
     val title: LiveData<String>
         get() = mutableTitle
 
-    fun onUpdateActionBarTitle(title: String) {
-        mutableTitle.value = title
+    fun onUpdateActionBarTitle(appBarTitle: String) {
+        mutableTitle.value = appBarTitle
     }
 }
