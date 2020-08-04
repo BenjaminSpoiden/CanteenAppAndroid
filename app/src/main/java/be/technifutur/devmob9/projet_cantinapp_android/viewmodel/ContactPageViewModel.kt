@@ -28,4 +28,5 @@ class ContactPageViewModel(private val contactPageRepository: ContactPageReposit
 
     fun onClickChoosingFile() = contactPageRepository.onChangedDocument()
 
+
 }

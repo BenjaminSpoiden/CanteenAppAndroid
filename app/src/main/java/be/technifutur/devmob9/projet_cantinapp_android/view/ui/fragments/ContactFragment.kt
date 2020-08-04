@@ -1,6 +1,7 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -61,6 +62,7 @@ class ContactFragment: BaseFragment(), KodeinAware {
         settingUpArrayAdapter(listOfString2, type_contact_dropdown)
 
         contact_send_btn.isEnabled = false
+
 
         contactPageViewModel.serviceToContact.observe(viewLifecycleOwner, Observer { service ->
             contactPageViewModel.objectContact.observe(viewLifecycleOwner, Observer { objectContact ->
