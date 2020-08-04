@@ -1,22 +1,21 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
+import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.OrdersModel
-import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.OrdersItem
-import com.mikepenz.fastadapter.FastAdapter
-import com.mikepenz.fastadapter.adapters.ItemAdapter
+import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.OrdersItemAdapter
 import kotlinx.android.synthetic.main.fragment_orders.*
 
 class OrdersFragment : BaseFragment() {
-
     companion object {
         fun getInstance() = OrdersFragment()
     }
@@ -24,9 +23,10 @@ class OrdersFragment : BaseFragment() {
         get() = "Panier"
 
     private lateinit var orderRecyclerView: RecyclerView
-    private val itemAdapter = ItemAdapter<OrdersItem>()
-    private val fastAdapter = FastAdapter.with(itemAdapter)
+    private lateinit var ordersItemAdapter: OrdersItemAdapter
+
     private var listener: FragmentListener? = null
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_orders, container, false)
@@ -34,6 +34,7 @@ class OrdersFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         orderRecyclerView = view.findViewById(R.id.order_recyclerview)
 
         payment_checkout_btn.setOnClickListener {
@@ -43,16 +44,32 @@ class OrdersFragment : BaseFragment() {
 
     override fun onStart() {
         super.onStart()
+        ordersItemAdapter = OrdersItemAdapter(mockInitData())
+        ordersItemAdapter.notifyDataSetChanged()
         orderRecyclerView.apply {
-            this.adapter = fastAdapter
+            this.adapter = ordersItemAdapter
             this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
-        mockData()
     }
+
+    private fun mockInitData() = listOf(
+        OrdersModel(isHeader = true, headerName = "23/07"),
+        OrdersModel(null, "Boulet Frite", 4, 0),
+        OrdersModel(null, "Soupe d'oignon", 6, 8),
+        OrdersModel(null, "Viande de Cathy", 4, 99),
+        OrdersModel(isHeader = true, headerName = "24/07"),
+        OrdersModel(null, "Boulet Frite", 4, 0),
+        OrdersModel(null, "Soupe d'oignon", 6, 8),
+        OrdersModel(null, "Viande de Cathy", 4, 99),
+        OrdersModel(isHeader = true, headerName = "25/07"),
+        OrdersModel(null, "Boulet Frite", 4, 0),
+        OrdersModel(null, "Soupe d'oignon", 6, 8),
+        OrdersModel(null, "Viande de Cathy", 4, 99)
+    )
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if(context is FragmentListener){
+        if(context is FragmentListener) {
             listener = context
         }
     }
@@ -68,12 +85,5 @@ class OrdersFragment : BaseFragment() {
             this.adapter = null
             this.layoutManager = null
         }
-    }
-
-    private fun mockData(){
-        for(i in 0..10) {
-            itemAdapter.add(OrdersItem(OrdersModel(null, "Boulet Frite", 4, "2000 Kcal", 0)))
-        }
-        fastAdapter.notifyAdapterDataSetChanged()
     }
 }

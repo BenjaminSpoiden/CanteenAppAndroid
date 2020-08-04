@@ -8,9 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.*
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.databinding.FragmentContactBinding
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.ContactPageViewModel
@@ -75,6 +73,7 @@ class ContactFragment: BaseFragment(), KodeinAware {
         contactPageViewModel.isCheckboxChecked.observe(viewLifecycleOwner, Observer {
             Toast.makeText(requireContext(), "$it", Toast.LENGTH_SHORT).show()
         })
+
     }
 
     private fun settingUpArrayAdapter(list: List<String>, autoCompleteTextView: AutoCompleteTextView) {

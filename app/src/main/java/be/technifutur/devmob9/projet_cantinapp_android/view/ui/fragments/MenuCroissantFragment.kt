@@ -1,10 +1,12 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,6 +14,7 @@ import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.MenuItemModel
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.CroissantItem
+import com.google.android.material.card.MaterialCardView
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.listeners.ClickEventHook
@@ -29,6 +32,7 @@ class MenuCroissantFragment: BaseFragment() {
     private val fastAdapter = FastAdapter.with(itemAdapter)
     private var fragmentListener: FragmentListener? = null
 
+    private var isSelected: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -65,6 +69,18 @@ class MenuCroissantFragment: BaseFragment() {
                 fragmentListener?.openDetailFragment()
             }
         })
+
+        fastAdapter.onClickListener = { v, adapter, item, position ->
+            val check = v?.findViewById<ImageView>(R.id.selected_croissant_item)
+            val croissantCardView = v?.findViewById<MaterialCardView>(R.id.croissant_menu_bg)
+
+            if(check != null && croissantCardView != null) {
+                this.isSelected = !this.isSelected
+                isMenuItemSelected(isSelected, check, croissantCardView)
+            }
+
+            true
+        }
     }
 
     override fun onAttach(context: Context) {
@@ -80,6 +96,18 @@ class MenuCroissantFragment: BaseFragment() {
         croissantRecyclerView.layoutManager = null
         fragmentListener = null
     }
+
+    private fun isMenuItemSelected(isSelected: Boolean, check: ImageView, background: MaterialCardView) {
+        if(isSelected) {
+            check.visibility = View.VISIBLE
+            background.setCardBackgroundColor(Color.parseColor("#DBF9D8"))
+
+        }else {
+            check.visibility = View.INVISIBLE
+            background.setCardBackgroundColor(Color.parseColor("#FFFFFF"))
+        }
+    }
+
 
     private fun mockDataItemAdapter() {
         for (i in 1..10) {

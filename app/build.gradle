@@ -96,6 +96,8 @@ dependencies {
     implementation "com.mikepenz:fastadapter-extensions-ui:${latestFastAdapterRelease}" // pre-defined ui components
     implementation "com.mikepenz:fastadapter-extensions-utils:${latestFastAdapterRelease}" // needs the `expandable`, `drag` and `scroll` extension.
 
+    implementation 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:1.2.0'
+
     implementation "androidx.recyclerview:recyclerview:1.1.0"
 
     implementation 'com.google.android.material:material:1.1.0'

@@ -21,7 +21,6 @@ class ContactPageViewModel(private val contactPageRepository: ContactPageReposit
     var orderNumber = MutableLiveData<String>()
     var message = MutableLiveData<String>()
 
-
     var isCheckboxChecked = MutableLiveData<Boolean>()
 
     val chosenFile: LiveData<String>

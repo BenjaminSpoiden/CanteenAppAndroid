@@ -1,16 +1,19 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.MenuItemModel
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.SandwichItem
+import com.google.android.material.card.MaterialCardView
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.listeners.ClickEventHook
@@ -26,6 +29,8 @@ class MenuSandwichFragment: BaseFragment() {
     private val itemAdapter = ItemAdapter<SandwichItem>()
     private val fastAdapter = FastAdapter.with(itemAdapter)
     private var fragmentListener: FragmentListener? = null
+
+    private var isSelected: Boolean = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_menu_sandwich, container, false)
@@ -59,6 +64,18 @@ class MenuSandwichFragment: BaseFragment() {
             }
         })
 
+        fastAdapter.onClickListener = { v, adapter, item, position ->
+            val check = v?.findViewById<ImageView>(R.id.selected_sandwich_item)
+            val sandwichBackground = v?.findViewById<MaterialCardView>(R.id.sandwich_menu_bg)
+
+            if(check != null && sandwichBackground != null) {
+                this.isSelected = !this.isSelected
+                isMenuItemSelected(isSelected, check, sandwichBackground)
+            }
+
+            true
+        }
+
     }
 
     override fun onAttach(context: Context) {
@@ -73,6 +90,17 @@ class MenuSandwichFragment: BaseFragment() {
         sandwichRecyclerView.adapter = null
         sandwichRecyclerView.layoutManager = null
         fragmentListener = null
+    }
+
+    private fun isMenuItemSelected(isSelected: Boolean, check: ImageView, background: MaterialCardView) {
+        if(isSelected) {
+            check.visibility = View.VISIBLE
+            background.setCardBackgroundColor(Color.parseColor("#DBF9D8"))
+
+        }else {
+            check.visibility = View.INVISIBLE
+            background.setCardBackgroundColor(Color.parseColor("#FFFFFF"))
+        }
     }
 
     private fun mockDataItemAdapter() {

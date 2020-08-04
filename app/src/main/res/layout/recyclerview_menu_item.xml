@@ -22,6 +22,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/item_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/slightlyTurquoise"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2,99 €"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"/>
+
+            </com.google.android.material.card.MaterialCardView>
+
             <ImageView
                 android:id="@+id/menu_illustration"
                 android:layout_width="wrap_content"
@@ -33,10 +54,11 @@
 
             <ImageView
                 android:id="@+id/menu_detail_button"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:padding="10dp"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginStart="10dp"
                 android:src="@drawable/info_btn"
+                app:layout_constraintBottom_toBottomOf="@+id/type_menu"
                 app:layout_constraintStart_toEndOf="@+id/type_menu"
                 app:layout_constraintTop_toBottomOf="@+id/menu_illustration" />
 
