@@ -22,10 +22,24 @@ class ContactPageViewModel(private val contactPageRepository: ContactPageReposit
 
     var isCheckboxChecked = MutableLiveData<Boolean>()
 
-    private val _areFieldsFilledUp = MutableLiveData<Boolean>()
+
+    val mediator = MediatorLiveData<Boolean>()
 
     init {
-        onCheckingFields()
+        mediator.addSource(serviceToContact) { validation(serviceToContact) }
+        mediator.addSource(objectContact) { validation(objectContact) }
+        mediator.addSource(message) { validation(message) }
+    }
+
+    private fun validation(serviceToContact: MutableLiveData<String>) {
+        mediator.value = !serviceToContact.value.isNullOrEmpty()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        mediator.removeSource(serviceToContact)
+        mediator.removeSource(objectContact)
+        mediator.removeSource(message)
     }
 
     val chosenFile: LiveData<String>
@@ -33,8 +47,4 @@ class ContactPageViewModel(private val contactPageRepository: ContactPageReposit
 
     fun onClickChoosingFile() = contactPageRepository.onChangedDocument()
 
-    fun onCheckingFields(): LiveData<Boolean> {
-        _areFieldsFilledUp.value = !serviceToContact.value.isNullOrEmpty() && !objectContact.value.isNullOrEmpty() && !message.value.isNullOrEmpty()
-        return _areFieldsFilledUp
-    }
 }

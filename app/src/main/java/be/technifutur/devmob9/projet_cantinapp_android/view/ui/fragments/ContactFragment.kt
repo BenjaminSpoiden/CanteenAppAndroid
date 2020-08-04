@@ -61,7 +61,7 @@ class ContactFragment: BaseFragment(), KodeinAware {
         settingUpArrayAdapter(listOfString, person_contact_dropdown)
         settingUpArrayAdapter(listOfString2, type_contact_dropdown)
 
-        contact_send_btn.isEnabled = false
+//        contact_send_btn.isEnabled = false
 
 
         contactPageViewModel.serviceToContact.observe(viewLifecycleOwner) {
