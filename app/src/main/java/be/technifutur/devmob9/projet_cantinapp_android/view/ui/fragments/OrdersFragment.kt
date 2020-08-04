@@ -2,6 +2,9 @@ package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
 import android.app.Activity
 import android.content.Context
+import android.content.res.ColorStateList
+import android.content.res.Resources
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -39,6 +42,20 @@ class OrdersFragment : BaseFragment() {
 
         payment_checkout_btn.setOnClickListener {
             listener?.openCheckoutFragment()
+        }
+
+        val checkedDrawable = requireContext().resources.getDrawable(R.drawable.ic_check, resources.newTheme())
+        val uncheckedDrawable = requireContext().resources.getDrawable(R.drawable.ic_unchecked, resources.newTheme())
+
+
+        a_emporte_cb.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (a_emporte_cb.isChecked) {
+                a_emporte_cb.setCompoundDrawablesWithIntrinsicBounds(checkedDrawable, null, null, null)
+                a_emporte_cb.setTextColor(Color.WHITE)
+            }else {
+                a_emporte_cb.setCompoundDrawablesWithIntrinsicBounds(uncheckedDrawable, null, null, null)
+                a_emporte_cb.setTextColor(resources.getColor(R.color.lightGreen, resources.newTheme()))
+            }
         }
     }
 
