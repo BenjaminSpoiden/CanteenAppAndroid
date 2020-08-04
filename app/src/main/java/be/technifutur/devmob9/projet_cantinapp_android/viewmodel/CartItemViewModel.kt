@@ -10,6 +10,10 @@ class CartItemViewModel: ViewModel() {
     val numberOfItemSelected: LiveData<Int>
         get() = mutableNumberOfItemSelected
 
+    init {
+        mutableNumberOfItemSelected.postValue(0)
+    }
+
 
     fun onNumberOfItemSelected(numberOfItemSelected: Int) {
         mutableNumberOfItemSelected.postValue(numberOfItemSelected)

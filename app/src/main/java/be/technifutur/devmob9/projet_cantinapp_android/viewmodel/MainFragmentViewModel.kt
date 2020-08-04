@@ -6,9 +6,11 @@ import androidx.lifecycle.ViewModel
 
 class MainFragmentViewModel: ViewModel() {
 
+
     private val mutableTitle = MutableLiveData<String>()
     val title: LiveData<String>
         get() = mutableTitle
+
 
     fun onUpdateActionBarTitle(appBarTitle: String) {
         mutableTitle.value = appBarTitle
