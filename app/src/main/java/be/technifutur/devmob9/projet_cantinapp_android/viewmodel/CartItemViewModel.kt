@@ -14,7 +14,6 @@ class CartItemViewModel: ViewModel() {
         mutableNumberOfItemSelected.postValue(0)
     }
 
-
     fun onNumberOfItemSelected(numberOfItemSelected: Int) {
         mutableNumberOfItemSelected.postValue(numberOfItemSelected)
     }

@@ -36,7 +36,6 @@ class OrdersItemAdapter(private val ordersItemList: List<OrdersModel>): Recycler
                 val itemsView = LayoutInflater.from(parent.context).inflate(R.layout.recyclerview_order_item, parent, false)
                 OrdersItemViewHolder(itemsView)
             }
-
             else -> throw IllegalArgumentException("Invalid View Type")
         }
     }
@@ -56,10 +55,6 @@ class OrdersItemAdapter(private val ordersItemList: List<OrdersModel>): Recycler
         override fun bind(holder: String, position: Int) {
             sectionName.text = holder
         }
-
-        override fun unbind(holder: String, position: Int) {
-            sectionName.text = null
-        }
     }
 
     inner class OrdersItemViewHolder(itemView: View): BaseViewHolder<List<OrdersModel>>(itemView) {
@@ -76,12 +71,6 @@ class OrdersItemAdapter(private val ordersItemList: List<OrdersModel>): Recycler
             orderName.text = orderSectionsModel.orderName
             orderPrice.text = "${orderSectionsModel.orderPrice},00 €"
             orderNumberOfItems.setText(orderSectionsModel.orderNumberOfItems.toString())
-        }
-
-        override fun unbind(holder: List<OrdersModel>, position: Int) {
-            orderName.text = null
-            orderPrice.text = null
-            orderNumberOfItems.text = null
         }
     }
 }

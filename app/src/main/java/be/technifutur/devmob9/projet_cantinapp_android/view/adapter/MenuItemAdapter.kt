@@ -83,10 +83,7 @@ class MenuItemAdapter(private val itemsList: List<MenuItemModel>, context: Conte
 
         override fun bind(holder: String, position: Int) {
             sectionMenuName.text = holder
-        }
-
-        override fun unbind(holder: String, position: Int) {
-            sectionMenuName.text = null
+            Log.d("BINDING", "Bind")
         }
     }
 
@@ -96,14 +93,10 @@ class MenuItemAdapter(private val itemsList: List<MenuItemModel>, context: Conte
         private val illustrationMenu: ImageView = itemView.findViewById(R.id.menu_illustration)
 
         override fun bind(holder: List<MenuItemModel>, position: Int) {
+            Log.d("BINDING", "Bind")
             menuName.text = holder[position].menuItemName
             descriptionMenu.text = holder[position].menuDescription
             holder[position].menuIllustration?.let { illustrationMenu.setImageResource(it) }
-        }
-
-        override fun unbind(holder: List<MenuItemModel>, position: Int) {
-            menuName.text = null
-            descriptionMenu.text = null
         }
     }
 }

@@ -1,15 +1,11 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
-import android.app.Activity
 import android.content.Context
-import android.content.res.ColorStateList
-import android.content.res.Resources
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.R
@@ -48,8 +44,13 @@ class OrdersFragment : BaseFragment() {
         val uncheckedDrawable = requireContext().resources.getDrawable(R.drawable.ic_unchecked, resources.newTheme())
 
 
-        a_emporte_cb.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (a_emporte_cb.isChecked) {
+        a_emporte_cb.isEnabled = true
+        if(!a_emporte_cb.isEnabled) {
+            a_emporte_cb.setTextColor(resources.getColor(R.color.bone, resources.newTheme()))
+        }
+
+        a_emporte_cb.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
                 a_emporte_cb.setCompoundDrawablesWithIntrinsicBounds(checkedDrawable, null, null, null)
                 a_emporte_cb.setTextColor(Color.WHITE)
             }else {

@@ -1,9 +1,8 @@
 package be.technifutur.devmob9.projet_cantinapp_android.viewmodel
 
-import androidx.databinding.Bindable
+
 import androidx.lifecycle.*
 import be.technifutur.devmob9.projet_cantinapp_android.model.repositories.ContactPageRepository
-import be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments.ContactFragment
 
 class ContactPageViewModel(private val contactPageRepository: ContactPageRepository): ViewModel() {
 
@@ -23,10 +22,19 @@ class ContactPageViewModel(private val contactPageRepository: ContactPageReposit
 
     var isCheckboxChecked = MutableLiveData<Boolean>()
 
+    private val _areFieldsFilledUp = MutableLiveData<Boolean>()
+
+    init {
+        onCheckingFields()
+    }
+
     val chosenFile: LiveData<String>
         get() = contactPageRepository.currentDocument
 
     fun onClickChoosingFile() = contactPageRepository.onChangedDocument()
 
-
+    fun onCheckingFields(): LiveData<Boolean> {
+        _areFieldsFilledUp.value = !serviceToContact.value.isNullOrEmpty() && !objectContact.value.isNullOrEmpty() && !message.value.isNullOrEmpty()
+        return _areFieldsFilledUp
+    }
 }
