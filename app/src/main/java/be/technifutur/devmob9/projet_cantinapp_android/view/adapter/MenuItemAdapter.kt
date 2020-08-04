@@ -23,6 +23,8 @@ class MenuItemAdapter(private val itemsList: List<MenuItemModel>, context: Conte
     private val openDetailFragmentListener = context as FragmentListener
     private val itemSelectedListener = context as ItemSelectedListener
 
+    private var numberOfItemsSelected: Int = 0
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
         return when(viewType) {
             TYPE_HEADER -> {
@@ -36,15 +38,16 @@ class MenuItemAdapter(private val itemsList: List<MenuItemModel>, context: Conte
                         v.menu_bg.isChecked = !v.menu_bg.isChecked
                         if(v.menu_bg.isChecked) {
                             Log.d("ClickEvent", "Checked")
-                            itemSelectedListener.onNumberItemSelected(1)
+                            numberOfItemsSelected += 1
+                            itemSelectedListener.onNumberItemSelected(numberOfItemsSelected)
                         }else {
                             Log.d("ClickEvent", "Unchecked")
-                            itemSelectedListener.onNumberItemSelected(0)
+                            numberOfItemsSelected -= 1
+                            itemSelectedListener.onNumberItemSelected(numberOfItemsSelected)
                         }
                     }
                     itemView.menu_detail_button.setOnClickListener {_ ->
-                        Toast.makeText(parent.context, "Clicked at position: ${it.adapterPosition}", Toast.LENGTH_SHORT).show()
-                        openDetailFragmentListener.openDetailFragment()
+                        openDetailFragmentListener.openDetailFragmentWithDetails(itemsList[it.adapterPosition])
                     }
                 }
             }

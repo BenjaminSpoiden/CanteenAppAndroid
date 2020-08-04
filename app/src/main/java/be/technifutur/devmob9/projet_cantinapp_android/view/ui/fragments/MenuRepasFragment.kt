@@ -1,6 +1,7 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,6 +33,11 @@ class MenuRepasFragment: BaseFragment(){
         menuRecyclerView = view.findViewById(R.id.menu_recycler_view)
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+    }
+
+
     override fun onStart() {
         super.onStart()
         menuItemAdapter = MenuItemAdapter(mockDataItemAdapter(), requireContext())
@@ -57,6 +63,11 @@ class MenuRepasFragment: BaseFragment(){
         MenuItemModel("Jus de Cyprine 8", getString(R.string.mock_desc), R.drawable.menu_illustration),
         MenuItemModel("Jus de Cyprine 9", getString(R.string.mock_desc), R.drawable.menu_illustration)
     )
+
+    override fun onDetach() {
+        super.onDetach()
+        Log.d("Attached", "MenuRepasFragment detached")
+    }
 
     override fun onDestroy() {
         super.onDestroy()

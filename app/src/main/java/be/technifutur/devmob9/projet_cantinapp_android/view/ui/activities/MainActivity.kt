@@ -15,14 +15,18 @@ import androidx.core.view.GravityCompat
 import androidx.core.view.MenuItemCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.ItemSelectedListener
+import be.technifutur.devmob9.projet_cantinapp_android.model.data.MenuItemModel
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_1_PAYMENTS
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_2_ALLERGIES
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_3_SETTINGS
 import be.technifutur.devmob9.projet_cantinapp_android.utils.addFragment
 import be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments.*
+import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.MainFragmentViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.root_layout
@@ -38,6 +42,8 @@ class MainActivity: AppCompatActivity(), FragmentListener, ItemSelectedListener 
 
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var drawerLayout: DrawerLayout
+
+    private lateinit var mainFragmentViewModel: MainFragmentViewModel
 
     private var mCartItemCount = 0
 
@@ -59,6 +65,12 @@ class MainActivity: AppCompatActivity(), FragmentListener, ItemSelectedListener 
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
         setupBurgerMenuItems()
+
+        mainFragmentViewModel = ViewModelProviders.of(this).get(MainFragmentViewModel::class.java)
+        mainFragmentViewModel.title.observe(this, Observer {
+            supportActionBar?.title = it
+        })
+
     }
 
     override fun onNumberItemSelected(numberOfItems: Int) {
@@ -128,19 +140,18 @@ class MainActivity: AppCompatActivity(), FragmentListener, ItemSelectedListener 
         }
     }
 
-    override fun getFragmentTitle(title: String) {
-        supportActionBar?.title = title
-    }
+//    override fun getFragmentTitle(title: String) {
+//        supportActionBar?.title = title
+//    }
 
     override fun openDetailFragment() {
         replaceFragmentWithBackStack(DetailsFragment.getInstance())
     }
 
-//    override fun onDetailFragmentClick(holder: MenuChildAdapter.MenuChildViewHolder) {
-//        Log.d("ClickEvent", "${holder.menuName.text}")
-//        replaceFragmentWithBackStack(DetailsFragment.getInstance())
-//    }
-
+    override fun openDetailFragmentWithDetails(itemClicked: MenuItemModel) {
+        Log.d("MenuData", "Clicked on card: $itemClicked")
+        replaceFragmentWithBackStack(DetailsFragment.getInstance())
+    }
 
     override fun openCheckoutFragment() {
         replaceFragmentWithBackStack(CheckoutFragment.getInstance())
