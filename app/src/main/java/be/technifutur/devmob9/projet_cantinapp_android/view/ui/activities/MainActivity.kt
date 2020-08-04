@@ -26,6 +26,7 @@ import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_3_SETTINGS
 import be.technifutur.devmob9.projet_cantinapp_android.utils.addFragment
 import be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments.*
+import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.CartItemViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.MainFragmentViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
@@ -48,9 +49,9 @@ class MainActivity: AppCompatActivity(), FragmentListener, ItemSelectedListener{
     private lateinit var drawerLayout: DrawerLayout
 
     private lateinit var mainFragmentViewModel: MainFragmentViewModel
+    private lateinit var cartItemViewModel: CartItemViewModel
 
     private var mCartItemCount = 0
-
 
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,15 +72,14 @@ class MainActivity: AppCompatActivity(), FragmentListener, ItemSelectedListener{
         setupBurgerMenuItems()
 
         mainFragmentViewModel = ViewModelProviders.of(this).get(MainFragmentViewModel::class.java)
+        cartItemViewModel = ViewModelProviders.of(this).get(CartItemViewModel::class.java)
         mainFragmentViewModel.title.observe(this, Observer {
             supportActionBar?.title = it
         })
-
     }
 
     override fun onNumberItemSelected(numberOfItems: Int) {
-        Toast.makeText(this, "$numberOfItems", Toast.LENGTH_SHORT).show()
-        mCartItemCount = numberOfItems
+        cartItemViewModel.onNumberOfItemSelected(numberOfItems)
     }
 
     override fun onBackPressed() {
@@ -99,15 +99,21 @@ class MainActivity: AppCompatActivity(), FragmentListener, ItemSelectedListener{
         val actionView = menuItem?.actionView
         val textCart: TextView? = actionView?.findViewById(R.id.cart_badge)
 
-        textCart?.text = mCartItemCount.toString()
+        cartItemViewModel.numberOfItemSelected.observe(this, Observer {
+            textCart?.text = it.toString()
+            /**
+             * Can only Access [OrdersFragment] if there's an item in the cart
+             */
+            actionView?.let { _ ->
+                onActionViewClick(actionView, it)
+            }
+        })
+        return super.onCreateOptionsMenu(menu)
+    }
 
-
-        /**
-         * Can only Access [OrdersFragment] if there's an item in the cart
-         */
-
-        menuItem?.actionView?.rootView?.setOnClickListener {
-            if(mCartItemCount > 0) {
+    private fun onActionViewClick(view: View, numberOfItems: Int) {
+        view.setOnClickListener {
+            if(numberOfItems > 0) {
                 replaceFragmentWithBackStack(OrdersFragment.getInstance())
             }else {
                 Snackbar
@@ -118,9 +124,7 @@ class MainActivity: AppCompatActivity(), FragmentListener, ItemSelectedListener{
                     }.show()
             }
         }
-        return super.onCreateOptionsMenu(menu)
     }
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(toggle.onOptionsItemSelected(item)){
