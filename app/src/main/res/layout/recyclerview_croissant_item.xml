@@ -16,6 +16,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="10dp"
+        android:checkable="true"
+        android:clickable="true"
+        android:focusable="true"
         app:cardBackgroundColor="@android:color/white"
         app:cardCornerRadius="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -105,18 +108,18 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-    <ImageView
-        android:id="@+id/selected_croissant_item"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginStart="150dp"
-        android:elevation="10dp"
-        android:src="@drawable/check"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/croissant_menu_bg"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <ImageView-->
+<!--        android:id="@+id/selected_croissant_item"-->
+<!--        android:layout_width="32dp"-->
+<!--        android:layout_height="32dp"-->
+<!--        android:layout_marginTop="2dp"-->
+<!--        android:layout_marginStart="150dp"-->
+<!--        android:elevation="10dp"-->
+<!--        android:src="@drawable/check"-->
+<!--        android:visibility="invisible"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/croissant_menu_bg"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

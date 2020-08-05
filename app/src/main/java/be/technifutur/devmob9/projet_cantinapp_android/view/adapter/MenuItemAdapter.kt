@@ -35,7 +35,7 @@ class MenuItemAdapter(private val itemsList: List<MenuItemModel>, context: Conte
             }
             TYPE_ITEM -> {
                 val itemView = LayoutInflater.from(parent.context).inflate(R.layout.recyclerview_menu_item, parent, false)
-                ChildViewHolder(itemView).also {
+                ChildViewHolder(itemView).apply {
                     itemView.menu_bg.setOnClickListener { v->
                         v.menu_bg.isChecked = !v.menu_bg.isChecked
                         if(v.menu_bg.isChecked) {
@@ -51,7 +51,7 @@ class MenuItemAdapter(private val itemsList: List<MenuItemModel>, context: Conte
                         }
                     }
                     itemView.menu_detail_button.setOnClickListener {_ ->
-                        openDetailFragmentListener.openDetailFragmentWithDetails(itemsList[it.adapterPosition])
+                        openDetailFragmentListener.openDetailFragmentWithDetails(itemsList[this.adapterPosition])
                     }
                 }
             }

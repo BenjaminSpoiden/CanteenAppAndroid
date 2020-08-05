@@ -1,23 +1,21 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
+import be.technifutur.devmob9.projet_cantinapp_android.interfaces.ItemSelectedListener
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.MenuItemModel
-import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.CroissantItem
-import com.google.android.material.card.MaterialCardView
-import com.mikepenz.fastadapter.FastAdapter
-import com.mikepenz.fastadapter.adapters.ItemAdapter
-import com.mikepenz.fastadapter.listeners.ClickEventHook
+import be.technifutur.devmob9.projet_cantinapp_android.utils.cardState
+import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.GenericAdapter
+import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.viewholders.CroissantViewHolder
+import kotlinx.android.synthetic.main.recyclerview_croissant_item.view.*
 
 class MenuCroissantFragment: BaseFragment() {
     companion object {
@@ -28,11 +26,10 @@ class MenuCroissantFragment: BaseFragment() {
         get() = "Croissant"
 
     private lateinit var croissantRecyclerView: RecyclerView
-    private val itemAdapter = ItemAdapter<CroissantItem>()
-    private val fastAdapter = FastAdapter.with(itemAdapter)
+    private lateinit var croissantAdapter: GenericAdapter<MenuItemModel>
     private var fragmentListener: FragmentListener? = null
+    private var itemSelectedListener: ItemSelectedListener? = null
 
-    private var isSelected: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,41 +42,31 @@ class MenuCroissantFragment: BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         croissantRecyclerView = view.findViewById(R.id.croissant_recycler_view)
-        croissantRecyclerView.apply {
-            this.adapter = fastAdapter
-            this.layoutManager = GridLayoutManager(context, 2)
-        }
-        mockDataItemAdapter()
 
-        fastAdapter.addEventHook(object: ClickEventHook<CroissantItem>() {
-            override fun onBind(viewHolder: RecyclerView.ViewHolder): View? {
-                return if(viewHolder is CroissantItem.CroissantViewHolder) {
-                    viewHolder.detail
-                } else {
-                    null
+    }
+
+    override fun onStart() {
+        super.onStart()
+        croissantAdapter = object : GenericAdapter<MenuItemModel>(mockDataItemAdapter()) {
+            override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder {
+                return CroissantViewHolder(view).apply {
+                    view.croissant_menu_bg.setOnClickListener {
+                        view.croissant_menu_bg.isChecked = !view.croissant_menu_bg.isChecked
+                        cardState(view.croissant_menu_bg.isChecked, view.croissant_menu_bg)
+                    }
+                    view.croissant_detail_btn.setOnClickListener {
+                        Log.d("CLICKED", "Clicked on info at ${mockDataItemAdapter()[this.adapterPosition]}")
+                    }
                 }
             }
-            override fun onClick(
-                v: View,
-                position: Int,
-                fastAdapter: FastAdapter<CroissantItem>,
-                item: CroissantItem
-            ) {
-                Toast.makeText(context, "Clicked on detail: $position", Toast.LENGTH_SHORT).show()
-                fragmentListener?.openDetailFragment()
+            override fun getLayoutID(position: Int, data: MenuItemModel): Int {
+                return R.layout.recyclerview_croissant_item
             }
-        })
+        }
 
-        fastAdapter.onClickListener = { v, adapter, item, position ->
-            val check = v?.findViewById<ImageView>(R.id.selected_croissant_item)
-            val croissantCardView = v?.findViewById<MaterialCardView>(R.id.croissant_menu_bg)
-
-            if(check != null && croissantCardView != null) {
-                this.isSelected = !this.isSelected
-                isMenuItemSelected(isSelected, check, croissantCardView)
-            }
-
-            true
+        croissantRecyclerView.apply {
+            this.adapter = croissantAdapter
+            this.layoutManager = GridLayoutManager(context, 2)
         }
     }
 
@@ -88,31 +75,26 @@ class MenuCroissantFragment: BaseFragment() {
         if(context is FragmentListener) {
             fragmentListener = context
         }
+        if(context is ItemSelectedListener) {
+            itemSelectedListener = context
+        }
     }
 
     override fun onDetach() {
         super.onDetach()
-        croissantRecyclerView.adapter = null
-        croissantRecyclerView.layoutManager = null
+        croissantRecyclerView.apply {
+            this.adapter = null
+            this.layoutManager = null
+        }
         fragmentListener = null
+        itemSelectedListener = null
     }
 
-    private fun isMenuItemSelected(isSelected: Boolean, check: ImageView, background: MaterialCardView) {
-        if(isSelected) {
-            check.visibility = View.VISIBLE
-            background.setCardBackgroundColor(Color.parseColor("#DBF9D8"))
-
-        }else {
-            check.visibility = View.INVISIBLE
-            background.setCardBackgroundColor(Color.parseColor("#FFFFFF"))
-        }
-    }
-
-
-    private fun mockDataItemAdapter() {
+    private fun mockDataItemAdapter(): List<MenuItemModel> {
+        val list = ArrayList<MenuItemModel>()
         for (i in 1..10) {
-            itemAdapter.add(CroissantItem(MenuItemModel("CROISSANT", getString(R.string.croissant_desc), R.drawable.sandwich_illustration)))
+            list.add(MenuItemModel("CROISSANT", menuDescription = getString(R.string.croissant_desc), menuIllustration = R.drawable.sandwich_illustration))
         }
-        fastAdapter.notifyAdapterDataSetChanged()
+        return list
     }
 }
