@@ -1,6 +1,8 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.adapter
 
 import android.content.Context
+import android.content.res.Resources
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +20,7 @@ import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.TYPE_ITEM
 import kotlinx.android.synthetic.main.recyclerview_menu_item.view.*
 import java.lang.IllegalArgumentException
 
-class MenuItemAdapter(private val itemsList: List<MenuItemModel>, context: Context): RecyclerView.Adapter<BaseViewHolder<*>>() {
+class MenuItemAdapter(private val itemsList: List<MenuItemModel>, context: Context, val resources: Resources): RecyclerView.Adapter<BaseViewHolder<*>>() {
 
     private val openDetailFragmentListener = context as FragmentListener
     private val itemSelectedListener = context as ItemSelectedListener
@@ -39,11 +41,13 @@ class MenuItemAdapter(private val itemsList: List<MenuItemModel>, context: Conte
                         if(v.menu_bg.isChecked) {
                             Log.d("ClickEvent", "Checked")
                             numberOfItemsSelected += 1
+                            v.menu_bg.setCardBackgroundColor(resources.getColor(R.color.tameGreen, resources.newTheme()))
                             itemSelectedListener.onNumberItemSelected(numberOfItemsSelected)
                         }else {
                             Log.d("ClickEvent", "Unchecked")
                             numberOfItemsSelected -= 1
                             itemSelectedListener.onNumberItemSelected(numberOfItemsSelected)
+                            v.menu_bg.setCardBackgroundColor(Color.WHITE)
                         }
                     }
                     itemView.menu_detail_button.setOnClickListener {_ ->

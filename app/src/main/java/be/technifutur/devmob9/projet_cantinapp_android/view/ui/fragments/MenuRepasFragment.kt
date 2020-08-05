@@ -37,7 +37,7 @@ class MenuRepasFragment: BaseFragment(){
     }
     override fun onStart() {
         super.onStart()
-        menuItemAdapter = MenuItemAdapter(mockDataItemAdapter(), requireContext())
+        menuItemAdapter = MenuItemAdapter(mockDataItemAdapter(), requireContext(), resources)
         menuItemAdapter.notifyDataSetChanged()
 
 
