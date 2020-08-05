@@ -44,7 +44,7 @@ class OrdersFragment : BaseFragment() {
         val uncheckedDrawable = requireContext().resources.getDrawable(R.drawable.ic_unchecked, resources.newTheme())
 
 
-        a_emporte_cb.isEnabled = true
+        a_emporte_cb.isEnabled = false
         if(!a_emporte_cb.isEnabled) {
             a_emporte_cb.setTextColor(resources.getColor(R.color.bone, resources.newTheme()))
         }
