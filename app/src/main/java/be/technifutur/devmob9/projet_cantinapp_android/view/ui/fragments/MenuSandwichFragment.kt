@@ -1,22 +1,21 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
+import be.technifutur.devmob9.projet_cantinapp_android.interfaces.ItemSelectedListener
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.MenuItemModel
-import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.SandwichItem
-import com.google.android.material.card.MaterialCardView
-import com.mikepenz.fastadapter.FastAdapter
-import com.mikepenz.fastadapter.adapters.ItemAdapter
-import com.mikepenz.fastadapter.listeners.ClickEventHook
+import be.technifutur.devmob9.projet_cantinapp_android.utils.cardState
+import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.GenericAdapter
+import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.viewholders.SandwichViewHolder
+import kotlinx.android.synthetic.main.recyclerview_sandwich_item.view.*
 
 class MenuSandwichFragment: BaseFragment() {
     companion object {
@@ -26,11 +25,11 @@ class MenuSandwichFragment: BaseFragment() {
         get() = "Sandwich"
 
     private lateinit var sandwichRecyclerView: RecyclerView
-    private val itemAdapter = ItemAdapter<SandwichItem>()
-    private val fastAdapter = FastAdapter.with(itemAdapter)
-    private var fragmentListener: FragmentListener? = null
+    private lateinit var sandwichAdapter: GenericAdapter<MenuItemModel>
 
-    private var isSelected: Boolean = false
+    private var fragmentListener: FragmentListener? = null
+    private var itemSelectedListener: ItemSelectedListener? = null
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_menu_sandwich, container, false)
@@ -44,38 +43,31 @@ class MenuSandwichFragment: BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         sandwichRecyclerView = view.findViewById(R.id.sandwich_recycler_view)
-        sandwichRecyclerView.apply {
-            this.adapter = fastAdapter
-            this.layoutManager = GridLayoutManager(context, 2)
-        }
-        mockDataItemAdapter()
+    }
 
-        fastAdapter.addEventHook(object: ClickEventHook<SandwichItem>() {
-            override fun onBind(viewHolder: RecyclerView.ViewHolder): View? {
-                return if(viewHolder is SandwichItem.ViewHolder){
-                    viewHolder.detail
-                }else {
-                    null
+    override fun onStart() {
+        super.onStart()
+        sandwichAdapter = object : GenericAdapter<MenuItemModel>(mockList()) {
+            override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder {
+                return SandwichViewHolder(view).apply {
+                    view.sandwich_menu_bg.setOnClickListener {
+                        view.sandwich_menu_bg.isChecked = !view.sandwich_menu_bg.isChecked
+                        cardState(view.sandwich_menu_bg.isChecked, view.sandwich_menu_bg)
+                    }
+                    view.sandwich_detail_btn.setOnClickListener {
+                        Log.d("Click", "Clicked on detail at ${mockList()[this.adapterPosition]}")
+                    }
                 }
             }
 
-            override fun onClick(v: View, position: Int, fastAdapter: FastAdapter<SandwichItem>, item: SandwichItem) {
-                fragmentListener?.openDetailFragment()
+            override fun getLayoutID(position: Int, data: MenuItemModel): Int {
+                return R.layout.recyclerview_sandwich_item
             }
-        })
-
-        fastAdapter.onClickListener = { v, adapter, item, position ->
-            val check = v?.findViewById<ImageView>(R.id.selected_sandwich_item)
-            val sandwichBackground = v?.findViewById<MaterialCardView>(R.id.sandwich_menu_bg)
-
-            if(check != null && sandwichBackground != null) {
-                this.isSelected = !this.isSelected
-                isMenuItemSelected(isSelected, check, sandwichBackground)
-            }
-
-            true
         }
-
+        sandwichRecyclerView.apply {
+            this.adapter = sandwichAdapter
+            this.layoutManager = GridLayoutManager(context, 2)
+        }
     }
 
     override fun onAttach(context: Context) {
@@ -83,33 +75,32 @@ class MenuSandwichFragment: BaseFragment() {
         if(context is FragmentListener){
             fragmentListener = context
         }
+
+        if(context is ItemSelectedListener) {
+            itemSelectedListener = context
+        }
     }
 
     override fun onDetach() {
         super.onDetach()
-        sandwichRecyclerView.adapter = null
-        sandwichRecyclerView.layoutManager = null
         fragmentListener = null
+        itemSelectedListener = null
     }
 
-    private fun isMenuItemSelected(isSelected: Boolean, check: ImageView, background: MaterialCardView) {
-        if(isSelected) {
-            check.visibility = View.VISIBLE
-            background.setCardBackgroundColor(Color.parseColor("#DBF9D8"))
+    private fun mockList(): List<MenuItemModel> {
+        val list = ArrayList<MenuItemModel>()
 
-        }else {
-            check.visibility = View.INVISIBLE
-            background.setCardBackgroundColor(Color.parseColor("#FFFFFF"))
+        for (i in 0..20) {
+            list.add(MenuItemModel("DAGOBERT $i", getString(R.string.sandwich_desc), R.drawable.sandwich_illustration))
         }
+        return list
     }
 
-    private fun mockDataItemAdapter() {
-        itemAdapter.add(SandwichItem(MenuItemModel("DAGOBERT", getString(R.string.sandwich_desc), R.drawable.sandwich_illustration)))
-        itemAdapter.add(SandwichItem(MenuItemModel("THON", getString(R.string.sandwich_desc), R.drawable.sandwich_illustration)))
-        itemAdapter.add(SandwichItem(MenuItemModel("JAMBOM FROMAGE", getString(R.string.sandwich_desc), R.drawable.sandwich_illustration)))
-        itemAdapter.add(SandwichItem(MenuItemModel("DAGOBERT", getString(R.string.sandwich_desc), R.drawable.sandwich_illustration)))
-        itemAdapter.add(SandwichItem(MenuItemModel("THON", getString(R.string.sandwich_desc), R.drawable.sandwich_illustration)))
-        itemAdapter.add(SandwichItem(MenuItemModel("JAMBOM FROMAGE", getString(R.string.sandwich_desc), R.drawable.sandwich_illustration)))
-        fastAdapter.notifyAdapterDataSetChanged()
+    override fun onDestroyView() {
+        super.onDestroyView()
+        sandwichRecyclerView.apply {
+            this.adapter = null
+            this.layoutManager = null
+        }
     }
 }
