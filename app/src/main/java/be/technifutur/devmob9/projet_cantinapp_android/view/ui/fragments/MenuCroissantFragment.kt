@@ -44,7 +44,6 @@ class MenuCroissantFragment: BaseFragment() {
         croissantRecyclerView = view.findViewById(R.id.croissant_recycler_view)
 
     }
-
     override fun onStart() {
         super.onStart()
         croissantAdapter = object : GenericAdapter<MenuItemModel>(mockDataItemAdapter()) {
@@ -56,6 +55,7 @@ class MenuCroissantFragment: BaseFragment() {
                     }
                     view.croissant_detail_btn.setOnClickListener {
                         Log.d("CLICKED", "Clicked on info at ${mockDataItemAdapter()[this.adapterPosition]}")
+                        fragmentListener?.openDetailFragmentWithDetails(mockDataItemAdapter()[this.adapterPosition])
                     }
                 }
             }

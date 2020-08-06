@@ -56,6 +56,7 @@ class MenuSandwichFragment: BaseFragment() {
                     }
                     view.sandwich_detail_btn.setOnClickListener {
                         Log.d("Click", "Clicked on detail at ${mockList()[this.adapterPosition]}")
+                        fragmentListener?.openDetailFragmentWithDetails(mockList()[this.adapterPosition])
                     }
                 }
             }

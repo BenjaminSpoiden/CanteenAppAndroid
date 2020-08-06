@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
@@ -17,6 +16,7 @@ import be.technifutur.devmob9.projet_cantinapp_android.interfaces.ItemSelectedLi
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.MenuItemModel
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.TYPE_HEADER
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.TYPE_ITEM
+import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.viewholders.BaseViewHolder
 import kotlinx.android.synthetic.main.recyclerview_menu_item.view.*
 import java.lang.IllegalArgumentException
 

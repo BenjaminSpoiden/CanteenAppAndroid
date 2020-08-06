@@ -1,6 +1,7 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.adapter
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +13,11 @@ import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.OrdersModel
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.TYPE_HEADER
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.TYPE_ITEM
+import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.viewholders.BaseViewHolder
+import kotlinx.android.synthetic.main.recyclerview_order_item.view.*
 import java.lang.IllegalArgumentException
 
-class OrdersItemAdapter(private val ordersItemList: List<OrdersModel>): RecyclerView.Adapter<BaseViewHolder<*>>() {
+class OrdersItemAdapter(private val ordersItemList: MutableList<OrdersModel>): RecyclerView.Adapter<BaseViewHolder<*>>() {
 
     override fun onBindViewHolder(holder: BaseViewHolder<*>, position: Int) {
         if(getItemViewType(position) == TYPE_HEADER) {
@@ -34,7 +37,13 @@ class OrdersItemAdapter(private val ordersItemList: List<OrdersModel>): Recycler
             }
             TYPE_ITEM -> {
                 val itemsView = LayoutInflater.from(parent.context).inflate(R.layout.recyclerview_order_item, parent, false)
-                OrdersItemViewHolder(itemsView)
+                OrdersItemViewHolder(itemsView).apply {
+                    itemsView.order_delete_item.setOnClickListener {
+                        Log.d("Order", "Deleted item at: ${this.adapterPosition} for ${ordersItemList[this.adapterPosition]}")
+                        ordersItemList.removeAt(this.adapterPosition)
+                        this@OrdersItemAdapter.notifyDataSetChanged()
+                    }
+                }
             }
             else -> throw IllegalArgumentException("Invalid View Type")
         }
