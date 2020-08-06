@@ -15,7 +15,7 @@ abstract class GenericAdapter<T>(private var genericItemList: List<T>): Recycler
 
     abstract fun getLayoutID(position: Int, data: T): Int
 
-    fun updateItems(items: List<T>) {
+    fun updateItems(items: MutableList<T>) {
         genericItemList = items
         this.notifyDataSetChanged()
     }

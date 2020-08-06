@@ -70,7 +70,7 @@ class OrdersFragment : BaseFragment() {
         }
     }
 
-    private fun mockInitData() = listOf(
+    private fun mockInitData() = mutableListOf(
         OrdersModel(isHeader = true, headerName = "23/07"),
         OrdersModel(null, "Boulet Frite", 4, 0),
         OrdersModel(null, "Soupe d'oignon", 6, 8),
