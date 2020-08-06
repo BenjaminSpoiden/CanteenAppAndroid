@@ -15,3 +15,5 @@ fun Fragment.cardState(isSelected: Boolean, materialCardView: MaterialCardView) 
         materialCardView.setCardBackgroundColor(Color.WHITE)
     }
 }
+
+fun Any.colorSelection(colorString: String) = Color.parseColor(colorString)

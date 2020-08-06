@@ -1,9 +1,13 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,14 +17,21 @@ import be.technifutur.devmob9.projet_cantinapp_android.databinding.FragmentHomeB
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.CalendarListener
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.CalendarModel
 import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.CalendarDayManager
+import be.technifutur.devmob9.projet_cantinapp_android.utils.cardState
+import be.technifutur.devmob9.projet_cantinapp_android.utils.colorSelection
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.CalendarItem
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.HomeViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.HomeViewModelFactory
+import com.google.android.material.card.MaterialCardView
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
+import com.mikepenz.fastadapter.listeners.ClickEventHook
+import kotlinx.android.synthetic.main.calendar_item.*
+import kotlinx.android.synthetic.main.calendar_item.view.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
+import kotlin.properties.Delegates
 
 class HomeFragment: BaseFragment(), KodeinAware, CalendarListener {
     companion object {
@@ -40,6 +51,9 @@ class HomeFragment: BaseFragment(), KodeinAware, CalendarListener {
     private val itemAdapter = ItemAdapter<CalendarItem>()
     private val fastAdapter = FastAdapter.with(itemAdapter)
 
+    private var selectedPosition: Int = -1
+    private var oldSelectedPosition: Int = -1
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = DataBindingUtil.inflate<FragmentHomeBinding>(inflater, R.layout.fragment_home, container, false)
         homeViewModel = ViewModelProvider(this, homeFactory).get(HomeViewModel::class.java)
@@ -55,7 +69,42 @@ class HomeFragment: BaseFragment(), KodeinAware, CalendarListener {
             this.adapter = fastAdapter
             this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
+
+        fastAdapter.addEventHook(object : ClickEventHook<CalendarItem>() {
+            override fun onBind(viewHolder: RecyclerView.ViewHolder): View? {
+                return if(viewHolder is CalendarItem.CalendarViwHolder){
+                    viewHolder.calendarCard
+                }else {
+                    null
+                }
+
+            }
+            override fun onClick(
+                v: View,
+                position: Int,
+                fastAdapter: FastAdapter<CalendarItem>,
+                item: CalendarItem
+            ) {
+                selectedPosition = position
+                oldSelectedPosition = if(oldSelectedPosition == -1) {
+                    v.calendar_card_view.setCardBackgroundColor(colorSelection("#DBF9D8"))
+                    v.day_tv.setTextColor(colorSelection("#2F4858"))
+                    v.day_number_tv.setTextColor(colorSelection("#2F4858"))
+                    selectedPosition
+                    Log.d("position", "${item.calendarModel.dayName}")
+                } else {
+                    fastAdapter.notifyItemChanged(oldSelectedPosition)
+                    selectedPosition
+                    Log.d("position", "${item.calendarModel.dayName}")
+                }
+                fastAdapter.notifyItemChanged(selectedPosition)
+
+
+            }
+        })
     }
+
+
 
     override fun onCalendarReceived(calendarModel: CalendarModel) {
         itemAdapter.add(CalendarItem(calendarModel))
@@ -64,8 +113,6 @@ class HomeFragment: BaseFragment(), KodeinAware, CalendarListener {
 
     override fun onDetach() {
         super.onDetach()
-//        calendarRecyclerView.adapter = null
-//        calendarRecyclerView.layoutManager = null
         manager.calendarListener = null
     }
 

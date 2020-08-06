@@ -5,8 +5,9 @@ import be.technifutur.devmob9.projet_cantinapp_android.model.data.AllergiesModel
 
 object Constants {
     const val FIREBASE_TAG = "FirebaseTest"
-    const val COLLECTION_ID: String = "days"
+    const val COLLECTION_ID_DAYS: String = "days"
     const val USERS: String = "users"
+    const val WORKDAY: String = "isWorkday"
 
     const val TYPE_HEADER = 0
     const val TYPE_ITEM = 1
