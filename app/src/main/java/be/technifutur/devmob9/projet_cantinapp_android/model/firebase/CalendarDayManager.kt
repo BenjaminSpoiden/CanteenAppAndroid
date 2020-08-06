@@ -3,8 +3,9 @@ package be.technifutur.devmob9.projet_cantinapp_android.model.firebase
 import android.util.Log
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.CalendarListener
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.CalendarModel
-import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.COLLECTION_ID
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.COLLECTION_ID_DAYS
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.FIREBASE_TAG
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.WORKDAY
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.EventListener
 import org.threeten.bp.LocalDate
@@ -29,7 +30,7 @@ class CalendarDayManager {
     }
 
     private fun getFirebaseQuery() {
-        db.collection(COLLECTION_ID).addSnapshotListener(object : EventListener<QuerySnapshot> {
+        db.collection(COLLECTION_ID_DAYS).addSnapshotListener(object : EventListener<QuerySnapshot> {
             override fun onEvent(query: QuerySnapshot?, exception: FirebaseFirestoreException?) {
                 if (exception != null) {
                     return
@@ -39,10 +40,15 @@ class CalendarDayManager {
                         when (dc.type) {
                             DocumentChange.Type.ADDED -> {
                                 formattingRawDataToDate(dc.document.id).forEach { calendarModel ->
-                                    calendarListener?.onCalendarReceived(CalendarModel(calendarModel.dayName, calendarModel.dayNumber))
+                                    calendarListener?.onCalendarReceived(
+                                        CalendarModel(
+                                            calendarModel.dayName,
+                                            calendarModel.dayNumber,
+                                            dc.document.getBoolean(WORKDAY)
+                                        )
+                                    )
                                 }
                             }
-
                             else -> Log.d(FIREBASE_TAG, "")
                         }
                     }

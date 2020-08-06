@@ -32,7 +32,6 @@ class AuthManager{
         Firebase.firestore
     }
 
-
     fun login(email: String, password: String) = Completable.create { emitter ->
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
             if(!emitter.isDisposed){
@@ -78,7 +77,7 @@ class AuthManager{
             "country" to "USA"
         )
 
-        db.collection(Constants.COLLECTION_ID).document(getDateTime())
+        db.collection(Constants.COLLECTION_ID_DAYS).document(getDateTime())
             .set(city)
             .addOnSuccessListener {
                 Log.d(Constants.FIREBASE_TAG, "Successful -> $it")
