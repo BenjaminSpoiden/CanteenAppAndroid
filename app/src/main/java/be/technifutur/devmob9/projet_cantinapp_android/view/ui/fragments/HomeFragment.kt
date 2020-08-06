@@ -24,8 +24,12 @@ import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.HomeViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.HomeViewModelFactory
 import com.google.android.material.card.MaterialCardView
 import com.mikepenz.fastadapter.FastAdapter
+import com.mikepenz.fastadapter.ISelectionListener
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.listeners.ClickEventHook
+import com.mikepenz.fastadapter.select.SelectExtension
+import com.mikepenz.fastadapter.select.getSelectExtension
+import com.mikepenz.fastadapter.select.selectExtension
 import kotlinx.android.synthetic.main.calendar_item.*
 import kotlinx.android.synthetic.main.calendar_item.view.*
 import org.kodein.di.KodeinAware
@@ -50,7 +54,6 @@ class HomeFragment: BaseFragment(), KodeinAware, CalendarListener {
     private lateinit var calendarRecyclerView: RecyclerView
     private val itemAdapter = ItemAdapter<CalendarItem>()
     private val fastAdapter = FastAdapter.with(itemAdapter)
-
     private var selectedPosition: Int = -1
     private var oldSelectedPosition: Int = -1
 
@@ -64,12 +67,12 @@ class HomeFragment: BaseFragment(), KodeinAware, CalendarListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         manager.calendarListener = this
+
         calendarRecyclerView = view.findViewById(R.id.calendar_recyclerview)
         calendarRecyclerView.apply {
             this.adapter = fastAdapter
             this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
-
         fastAdapter.addEventHook(object : ClickEventHook<CalendarItem>() {
             override fun onBind(viewHolder: RecyclerView.ViewHolder): View? {
                 return if(viewHolder is CalendarItem.CalendarViwHolder){
@@ -77,34 +80,14 @@ class HomeFragment: BaseFragment(), KodeinAware, CalendarListener {
                 }else {
                     null
                 }
-
             }
-            override fun onClick(
-                v: View,
-                position: Int,
-                fastAdapter: FastAdapter<CalendarItem>,
-                item: CalendarItem
-            ) {
-                selectedPosition = position
-                oldSelectedPosition = if(oldSelectedPosition == -1) {
-                    v.calendar_card_view.setCardBackgroundColor(colorSelection("#DBF9D8"))
-                    v.day_tv.setTextColor(colorSelection("#2F4858"))
-                    v.day_number_tv.setTextColor(colorSelection("#2F4858"))
-                    selectedPosition
-                    Log.d("position", "${item.calendarModel.dayName}")
-                } else {
-                    fastAdapter.notifyItemChanged(oldSelectedPosition)
-                    selectedPosition
-                    Log.d("position", "${item.calendarModel.dayName}")
-                }
-                fastAdapter.notifyItemChanged(selectedPosition)
-
-
+            override fun onClick(v: View, position: Int, fastAdapter: FastAdapter<CalendarItem>, item: CalendarItem) {
+                v.calendar_card_view.setCardBackgroundColor(colorSelection("#DBF9D8"))
+                v.day_tv.setTextColor(colorSelection("#2F4858"))
+                v.day_number_tv.setTextColor(colorSelection("#2F4858"))
             }
         })
     }
-
-
 
     override fun onCalendarReceived(calendarModel: CalendarModel) {
         itemAdapter.add(CalendarItem(calendarModel))
