@@ -40,6 +40,7 @@ class MenuRepasFragment: BaseFragment(){
         menuItemAdapter = MenuItemAdapter(mockDataItemAdapter(), requireContext(), resources)
         menuItemAdapter.notifyDataSetChanged()
 
+
         menuRecyclerView.apply {
             this.adapter = menuItemAdapter
             this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
