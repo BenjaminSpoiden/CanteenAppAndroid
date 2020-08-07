@@ -14,8 +14,6 @@ import mva2.adapter.ItemViewHolder
 
 class CalendarBinder: ItemBinder<CalendarModel, CalendarBinder.CalendarViewHolder>() {
 
-
-
     override fun bindViewHolder(holder: CalendarViewHolder?, item: CalendarModel?) {
         holder?.calendarDayName?.text = item?.dayName
         holder?.calendarDayNumber?.text = item?.dayNumber

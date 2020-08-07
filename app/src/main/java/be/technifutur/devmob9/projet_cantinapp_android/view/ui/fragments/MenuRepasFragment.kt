@@ -1,5 +1,6 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,11 +10,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.ItemSelectedListener
+import be.technifutur.devmob9.projet_cantinapp_android.model.data.Food
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.MenuItemModel
+import be.technifutur.devmob9.projet_cantinapp_android.view.MenuHeaderBinder
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.MenuItemAdapter
+import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.MenuItemBinder
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.GenericAdapter
 import com.mikepenz.fastadapter.GenericItem
+import mva2.adapter.ItemSection
+import mva2.adapter.ListSection
+import mva2.adapter.MultiViewAdapter
 
 class MenuRepasFragment: BaseFragment(){
 
@@ -27,6 +34,8 @@ class MenuRepasFragment: BaseFragment(){
     private lateinit var menuRecyclerView: RecyclerView
     private lateinit var menuItemAdapter: MenuItemAdapter
 
+    private lateinit var menuAdapter: MultiViewAdapter
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_menu_repas, container, false)
     }
@@ -35,10 +44,30 @@ class MenuRepasFragment: BaseFragment(){
         super.onViewCreated(view, savedInstanceState)
         menuRecyclerView = view.findViewById(R.id.menu_recycler_view)
     }
+    @SuppressLint("RestrictedApi")
     override fun onStart() {
         super.onStart()
         menuItemAdapter = MenuItemAdapter(mockDataItemAdapter(), requireContext(), resources)
         menuItemAdapter.notifyDataSetChanged()
+
+        menuAdapter = MultiViewAdapter()
+        val itemSection = ItemSection<Food>()
+        val listSection = ListSection<MenuItemModel>()
+
+
+        menuAdapter.registerItemBinders(MenuHeaderBinder(), MenuItemBinder())
+
+        menuAdapter.addSection(itemSection)
+        menuAdapter.addSection(listSection)
+
+        itemSection.setItem(Food("Entrée"))
+        listSection.add(MenuItemModel("", "", R.drawable.menu_illustration, false, ""))
+        listSection.add(MenuItemModel("", "", R.drawable.menu_illustration, false, ""))
+        listSection.add(MenuItemModel("", "", R.drawable.menu_illustration, false, ""))
+        listSection.add(MenuItemModel("", "", R.drawable.menu_illustration, false, ""))
+        listSection.add(MenuItemModel("", "", R.drawable.menu_illustration, false, ""))
+        listSection.add(MenuItemModel("", "", R.drawable.menu_illustration, false, ""))
+        listSection.add(MenuItemModel("", "", R.drawable.menu_illustration, false, ""))
 
 
         menuRecyclerView.apply {
@@ -47,19 +76,13 @@ class MenuRepasFragment: BaseFragment(){
         }
     }
 
+
     private fun mockDataItemAdapter() = listOf(
-        MenuItemModel(isHeader = true, headerName = "Entree"),
-        MenuItemModel("Jus de Cyprine 1", getString(R.string.mock_desc), R.drawable.menu_illustration),
-        MenuItemModel("Jus de Cyprine 2", getString(R.string.mock_desc), R.drawable.menu_illustration),
-        MenuItemModel("Jus de Cyprine 3", getString(R.string.mock_desc), R.drawable.menu_illustration),
-        MenuItemModel(isHeader = true, headerName = "Plat"),
-        MenuItemModel("Jus de Cyprine 4", getString(R.string.mock_desc), R.drawable.menu_illustration),
-        MenuItemModel("Jus de Cyprine 5", getString(R.string.mock_desc), R.drawable.menu_illustration),
-        MenuItemModel("Jus de Cyprine 6", getString(R.string.mock_desc), R.drawable.menu_illustration),
-        MenuItemModel(isHeader = true, headerName = "Dessert"),
-        MenuItemModel("Jus de Cyprine 7", getString(R.string.mock_desc), R.drawable.menu_illustration),
-        MenuItemModel("Jus de Cyprine 8", getString(R.string.mock_desc), R.drawable.menu_illustration),
-        MenuItemModel("Jus de Cyprine 9", getString(R.string.mock_desc), R.drawable.menu_illustration)
+        MenuItemModel("Jus de Cyprine 1", getString(R.string.mock_desc), R.drawable.menu_illustration, false, ""),
+        MenuItemModel("Jus de Cyprine 2", getString(R.string.mock_desc), R.drawable.menu_illustration, false, ""),
+        MenuItemModel("Jus de Cyprine 3", getString(R.string.mock_desc), R.drawable.menu_illustration, false, ""),
+        MenuItemModel("Jus de Cyprine 4", getString(R.string.mock_desc), R.drawable.menu_illustration, false, ""),
+        MenuItemModel("Jus de Cyprine 5", getString(R.string.mock_desc), R.drawable.menu_illustration, false, "")
     )
 
     override fun onDestroy() {

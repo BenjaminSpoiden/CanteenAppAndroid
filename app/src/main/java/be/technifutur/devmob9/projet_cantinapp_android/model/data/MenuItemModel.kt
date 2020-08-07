@@ -5,4 +5,4 @@ data class MenuItemModel(
     var menuDescription: String? = null,
     var menuIllustration: Int? = null,
     var isHeader: Boolean = false,
-    var headerName: String? = null): Food()
+    var headerName: String? = null)

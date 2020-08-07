@@ -3,6 +3,7 @@ package be.technifutur.devmob9.projet_cantinapp_android
 import android.app.Application
 import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.AuthManager
 import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.ContactPageManager
+import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.MenusManager
 import be.technifutur.devmob9.projet_cantinapp_android.model.repositories.ContactPageRepository
 import be.technifutur.devmob9.projet_cantinapp_android.model.repositories.UserRepository
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.AuthViewModelFactory
@@ -44,5 +45,7 @@ class CantinappApplication: Application(), KodeinAware {
         super.onCreate()
         AndroidThreeTen.init(this)
         FirebaseInstanceId.getInstance().instanceId
+
+
     }
 }
