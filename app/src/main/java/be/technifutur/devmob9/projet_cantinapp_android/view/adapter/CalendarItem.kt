@@ -8,10 +8,12 @@ import android.view.View
 import android.widget.TextView
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.CalendarModel
+import be.technifutur.devmob9.projet_cantinapp_android.utils.colorSelection
 import com.google.android.material.card.MaterialCardView
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.items.AbstractItem
 
+@Deprecated("")
 class CalendarItem(val calendarModel: CalendarModel): AbstractItem<CalendarItem.CalendarViwHolder>() {
 
     override val layoutRes: Int
@@ -27,7 +29,7 @@ class CalendarItem(val calendarModel: CalendarModel): AbstractItem<CalendarItem.
     inner class CalendarViwHolder(view: View): FastAdapter.ViewHolder<CalendarItem>(view) {
         private val calendarDayName = view.findViewById<TextView>(R.id.day_tv)
         private val calendarDayNumber = view.findViewById<TextView>(R.id.day_number_tv)
-        val calendarCard = view.findViewById<MaterialCardView>(R.id.calendar_card_view)
+        val calendarCard: MaterialCardView = view.findViewById(R.id.calendar_card_view)
 
         override fun bindView(item: CalendarItem, payloads: List<Any>) {
             calendarDayName.text = item.calendarModel.dayName
