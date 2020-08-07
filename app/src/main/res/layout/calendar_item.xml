@@ -17,8 +17,6 @@
         app:cardBackgroundColor="@android:color/white"
         android:background="@drawable/shadow_bg"
         app:cardCornerRadius="5dp"
-        android:clickable="true"
-        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
