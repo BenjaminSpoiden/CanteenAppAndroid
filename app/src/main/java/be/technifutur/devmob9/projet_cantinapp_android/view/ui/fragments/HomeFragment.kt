@@ -16,6 +16,7 @@ import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.CalendarDa
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.CalendarBinder
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.HomeViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.HomeViewModelFactory
+import mva2.adapter.HeaderSection
 import mva2.adapter.ListSection
 import mva2.adapter.MultiViewAdapter
 import mva2.adapter.util.Mode
@@ -32,7 +33,7 @@ class HomeFragment: BaseFragment(), KodeinAware, CalendarListener {
     override val title: String
     get() = ""
 
-    private val manager = CalendarDayManager.getInstance()
+    private val manager = CalendarDayManager.INSTANCE
     override val kodein by kodein()
     private val homeFactory: HomeViewModelFactory by instance()
 
@@ -64,6 +65,7 @@ class HomeFragment: BaseFragment(), KodeinAware, CalendarListener {
 
         listSection =  ListSection()
         multiViewAdapter.addSection(listSection)
+        multiViewAdapter.addSection(HeaderSection<CalendarModel>())
 
         calendarRecyclerView.apply {
             this.adapter = multiViewAdapter

@@ -20,6 +20,7 @@ import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.viewholders.
 import kotlinx.android.synthetic.main.recyclerview_menu_item.view.*
 import java.lang.IllegalArgumentException
 
+@Deprecated("Possible new implementation")
 class MenuItemAdapter(private val itemsList: List<MenuItemModel>, context: Context, val resources: Resources): RecyclerView.Adapter<BaseViewHolder<*>>() {
 
     private val openDetailFragmentListener = context as FragmentListener

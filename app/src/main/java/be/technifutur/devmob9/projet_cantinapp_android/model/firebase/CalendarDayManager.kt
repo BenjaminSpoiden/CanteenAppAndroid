@@ -14,11 +14,16 @@ import org.threeten.bp.format.ResolverStyle
 import java.lang.Exception
 import java.util.*
 
-class CalendarDayManager {
+class CalendarDayManager private constructor(){
+
+    private object Holder {
+        val instance = CalendarDayManager()
+    }
 
     companion object {
-        fun getInstance() =
-            CalendarDayManager()
+        val INSTANCE by lazy {
+            Holder.instance
+        }
     }
 
     private val db = FirebaseFirestore.getInstance()
