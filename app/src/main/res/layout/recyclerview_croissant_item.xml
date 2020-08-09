@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="5dp"
     android:layout_marginEnd="5dp"
-    android:layout_gravity="center|top"
+    android:orientation="vertical"
     android:id="@+id/recycler_view_croissant_item_id">
 
     <com.google.android.material.card.MaterialCardView
@@ -103,94 +103,6 @@
                 app:layout_constraintEnd_toEndOf="@id/croissant_illustration"
                 app:layout_constraintStart_toStartOf="@id/croissant_illustration"
                 app:layout_constraintTop_toBottomOf="@id/type_croissant" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </com.google.android.material.card.MaterialCardView>
-
-<!--    <ImageView-->
-<!--        android:id="@+id/selected_croissant_item"-->
-<!--        android:layout_width="32dp"-->
-<!--        android:layout_height="32dp"-->
-<!--        android:layout_marginTop="2dp"-->
-<!--        android:layout_marginStart="150dp"-->
-<!--        android:elevation="10dp"-->
-<!--        android:src="@drawable/check"-->
-<!--        android:visibility="invisible"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/croissant_menu_bg"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-</androidx.constraintlayout.widget.ConstraintLayout>
-
-
-<!--<androidx.constraintlayout.widget.ConstraintLayout -->
-<!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    android:layout_width="wrap_content"-->
-<!--    android:layout_height="wrap_content"-->
-<!--    android:paddingBottom="10dp"-->
-<!--    android:paddingStart="5dp"-->
-<!--    android:paddingEnd="5dp"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    android:id="@+id/recycler_view_croissant_item_id">-->
-
-<!--    <ImageView-->
-<!--        android:id="@+id/croissant_menu_bg"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        android:src="@drawable/sandwich_bg"/>-->
-
-<!--    <ImageView-->
-<!--        android:id="@+id/croissant_illustration"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:src="@drawable/sandwich_illustration"-->
-<!--        app:layout_constraintEnd_toEndOf="@+id/croissant_menu_bg"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/croissant_menu_bg"-->
-<!--        app:layout_constraintTop_toTopOf="@id/croissant_menu_bg"/>-->
-
-<!--    <ImageView-->
-<!--        android:id="@+id/croissant_detail_btn"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:src="@drawable/ic_menu_detail_button"-->
-<!--        android:layout_marginTop="1dp"-->
-<!--        android:layout_marginEnd="7dp"-->
-<!--        android:padding="10dp"-->
-<!--        app:layout_constraintTop_toTopOf="@id/croissant_illustration"-->
-<!--        app:layout_constraintEnd_toEndOf="@id/croissant_illustration"/>-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/type_croissant"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="ENTREE"-->
-<!--        android:textStyle="bold"-->
-<!--        android:textSize="13sp"-->
-<!--        android:textColor="@android:color/black"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/croissant_illustration"-->
-<!--        app:layout_constraintStart_toStartOf="@id/croissant_illustration"-->
-<!--        android:layout_marginStart="1dp"/>-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/croissant_description"-->
-<!--        android:isScrollContainer="true"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:justificationMode="inter_word"-->
-<!--        android:text="@string/croissant_desc"-->
-<!--        android:textColor="@color/darkerGrey"-->
-<!--        android:textSize="12sp"-->
-<!--        android:layout_marginEnd="6dp"-->
-<!--        android:layout_marginBottom="10dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="@+id/croissant_menu_bg"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/type_croissant"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/type_croissant" />-->
-
-
-
-<!--</androidx.constraintlayout.widget.ConstraintLayout>-->
+</LinearLayout>

@@ -10,6 +10,7 @@ object Constants {
     const val ID_STARTERS = "starters"
     const val ID_MAIN_COURSES = "main_courses"
     const val ID_DESSERTS = "desserts"
+    const val ID_DAYS_MEALS = "days_meals"
 
     const val TYPE_HEADER = 0
     const val TYPE_ITEM = 1

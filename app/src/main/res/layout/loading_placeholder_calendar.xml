@@ -24,13 +24,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
+        <View
             android:id="@+id/day_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="15dp"
             android:layout_gravity="center|top"
+            android:gravity="center"
             android:layout_marginTop="5dp"
             android:textColor="@color/slightlyTurquoise"
+            android:background="@color/slightlyTurquoise"
             android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/calendar_bg"
@@ -39,13 +41,14 @@
             app:layout_constraintTop_toTopOf="@id/calendar_bg"
             tools:text="LUNDI" />
 
-        <TextView
+        <View
             android:id="@+id/day_number_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="42dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:textColor="@color/slightlyTurquoise"
+            android:background="@color/slightlyTurquoise"
             android:textSize="36sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/calendar_overlay"

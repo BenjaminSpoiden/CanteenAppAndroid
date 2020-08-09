@@ -27,21 +27,12 @@ class MainFragment: BaseFragment() {
         bottomBar.onItemSelected = {
             fragmentListener?.onFragmentSelectedFromMenu(it)
         }
-    }
-
-    /**
-     * Calling [MenuRepasFragment] at the start of this fragment
-     */
-
-    override fun onStart() {
-        super.onStart()
         initFirstFragment()
     }
 
     private fun initFirstFragment(){
-        activity?.let {
-            it.supportFragmentManager.beginTransaction().add(R.id.fragment_container_main, HomeFragment.getInstance()).commit()
-        }
+        activity?.supportFragmentManager?.beginTransaction()
+            ?.add(R.id.fragment_container_main, HomeFragment.getInstance())?.commit()
         fragmentListener?.onFragmentSelectedFromMenu(0)
     }
 

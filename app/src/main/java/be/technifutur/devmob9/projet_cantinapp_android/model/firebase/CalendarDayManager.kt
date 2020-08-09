@@ -11,10 +11,11 @@ import com.google.firebase.firestore.EventListener
 import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.ResolverStyle
+import org.threeten.bp.format.TextStyle
 import java.lang.Exception
 import java.util.*
 
-class CalendarDayManager private constructor(){
+class CalendarDayManager {
 
     private object Holder {
         val instance = CalendarDayManager()
@@ -73,7 +74,7 @@ class CalendarDayManager private constructor(){
 
                 val toDateConversion = LocalDate.parse(date, DateTimeFormatter.ofPattern("uuuu-MM-dd", Locale.ROOT).withResolverStyle(ResolverStyle.STRICT))
 
-                val toDayOfWeekConversion = toDateConversion.dayOfWeek.name
+                val toDayOfWeekConversion = toDateConversion.dayOfWeek.getDisplayName(TextStyle.FULL, Locale.ROOT)
 
                 //TOUT KAKER (optmisation)
                 val toDayNumberConversion = toDateConversion.toString().split("-")

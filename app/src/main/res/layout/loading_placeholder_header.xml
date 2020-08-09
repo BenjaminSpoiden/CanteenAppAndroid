@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,14 +9,7 @@
     android:padding="5dp"
     android:id="@+id/header_item_id">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/header_menu_cardview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/GreenishTurquoise"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-        <TextView
+        <View
             android:id="@+id/header_menu_text"
             style="@style/TextAppearance.AppCompat.Caption"
             android:layout_width="100dp"
@@ -24,6 +17,7 @@
             android:layout_margin="5dp"
             android:gravity="center"
             android:textColor="@android:color/white"
+            android:background="@color/slightlyTurquoise"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -31,5 +25,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Header" />
-    </com.google.android.material.card.MaterialCardView>
-</LinearLayout>
+
+</FrameLayout>
