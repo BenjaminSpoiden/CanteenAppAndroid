@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
+<layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
@@ -12,75 +12,76 @@
             android:id="@+id/root_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/backgroundAppColor">
+            android:background="@color/backgroundAppColor"
+            android:orientation="vertical">
 
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmerFrameLayout"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_margin="10dp"
+                android:layout_marginStart="7dp"
+                android:layout_marginEnd="7dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <include layout="@layout/loading_placeholder_calendar" />
+
+                    <include layout="@layout/loading_placeholder_calendar" />
+
+                    <include layout="@layout/loading_placeholder_calendar" />
+
+                    <include layout="@layout/loading_placeholder_calendar" />
+
+                    <include layout="@layout/loading_placeholder_calendar" />
+                </LinearLayout>
+            </com.facebook.shimmer.ShimmerFrameLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/calendar_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_margin="10dp"
-                app:spanCount="5"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="7dp"
+                android:layout_marginEnd="7dp"
+                android:layoutAnimation="@anim/menu_recyclerview_animation"
+                app:layout_constraintEnd_toStartOf="@+id/shimmerFrameLayout"
+                app:layout_constraintStart_toEndOf="@+id/shimmerFrameLayout"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layoutAnimation="@anim/menu_recyclerview_animation"/>
+                app:spanCount="5" />
             <View
                 android:id="@+id/spacer"
                 android:layout_width="match_parent"
                 android:layout_height="4dp"
                 android:background="@color/spacerColor"
                 android:layout_marginTop="7dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/calendar_recyclerview" />
 
             <TextView
                 android:id="@+id/dayOfWeek"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="MERCREDI"
+                android:layout_gravity="center"
+                android:text=""
                 android:textColor="@color/textDayColor"
                 android:textSize="36sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/fragment_container_mainMenu"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/spacer" />
-
-<!--            <ImageView-->
-<!--                android:id="@+id/added_item_action_button"-->
-<!--                android:layout_width="42dp"-->
-<!--                android:layout_height="42dp"-->
-<!--                android:layout_marginEnd="26dp"-->
-<!--                android:src="@drawable/ic_shopping_cart_black_24dp"-->
-<!--                app:layout_constraintBottom_toTopOf="@+id/fragment_container_mainMenu"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/spacer" />-->
-
-<!--            <ImageView-->
-<!--                android:id="@+id/card_badge"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:src="@drawable/ic_shopping_cart_badge"-->
-<!--                android:layout_marginBottom="24dp"-->
-<!--                android:layout_marginStart="22dp"-->
-<!--                app:layout_constraintBottom_toBottomOf="@+id/added_item_action_button"-->
-<!--                app:layout_constraintStart_toStartOf="@+id/added_item_action_button" />-->
 
             <FrameLayout
                 android:id="@+id/fragment_container_mainMenu"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="65dp"
                 android:layoutAnimation="@anim/menu_recyclerview_animation"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spacer" />
-
-
-
+                app:layout_constraintTop_toBottomOf="@+id/dayOfWeek" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>

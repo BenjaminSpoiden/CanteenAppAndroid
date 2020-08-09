@@ -1,100 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center|top"
-    android:paddingBottom="10dp"
+    android:gravity="center|top"
+    android:orientation="vertical"
     android:id="@+id/recycler_view_item_id">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/menu_bg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:cardCornerRadius="5dp">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/menu_bg"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:checkable="true"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardCornerRadius="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/item_price"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/slightlyTurquoise"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_height="wrap_content">
 
-                <TextView
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/item_price_menu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2,99 €"
-                    android:textSize="18sp"
+                    app:cardCornerRadius="0dp"
+                    app:cardBackgroundColor="@color/slightlyTurquoise"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2,99 €"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:layout_gravity="center"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:paddingBottom="2dp"/>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <ImageView
+                    android:id="@+id/menu_illustration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/menu_illustration"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/menu_detail_button"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/info_btn"
+                    app:layout_constraintBottom_toBottomOf="@+id/type_menu"
+                    app:layout_constraintStart_toEndOf="@+id/type_menu"
+                    app:layout_constraintTop_toBottomOf="@+id/menu_illustration" />
+
+                <TextView
+                    android:id="@+id/type_menu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="ENTREE"
+                    android:textColor="@android:color/black"
+                    android:textSize="24sp"
                     android:textStyle="bold"
-                    android:layout_gravity="center"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"/>
+                    app:layout_constraintStart_toStartOf="@id/menu_illustration"
+                    app:layout_constraintTop_toBottomOf="@id/menu_illustration" />
 
-            </com.google.android.material.card.MaterialCardView>
+                <TextView
+                    android:id="@+id/menu_description"
+                    android:layout_width="0dp"
+                    android:layout_height="75dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:justificationMode="inter_word"
+                    android:text="Soupe de Cyprine sur son nid de giclette"
+                    android:textColor="@color/darkTurquoise"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/menu_illustration"
+                    app:layout_constraintTop_toBottomOf="@+id/type_menu" />
 
-            <ImageView
-                android:id="@+id/menu_illustration"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/menu_illustration"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
-
-            <ImageView
-                android:id="@+id/menu_detail_button"
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:layout_marginStart="10dp"
-                android:src="@drawable/info_btn"
-                app:layout_constraintBottom_toBottomOf="@+id/type_menu"
-                app:layout_constraintStart_toEndOf="@+id/type_menu"
-                app:layout_constraintTop_toBottomOf="@+id/menu_illustration" />
-
-            <TextView
-                android:id="@+id/type_menu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ENTREE"
-                android:textStyle="bold"
-                android:textSize="24sp"
-                android:textColor="@android:color/black"
-                app:layout_constraintTop_toBottomOf="@id/menu_illustration"
-                app:layout_constraintStart_toStartOf="@id/menu_illustration"
-                android:layout_marginStart="10dp"/>
-
-            <TextView
-                android:id="@+id/menu_description"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:justificationMode="inter_word"
-                android:text="kzenkeznrezkf nzk fezngrzpignzorpnfopnezrntrongsdkgpfgnfpipfdg,fdppfdgnfdpngfpdfpgnfidpgnfdipgnpdfgnfpdignpdfgnfdpingfidpgnffiezniezngezonf"
-                android:textColor="@color/darkTurquoise"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/menu_illustration"
-                app:layout_constraintTop_toBottomOf="@+id/type_menu" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>

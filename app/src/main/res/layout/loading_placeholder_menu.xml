@@ -14,9 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="10dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:checkable="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         app:cardBackgroundColor="@android:color/white"
         app:cardCornerRadius="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -38,9 +37,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <View
+                    android:layout_width="80dp"
+                    android:layout_height="30dp"
                     android:text="2,99 €"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -51,49 +50,52 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <ImageView
+            <View
                 android:id="@+id/menu_illustration"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
                 android:src="@drawable/menu_illustration"
+                android:background="@color/lightGreen"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/menu_detail_button"
+            <View
+                android:id="@+id/menu_detail"
                 android:layout_width="22dp"
                 android:layout_height="22dp"
+                android:layout_marginStart="10dp"
                 android:src="@drawable/info_btn"
-                android:layout_margin="10dp"
+                android:background="@color/lightGreen"
                 app:layout_constraintBottom_toBottomOf="@+id/type_menu"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/type_menu"
                 app:layout_constraintTop_toBottomOf="@+id/menu_illustration" />
 
-            <TextView
+            <View
                 android:id="@+id/type_menu"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
                 android:text="ENTREE"
-                android:layout_marginEnd="10dp"
+                android:background="@color/lightGreen"
                 android:textColor="@android:color/black"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/menu_detail_button"
                 app:layout_constraintStart_toStartOf="@id/menu_illustration"
                 app:layout_constraintTop_toBottomOf="@id/menu_illustration" />
 
-            <TextView
+            <View
                 android:id="@+id/menu_description"
                 android:layout_width="0dp"
-                android:scrollbars="horizontal"
-                android:layout_height="wrap_content"
+                android:layout_height="75dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
                 android:justificationMode="inter_word"
                 android:text="Soupe de Cyprine sur son nid de giclette"
+                android:background="@color/lightGreen"
                 android:textColor="@color/darkTurquoise"
                 android:textSize="16sp"
                 android:textStyle="bold"
