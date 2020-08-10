@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    android:layout_marginEnd="52dp"
+    android:layout_marginTop="10dp"
     android:id="@+id/recyclerview_allergies_detail_item_id">
 
     <com.google.android.material.card.MaterialCardView
@@ -43,14 +44,13 @@
                     android:src="@drawable/ic_gluten" />
 
                 <TextView
-                    android:id="@+id/allergiesTitle"
+                    android:id="@+id/allergiesName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:fontFamily="@font/righteous"
                     style="@style/TextAppearance.MaterialComponents.Headline5"
                     android:textStyle="bold"
-                    android:justificationMode="inter_word"
                     android:text="Blé"
                     android:textColor="@android:color/black" />
             </LinearLayout>
@@ -59,10 +59,11 @@
                 android:id="@+id/allergiesDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="0dp"
                 android:layout_marginStart="52dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
+                android:justificationMode="inter_word"
                 android:fontFamily="@font/righteous"
                 android:text="Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem "
                 android:textColor="@android:color/black" />
