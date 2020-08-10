@@ -71,7 +71,6 @@ class HomeFragment: BaseFragment(), KodeinAware, DayListener {
         multiViewAdapter.setSelectionMode(Mode.SINGLE)
         multiViewAdapter.addSection(listSection)
 
-
     }
 
     override fun onStart() {
@@ -82,23 +81,13 @@ class HomeFragment: BaseFragment(), KodeinAware, DayListener {
             this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
         observeData()
-
-        calendarRecyclerView.viewTreeObserver.addOnGlobalLayoutListener {
-            //
-        }
-
-//        shimmerFrameLayout.startShimmer()
-//        calendarRecyclerView.doOnLayout {
-//            shimmerFrameLayout.stopShimmer()
-//            shimmerFrameLayout.visibility = View.GONE
-//            Toast.makeText(requireContext(), "Test", Toast.LENGTH_SHORT).show()
-//            Log.d("Test", "${listSection.data}")
-//            onDayListener(listSection.data.get(0).date)
-//        }
     }
 
     private fun observeData() {
+        shimmerFrameLayout.startShimmer()
         homeViewModel.getCalendarDaysData().observe(viewLifecycleOwner) {
+            shimmerFrameLayout.stopShimmer()
+            shimmerFrameLayout.visibility = View.GONE
             it.forEach { calendarModel ->
                 listSection.add(calendarModel)
                 multiViewAdapter.notifyDataSetChanged()
@@ -116,9 +105,9 @@ class HomeFragment: BaseFragment(), KodeinAware, DayListener {
         stringBuilder.append(date?.month?.getDisplayName(TextStyle.FULL_STANDALONE, Locale.FRENCH))
         dayOfWeek.text = stringBuilder
 
-        TODO("Implement a observeData(date: String) function that will be calling a function inside the menuManager that trigger a" +
-                "query with the date as a parameter for the specific date of the day." +
-                "days_meal -> 'date' -> collection ")
+//        TODO("Implement a observeData(date: String) function that will be calling a function inside the menuManager that trigger a" +
+//                "query with the date as a parameter for the specific date of the day." +
+//                "days_meal -> 'date' -> collection ")
     }
 
     override fun onDestroy() {

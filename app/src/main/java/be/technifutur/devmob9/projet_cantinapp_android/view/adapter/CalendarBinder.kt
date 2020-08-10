@@ -25,13 +25,21 @@ class CalendarBinder(private val dayListener: DayListener? = null): ItemBinder<C
                 holder?.calendarCard?.isClickable = false
             }
         }
-
         if(holder!!.isItemSelected) {
             setCardState(holder.calendarCard, holder.calendarDayName, holder.calendarDayNumber, true)
             holder.calendarCard.isEnabled = false
-        }else {
+        } else {
             setCardState(holder.calendarCard, holder.calendarDayName, holder.calendarDayNumber, false)
             holder.calendarCard.isEnabled = true
+        }
+    }
+
+    override fun initViewHolder(holder: CalendarViewHolder?) {
+        super.initViewHolder(holder)
+        holder?.calendarCard?.setOnClickListener {
+            dayListener?.onDayListener(holder.item.date)
+            Log.d("MultiView", "${holder.calendarDayName.text}, position: ${holder.adapterPosition}")
+            holder.toggleItemSelection()
         }
     }
 
@@ -67,12 +75,5 @@ class CalendarBinder(private val dayListener: DayListener? = null): ItemBinder<C
         val calendarDayNumber: TextView = view.findViewById(R.id.day_number_tv)
         val calendarCard: MaterialCardView = view.findViewById(R.id.calendar_card_view)
 
-        init {
-            calendarCard.setOnClickListener {
-                dayListener?.onDayListener(item?.date)
-                Log.d("MultiView", "${calendarDayName.text}")
-                toggleItemSelection()
-            }
-        }
     }
 }
