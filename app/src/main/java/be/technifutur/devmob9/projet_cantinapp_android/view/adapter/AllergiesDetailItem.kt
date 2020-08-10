@@ -22,6 +22,12 @@ class AllergiesDetailItem(val allergiesModel: AllergiesModel): AbstractItem<Alle
 
     override fun getViewHolder(v: View): AllergiesDetailVH = AllergiesDetailVH(v)
 
+    fun getItemViewType(position: Int): Int {
+        // Just as an example, return 0 or 2 depending on position
+        // Note that unlike in ListView adapters, types don't have to be contiguous
+        return position % 2 * 2
+    }
+
     inner class AllergiesDetailVH(v: View): FastAdapter.ViewHolder<AllergiesDetailItem>(v) {
 
         private val allergiesIllustration: ImageView = v.findViewById(R.id.allergies_illustration)
