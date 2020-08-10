@@ -27,6 +27,7 @@ class AllergiesDetailItem(val allergiesModel: AllergiesModel): AbstractItem<Alle
 
         override fun bindView(item: AllergiesDetailItem, payloads: List<Any>) {
             allergiesIllustration.setImageResource(item.allergiesModel.allergyIllustration)
+            // add allergene title & text here
         }
 
         override fun unbindView(item: AllergiesDetailItem) {
