@@ -20,7 +20,7 @@ object Constants {
 
     val listOfAllergies = listOf<AllergiesModel>(
         AllergiesModel(R.drawable.ic_gluten, "Céréales contenant du gluten", "le blé (comme l'épeautre et le blé de Khorasan), le seigle, l'orge, l'avoine ou les espèces hybrides."),
-        AllergiesModel(R.drawable.ic_celery, "Céleri", "Beurk"),
+        AllergiesModel(R.drawable.ic_celery, "Céleri", "Le céleri est une plante herbacée bisannuelle de la famille des Apiacées, cultivée comme plante potagère pour ses feuilles et sa racine tubérisée consommées comme légumes."),
         AllergiesModel(R.drawable.ic_almond, "Fruits à coque", "À savoir les amandes, les noisettes, les noix, les noix de cajou, les noix de pécan, les noix du Brésil, les noix de Macadamia et du Queensland et les pistaches. "),
         AllergiesModel(R.drawable.ic_crustaceans, "Crustacés", "Beurk"),
         AllergiesModel(R.drawable.ic_egg, "Oeuf", "Beurk"),
