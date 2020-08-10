@@ -1,17 +1,14 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.adapter
 
-import android.content.Context
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.DayListener
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.CalendarModel
 import be.technifutur.devmob9.projet_cantinapp_android.utils.colorSelection
 import com.google.android.material.card.MaterialCardView
-import kotlinx.android.synthetic.main.credentials_login_fragment.view.*
 import mva2.adapter.ItemBinder
 import mva2.adapter.ItemViewHolder
 
@@ -38,14 +35,17 @@ class CalendarBinder(private val dayListener: DayListener? = null): ItemBinder<C
         }
     }
 
+
     private fun setCardState(materialCardView: MaterialCardView, dayName: TextView, dayNumber: TextView, boolean: Boolean){
         if(boolean) {
             materialCardView.setCardBackgroundColor(colorSelection("#DBF9D8"))
+            materialCardView.cardElevation = 10F
             dayName.setTextColor(colorSelection("#2F4858"))
             dayNumber.setTextColor(colorSelection("#2F4858"))
         }else {
             materialCardView.setCardBackgroundColor(colorSelection("#FFFFFF"))
             dayName.setTextColor(colorSelection("#37BA89"))
+            materialCardView.cardElevation = 0F
             dayNumber.setTextColor(colorSelection("#37BA89"))
         }
     }
@@ -69,7 +69,7 @@ class CalendarBinder(private val dayListener: DayListener? = null): ItemBinder<C
 
         init {
             calendarCard.setOnClickListener {
-                dayListener?.onDayListener(item?.dayName, item?.dayNumber)
+                dayListener?.onDayListener(item?.date)
                 Log.d("MultiView", "${calendarDayName.text}")
                 toggleItemSelection()
             }

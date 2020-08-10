@@ -57,6 +57,7 @@ class MenusManager {
         val mutableData = MutableLiveData<MutableList<DishesType.Desserts>>()
 
         db.collection(ID_DESSERTS).addSnapshotListener { querySnapshot, e ->
+
             e?.let {
                 return@addSnapshotListener
             }

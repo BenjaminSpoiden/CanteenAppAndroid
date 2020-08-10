@@ -23,7 +23,7 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
 
-class MenuRepasFragment: BaseFragment(), KodeinAware{
+class MenuRepasFragment: BaseFragment(), KodeinAware {
 
     override val kodein by kodein()
     private val menuVMFactory by instance<MenuVMFactory>()
@@ -65,7 +65,6 @@ class MenuRepasFragment: BaseFragment(), KodeinAware{
         menuAdapter.addSection(mainCoursesList)
         menuAdapter.addSection(dessertsSection)
         menuAdapter.addSection(dessertsList)
-
 
 
         menuRecyclerView.apply {
