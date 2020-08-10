@@ -1,9 +1,8 @@
 package be.technifutur.devmob9.projet_cantinapp_android
 
 import android.app.Application
-import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.AuthManager
-import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.ContactPageManager
-import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.MenusManager
+import android.util.Log
+import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.*
 import be.technifutur.devmob9.projet_cantinapp_android.model.repositories.ContactPageRepository
 import be.technifutur.devmob9.projet_cantinapp_android.model.repositories.MenusRepository
 import be.technifutur.devmob9.projet_cantinapp_android.model.repositories.UserRepository
@@ -28,9 +27,10 @@ class CantinappApplication: Application(), KodeinAware {
         bind() from singleton { AuthManager() }
         bind() from singleton { ContactPageManager() }
         bind() from singleton { MenusManager() }
+        bind() from singleton { CalendarDayManager() }
         bind() from singleton { UserRepository(instance()) }
         bind() from singleton { ContactPageRepository(instance()) }
-        bind() from singleton { MenusRepository(instance()) }
+        bind() from singleton { MenusRepository(instance(), instance()) }
         bind() from provider {
             AuthViewModelFactory(
                 instance()

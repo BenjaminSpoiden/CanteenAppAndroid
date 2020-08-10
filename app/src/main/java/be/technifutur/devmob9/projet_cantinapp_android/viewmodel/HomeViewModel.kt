@@ -1,13 +1,18 @@
 package be.technifutur.devmob9.projet_cantinapp_android.viewmodel
 
-import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import be.technifutur.devmob9.projet_cantinapp_android.interfaces.DayListener
-import be.technifutur.devmob9.projet_cantinapp_android.model.repositories.UserRepository
-import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.CalendarBinder
+import be.technifutur.devmob9.projet_cantinapp_android.model.data.CalendarModel
+import be.technifutur.devmob9.projet_cantinapp_android.model.repositories.MenusRepository
 
-class HomeViewModel(private val userRepository: UserRepository): ViewModel() {
+class HomeViewModel(private val menusRepository: MenusRepository): ViewModel() {
 
-    var dayOfWeek = MutableLiveData<String>()
+    fun getCalendarDaysData(): LiveData<MutableList<CalendarModel>> {
+        val data = MutableLiveData<MutableList<CalendarModel>>()
+        menusRepository.getCalendarDays().observeForever {
+            data.value = it
+        }
+        return data
+    }
 }

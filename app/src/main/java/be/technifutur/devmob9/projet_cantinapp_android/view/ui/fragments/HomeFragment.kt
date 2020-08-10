@@ -1,12 +1,14 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
-import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.Toast
+import androidx.core.view.doOnLayout
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
@@ -14,25 +16,26 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.databinding.FragmentHomeBinding
-import be.technifutur.devmob9.projet_cantinapp_android.interfaces.CalendarListener
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.DayListener
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.CalendarModel
-import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.CalendarDayManager
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.CalendarBinder
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.HomeViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.HomeViewModelFactory
 import kotlinx.android.synthetic.main.fragment_home.*
-import mva2.adapter.HeaderSection
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import mva2.adapter.ListSection
 import mva2.adapter.MultiViewAdapter
 import mva2.adapter.util.Mode
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
+import org.threeten.bp.LocalDate
+import org.threeten.bp.format.TextStyle
+import java.lang.StringBuilder
 import java.util.*
-import kotlin.text.StringBuilder
 
-class HomeFragment: BaseFragment(), KodeinAware, CalendarListener, DayListener {
+class HomeFragment: BaseFragment(), KodeinAware, DayListener {
     companion object {
         fun getInstance() =
             HomeFragment()
@@ -41,7 +44,7 @@ class HomeFragment: BaseFragment(), KodeinAware, CalendarListener, DayListener {
     override val title: String
     get() = ""
 
-    private val manager = CalendarDayManager.INSTANCE
+
     override val kodein by kodein()
     private val homeFactory: HomeViewModelFactory by instance()
 
@@ -67,40 +70,55 @@ class HomeFragment: BaseFragment(), KodeinAware, CalendarListener, DayListener {
         multiViewAdapter.registerItemBinders(CalendarBinder(this))
         multiViewAdapter.setSelectionMode(Mode.SINGLE)
         multiViewAdapter.addSection(listSection)
-        shimmerFrameLayout.startShimmer()
+
 
     }
 
     override fun onStart() {
         super.onStart()
-        manager.calendarListener = this
 
         calendarRecyclerView.apply {
             this.adapter = multiViewAdapter
             this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
+        observeData()
+
+        calendarRecyclerView.viewTreeObserver.addOnGlobalLayoutListener {
+            //
+        }
+
+//        shimmerFrameLayout.startShimmer()
+//        calendarRecyclerView.doOnLayout {
+//            shimmerFrameLayout.stopShimmer()
+//            shimmerFrameLayout.visibility = View.GONE
+//            Toast.makeText(requireContext(), "Test", Toast.LENGTH_SHORT).show()
+//            Log.d("Test", "${listSection.data}")
+//            onDayListener(listSection.data.get(0).date)
+//        }
     }
 
-    override fun onCalendarReceived(calendarModel: CalendarModel) {
-        listSection.add(calendarModel)
-        multiViewAdapter.notifyDataSetChanged()
+    private fun observeData() {
+        homeViewModel.getCalendarDaysData().observe(viewLifecycleOwner) {
+            it.forEach { calendarModel ->
+                listSection.add(calendarModel)
+                multiViewAdapter.notifyDataSetChanged()
+                Log.d("Calendar", "${calendarModel.date}")
+            }
+        }
     }
 
-    override fun onDayListener(day: String?, dayNumber: String?) {
-        shimmerFrameLayout.stopShimmer()
-        shimmerFrameLayout.visibility = View.GONE
-        val builder = StringBuilder()
-        builder.append(day)
-        builder.append(" ")
-        builder.append(dayNumber)
-        builder.append(" ")
-        builder.append("Juin")
-        dayOfWeek.text = builder.toString()
-    }
+    override fun onDayListener(date: LocalDate?) {
+        val stringBuilder = StringBuilder()
+        stringBuilder.append(date?.dayOfWeek?.getDisplayName(TextStyle.FULL, Locale.FRENCH))
+        stringBuilder.append(" ")
+        stringBuilder.append(date?.dayOfMonth)
+        stringBuilder.append(" ")
+        stringBuilder.append(date?.month?.getDisplayName(TextStyle.FULL_STANDALONE, Locale.FRENCH))
+        dayOfWeek.text = stringBuilder
 
-    override fun onDetach() {
-        super.onDetach()
-        manager.calendarListener = null
+        TODO("Implement a observeData(date: String) function that will be calling a function inside the menuManager that trigger a" +
+                "query with the date as a parameter for the specific date of the day." +
+                "days_meal -> 'date' -> collection ")
     }
 
     override fun onDestroy() {
