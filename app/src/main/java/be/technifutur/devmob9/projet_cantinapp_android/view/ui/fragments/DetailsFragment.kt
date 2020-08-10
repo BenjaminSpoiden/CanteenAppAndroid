@@ -83,7 +83,7 @@ class DetailsFragment: BaseFragment() {
     }
     private fun setupMockAllergies() {
         listOfAllergies.forEach {
-            itemAdapter.add(AllergiesItem(AllergiesModel(it)))
+            itemAdapter.add(AllergiesItem(it))
         }
     }
 }
