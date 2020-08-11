@@ -12,7 +12,7 @@ import com.mikepenz.fastadapter.items.AbstractItem
  * CHANGER ADAPTER EN ITEM
  */
 
-class AllergiesDetailItem(val allergiesModel: AllergiesModel): AbstractItem<AllergiesDetailItem.AllergiesDetailVH>() {
+open class AllergiesDetailItem(val allergiesModel: AllergiesModel): AbstractItem<AllergiesDetailItem.AllergiesDetailVH>() {
 
     override val layoutRes: Int
         get() = R.layout.recyclerview_allergie_info_left_allignement
@@ -21,12 +21,6 @@ class AllergiesDetailItem(val allergiesModel: AllergiesModel): AbstractItem<Alle
         get() = R.id.recyclerview_allergies_detail_item_id
 
     override fun getViewHolder(v: View): AllergiesDetailVH = AllergiesDetailVH(v)
-
-    fun getItemViewType(position: Int): Int {
-        // Just as an example, return 0 or 2 depending on position
-        // Note that unlike in ListView adapters, types don't have to be contiguous
-        return position % 2 * 2
-    }
 
     inner class AllergiesDetailVH(v: View): FastAdapter.ViewHolder<AllergiesDetailItem>(v) {
 

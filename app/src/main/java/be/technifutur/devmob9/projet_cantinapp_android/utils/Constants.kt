@@ -31,7 +31,8 @@ object Constants {
         AllergiesModel(R.drawable.ic_mustard, "Moutarde", "Beurk"),
         AllergiesModel(R.drawable.ic_sesame, "Graines de sésame", "Beurk"),
         AllergiesModel(R.drawable.ic_soybean, "Soja", "Beurk"),
-        AllergiesModel(R.drawable.ic_sulfide, "Anhydride sulfureux et sulfites", "Beurk")
+        AllergiesModel(R.drawable.ic_sulfide, "Anhydride sulfureux et sulfites", "Beurk"),
+        AllergiesModel(R.drawable.ic_peanut, "Arachide", "Beurk")
     )
 
     val hashMapOfAllergies = hashMapOf(
