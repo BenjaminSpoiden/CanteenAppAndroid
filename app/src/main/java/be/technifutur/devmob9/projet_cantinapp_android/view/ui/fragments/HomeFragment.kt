@@ -1,15 +1,12 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
-import android.widget.Toast
-import androidx.core.view.doOnLayout
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,10 +17,9 @@ import be.technifutur.devmob9.projet_cantinapp_android.interfaces.DayListener
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.CalendarModel
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.CalendarBinder
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.HomeViewModel
+import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.SharedViewModels
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.HomeViewModelFactory
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
 import mva2.adapter.ListSection
 import mva2.adapter.MultiViewAdapter
 import mva2.adapter.util.Mode
@@ -54,6 +50,8 @@ class HomeFragment: BaseFragment(), KodeinAware, DayListener {
     private lateinit var multiViewAdapter: MultiViewAdapter
     private lateinit var listSection: ListSection<CalendarModel>
 
+    private val sharedViewModels by activityViewModels<SharedViewModels>()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = DataBindingUtil.inflate<FragmentHomeBinding>(inflater, R.layout.fragment_home, container, false)
         homeViewModel = ViewModelProvider(this, homeFactory).get(HomeViewModel::class.java)
@@ -71,6 +69,8 @@ class HomeFragment: BaseFragment(), KodeinAware, DayListener {
         multiViewAdapter.setSelectionMode(Mode.SINGLE)
         multiViewAdapter.addSection(listSection)
 
+        observeData()
+
     }
 
     override fun onStart() {
@@ -80,7 +80,6 @@ class HomeFragment: BaseFragment(), KodeinAware, DayListener {
             this.adapter = multiViewAdapter
             this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
-        observeData()
     }
 
     private fun observeData() {
@@ -104,6 +103,10 @@ class HomeFragment: BaseFragment(), KodeinAware, DayListener {
         stringBuilder.append(" ")
         stringBuilder.append(date?.month?.getDisplayName(TextStyle.FULL_STANDALONE, Locale.FRENCH))
         dayOfWeek.text = stringBuilder
+
+        date?.let {
+            sharedViewModels.selectDate(it)
+        }
 
 //        TODO("Implement a observeData(date: String) function that will be calling a function inside the menuManager that trigger a" +
 //                "query with the date as a parameter for the specific date of the day." +

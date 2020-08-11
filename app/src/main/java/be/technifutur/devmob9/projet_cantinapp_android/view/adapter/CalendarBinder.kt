@@ -38,7 +38,7 @@ class CalendarBinder(private val dayListener: DayListener? = null): ItemBinder<C
         super.initViewHolder(holder)
         holder?.calendarCard?.setOnClickListener {
             dayListener?.onDayListener(holder.item.date)
-            Log.d("MultiView", "${holder.calendarDayName.text}, position: ${holder.adapterPosition}")
+            Log.d("MultiView", "${holder.calendarDayName.text}, position: ${holder.adapterPosition} with date ${holder.item.date}")
             holder.toggleItemSelection()
         }
     }

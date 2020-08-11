@@ -4,18 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.DishesType
 import be.technifutur.devmob9.projet_cantinapp_android.R
-import be.technifutur.devmob9.projet_cantinapp_android.model.data.Food
+import be.technifutur.devmob9.projet_cantinapp_android.databinding.FragmentMenuRepasBinding
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.MenuHeaderBinder
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.MenuItemBinder
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.MenusViewModel
+import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.SharedViewModels
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.MenuVMFactory
-import kotlinx.android.synthetic.main.fragment_menu_repas.*
 import mva2.adapter.ItemSection
 import mva2.adapter.ListSection
 import mva2.adapter.MultiViewAdapter
@@ -27,9 +30,7 @@ class MenuRepasFragment: BaseFragment(), KodeinAware {
 
     override val kodein by kodein()
     private val menuVMFactory by instance<MenuVMFactory>()
-    private val menusViewModel by lazy {
-        ViewModelProvider(this, menuVMFactory).get(MenusViewModel::class.java)
-    }
+    private lateinit var menusViewModel: MenusViewModel
 
     companion object {
         fun getInstance() = MenuRepasFragment()
@@ -48,9 +49,14 @@ class MenuRepasFragment: BaseFragment(), KodeinAware {
     private val mainCoursesList = ListSection<DishesType.MainCourses>()
     private val dessertsList = ListSection<DishesType.Desserts>()
 
+    private val sharedViewModels: SharedViewModels by activityViewModels()
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_menu_repas, container, false)
+        val binding = DataBindingUtil.inflate<FragmentMenuRepasBinding>(inflater, R.layout.fragment_menu_repas, container, false)
+        menusViewModel = ViewModelProvider(this, menuVMFactory).get(MenusViewModel::class.java)
+        binding.menuViewModel = menusViewModel
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -66,25 +72,24 @@ class MenuRepasFragment: BaseFragment(), KodeinAware {
         menuAdapter.addSection(dessertsSection)
         menuAdapter.addSection(dessertsList)
 
-
         menuRecyclerView.apply {
             this.adapter = menuAdapter
             this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
-        observeData()
 
+        sharedViewModels.dateSelected.observe(viewLifecycleOwner){
+            Toast.makeText(requireContext(), "$it", Toast.LENGTH_SHORT).show()
+            observeData()
+        }
     }
     private fun observeData() {
-        placeholder.startShimmer()
-
         menusViewModel.getStartersData().observe(viewLifecycleOwner) {
-            placeholder.stopShimmer()
-            placeholder.visibility = View.GONE
             it.forEach { starters ->
                 startersList.add(starters)
                 menuAdapter.notifyDataSetChanged()
             }
             startersSection.setItem("Entrée")
+
         }
         menusViewModel.getMainCoursesData().observe(viewLifecycleOwner) {
             it.forEach { mainCourses ->
