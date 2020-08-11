@@ -14,6 +14,7 @@ import com.google.firebase.iid.FirebaseInstanceId
 import com.jakewharton.threetenabp.AndroidThreeTen
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
+import org.kodein.di.android.androidModule
 import org.kodein.di.android.x.androidXModule
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
@@ -23,7 +24,6 @@ import org.kodein.di.generic.singleton
 class CantinappApplication: Application(), KodeinAware {
 
     override val kodein: Kodein = Kodein.lazy {
-        import(androidXModule(this@CantinappApplication))
         bind() from singleton { AuthManager() }
         bind() from singleton { ContactPageManager() }
         bind() from singleton { MenusManager() }

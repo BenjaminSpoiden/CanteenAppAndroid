@@ -2,8 +2,13 @@ package be.technifutur.devmob9.projet_cantinapp_android.model.data
 
 import android.util.Log
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.FIREBASE_TAG
-import com.google.firebase.firestore.DocumentId
-import kotlinx.android.parcel.Parcelize
+
+
+enum class DishesTypes {
+    STARTERS,
+    MAIN_COURSES,
+    DESSERTS
+}
 
 sealed class DishesType: Food() {
 

@@ -8,7 +8,6 @@ import be.technifutur.devmob9.projet_cantinapp_android.model.repositories.MenusR
 
 class MenusViewModel(private val menusRepository: MenusRepository): ViewModel() {
 
-
     fun getStartersData(): LiveData<MutableList<DishesType.Starters>> {
         val mutableData = MutableLiveData<MutableList<DishesType.Starters>>()
         menusRepository.getStarterMenus().observeForever {
