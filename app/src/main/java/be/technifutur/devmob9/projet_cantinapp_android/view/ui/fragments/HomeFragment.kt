@@ -107,10 +107,6 @@ class HomeFragment: BaseFragment(), KodeinAware, DayListener {
         date?.let {
             sharedViewModels.selectDate(it)
         }
-
-//        TODO("Implement a observeData(date: String) function that will be calling a function inside the menuManager that trigger a" +
-//                "query with the date as a parameter for the specific date of the day." +
-//                "days_meal -> 'date' -> collection ")
     }
 
     override fun onDestroy() {
