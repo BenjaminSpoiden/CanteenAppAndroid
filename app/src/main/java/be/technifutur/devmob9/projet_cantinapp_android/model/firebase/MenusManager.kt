@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.DishesType
-import be.technifutur.devmob9.projet_cantinapp_android.model.data.DishesTypes
+import be.technifutur.devmob9.projet_cantinapp_android.model.data.Food
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.SampleTestModel
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.ID_DAYS_MEALS
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.ID_DESSERTS
@@ -20,11 +20,11 @@ class MenusManager {
 
     init {
         onRetrievedMenusFromDate("2020-07-09")
-        TODO("Need to find a way to write proper code and to have less of the same query for the three different classes." +
-                "Doing one class of type Food that retrieve all the data ? - POSSIBLE " +
-                "Implementing a listener of each type of food and directly connect that to the menu adapter ? " +
-                "Implementing a ViewModel type class where the three type are observed ? " +
-                "Do I still use the sealed Class ? Potential conflit with how I load the data inside the adapter.")
+//        TODO("Need to find a way to write proper code and to have less of the same query for the three different classes." +
+//                "Doing one class of type Food that retrieve all the data ? - POSSIBLE " +
+//                "Implementing a listener of each type of food and directly connect that to the menu adapter ? " +
+//                "Implementing a ViewModel type class where the three type are observed ? " +
+//                "Do I still use the sealed Class ? Potential conflit with how I load the data inside the adapter.")
     }
 
 
@@ -42,6 +42,8 @@ class MenusManager {
                     data?.menu?.desserts?.forEach { onRetrievedDesserts(it) }
                 }
             }
+
+
     }
 
     fun onRetrieveStarters(starterName: String){
@@ -52,7 +54,7 @@ class MenusManager {
                     return@let
                 }
                 documentSnapshot?.let {
-                    val starterData = it.toObject<DishesType.Starters>()
+                    val starterData = it.toObject(DishesType.Starters::class.java)
                     Log.d("meals", "$starterData")
                 }
             }
