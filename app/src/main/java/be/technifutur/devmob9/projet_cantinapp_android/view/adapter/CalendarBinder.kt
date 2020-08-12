@@ -37,10 +37,11 @@ class CalendarBinder(private val dayListener: DayListener? = null): ItemBinder<C
     override fun initViewHolder(holder: CalendarViewHolder?) {
         super.initViewHolder(holder)
         holder?.calendarCard?.setOnClickListener {
-            dayListener?.onDayListener(holder.item.date)
-            Log.d("MultiView", "${holder.calendarDayName.text}, position: ${holder.adapterPosition} with date ${holder.item.date}")
+//            dayListener?.onDayListener(holder.item.date)
+            Log.d("viewholder", "clicked")
             holder.toggleItemSelection()
         }
+        holder?.calendarCard?.performClick()
     }
 
 
@@ -66,7 +67,6 @@ class CalendarBinder(private val dayListener: DayListener? = null): ItemBinder<C
         val view = parent?.let {
             inflate(it, R.layout.calendar_item)
         }
-
         return CalendarViewHolder(view!!)
     }
 

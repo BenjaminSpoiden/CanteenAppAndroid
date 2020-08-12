@@ -20,6 +20,7 @@ import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.MenuItemBind
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.MenusViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.SharedViewModels
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.MenuVMFactory
+import kotlinx.android.synthetic.main.fragment_menu_repas.*
 import mva2.adapter.ItemSection
 import mva2.adapter.ListSection
 import mva2.adapter.MultiViewAdapter
@@ -80,46 +81,41 @@ class MenuRepasFragment: BaseFragment(), KodeinAware {
 
         sharedViewModels.dateSelected.observe(viewLifecycleOwner){
             Toast.makeText(requireContext(), "$it", Toast.LENGTH_SHORT).show()
+            onRefreshListsAndSection()
             menusViewModel.onRetrievedMenuFromDate(it.toString())
 
         }
+        placeholder.startShimmer()
         menusViewModel.onRetrievedMenuData().observe(viewLifecycleOwner){
+            placeholder.stopShimmer()
+            placeholder.visibility = View.GONE
             when(it){
                 is DishesType.Starters -> {
-                    Log.d("meals", "Starters ? -> $it")
+                    startersList.add(it)
+                    menuAdapter.notifyDataSetChanged()
+                    startersSection.setItem("Entrées")
                 }
                 is DishesType.MainCourses -> {
-                    Log.d("meals", "MainCourses ? -> $it")
+                    mainCoursesList.add(it)
+                    menuAdapter.notifyDataSetChanged()
+                    mainCoursesSection.setItem("Plats")
                 }
                 is DishesType.Desserts -> {
-                    Log.d("meals", "Desserts ? -> $it")
+                    dessertsList.add(it)
+                    menuAdapter.notifyDataSetChanged()
+                    dessertsSection.setItem("Desserts")
                 }
             }
         }
     }
-    private fun observeData() {
-        menusViewModel.getStartersData().observe(viewLifecycleOwner) {
-            it.forEach { starters ->
-                startersList.add(starters)
-                menuAdapter.notifyDataSetChanged()
-            }
-            startersSection.setItem("Entrée")
 
-        }
-        menusViewModel.getMainCoursesData().observe(viewLifecycleOwner) {
-            it.forEach { mainCourses ->
-                mainCoursesList.add(mainCourses)
-                menuAdapter.notifyDataSetChanged()
-            }
-            mainCoursesSection.setItem("Plat")
-        }
-        menusViewModel.getDessertsData().observe(viewLifecycleOwner) {
-            it.forEach { dessert ->
-                dessertsList.add(dessert)
-                menuAdapter.notifyDataSetChanged()
-            }
-            dessertsSection.setItem("Dessert")
-        }
+    private fun onRefreshListsAndSection(){
+        startersList.clear()
+        startersSection.removeItem()
+        mainCoursesList.clear()
+        mainCoursesSection.removeItem()
+        dessertsList.clear()
+        dessertsSection.removeItem()
     }
 
     override fun onDestroy() {
