@@ -15,4 +15,6 @@ class HomeViewModel(private val menusRepository: MenusRepository): ViewModel() {
         }
         return data
     }
+
+    fun onCalendarReceived() = menusRepository.onRetrievedCalendar()
 }

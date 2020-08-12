@@ -15,17 +15,22 @@ import org.threeten.bp.format.TextStyle
 import java.lang.Exception
 import java.util.*
 
-class CalendarDayManager {
+class CalendarDayManager() {
 
 
     private val db = FirebaseFirestore.getInstance()
     private val calendarList = ArrayList<CalendarModel>()
 
+    private val _onCalendarReceived = MutableLiveData<Boolean>()
+    val onCalendarReceived: LiveData<Boolean>
+        get() = _onCalendarReceived
 
     fun getCalendarDays(): LiveData<MutableList<CalendarModel>> {
         val mutableDaysData = MutableLiveData<MutableList<CalendarModel>>()
-        db.collection(COLLECTION_ID_DAYS).addSnapshotListener { query, e ->
+        db.collection(COLLECTION_ID_DAYS)
+            .addSnapshotListener { query, e ->
             e?.let {
+                _onCalendarReceived.value = false
                 return@addSnapshotListener
             }
             query?.let {
@@ -36,6 +41,7 @@ class CalendarDayManager {
                     }
                 }
                 mutableDaysData.value = listOfDaysData
+                _onCalendarReceived.value = true
             }
         }
         return mutableDaysData

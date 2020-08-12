@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
@@ -19,6 +20,7 @@ import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.CalendarBind
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.HomeViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.SharedViewModels
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.HomeViewModelFactory
+import kotlinx.android.synthetic.main.fragment_details.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import mva2.adapter.ListSection
 import mva2.adapter.MultiViewAdapter
@@ -31,7 +33,7 @@ import org.threeten.bp.format.TextStyle
 import java.lang.StringBuilder
 import java.util.*
 
-class HomeFragment: BaseFragment(), KodeinAware, DayListener {
+class HomeFragment: BaseFragment(), KodeinAware, DayListener{
     companion object {
         fun getInstance() =
             HomeFragment()
@@ -65,21 +67,22 @@ class HomeFragment: BaseFragment(), KodeinAware, DayListener {
         multiViewAdapter = MultiViewAdapter()
         listSection =  ListSection()
 
+
         multiViewAdapter.registerItemBinders(CalendarBinder(this))
         multiViewAdapter.setSelectionMode(Mode.SINGLE)
         multiViewAdapter.addSection(listSection)
-
-        observeData()
-
-    }
-
-    override fun onStart() {
-        super.onStart()
 
         calendarRecyclerView.apply {
             this.adapter = multiViewAdapter
             this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
+        observeData()
+        homeViewModel.onCalendarReceived().observe(viewLifecycleOwner) {
+            if(it) {
+                Toast.makeText(requireContext(), "Data retrieved", Toast.LENGTH_SHORT).show()
+            }
+        }
+
     }
 
     private fun observeData() {
@@ -108,6 +111,7 @@ class HomeFragment: BaseFragment(), KodeinAware, DayListener {
             sharedViewModels.selectDate(it)
         }
     }
+
 
     override fun onDestroy() {
         calendarRecyclerView.apply {
