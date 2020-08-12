@@ -12,4 +12,9 @@ class MenusRepository(private val menusManager: MenusManager, private val calend
 
     fun getCalendarDays() = calendarDayManager.getCalendarDays()
 
+
+    fun onRetrievedMenusFromDate(date: String) = menusManager.onRetrievedMenusFromDate(date)
+
+    fun onRetrievedMenuData() = menusManager.mutableMainCoursesData
+
 }
