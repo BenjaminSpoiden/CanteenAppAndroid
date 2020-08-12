@@ -31,4 +31,10 @@ class MenusViewModel(private val menusRepository: MenusRepository): ViewModel() 
         }
         return mutableLiveData
     }
+
+    fun onRetrievedMenuFromDate(date: String){
+        menusRepository.onRetrievedMenusFromDate(date)
+    }
+
+    fun onRetrievedMenuData() = menusRepository.onRetrievedMenuData()
 }

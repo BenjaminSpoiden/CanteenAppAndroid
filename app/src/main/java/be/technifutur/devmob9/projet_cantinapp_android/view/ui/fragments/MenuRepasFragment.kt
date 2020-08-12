@@ -1,6 +1,7 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -79,7 +80,21 @@ class MenuRepasFragment: BaseFragment(), KodeinAware {
 
         sharedViewModels.dateSelected.observe(viewLifecycleOwner){
             Toast.makeText(requireContext(), "$it", Toast.LENGTH_SHORT).show()
-            observeData()
+            menusViewModel.onRetrievedMenuFromDate(it.toString())
+
+        }
+        menusViewModel.onRetrievedMenuData().observe(viewLifecycleOwner){
+            when(it){
+                is DishesType.Starters -> {
+                    Log.d("meals", "Starters ? -> $it")
+                }
+                is DishesType.MainCourses -> {
+                    Log.d("meals", "MainCourses ? -> $it")
+                }
+                is DishesType.Desserts -> {
+                    Log.d("meals", "Desserts ? -> $it")
+                }
+            }
         }
     }
     private fun observeData() {
