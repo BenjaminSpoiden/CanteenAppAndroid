@@ -49,7 +49,7 @@ class AllergiesInfoFragment : BaseFragment() {
 
     private fun setupMockAllergies() {
         listOfAllergies.forEach {
-            itemAdapter.add(AllergiesDetailItem(AllergiesModel(it)))
+            itemAdapter.add(AllergiesDetailItem(it))
         }
         fastAdapter.notifyAdapterDataSetChanged()
     }

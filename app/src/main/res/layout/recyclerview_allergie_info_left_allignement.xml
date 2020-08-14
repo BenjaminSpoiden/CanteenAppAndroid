@@ -5,12 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    android:layout_marginEnd="52dp"
+    android:layout_marginTop="10dp"
     android:id="@+id/recyclerview_allergies_detail_item_id">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/allergies_cardview"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@android:color/white"
         app:cardCornerRadius="5dp"
@@ -24,7 +25,7 @@
 
         <LinearLayout
             android:id="@+id/allergies_linear"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             tools:ignore="UseCompoundDrawables">
@@ -41,28 +42,31 @@
                     android:layout_gravity="center"
                     android:padding="5dp"
                     android:src="@drawable/ic_gluten" />
+
                 <TextView
+                    android:id="@+id/allergiesName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:justificationMode="inter_word"
-                    android:text="Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum"
-                    android:textColor="@android:color/black"/>
+                    android:fontFamily="@font/righteous"
+                    style="@style/TextAppearance.MaterialComponents.Headline5"
+                    android:textStyle="bold"
+                    android:text="Blé"
+                    android:textColor="@android:color/black" />
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_margin="10dp"
-                android:background="@color/startGradient" />
             <TextView
+                android:id="@+id/allergiesDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum"
-                android:layout_marginStart="10dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginStart="52dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
-                android:textColor="@android:color/black"/>
+                android:justificationMode="inter_word"
+                android:fontFamily="@font/righteous"
+                android:text="Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem "
+                android:textColor="@android:color/black" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
