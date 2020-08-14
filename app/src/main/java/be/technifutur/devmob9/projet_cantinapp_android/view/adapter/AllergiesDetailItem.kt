@@ -15,7 +15,7 @@ import com.mikepenz.fastadapter.items.AbstractItem
 open class AllergiesDetailItem(val allergiesModel: AllergiesModel): AbstractItem<AllergiesDetailItem.AllergiesDetailVH>() {
 
     override val layoutRes: Int
-        get() = R.layout.recyclerview_allergie_info_left_allignement
+        get() = R.layout.recyclerview_allergies_item
 
     override val type: Int
         get() = R.id.recyclerview_allergies_detail_item_id

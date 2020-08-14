@@ -10,8 +10,11 @@ import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.AllergiesModel
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.listOfAllergies
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.AllergiesDetailItem
+import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.AllergiesDetailItemLeftLayout
+import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.AllergiesDetailItemRightLayout
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
+import kotlinx.android.synthetic.main.custom_snackbar.*
 
 class AllergiesInfoFragment : BaseFragment() {
 
@@ -49,8 +52,24 @@ class AllergiesInfoFragment : BaseFragment() {
 
     private fun setupMockAllergies() {
         listOfAllergies.forEach {
-            itemAdapter.add(AllergiesDetailItem(it))
+            /*
+            println("-------------------------")
+            println(listOfAllergies.indexOf(it)%2)
+            println("-------------------------")
+            */
+            if ((listOfAllergies.indexOf(it)%2).equals(0)) {
+                itemAdapter.add(AllergiesDetailItemLeftLayout(it))
+            } else {
+                itemAdapter.add(AllergiesDetailItemRightLayout(it))
+            }
+
+
+            //itemAdapter.add(AllergiesDetailItem(it))
+
         }
+
+
+
         fastAdapter.notifyAdapterDataSetChanged()
     }
 
