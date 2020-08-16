@@ -7,7 +7,6 @@ import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.MenusManag
 class MenusRepository(private val menusManager: MenusManager, private val calendarDayManager: CalendarDayManager) {
 
     fun getCalendarDays() = calendarDayManager.getCalendarDays()
-    fun onRetrievedCalendar() = calendarDayManager.onCalendarReceived
 
     fun onRetrievedMenusFromDate(date: String) = menusManager.onRetrievedMenusFromDate(date)
 

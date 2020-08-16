@@ -37,11 +37,10 @@ class CalendarBinder(private val dayListener: DayListener? = null): ItemBinder<C
     override fun initViewHolder(holder: CalendarViewHolder?) {
         super.initViewHolder(holder)
         holder?.calendarCard?.setOnClickListener {
-//            dayListener?.onDayListener(holder.item.date)
+            dayListener?.onDayListener(holder.item.date)
             Log.d("viewholder", "clicked")
             holder.toggleItemSelection()
         }
-        holder?.calendarCard?.performClick()
     }
 
 
