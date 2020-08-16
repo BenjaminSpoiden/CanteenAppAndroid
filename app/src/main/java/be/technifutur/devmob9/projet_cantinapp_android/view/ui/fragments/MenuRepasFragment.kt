@@ -5,8 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
@@ -14,11 +12,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.DishesType
 import be.technifutur.devmob9.projet_cantinapp_android.R
-import be.technifutur.devmob9.projet_cantinapp_android.databinding.FragmentMenuRepasBinding
+import be.technifutur.devmob9.projet_cantinapp_android.interfaces.MenuListener
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.FIREBASE_TAG
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.MenuHeaderBinder
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.MenuItemBinder
+import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.CartBadgeViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.MenusViewModel
-import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.SharedViewModels
+import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.DateViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.MenuVMFactory
 import kotlinx.android.synthetic.main.fragment_menu_repas.*
 import mva2.adapter.ItemSection
@@ -28,11 +28,13 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
 
-class MenuRepasFragment: BaseFragment(), KodeinAware {
+class MenuRepasFragment: BaseFragment(), KodeinAware, MenuListener {
 
     override val kodein by kodein()
     private val menuVMFactory by instance<MenuVMFactory>()
-    private lateinit var menusViewModel: MenusViewModel
+    private val menusViewModel by lazy {
+        ViewModelProvider(requireActivity(), menuVMFactory).get(MenusViewModel::class.java)
+    }
 
     companion object {
         fun getInstance() = MenuRepasFragment()
@@ -51,22 +53,21 @@ class MenuRepasFragment: BaseFragment(), KodeinAware {
     private val mainCoursesList = ListSection<DishesType.MainCourses>()
     private val dessertsList = ListSection<DishesType.Desserts>()
 
-    private val sharedViewModels: SharedViewModels by activityViewModels()
+    private val dateViewModel: DateViewModel by activityViewModels()
+    private val cartBadgeViewModel: CartBadgeViewModel by activityViewModels()
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding = DataBindingUtil.inflate<FragmentMenuRepasBinding>(inflater, R.layout.fragment_menu_repas, container, false)
-        menusViewModel = ViewModelProvider(this, menuVMFactory).get(MenusViewModel::class.java)
-        binding.menuViewModel = menusViewModel
-        return binding.root
+        return inflater.inflate(R.layout.fragment_menu_repas, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d(FIREBASE_TAG, "onViewCreated")
         menuRecyclerView = view.findViewById(R.id.menu_recycler_view)
 
         menuAdapter = MultiViewAdapter()
-        menuAdapter.registerItemBinders(MenuHeaderBinder(), MenuItemBinder(resources, requireContext()))
+        menuAdapter.registerItemBinders(MenuHeaderBinder(), MenuItemBinder(resources, requireContext(), this))
         menuAdapter.addSection(startersSection)
         menuAdapter.addSection(startersList)
         menuAdapter.addSection(mainCoursesSection)
@@ -79,14 +80,18 @@ class MenuRepasFragment: BaseFragment(), KodeinAware {
             this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
 
-        sharedViewModels.dateSelected.observe(viewLifecycleOwner){
-            Toast.makeText(requireContext(), "$it", Toast.LENGTH_SHORT).show()
-            onRefreshListsAndSection()
-            menusViewModel.onRetrievedMenuFromDate(it.toString())
 
-        }
+//        dateViewModel.dateSelected.observe(viewLifecycleOwner) {
+//            Log.d(FIREBASE_TAG, "Looking from calendar")
+//            Toast.makeText(requireContext(), "$it", Toast.LENGTH_SHORT).show()
+//            menusViewModel.onRetrievedMenuFromDate(it.toString())
+//            onRefreshListsAndSection()
+//        }
+
         placeholder.startShimmer()
-        menusViewModel.onRetrievedMenuData().observe(viewLifecycleOwner){
+
+        dateViewModel.getDishes.observe(viewLifecycleOwner) {
+            Log.d(FIREBASE_TAG, "Looking")
             placeholder.stopShimmer()
             placeholder.visibility = View.GONE
             when(it){
@@ -107,16 +112,48 @@ class MenuRepasFragment: BaseFragment(), KodeinAware {
                 }
             }
         }
+//        menusViewModel.onRetrievedMenuData().observe(viewLifecycleOwner) {
+//            Log.d(FIREBASE_TAG, "Looking")
+//            placeholder.stopShimmer()
+//            placeholder.visibility = View.GONE
+//            when(it){
+//                is DishesType.Starters -> {
+//                    startersList.add(it)
+//                    menuAdapter.notifyDataSetChanged()
+//                    startersSection.setItem("Entrées")
+//                }
+//                is DishesType.MainCourses -> {
+//                    mainCoursesList.add(it)
+//                    menuAdapter.notifyDataSetChanged()
+//                    mainCoursesSection.setItem("Plats")
+//                }
+//                is DishesType.Desserts -> {
+//                    dessertsList.add(it)
+//                    menuAdapter.notifyDataSetChanged()
+//                    dessertsSection.setItem("Desserts")
+//                }
+//            }
+//        }
     }
 
     private fun onRefreshListsAndSection(){
         startersList.clear()
+        startersList.clearSelections()
         startersSection.removeItem()
+
         mainCoursesList.clear()
+        mainCoursesList.clearSelections()
         mainCoursesSection.removeItem()
+
         dessertsList.clear()
+        dessertsList.clearSelections()
         dessertsSection.removeItem()
     }
+
+    override fun onGettingMenu(dishesType: DishesType) {
+        cartBadgeViewModel.onAddingMenusItem(dishesType)
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()

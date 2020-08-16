@@ -1,9 +1,11 @@
 package be.technifutur.devmob9.projet_cantinapp_android.model.firebase
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.DishesType
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.SampleTestModel
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.FIREBASE_TAG
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.ID_DAYS_MEALS
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.ID_DESSERTS
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.ID_MAIN_COURSES
@@ -18,7 +20,6 @@ class MenusManager {
     private val mutableMenusLiveData = MutableLiveData<DishesType>()
     val menusLiveData: LiveData<DishesType>
         get() = mutableMenusLiveData
-
 
     fun onRetrievedMenusFromDate(date: String){
         db.collection(ID_DAYS_MEALS)
@@ -44,8 +45,9 @@ class MenusManager {
                     return@let
                 }
                 documentSnapshot?.let {
-                    val starterData = it.toObject(DishesType.Starters::class.java)
+                    val starterData = it.toObject<DishesType.Starters>()
                     mutableMenusLiveData.value = starterData
+                    Log.d(FIREBASE_TAG, "${mutableMenusLiveData.value}")
                 }
             }
     }
@@ -60,6 +62,7 @@ class MenusManager {
                 documentSnapshot?.let {
                     val mainsData = it.toObject<DishesType.MainCourses>()
                     mutableMenusLiveData.value = mainsData
+                    Log.d(FIREBASE_TAG, "${mutableMenusLiveData.value}")
                 }
             }
     }
@@ -74,6 +77,7 @@ class MenusManager {
                 documentSnapshot?.let {
                     val dessertsData = it.toObject<DishesType.Desserts>()
                     mutableMenusLiveData.value = dessertsData
+                    Log.d(FIREBASE_TAG, "${mutableMenusLiveData.value}")
                 }
             }
     }

@@ -15,8 +15,10 @@ import androidx.core.view.GravityCompat
 import androidx.core.view.MenuItemCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.observe
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.ItemSelectedListener
@@ -26,6 +28,7 @@ import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_3_SETTINGS
 import be.technifutur.devmob9.projet_cantinapp_android.utils.addFragment
 import be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments.*
+import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.CartBadgeViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.CartItemViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.MainFragmentViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -50,7 +53,9 @@ class MainActivity: AppCompatActivity(), FragmentListener, ItemSelectedListener{
     private lateinit var mainFragmentViewModel: MainFragmentViewModel
     private lateinit var cartItemViewModel: CartItemViewModel
 
-    private var mCartItemCount = 0
+    private val cartBadgeViewModel by lazy {
+        ViewModelProviders.of(this).get(CartBadgeViewModel::class.java)
+    }
 
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -98,15 +103,18 @@ class MainActivity: AppCompatActivity(), FragmentListener, ItemSelectedListener{
         val actionView = menuItem?.actionView
         val textCart: TextView? = actionView?.findViewById(R.id.cart_badge)
 
-        cartItemViewModel.numberOfItemSelected.observe(this, Observer {
-            textCart?.text = it.toString()
+        textCart?.text = 0.toString()
+        cartBadgeViewModel.foodItems.observe(this) {
+            textCart?.text = it.size.toString()
+
             /**
              * Can only Access [OrdersFragment] if there's an item in the cart
              */
+
             actionView?.let { _ ->
-                onActionViewClick(actionView, it)
+                onActionViewClick(actionView, it.size)
             }
-        })
+        }
         return super.onCreateOptionsMenu(menu)
     }
 

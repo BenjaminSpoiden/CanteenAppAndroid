@@ -6,7 +6,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="5dp"
     android:id="@+id/header_item_id">
 
     <com.google.android.material.card.MaterialCardView
@@ -15,7 +14,9 @@
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/GreenishTurquoise"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:cardCornerRadius="0dp">
+
         <TextView
             android:id="@+id/header_menu_text"
             style="@style/TextAppearance.AppCompat.Caption"

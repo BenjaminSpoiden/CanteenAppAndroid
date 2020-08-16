@@ -5,22 +5,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.R
-import be.technifutur.devmob9.projet_cantinapp_android.databinding.FragmentHomeBinding
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.DayListener
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.CalendarModel
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.CalendarBinder
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.HomeViewModel
-import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.SharedViewModels
+import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.DateViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.HomeViewModelFactory
-import kotlinx.android.synthetic.main.fragment_details.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import mva2.adapter.ListSection
 import mva2.adapter.MultiViewAdapter
@@ -46,19 +42,18 @@ class HomeFragment: BaseFragment(), KodeinAware, DayListener{
     override val kodein by kodein()
     private val homeFactory: HomeViewModelFactory by instance()
 
-    private lateinit var homeViewModel: HomeViewModel
-    private lateinit var calendarRecyclerView: RecyclerView
+    private val homeViewModel: HomeViewModel by lazy {
+        ViewModelProvider(this, homeFactory).get(HomeViewModel::class.java)
 
+    }
+    private lateinit var calendarRecyclerView: RecyclerView
     private lateinit var multiViewAdapter: MultiViewAdapter
     private lateinit var listSection: ListSection<CalendarModel>
 
-    private val sharedViewModels by activityViewModels<SharedViewModels>()
+    private val dateViewModels by activityViewModels<DateViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding = DataBindingUtil.inflate<FragmentHomeBinding>(inflater, R.layout.fragment_home, container, false)
-        homeViewModel = ViewModelProvider(this, homeFactory).get(HomeViewModel::class.java)
-        binding.homeViewModel = homeViewModel
-        return binding.root
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -77,11 +72,6 @@ class HomeFragment: BaseFragment(), KodeinAware, DayListener{
             this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
         observeData()
-        homeViewModel.onCalendarReceived().observe(viewLifecycleOwner) {
-            if(it) {
-                Toast.makeText(requireContext(), "Data retrieved", Toast.LENGTH_SHORT).show()
-            }
-        }
 
     }
 
@@ -107,9 +97,12 @@ class HomeFragment: BaseFragment(), KodeinAware, DayListener{
         stringBuilder.append(date?.month?.getDisplayName(TextStyle.FULL_STANDALONE, Locale.FRENCH))
         dayOfWeek.text = stringBuilder
 
-        date?.let {
-            sharedViewModels.selectDate(it)
+        homeViewModel.onRetrievedMenuFromDate(date.toString())
+
+        homeViewModel.onRetrievedMenuData().observe(viewLifecycleOwner){
+            dateViewModels.getDishes(it)
         }
+
     }
 
 
