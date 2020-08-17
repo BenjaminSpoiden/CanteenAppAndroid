@@ -14,8 +14,8 @@ import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.DayListener
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.CalendarModel
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.CalendarBinder
+import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.CalendarClickVM
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.HomeViewModel
-import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.DateViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.HomeViewModelFactory
 import kotlinx.android.synthetic.main.fragment_home.*
 import mva2.adapter.ListSection
@@ -50,7 +50,8 @@ class HomeFragment: BaseFragment(), KodeinAware, DayListener{
     private lateinit var multiViewAdapter: MultiViewAdapter
     private lateinit var listSection: ListSection<CalendarModel>
 
-    private val dateViewModels by activityViewModels<DateViewModel>()
+    private val calendarClickVM by activityViewModels<CalendarClickVM>()
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_home, container, false)
@@ -98,11 +99,7 @@ class HomeFragment: BaseFragment(), KodeinAware, DayListener{
         dayOfWeek.text = stringBuilder
 
         homeViewModel.onRetrievedMenuFromDate(date.toString())
-
-        homeViewModel.onRetrievedMenuData().observe(viewLifecycleOwner){
-            dateViewModels.getDishes(it)
-        }
-
+        calendarClickVM.didClick(true)
     }
 
 
