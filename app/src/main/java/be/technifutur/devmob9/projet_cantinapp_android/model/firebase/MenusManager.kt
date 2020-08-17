@@ -16,7 +16,6 @@ import com.google.firebase.firestore.ktx.toObject
 class MenusManager {
 
     private val db = FirebaseFirestore.getInstance()
-
     private val mutableMenusLiveData = MutableLiveData<DishesType>()
     val menusLiveData: LiveData<DishesType>
         get() = mutableMenusLiveData
@@ -38,47 +37,74 @@ class MenusManager {
     }
 
     private fun onRetrieveStarters(starterName: String){
+//        db.collection(ID_STARTERS)
+//            .document(starterName)
+//            .addSnapshotListener { documentSnapshot, e ->
+//                e?.let {
+//                    return@let
+//                }
+//                documentSnapshot?.let {
+//                    val starterData = it.toObject<DishesType.Starters>()
+//                    mutableMenusLiveData.value = starterData
+//                    Log.d(FIREBASE_TAG, "${mutableMenusLiveData.value}")
+//                }
+//            }
+
         db.collection(ID_STARTERS)
             .document(starterName)
-            .addSnapshotListener { documentSnapshot, e ->
-                e?.let {
-                    return@let
-                }
-                documentSnapshot?.let {
-                    val starterData = it.toObject<DishesType.Starters>()
-                    mutableMenusLiveData.value = starterData
-                    Log.d(FIREBASE_TAG, "${mutableMenusLiveData.value}")
-                }
+            .get()
+            .addOnSuccessListener {
+                val starterData = it.toObject<DishesType.Starters>()
+                mutableMenusLiveData.value = starterData
+                Log.d(FIREBASE_TAG, "${mutableMenusLiveData.value}")
             }
     }
 
     private fun onRetrieveMainCourses(mainsName: String) {
+//        db.collection(ID_MAIN_COURSES)
+//            .document(mainsName)
+//            .addSnapshotListener { documentSnapshot, e ->
+//                e?.let {
+//                    return@let
+//                }
+//                documentSnapshot?.let {
+//                    val mainsData = it.toObject<DishesType.MainCourses>()
+//                    mutableMenusLiveData.value = mainsData
+//                    Log.d(FIREBASE_TAG, "${mutableMenusLiveData.value}")
+//                }
+//            }
+
         db.collection(ID_MAIN_COURSES)
             .document(mainsName)
-            .addSnapshotListener { documentSnapshot, e ->
-                e?.let {
-                    return@let
-                }
-                documentSnapshot?.let {
-                    val mainsData = it.toObject<DishesType.MainCourses>()
-                    mutableMenusLiveData.value = mainsData
-                    Log.d(FIREBASE_TAG, "${mutableMenusLiveData.value}")
-                }
+            .get()
+            .addOnSuccessListener {
+                val mainsData = it.toObject<DishesType.MainCourses>()
+                mutableMenusLiveData.value = mainsData
+                Log.d(FIREBASE_TAG, "${mutableMenusLiveData.value}")
             }
     }
 
     private fun onRetrievedDesserts(dessertsName: String){
+//        db.collection(ID_DESSERTS)
+//            .document(dessertsName)
+//            .addSnapshotListener { documentSnapshot, e ->
+//                e?.let {
+//                    return@let
+//                }
+//                documentSnapshot?.let {
+//                    val dessertsData = it.toObject<DishesType.Desserts>()
+//                    mutableMenusLiveData.value = dessertsData
+//                    Log.d(FIREBASE_TAG, "${mutableMenusLiveData.value}")
+//                }
+//            }
+
         db.collection(ID_DESSERTS)
             .document(dessertsName)
-            .addSnapshotListener { documentSnapshot, e ->
-                e?.let {
-                    return@let
-                }
-                documentSnapshot?.let {
-                    val dessertsData = it.toObject<DishesType.Desserts>()
-                    mutableMenusLiveData.value = dessertsData
-                    Log.d(FIREBASE_TAG, "${mutableMenusLiveData.value}")
-                }
+            .get()
+            .addOnSuccessListener {
+                val dessertsData = it.toObject<DishesType.Desserts>()
+                mutableMenusLiveData.value = dessertsData
+                Log.d(FIREBASE_TAG, "${mutableMenusLiveData.value}")
             }
     }
 }
