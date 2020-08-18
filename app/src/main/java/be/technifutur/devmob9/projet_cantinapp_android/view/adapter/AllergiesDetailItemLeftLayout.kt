@@ -8,4 +8,7 @@ class AllergiesDetailItemLeftLayout(allergiesModel: AllergiesModel) : AllergiesD
     override val layoutRes: Int
         get() = R.layout.recyclerview_allergie_info_left_allignement
 
+    override val type: Int
+        get() = R.id.recyclerview_allergies_left_detail_item_id
+
 }

@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
     android:layout_marginStart="52dp"
-    android:id="@+id/recyclerview_allergies_detail_item_id">
+    android:id="@+id/recyclerview_allergies_right_detail_item_id">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/allergies_cardview"

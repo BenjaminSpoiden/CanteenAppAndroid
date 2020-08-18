@@ -52,20 +52,11 @@ class AllergiesInfoFragment : BaseFragment() {
 
     private fun setupMockAllergies() {
         listOfAllergies.forEach {
-            /*
-            println("-------------------------")
-            println(listOfAllergies.indexOf(it)%2)
-            println("-------------------------")
-            */
             if ((listOfAllergies.indexOf(it)%2).equals(0)) {
                 itemAdapter.add(AllergiesDetailItemLeftLayout(it))
             } else {
                 itemAdapter.add(AllergiesDetailItemRightLayout(it))
             }
-
-
-            //itemAdapter.add(AllergiesDetailItem(it))
-
         }
 
 

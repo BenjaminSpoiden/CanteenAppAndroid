@@ -18,7 +18,7 @@ open class AllergiesDetailItem(val allergiesModel: AllergiesModel): AbstractItem
         get() = R.layout.recyclerview_allergies_item
 
     override val type: Int
-        get() = R.id.recyclerview_allergies_detail_item_id
+        get() = R.id.recyclerview_allergies_item_id
 
     override fun getViewHolder(v: View): AllergiesDetailVH = AllergiesDetailVH(v)
 
