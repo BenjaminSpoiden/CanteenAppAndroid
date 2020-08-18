@@ -1,18 +1,12 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
-import android.content.Context
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import be.technifutur.devmob9.projet_cantinapp_android.R
-import be.technifutur.devmob9.projet_cantinapp_android.view.ui.activities.MainActivity
-import kotlinx.android.synthetic.main.activity_main.*
 
-class MenuMoreFragment: BaseFragment() {
+class MenuGDPRFragment: BaseFragment() {
     companion object {
-        fun getInstance() = MenuMoreFragment()
+        fun getInstance() = MenuGDPRFragment()
     }
 
     override val title: String
@@ -23,7 +17,7 @@ class MenuMoreFragment: BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_menu_more, container, false)
+        return inflater.inflate(R.layout.fragment_menu_gdpr, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

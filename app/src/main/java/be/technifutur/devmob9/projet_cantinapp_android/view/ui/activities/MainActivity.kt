@@ -12,7 +12,6 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.core.view.MenuItemCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -31,11 +30,7 @@ import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.MainFragmentVie
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.root_layout
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_main.*
-import org.kodein.di.Kodein
-import org.kodein.di.KodeinAware
-import org.kodein.di.android.kodein
 
 
 class MainActivity: AppCompatActivity(), FragmentListener, ItemSelectedListener{
@@ -195,7 +190,7 @@ class MainActivity: AppCompatActivity(), FragmentListener, ItemSelectedListener{
                     drawerFragmentImpl(AccountFragment.getInstance())
                 }
                 R.id.activity_main_drawer_gdpr -> {
-                    drawerFragmentImpl(MenuMoreFragment.getInstance())
+                    drawerFragmentImpl(MenuGDPRFragment.getInstance())
                 }
                 R.id.activity_main_drawer_contact -> {
                     drawerFragmentImpl(ContactFragment.getInstance())
