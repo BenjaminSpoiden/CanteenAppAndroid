@@ -1,44 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/menu_repas_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundAppColor"
+    android:orientation="vertical">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/menu_repas_root"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/menu_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="@color/backgroundAppColor"
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto">
+            android:orientation="vertical">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/menu_recycler_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <include layout="@layout/loading_placeholder_text" />
 
-                <com.facebook.shimmer.ShimmerFrameLayout
-                    android:id="@+id/placeholder"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical">
-                                <include layout="@layout/loading_placeholder_text"/>
-                                <include layout="@layout/loading_placeholder_header"/>
-                                <include layout="@layout/loading_placeholder_menu" />
-                                <include layout="@layout/loading_placeholder_menu" />
-                                <include layout="@layout/loading_placeholder_menu" />
-                        </LinearLayout>
-                </com.facebook.shimmer.ShimmerFrameLayout>
+            <include layout="@layout/loading_placeholder_header" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <include layout="@layout/loading_placeholder_menu" />
+
+            <include layout="@layout/loading_placeholder_menu" />
+
+            <include layout="@layout/loading_placeholder_menu" />
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 
 

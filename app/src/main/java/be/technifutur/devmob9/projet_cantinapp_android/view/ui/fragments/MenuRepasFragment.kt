@@ -1,5 +1,6 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.DishesType
 import be.technifutur.devmob9.projet_cantinapp_android.R
-import be.technifutur.devmob9.projet_cantinapp_android.interfaces.MenuListener
+import be.technifutur.devmob9.projet_cantinapp_android.interfaces.DishesListener
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.FIREBASE_TAG
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.MenuHeaderBinder
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.MenuItemBinder
@@ -28,12 +29,12 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
 
-class MenuRepasFragment: BaseFragment(), KodeinAware, MenuListener {
+class MenuRepasFragment: BaseFragment(), KodeinAware {
 
     override val kodein by kodein()
     private val menuVMFactory by instance<MenuVMFactory>()
     private val menusViewModel by lazy {
-        ViewModelProvider(requireActivity(), menuVMFactory).get(MenusViewModel::class.java)
+        ViewModelProvider(viewModelStore, menuVMFactory).get(MenusViewModel::class.java)
     }
 
     companion object {
@@ -65,7 +66,17 @@ class MenuRepasFragment: BaseFragment(), KodeinAware, MenuListener {
         super.onViewCreated(view, savedInstanceState)
         menuRecyclerView = view.findViewById(R.id.menu_recycler_view)
         menuAdapter = MultiViewAdapter()
-        menuAdapter.registerItemBinders(MenuHeaderBinder(), MenuItemBinder(resources, requireContext(), this))
+        menuAdapter.registerItemBinders(MenuHeaderBinder(), MenuItemBinder(requireContext()){ holder ->
+            holder.menuCard.isChecked = !holder.menuCard.isChecked
+            if(holder.menuCard.isChecked) {
+                cartBadgeViewModel.onAddingMenuItem(holder.item)
+                holder.menuCard.setCardBackgroundColor(resources.getColor(R.color.tameGreen, resources.newTheme()))
+            }else {
+                holder.menuCard.setCardBackgroundColor(Color.WHITE)
+                cartBadgeViewModel.onDeleteMenuItem(holder.item)
+            }
+        })
+
         menuAdapter.addSection(startersSection)
         menuAdapter.addSection(startersList)
         menuAdapter.addSection(mainCoursesSection)
@@ -78,15 +89,23 @@ class MenuRepasFragment: BaseFragment(), KodeinAware, MenuListener {
             this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
     }
-
-    override fun onStart() {
-        super.onStart()
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         placeholder.startShimmer()
+        observingClick()
+        fetchingDishes()
+    }
+
+    private fun observingClick() {
         calendarClickVM.didClickOnCalendar.observe(viewLifecycleOwner){
+            Log.d(FIREBASE_TAG, "Looking click")
             placeholder.stopShimmer()
             placeholder.visibility = View.GONE
             onRefreshListsAndSection()
         }
+    }
+
+    private fun fetchingDishes(){
         menusViewModel.onRetrievedMenuData().observe(viewLifecycleOwner) {
             Log.d(FIREBASE_TAG, "Looking")
             when(it){
@@ -108,8 +127,6 @@ class MenuRepasFragment: BaseFragment(), KodeinAware, MenuListener {
             }
         }
     }
-
-
     private fun onRefreshListsAndSection(){
         startersList.clear()
         startersSection.removeItem()
@@ -119,10 +136,6 @@ class MenuRepasFragment: BaseFragment(), KodeinAware, MenuListener {
 
         dessertsList.clear()
         dessertsSection.removeItem()
-    }
-
-    override fun onGettingMenu(dishesType: DishesType) {
-        cartBadgeViewModel.onAddingMenusItem(dishesType)
     }
 
     override fun onDestroy() {

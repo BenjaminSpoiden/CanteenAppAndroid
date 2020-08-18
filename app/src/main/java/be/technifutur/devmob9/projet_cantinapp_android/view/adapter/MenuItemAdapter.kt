@@ -24,9 +24,6 @@ import java.lang.IllegalArgumentException
 class MenuItemAdapter(private val itemsList: List<MenuItemModel>, context: Context, val resources: Resources): RecyclerView.Adapter<BaseViewHolder<*>>() {
 
     private val openDetailFragmentListener = context as FragmentListener
-    private val itemSelectedListener = context as ItemSelectedListener
-
-    private var numberOfItemsSelected: Int = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
         return when(viewType) {
@@ -41,13 +38,9 @@ class MenuItemAdapter(private val itemsList: List<MenuItemModel>, context: Conte
                         v.menu_bg.isChecked = !v.menu_bg.isChecked
                         if(v.menu_bg.isChecked) {
                             Log.d("ClickEvent", "Checked")
-                            numberOfItemsSelected += 1
                             v.menu_bg.setCardBackgroundColor(resources.getColor(R.color.tameGreen, resources.newTheme()))
-                            itemSelectedListener.onNumberItemSelected(numberOfItemsSelected)
                         }else {
                             Log.d("ClickEvent", "Unchecked")
-                            numberOfItemsSelected -= 1
-                            itemSelectedListener.onNumberItemSelected(numberOfItemsSelected)
                             v.menu_bg.setCardBackgroundColor(Color.WHITE)
                         }
                     }

@@ -10,11 +10,12 @@ import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.FIREBASE_
 
 class MenusViewModel(private val menusRepository: MenusRepository): ViewModel() {
 
-    fun onRetrievedMenuFromDate(date: String){
-        menusRepository.onRetrievedMenusFromDate(date)
-    }
+    private var _dishesType = MutableLiveData<DishesType>()
 
-    fun onRetrievedMenuData() = menusRepository.onRetrievedMenuData()
+    fun onRetrievedMenuData(): LiveData<DishesType> {
+        _dishesType = menusRepository.onRetrievedMenuData() as MutableLiveData<DishesType>
+        return _dishesType
+    }
 
     override fun onCleared() {
         super.onCleared()

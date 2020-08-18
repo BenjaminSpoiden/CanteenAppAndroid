@@ -14,13 +14,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import androidx.lifecycle.observe
+import androidx.lifecycle.*
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
-import be.technifutur.devmob9.projet_cantinapp_android.interfaces.ItemSelectedListener
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.MenuItemModel
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_1_PAYMENTS
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_2_ALLERGIES
@@ -28,7 +24,6 @@ import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_
 import be.technifutur.devmob9.projet_cantinapp_android.utils.addFragment
 import be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments.*
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.CartBadgeViewModel
-import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.CartItemViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.MainFragmentViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
@@ -36,17 +31,17 @@ import kotlinx.android.synthetic.main.activity_main.root_layout
 import kotlinx.android.synthetic.main.fragment_main.*
 
 
-class MainActivity: AppCompatActivity(), FragmentListener, ItemSelectedListener{
+class MainActivity: AppCompatActivity(), FragmentListener{
 
     companion object {
         fun getInstance() = MainActivity()
     }
 
+
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var drawerLayout: DrawerLayout
 
     private lateinit var mainFragmentViewModel: MainFragmentViewModel
-    private lateinit var cartItemViewModel: CartItemViewModel
 
     private val cartBadgeViewModel by lazy {
         ViewModelProviders.of(this).get(CartBadgeViewModel::class.java)
@@ -71,14 +66,9 @@ class MainActivity: AppCompatActivity(), FragmentListener, ItemSelectedListener{
         setupBurgerMenuItems()
 
         mainFragmentViewModel = ViewModelProviders.of(this).get(MainFragmentViewModel::class.java)
-        cartItemViewModel = ViewModelProviders.of(this).get(CartItemViewModel::class.java)
         mainFragmentViewModel.title.observe(this, Observer {
             supportActionBar?.title = it
         })
-    }
-
-    override fun onNumberItemSelected(numberOfItems: Int) {
-        cartItemViewModel.onNumberOfItemSelected(numberOfItems)
     }
 
     override fun onBackPressed() {
@@ -150,10 +140,6 @@ class MainActivity: AppCompatActivity(), FragmentListener, ItemSelectedListener{
         }
     }
 
-//    override fun getFragmentTitle(title: String) {
-//        supportActionBar?.title = title
-//    }
-
     override fun openDetailFragment() {
         replaceFragmentWithBackStack(DetailsFragment.getInstance())
     }
@@ -178,7 +164,8 @@ class MainActivity: AppCompatActivity(), FragmentListener, ItemSelectedListener{
     private fun replaceFragmentMenu(fragment: Fragment, layout: Int = R.id.fragment_container_mainMenu) {
         supportFragmentManager
             .beginTransaction()
-            .add(layout, fragment)
+            .addToBackStack("menus_fragment")
+            .replace(layout, fragment)
             .commit()
     }
 
@@ -221,4 +208,5 @@ class MainActivity: AppCompatActivity(), FragmentListener, ItemSelectedListener{
         replaceFragmentWithBackStack(fragment)
         root_layout.closeDrawer(GravityCompat.START)
     }
+
 }

@@ -1,17 +1,16 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.R
-import be.technifutur.devmob9.projet_cantinapp_android.interfaces.DayListener
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.CalendarModel
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.CalendarBinder
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.CalendarClickVM
@@ -29,7 +28,7 @@ import org.threeten.bp.format.TextStyle
 import java.lang.StringBuilder
 import java.util.*
 
-class HomeFragment: BaseFragment(), KodeinAware, DayListener{
+class HomeFragment: BaseFragment(), KodeinAware {
     companion object {
         fun getInstance() =
             HomeFragment()
@@ -64,7 +63,14 @@ class HomeFragment: BaseFragment(), KodeinAware, DayListener{
         listSection =  ListSection()
 
 
-        multiViewAdapter.registerItemBinders(CalendarBinder(this))
+        multiViewAdapter.registerItemBinders(CalendarBinder {
+            Toast.makeText(requireContext(), "${it.adapterPosition}", Toast.LENGTH_SHORT).show()
+            dateBuilder(it.item.date)
+            onRefreshClick(true)
+            onGettingDataFromDate(it.item.date.toString())
+            it.toggleItemSelection()
+        })
+
         multiViewAdapter.setSelectionMode(Mode.SINGLE)
         multiViewAdapter.addSection(listSection)
 
@@ -84,12 +90,11 @@ class HomeFragment: BaseFragment(), KodeinAware, DayListener{
             it.forEach { calendarModel ->
                 listSection.add(calendarModel)
                 multiViewAdapter.notifyDataSetChanged()
-                Log.d("Calendar", "${calendarModel.date}")
             }
         }
     }
 
-    override fun onDayListener(date: LocalDate?) {
+    private fun dateBuilder(date: LocalDate?){
         val stringBuilder = StringBuilder()
         stringBuilder.append(date?.dayOfWeek?.getDisplayName(TextStyle.FULL, Locale.FRENCH))
         stringBuilder.append(" ")
@@ -97,11 +102,14 @@ class HomeFragment: BaseFragment(), KodeinAware, DayListener{
         stringBuilder.append(" ")
         stringBuilder.append(date?.month?.getDisplayName(TextStyle.FULL_STANDALONE, Locale.FRENCH))
         dayOfWeek.text = stringBuilder
-
-        homeViewModel.onRetrievedMenuFromDate(date.toString())
-        calendarClickVM.didClick(true)
     }
 
+    private fun onGettingDataFromDate(date: String){
+        homeViewModel.onRetrievedMenuFromDate(date)
+    }
+
+
+    private fun onRefreshClick(didClick: Boolean) = calendarClickVM.didClick(didClick)
 
     override fun onDestroy() {
         calendarRecyclerView.apply {
