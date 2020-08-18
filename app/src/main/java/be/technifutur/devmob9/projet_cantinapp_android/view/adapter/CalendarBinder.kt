@@ -1,19 +1,16 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.adapter
 
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import be.technifutur.devmob9.projet_cantinapp_android.R
-import be.technifutur.devmob9.projet_cantinapp_android.interfaces.DayListener
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.CalendarModel
 import be.technifutur.devmob9.projet_cantinapp_android.utils.colorSelection
 import com.google.android.material.card.MaterialCardView
 import mva2.adapter.ItemBinder
 import mva2.adapter.ItemViewHolder
 
-class CalendarBinder(private val dayListener: DayListener? = null): ItemBinder<CalendarModel, CalendarBinder.CalendarViewHolder>() {
-
+class CalendarBinder(private val onDayClick: (CalendarViewHolder) -> Unit): ItemBinder<CalendarModel, CalendarBinder.CalendarViewHolder>() {
 
     override fun bindViewHolder(holder: CalendarViewHolder?, item: CalendarModel?) {
         holder?.calendarDayName?.text = item?.dayName
@@ -37,9 +34,7 @@ class CalendarBinder(private val dayListener: DayListener? = null): ItemBinder<C
     override fun initViewHolder(holder: CalendarViewHolder?) {
         super.initViewHolder(holder)
         holder?.calendarCard?.setOnClickListener {
-            dayListener?.onDayListener(holder.item.date)
-            Log.d("viewholder", "clicked")
-            holder.toggleItemSelection()
+            onDayClick(holder)
         }
     }
 

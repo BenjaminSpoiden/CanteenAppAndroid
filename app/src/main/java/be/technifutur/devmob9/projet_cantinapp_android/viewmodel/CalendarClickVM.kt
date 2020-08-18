@@ -10,6 +10,10 @@ class CalendarClickVM: ViewModel() {
     val didClickOnCalendar: LiveData<Boolean>
         get() = _didClickOnCalendar
 
+    init {
+        _didClickOnCalendar.value = false
+    }
+
     fun didClick(click: Boolean){
         _didClickOnCalendar.value = click
     }

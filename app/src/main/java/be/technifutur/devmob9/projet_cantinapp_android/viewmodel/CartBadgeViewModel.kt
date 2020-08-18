@@ -9,12 +9,18 @@ import java.util.ArrayList
 class CartBadgeViewModel : ViewModel() {
 
     private val _foodItems = MutableLiveData<List<Food>>()
-    private val foodList = ArrayList<Food>()
     val foodItems: LiveData<List<Food>>
         get() = _foodItems
 
-    fun onAddingMenusItem(food: Food){
+    private val foodList = ArrayList<Food>()
+
+    fun onAddingMenuItem(food: Food){
         foodList.add(food)
+        _foodItems.value = foodList
+    }
+
+    fun onDeleteMenuItem(food: Food){
+        foodList.remove(food)
         _foodItems.value = foodList
     }
 }
