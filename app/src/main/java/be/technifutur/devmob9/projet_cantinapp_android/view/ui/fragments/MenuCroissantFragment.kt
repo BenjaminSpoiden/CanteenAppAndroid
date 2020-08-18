@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
-import be.technifutur.devmob9.projet_cantinapp_android.interfaces.ItemSelectedListener
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.MenuItemModel
 import be.technifutur.devmob9.projet_cantinapp_android.utils.cardState
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.GenericAdapter
@@ -28,7 +27,6 @@ class MenuCroissantFragment: BaseFragment() {
     private lateinit var croissantRecyclerView: RecyclerView
     private lateinit var croissantAdapter: GenericAdapter<MenuItemModel>
     private var fragmentListener: FragmentListener? = null
-    private var itemSelectedListener: ItemSelectedListener? = null
 
 
     override fun onCreateView(
@@ -75,9 +73,6 @@ class MenuCroissantFragment: BaseFragment() {
         if(context is FragmentListener) {
             fragmentListener = context
         }
-        if(context is ItemSelectedListener) {
-            itemSelectedListener = context
-        }
     }
 
     override fun onDetach() {
@@ -87,7 +82,6 @@ class MenuCroissantFragment: BaseFragment() {
             this.layoutManager = null
         }
         fragmentListener = null
-        itemSelectedListener = null
     }
 
     private fun mockDataItemAdapter(): List<MenuItemModel> {

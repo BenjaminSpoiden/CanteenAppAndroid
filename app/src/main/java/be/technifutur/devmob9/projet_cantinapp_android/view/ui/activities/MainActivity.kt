@@ -37,7 +37,6 @@ class MainActivity: AppCompatActivity(), FragmentListener{
         fun getInstance() = MainActivity()
     }
 
-
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var drawerLayout: DrawerLayout
 

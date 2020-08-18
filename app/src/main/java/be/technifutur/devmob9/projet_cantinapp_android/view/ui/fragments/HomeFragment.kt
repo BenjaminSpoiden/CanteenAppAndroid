@@ -51,7 +51,6 @@ class HomeFragment: BaseFragment(), KodeinAware {
 
     private val calendarClickVM by activityViewModels<CalendarClickVM>()
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
@@ -79,7 +78,6 @@ class HomeFragment: BaseFragment(), KodeinAware {
             this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
         observeData()
-
     }
 
     private fun observeData() {
