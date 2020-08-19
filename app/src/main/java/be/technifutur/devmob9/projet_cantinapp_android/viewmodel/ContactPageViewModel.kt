@@ -2,9 +2,9 @@ package be.technifutur.devmob9.projet_cantinapp_android.viewmodel
 
 
 import androidx.lifecycle.*
-import be.technifutur.devmob9.projet_cantinapp_android.model.repositories.ContactPageRepository
+import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.ContactPageManager
 
-class ContactPageViewModel(private val contactPageRepository: ContactPageRepository): ViewModel() {
+class ContactPageViewModel(private val contactPageManager: ContactPageManager): ViewModel() {
 
     /**
      * When we use two way databinding, we're forced to use MutableLiveData otherwise the layout can't access the values.
@@ -23,8 +23,8 @@ class ContactPageViewModel(private val contactPageRepository: ContactPageReposit
     var isCheckboxChecked = MutableLiveData<Boolean>()
 
     val chosenFile: LiveData<String>
-        get() = contactPageRepository.currentDocument
+        get() = contactPageManager.currentDocument
 
-    fun onClickChoosingFile() = contactPageRepository.onChangedDocument()
+    fun onClickChoosingFile() = contactPageManager.onChangedDocument()
 
 }

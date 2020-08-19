@@ -1,6 +1,7 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,10 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.CalendarModel
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.FIREBASE_TAG
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.CalendarBinder
-import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.CalendarClickVM
+import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.SharedDateViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.HomeViewModel
-import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.HomeViewModelFactory
+import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.CalendarViewModelFactory
 import kotlinx.android.synthetic.main.fragment_home.*
 import mva2.adapter.ListSection
 import mva2.adapter.MultiViewAdapter
@@ -37,19 +39,17 @@ class HomeFragment: BaseFragment(), KodeinAware {
     override val title: String
     get() = ""
 
-
     override val kodein by kodein()
-    private val homeFactory: HomeViewModelFactory by instance()
-
+    private val calendarFactory: CalendarViewModelFactory by instance()
     private val homeViewModel: HomeViewModel by lazy {
-        ViewModelProvider(this, homeFactory).get(HomeViewModel::class.java)
+        ViewModelProvider(this, calendarFactory).get(HomeViewModel::class.java)
 
     }
     private lateinit var calendarRecyclerView: RecyclerView
     private lateinit var multiViewAdapter: MultiViewAdapter
     private lateinit var listSection: ListSection<CalendarModel>
 
-    private val calendarClickVM by activityViewModels<CalendarClickVM>()
+    private val sharedDateViewModel by activityViewModels<SharedDateViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_home, container, false)
@@ -61,12 +61,10 @@ class HomeFragment: BaseFragment(), KodeinAware {
         multiViewAdapter = MultiViewAdapter()
         listSection =  ListSection()
 
-
         multiViewAdapter.registerItemBinders(CalendarBinder {
             Toast.makeText(requireContext(), "${it.adapterPosition}", Toast.LENGTH_SHORT).show()
             dateBuilder(it.item.date)
-            onRefreshClick(true)
-            onGettingDataFromDate(it.item.date.toString())
+            onDateClick(it.item.date.toString())
             it.toggleItemSelection()
         })
 
@@ -82,13 +80,15 @@ class HomeFragment: BaseFragment(), KodeinAware {
 
     private fun observeData() {
         shimmerFrameLayout.startShimmer()
-        homeViewModel.getCalendarDaysData().observe(viewLifecycleOwner) {
+        homeViewModel.getCalendarDaysData()
+        homeViewModel.fetchedDates.observe(viewLifecycleOwner) {
             shimmerFrameLayout.stopShimmer()
             shimmerFrameLayout.visibility = View.GONE
             it.forEach { calendarModel ->
                 listSection.add(calendarModel)
                 multiViewAdapter.notifyDataSetChanged()
             }
+            homeViewModel.fetchedDates.removeObservers(this)
         }
     }
 
@@ -102,18 +102,13 @@ class HomeFragment: BaseFragment(), KodeinAware {
         dayOfWeek.text = stringBuilder
     }
 
-    private fun onGettingDataFromDate(date: String){
-        homeViewModel.onRetrievedMenuFromDate(date)
-    }
-
-
-    private fun onRefreshClick(didClick: Boolean) = calendarClickVM.didClick(didClick)
+    private fun onDateClick(onDateClick: String) = sharedDateViewModel.onDateClick(onDateClick)
 
     override fun onDestroy() {
+        super.onDestroy()
         calendarRecyclerView.apply {
             this.adapter = null
             this.layoutManager = null
         }
-        super.onDestroy()
     }
 }

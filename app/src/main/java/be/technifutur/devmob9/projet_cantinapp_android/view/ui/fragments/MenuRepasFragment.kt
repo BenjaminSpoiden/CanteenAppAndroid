@@ -16,10 +16,10 @@ import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.FIREBASE_TAG
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.MenuHeaderBinder
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.MenuItemBinder
-import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.CalendarClickVM
+import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.SharedDateViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.CartBadgeViewModel
-import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.MenusViewModel
-import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.MenuVMFactory
+import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.DishesViewModel
+import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.DishesViewModelFactory
 import kotlinx.android.synthetic.main.fragment_menu_repas.*
 import mva2.adapter.ItemSection
 import mva2.adapter.ListSection
@@ -31,9 +31,9 @@ import org.kodein.di.generic.instance
 class MenuRepasFragment: BaseFragment(), KodeinAware {
 
     override val kodein by kodein()
-    private val menuVMFactory by instance<MenuVMFactory>()
-    private val menusViewModel by lazy {
-        ViewModelProvider(viewModelStore, menuVMFactory).get(MenusViewModel::class.java)
+    private val dishesViewModelFactory by instance<DishesViewModelFactory>()
+    private val dishesViewModel: DishesViewModel by lazy {
+        ViewModelProvider(viewModelStore, dishesViewModelFactory).get(DishesViewModel::class.java)
     }
 
     companion object {
@@ -43,7 +43,7 @@ class MenuRepasFragment: BaseFragment(), KodeinAware {
     override val title: String
         get() = "Menu"
 
-    private lateinit var menuRecyclerView: RecyclerView
+    private var menuRecyclerView: RecyclerView? = null
     private lateinit var menuAdapter: MultiViewAdapter
 
     private val startersSection = ItemSection<String>()
@@ -53,9 +53,8 @@ class MenuRepasFragment: BaseFragment(), KodeinAware {
     private val mainCoursesList = ListSection<DishesType.MainCourses>()
     private val dessertsList = ListSection<DishesType.Desserts>()
 
-    private val cartBadgeViewModel: CartBadgeViewModel by activityViewModels()
-    private val calendarClickVM by activityViewModels<CalendarClickVM>()
-
+    private val cartBadgeViewModel  by activityViewModels<CartBadgeViewModel>()
+    private val sharedDateViewModel by activityViewModels<SharedDateViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_menu_repas, container, false)
@@ -75,7 +74,6 @@ class MenuRepasFragment: BaseFragment(), KodeinAware {
                 cartBadgeViewModel.onDeleteMenuItem(holder.item)
             }
         })
-
         menuAdapter.addSection(startersSection)
         menuAdapter.addSection(startersList)
         menuAdapter.addSection(mainCoursesSection)
@@ -83,7 +81,7 @@ class MenuRepasFragment: BaseFragment(), KodeinAware {
         menuAdapter.addSection(dessertsSection)
         menuAdapter.addSection(dessertsList)
 
-        menuRecyclerView.apply {
+        menuRecyclerView?.apply {
             this.adapter = menuAdapter
             this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
@@ -91,54 +89,59 @@ class MenuRepasFragment: BaseFragment(), KodeinAware {
         observingClick()
         fetchingDishes()
     }
-
     private fun observingClick() {
-        calendarClickVM.didClickOnCalendar.observe(viewLifecycleOwner){
+        sharedDateViewModel.sharedDateDate.observe(viewLifecycleOwner) {
             Log.d(FIREBASE_TAG, "Looking click")
             placeholder.stopShimmer()
             placeholder.visibility = View.GONE
             onRefreshListsAndSection()
+            dishesViewModel.fetchingDishes(it)
+            sharedDateViewModel.sharedDateDate.removeObservers(this)
         }
     }
 
-    private fun fetchingDishes(){
-        menusViewModel.onRetrievedMenuData().observe(viewLifecycleOwner) {
-            Log.d(FIREBASE_TAG, "Looking")
-            when(it){
-                is DishesType.Starters -> {
-                    startersList.add(it)
-                    menuAdapter.notifyDataSetChanged()
-                    startersSection.setItem("Entrées")
-                }
-                is DishesType.MainCourses -> {
-                    mainCoursesList.add(it)
-                    menuAdapter.notifyDataSetChanged()
-                    mainCoursesSection.setItem("Plats")
-                }
-                is DishesType.Desserts -> {
-                    dessertsList.add(it)
-                    menuAdapter.notifyDataSetChanged()
-                    dessertsSection.setItem("Desserts")
+    private fun fetchingDishes() {
+        dishesViewModel.fetchedDishes.observe(viewLifecycleOwner) { dishesList ->
+            Log.d(FIREBASE_TAG, "FetchedDishes: $dishesList")
+            dishesList.forEach {
+                when(it) {
+                    is DishesType.Starters -> {
+                        startersSection.setItem("Entrées")
+                        startersList.add(it)
+                        menuAdapter.notifyDataSetChanged()
+                    }
+                    is DishesType.MainCourses -> {
+                        mainCoursesSection.setItem("Plats")
+                        mainCoursesList.add(it)
+                        menuAdapter.notifyDataSetChanged()
+                    }
+                    is DishesType.Desserts -> {
+                        dessertsSection.setItem("Desserts")
+                        dessertsList.add(it)
+                        menuAdapter.notifyDataSetChanged()
+                    }
                 }
             }
+            dishesViewModel.fetchedDishes.removeObservers(this)
         }
     }
+
     private fun onRefreshListsAndSection(){
         startersList.clear()
         startersSection.removeItem()
-
         mainCoursesList.clear()
         mainCoursesSection.removeItem()
-
         dessertsList.clear()
         dessertsSection.removeItem()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        menuRecyclerView.apply {
+    override fun onDestroyView() {
+        menuRecyclerView?.apply {
             this.adapter = null
             this.layoutManager = null
         }
+        menuRecyclerView = null
+        super.onDestroyView()
     }
+
 }

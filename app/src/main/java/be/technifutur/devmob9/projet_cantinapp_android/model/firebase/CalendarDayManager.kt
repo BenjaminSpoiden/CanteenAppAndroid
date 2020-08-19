@@ -15,30 +15,26 @@ import org.threeten.bp.format.TextStyle
 import java.lang.Exception
 import java.util.*
 
-class CalendarDayManager() {
-
-
+class CalendarDayManager {
     private val db = FirebaseFirestore.getInstance()
     private val calendarList = ArrayList<CalendarModel>()
 
-    fun getCalendarDays(): LiveData<MutableList<CalendarModel>> {
-        val mutableDaysData = MutableLiveData<MutableList<CalendarModel>>()
+    fun fetchCalendarDays(onComplete: (List<CalendarModel>) -> Unit) {
+        val daysDataList = ArrayList<CalendarModel>()
         db.collection(COLLECTION_ID_DAYS)
             .addSnapshotListener { query, e ->
-            e?.let {
-                return@addSnapshotListener
-            }
-            query?.let {
-                val listOfDaysData = mutableListOf<CalendarModel>()
-                it.documents.forEach { document ->
-                    formattingRawDataToDate(document.id).forEach { calendar ->
-                        listOfDaysData.add(CalendarModel(calendar.dayName, calendar.dayNumber, calendar.date, document.getBoolean(WORKDAY)))
+                e?.let {
+                    return@addSnapshotListener
+                }
+                query?.let {
+                    it.documents.forEach { document ->
+                        formattingRawDataToDate(document.id).forEach { calendar ->
+                            daysDataList.add(CalendarModel(calendar.dayName, calendar.dayNumber, calendar.date, document.getBoolean(WORKDAY)))
+                        }
                     }
                 }
-                mutableDaysData.value = listOfDaysData
+                onComplete(daysDataList)
             }
-        }
-        return mutableDaysData
     }
 
     private fun formattingRawDataToDate(date: String): List<CalendarModel> {

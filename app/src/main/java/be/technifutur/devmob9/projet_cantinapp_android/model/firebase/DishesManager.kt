@@ -1,25 +1,20 @@
 package be.technifutur.devmob9.projet_cantinapp_android.model.firebase
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.DishesType
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.SampleTestModel
-import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.FIREBASE_TAG
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.ID_DAYS_MEALS
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.ID_DESSERTS
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.ID_MAIN_COURSES
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.ID_STARTERS
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
+import java.util.ArrayList
 
-class MenusManager {
+class DishesManager {
+
     private val db = FirebaseFirestore.getInstance()
-    private val mutableMenusLiveData = MutableLiveData<DishesType>()
-    val menusLiveData: LiveData<DishesType>
-        get() = mutableMenusLiveData
 
-    fun onRetrievedMenusFromDate(date: String){
+    fun onFetchingDishesFromDate(date: String, onComplete: (List<DishesType>) -> Unit){
         db.collection(ID_DAYS_MEALS)
             .document(date)
             .addSnapshotListener { documentSnapshot, firebaseFirestoreException ->
@@ -29,19 +24,20 @@ class MenusManager {
                 documentSnapshot?.let {
                     val data = it.toObject<SampleTestModel>()
                     data?.menu?.starters?.forEach {
-                        onRetrieveStarters(it)
+                        fetchingStarters(it, onComplete)
                     }
                     data?.menu?.main_courses?.forEach {
-                        onRetrieveMainCourses(it)
+                        fetchingMainCourses(it, onComplete)
                     }
                     data?.menu?.desserts?.forEach {
-                        onRetrievedDesserts(it)
+                        fetchingDesserts(it, onComplete)
                     }
                 }
             }
     }
 
-    private fun onRetrieveStarters(starterName: String){
+    private fun fetchingStarters(starterName: String, onComplete: (List<DishesType>) -> Unit){
+        val startersList = ArrayList<DishesType>()
         db.collection(ID_STARTERS)
             .document(starterName)
             .addSnapshotListener { documentSnapshot, e ->
@@ -50,12 +46,14 @@ class MenusManager {
                 }
                 documentSnapshot?.let {
                     val starterData = it.toObject<DishesType.Starters>()
-                    mutableMenusLiveData.value = starterData
+                    if(starterData != null) startersList.add(starterData)
                 }
+                onComplete(startersList)
             }
     }
 
-    private fun onRetrieveMainCourses(mainsName: String) {
+    private fun fetchingMainCourses(mainsName: String, onComplete: (List<DishesType>) -> Unit) {
+        val mainsList = ArrayList<DishesType>()
         db.collection(ID_MAIN_COURSES)
             .document(mainsName)
             .addSnapshotListener { documentSnapshot, e ->
@@ -64,12 +62,14 @@ class MenusManager {
                 }
                 documentSnapshot?.let {
                     val mainsData = it.toObject<DishesType.MainCourses>()
-                    mutableMenusLiveData.value = mainsData
+                    if(mainsData != null) mainsList.add(mainsData)
                 }
+                onComplete(mainsList)
             }
     }
 
-    private fun onRetrievedDesserts(dessertsName: String){
+    private fun fetchingDesserts(dessertsName: String, onComplete: (List<DishesType>) -> Unit){
+        val dessertList = ArrayList<DishesType>()
         db.collection(ID_DESSERTS)
             .document(dessertsName)
             .addSnapshotListener { documentSnapshot, e ->
@@ -78,8 +78,9 @@ class MenusManager {
                 }
                 documentSnapshot?.let {
                     val dessertsData = it.toObject<DishesType.Desserts>()
-                    mutableMenusLiveData.value = dessertsData
+                    if(dessertsData != null) dessertList.add(dessertsData)
                 }
+                onComplete(dessertList)
             }
     }
 }

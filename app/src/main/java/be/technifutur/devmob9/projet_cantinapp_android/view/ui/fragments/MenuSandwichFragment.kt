@@ -23,7 +23,7 @@ class MenuSandwichFragment: BaseFragment() {
     override val title: String
         get() = "Sandwich"
 
-    private lateinit var sandwichRecyclerView: RecyclerView
+    private var sandwichRecyclerView: RecyclerView? = null
     private lateinit var sandwichAdapter: GenericAdapter<MenuItemModel>
 
     private var fragmentListener: FragmentListener? = null
@@ -63,7 +63,7 @@ class MenuSandwichFragment: BaseFragment() {
                 return R.layout.recyclerview_sandwich_item
             }
         }
-        sandwichRecyclerView.apply {
+        sandwichRecyclerView?.apply {
             this.adapter = sandwichAdapter
             this.layoutManager = GridLayoutManager(context, 2)
         }
@@ -92,10 +92,11 @@ class MenuSandwichFragment: BaseFragment() {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
-        sandwichRecyclerView.apply {
+        sandwichRecyclerView?.apply {
             this.adapter = null
             this.layoutManager = null
         }
+        sandwichRecyclerView = null
+        super.onDestroyView()
     }
 }
