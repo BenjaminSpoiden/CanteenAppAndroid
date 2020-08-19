@@ -54,8 +54,8 @@
 
             <ImageView
                 android:id="@+id/menu_illustration"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="115dp"
                 android:src="@drawable/menu_illustration"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

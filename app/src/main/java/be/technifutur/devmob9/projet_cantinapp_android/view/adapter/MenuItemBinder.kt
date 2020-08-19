@@ -10,6 +10,8 @@ import android.widget.Toast
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.DishesType
+import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.PicturesManager
+import com.bumptech.glide.Glide
 import com.google.android.material.card.MaterialCardView
 import mva2.adapter.ItemBinder
 import mva2.adapter.ItemViewHolder
@@ -28,20 +30,32 @@ class MenuItemBinder(context: Context, private val onItemClick: (MenuItemViewHol
             is DishesType.Starters -> {
                 holder?.menuName?.text = item.name
                 holder?.descriptionMenu?.text = item.description
-                holder?.illustrationMenu?.setImageResource(R.drawable.menu_illustration)
                 holder?.menuPrice?.text = "${item.price},00 €"
+                Glide.with(holder?.itemView!!)
+                    .load(PicturesManager().fetchDishesPictures(item.picture_path!!))
+                    .placeholder(R.drawable.menu_illustration)
+                    .centerCrop()
+                    .into(holder.menuIllustration)
             }
             is DishesType.MainCourses -> {
                 holder?.menuName?.text = item.name
                 holder?.descriptionMenu?.text = item.description
-                holder?.illustrationMenu?.setImageResource(R.drawable.menu_illustration)
                 holder?.menuPrice?.text = "${item.price},00 €"
+                Glide.with(holder?.itemView!!)
+                    .load(PicturesManager().fetchDishesPictures(item.picture_path!!))
+                    .placeholder(R.drawable.menu_illustration)
+                    .centerCrop()
+                    .into(holder.menuIllustration)
             }
             is DishesType.Desserts -> {
                 holder?.menuName?.text = item.name
                 holder?.descriptionMenu?.text = item.description
-                holder?.illustrationMenu?.setImageResource(R.drawable.menu_illustration)
                 holder?.menuPrice?.text = "${item.price},00 €"
+                Glide.with(holder?.itemView!!)
+                    .load(PicturesManager().fetchDishesPictures(item.picture_path!!))
+                    .placeholder(R.drawable.menu_illustration)
+                    .centerCrop()
+                    .into(holder.menuIllustration)
             }
         }
     }
@@ -63,9 +77,9 @@ class MenuItemBinder(context: Context, private val onItemClick: (MenuItemViewHol
     inner class MenuItemViewHolder(v: View): ItemViewHolder<DishesType>(v){
         val menuName: TextView = v.findViewById(R.id.type_menu)
         val descriptionMenu: TextView = v.findViewById(R.id.menu_description)
-        val illustrationMenu: ImageView = v.findViewById(R.id.menu_illustration)
         val detailButton: ImageView = v.findViewById(R.id.menu_detail_button)
         val menuCard: MaterialCardView = v.findViewById(R.id.menu_bg)
         val menuPrice: TextView = v.findViewById(R.id.menu_price)
+        val menuIllustration: ImageView = v.findViewById(R.id.menu_illustration)
     }
 }

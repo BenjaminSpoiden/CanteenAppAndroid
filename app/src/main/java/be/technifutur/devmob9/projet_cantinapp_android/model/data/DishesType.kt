@@ -8,7 +8,8 @@ sealed class DishesType: Food() {
         val energy: Int? = null,
         val sugar: Int? = null,
         val fat: Int? = null,
-        val protein: Int? = null): DishesType()
+        val protein: Int? = null,
+        val picture_path: String? = null): DishesType()
 
     data class MainCourses(
         val name: String? = null,
@@ -17,7 +18,8 @@ sealed class DishesType: Food() {
         val energy: Int? = null,
         val sugar: Int? = null,
         val fat: Int? = null,
-        val protein: Int? = null): DishesType()
+        val protein: Int? = null,
+        val picture_path: String? = null): DishesType()
 
     data class Desserts(
         val name: String? = null,
@@ -26,5 +28,6 @@ sealed class DishesType: Food() {
         val energy: Int? = null,
         val sugar: Int? = null,
         val fat: Int? = null,
-        val protein: Int? = null): DishesType()
+        val protein: Int? = null,
+        val picture_path: String? = null): DishesType()
 }
