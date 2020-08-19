@@ -114,7 +114,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="Conditions Générales"
+                    android:text="Introduction"
                     android:textColor="@color/lightGreen"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -124,12 +124,11 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tos_1"
+                android:id="@+id/introductionText"
                 style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:justificationMode="inter_word"
                 android:text="@string/tos_placeholder_1"
                 android:textColor="@color/darkerGrey"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -143,7 +142,7 @@
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tos_1">
+                app:layout_constraintTop_toBottomOf="@+id/introductionText">
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/materialCardView3"
@@ -173,7 +172,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="Réglement général sur la protection des données"
+                    android:text="Intellectual property"
                     android:textColor="@color/lightGreen"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -183,12 +182,11 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tos_2"
+                android:id="@+id/intellectualpropertyText"
                 style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:justificationMode="inter_word"
                 android:text="@string/tos_placeholder_2"
                 android:textColor="@color/darkerGrey"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -202,7 +200,7 @@
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tos_2">
+                app:layout_constraintTop_toBottomOf="@+id/intellectualpropertyText">
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/materialCardView4"
@@ -232,7 +230,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="Informations sur les allergènes"
+                    android:text="Restrictions"
                     android:textColor="@color/lightGreen"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -242,12 +240,11 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tos_3"
+                android:id="@+id/restrictionsText"
                 style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:justificationMode="inter_word"
                 android:text="@string/tos_placeholder_2"
                 android:textColor="@color/darkerGrey"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -261,7 +258,7 @@
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tos_3">
+                app:layout_constraintTop_toBottomOf="@+id/restrictionsText">
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/materialCardView5"
@@ -291,7 +288,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="Tutoriel d'utilisation"
+                    android:text="Warranty and limitation of liability"
                     android:textColor="@color/lightGreen"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -302,12 +299,11 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tos_4"
+                android:id="@+id/warrantyLimitationLiabilityText"
                 style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:justificationMode="inter_word"
                 android:text="@string/tos_placeholder_2"
                 android:textColor="@color/darkerGrey"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -321,7 +317,7 @@
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tos_4">
+                app:layout_constraintTop_toBottomOf="@+id/warrantyLimitationLiabilityText">
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/materialCardView6"
@@ -362,12 +358,11 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tos_5"
+                android:id="@+id/contactText"
                 style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:justificationMode="inter_word"
                 android:text="@string/tos_placeholder_3"
                 android:textColor="@color/darkerGrey"
                 app:layout_constraintEnd_toEndOf="parent"
