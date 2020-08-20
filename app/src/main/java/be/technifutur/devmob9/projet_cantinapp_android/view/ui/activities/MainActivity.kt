@@ -134,7 +134,7 @@ class MainActivity: AppCompatActivity(), FragmentListener{
                 replaceFragmentMenu(MenuSandwichFragment.getInstance())
             }
             2 -> {
-                replaceFragmentMenu(MenuCroissantFragment.getInstance())
+                replaceFragmentMenu(MenuOthersFragment.getInstance())
             }
         }
     }

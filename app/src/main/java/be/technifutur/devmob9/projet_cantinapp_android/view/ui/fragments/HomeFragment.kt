@@ -1,7 +1,6 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.CalendarModel
-import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.FIREBASE_TAG
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.CalendarBinder
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.SharedDateViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.HomeViewModel
@@ -102,13 +100,13 @@ class HomeFragment: BaseFragment(), KodeinAware {
         dayOfWeek.text = stringBuilder
     }
 
-    private fun onDateClick(onDateClick: String) = sharedDateViewModel.onDateClick(onDateClick)
+    private fun onDateClick(dateClick: String) = sharedDateViewModel.onSharedDateClick(dateClick)
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
         calendarRecyclerView.apply {
             this.adapter = null
             this.layoutManager = null
         }
+        super.onDestroyView()
     }
 }

@@ -1,10 +1,14 @@
 package be.technifutur.devmob9.projet_cantinapp_android.model.firebase
 
+import android.util.Log
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.DishesType
-import be.technifutur.devmob9.projet_cantinapp_android.model.data.SampleTestModel
+import be.technifutur.devmob9.projet_cantinapp_android.model.data.FoodModel
+import be.technifutur.devmob9.projet_cantinapp_android.model.data.Sandwich
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.FIREBASE_TAG
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.ID_DAYS_MEALS
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.ID_DESSERTS
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.ID_MAIN_COURSES
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.ID_SANDWICHES
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.ID_STARTERS
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
@@ -22,14 +26,15 @@ class DishesManager {
                     return@addSnapshotListener
                 }
                 documentSnapshot?.let {
-                    val data = it.toObject<SampleTestModel>()
-                    data?.menu?.starters?.forEach {
+                    val foodModel = it.toObject<FoodModel>()
+                    Log.d(FIREBASE_TAG, "$foodModel")
+                    foodModel?.menu?.starters?.forEach {
                         fetchingStarters(it, onComplete)
                     }
-                    data?.menu?.main_courses?.forEach {
+                    foodModel?.menu?.main_courses?.forEach {
                         fetchingMainCourses(it, onComplete)
                     }
-                    data?.menu?.desserts?.forEach {
+                    foodModel?.menu?.desserts?.forEach {
                         fetchingDesserts(it, onComplete)
                     }
                 }

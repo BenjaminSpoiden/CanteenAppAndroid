@@ -2,7 +2,6 @@ package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.DishesType
 import be.technifutur.devmob9.projet_cantinapp_android.R
-import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.FIREBASE_TAG
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.MenuHeaderBinder
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.MenuItemBinder
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.SharedDateViewModel
@@ -90,19 +88,17 @@ class MenuRepasFragment: BaseFragment(), KodeinAware {
         fetchingDishes()
     }
     private fun observingClick() {
-        sharedDateViewModel.sharedDateDate.observe(viewLifecycleOwner) {
-            Log.d(FIREBASE_TAG, "Looking click")
+        sharedDateViewModel.sharedDate.observe(viewLifecycleOwner) {
             placeholder.stopShimmer()
             placeholder.visibility = View.GONE
             onRefreshListsAndSection()
             dishesViewModel.fetchingDishes(it)
-            sharedDateViewModel.sharedDateDate.removeObservers(this)
+            sharedDateViewModel.sharedDate.removeObservers(this)
         }
     }
 
     private fun fetchingDishes() {
         dishesViewModel.fetchedDishes.observe(viewLifecycleOwner) { dishesList ->
-            Log.d(FIREBASE_TAG, "FetchedDishes: $dishesList")
             dishesList.forEach {
                 when(it) {
                     is DishesType.Starters -> {

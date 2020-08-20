@@ -1,7 +1,9 @@
 package be.technifutur.devmob9.projet_cantinapp_android
 
 import android.app.Application
+import android.util.Log
 import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.*
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.FIREBASE_TAG
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.*
 import com.google.firebase.iid.FirebaseInstanceId
 import com.jakewharton.threetenabp.AndroidThreeTen
@@ -19,6 +21,8 @@ class CantinappApplication: Application(), KodeinAware {
         bind() from singleton { ContactPageManager() }
         bind() from singleton { DishesManager() }
         bind() from singleton { CalendarDayManager() }
+        bind() from singleton { SandwichManager() }
+        bind() from singleton { OthersManager() }
         bind() from provider {
             AuthViewModelFactory(
                 instance()
@@ -34,6 +38,12 @@ class CantinappApplication: Application(), KodeinAware {
 
         bind() from provider {
             DishesViewModelFactory(instance())
+        }
+        bind() from provider {
+            SandwichViewModelFactory(instance())
+        }
+        bind() from provider {
+            OthersViewModelFactory(instance())
         }
     }
 

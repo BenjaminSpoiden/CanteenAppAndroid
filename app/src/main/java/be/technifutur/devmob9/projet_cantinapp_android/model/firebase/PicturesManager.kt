@@ -5,5 +5,12 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 
 class PicturesManager {
-    fun fetchDishesPictures(picturePath: String) = Firebase.storage.reference.child(PICTURES).child(picturePath)
+    fun fetchDishesPictures(picturePath: String?) =
+        picturePath?.let {
+            Firebase
+                .storage
+                .reference
+                .child(PICTURES)
+                .child(it)
+        }
 }

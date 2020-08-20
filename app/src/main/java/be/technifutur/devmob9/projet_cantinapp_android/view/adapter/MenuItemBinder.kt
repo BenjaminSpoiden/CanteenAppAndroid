@@ -2,16 +2,21 @@ package be.technifutur.devmob9.projet_cantinapp_android.view.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
+import be.technifutur.devmob9.projet_cantinapp_android.GlideApp
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.DishesType
 import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.PicturesManager
-import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.google.android.material.card.MaterialCardView
 import mva2.adapter.ItemBinder
 import mva2.adapter.ItemViewHolder
@@ -31,31 +36,34 @@ class MenuItemBinder(context: Context, private val onItemClick: (MenuItemViewHol
                 holder?.menuName?.text = item.name
                 holder?.descriptionMenu?.text = item.description
                 holder?.menuPrice?.text = "${item.price},00 €"
-                Glide.with(holder?.itemView!!)
-                    .load(PicturesManager().fetchDishesPictures(item.picture_path!!))
-                    .placeholder(R.drawable.menu_illustration)
+                GlideApp.with(holder?.itemView!!)
+                    .load(PicturesManager().fetchDishesPictures(item.picture_path))
+                    .error(R.drawable.no_picture_found)
                     .centerCrop()
                     .into(holder.menuIllustration)
+                holder.progressBar.visibility = View.GONE
             }
             is DishesType.MainCourses -> {
                 holder?.menuName?.text = item.name
                 holder?.descriptionMenu?.text = item.description
                 holder?.menuPrice?.text = "${item.price},00 €"
-                Glide.with(holder?.itemView!!)
-                    .load(PicturesManager().fetchDishesPictures(item.picture_path!!))
-                    .placeholder(R.drawable.menu_illustration)
+                GlideApp.with(holder?.itemView!!)
+                    .load(PicturesManager().fetchDishesPictures(item.picture_path))
+                    .error(R.drawable.no_picture_found)
                     .centerCrop()
                     .into(holder.menuIllustration)
+                holder.progressBar.visibility = View.GONE
             }
             is DishesType.Desserts -> {
                 holder?.menuName?.text = item.name
                 holder?.descriptionMenu?.text = item.description
                 holder?.menuPrice?.text = "${item.price},00 €"
-                Glide.with(holder?.itemView!!)
-                    .load(PicturesManager().fetchDishesPictures(item.picture_path!!))
-                    .placeholder(R.drawable.menu_illustration)
+                GlideApp.with(holder?.itemView!!)
+                    .load(PicturesManager().fetchDishesPictures(item.picture_path))
+                    .error(R.drawable.no_picture_found)
                     .centerCrop()
                     .into(holder.menuIllustration)
+                holder.progressBar.visibility = View.GONE
             }
         }
     }
@@ -81,5 +89,6 @@ class MenuItemBinder(context: Context, private val onItemClick: (MenuItemViewHol
         val menuCard: MaterialCardView = v.findViewById(R.id.menu_bg)
         val menuPrice: TextView = v.findViewById(R.id.menu_price)
         val menuIllustration: ImageView = v.findViewById(R.id.menu_illustration)
+        val progressBar: ProgressBar = v.findViewById(R.id.loader)
     }
 }

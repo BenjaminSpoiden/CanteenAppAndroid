@@ -12,7 +12,7 @@ import com.mikepenz.fastadapter.items.AbstractItem
 class CroissantItem(val menuItemModel: MenuItemModel): AbstractItem<CroissantItem.CroissantViewHolder>() {
 
     override val layoutRes: Int
-        get() = R.layout.recyclerview_croissant_item
+        get() = R.layout.recyclerview_others_item
     override val type: Int
         get() = R.id.recycler_view_croissant_item_id
 
