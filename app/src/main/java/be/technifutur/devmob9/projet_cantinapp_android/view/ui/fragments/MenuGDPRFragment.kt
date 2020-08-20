@@ -13,7 +13,7 @@ class MenuGDPRFragment: BaseFragment() {
     }
 
     override val title: String
-        get() = "Not yet implemented"
+        get() = "GDPR"
 
     override fun onCreateView(
         inflater: LayoutInflater,
