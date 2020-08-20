@@ -113,7 +113,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="Section1"
+                    android:text="What data do we collect?"
                     android:textColor="@color/lightGreen"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -123,7 +123,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/introductionText"
+                android:id="@+id/collectWhatText"
                 style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -141,7 +141,7 @@
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/introductionText">
+                app:layout_constraintTop_toBottomOf="@+id/collectWhatText">
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/materialCardView3"
@@ -171,7 +171,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="Section2"
+                    android:text="How do we collect your data?"
                     android:textColor="@color/lightGreen"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -181,7 +181,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/intellectualpropertyText"
+                android:id="@+id/collectHowText"
                 style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -199,7 +199,7 @@
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/intellectualpropertyText">
+                app:layout_constraintTop_toBottomOf="@+id/collectHowText">
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/materialCardView4"
@@ -229,7 +229,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="Section3"
+                    android:text="How will we use your data?"
                     android:textColor="@color/lightGreen"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -239,7 +239,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/restrictionsText"
+                android:id="@+id/dataUseText"
                 style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -257,7 +257,7 @@
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/restrictionsText">
+                app:layout_constraintTop_toBottomOf="@+id/dataUseText">
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/materialCardView5"
@@ -287,7 +287,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="Section4"
+                    android:text="Marketing"
                     android:textColor="@color/lightGreen"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -298,7 +298,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/warrantyLimitationLiabilityText"
+                android:id="@+id/marketingText"
                 style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -316,7 +316,7 @@
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/warrantyLimitationLiabilityText">
+                app:layout_constraintTop_toBottomOf="@+id/marketingText">
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/materialCardView6"
@@ -346,7 +346,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="Section5"
+                    android:text="What are your data protection rights?"
                     android:textColor="@color/lightGreen"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -357,7 +357,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/contactText"
+                android:id="@+id/dataProtectionRightsText"
                 style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
