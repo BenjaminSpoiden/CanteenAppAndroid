@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:ignore="RtlSymmetry"
+    android:layout_margin="3dp"
+    android:background="@drawable/shadow_bg"
+    android:id="@+id/calendar_item_id">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/calendar_card_view"
+        android:layout_width="80dp"
+        android:layout_height="90dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardBackgroundColor="@android:color/white"
+        android:background="@drawable/shadow_bg"
+        app:cardCornerRadius="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <View
+            android:id="@+id/day_tv"
+            android:layout_width="40dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center|top"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/slightlyTurquoise"
+            android:background="@color/slightlyTurquoise"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/calendar_bg"
+            app:layout_constraintEnd_toEndOf="@id/calendar_bg"
+            app:layout_constraintStart_toStartOf="@id/calendar_bg"
+            app:layout_constraintTop_toTopOf="@id/calendar_bg"
+            tools:text="LUNDI" />
+
+        <View
+            android:id="@+id/day_number_tv"
+            android:layout_width="42dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/slightlyTurquoise"
+            android:background="@color/slightlyTurquoise"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/calendar_overlay"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/calendar_bg"
+            tools:text="01" />
+    </com.google.android.material.card.MaterialCardView>
+</LinearLayout>

@@ -1,54 +1,40 @@
 package be.technifutur.devmob9.projet_cantinapp_android.model.firebase
 
 import android.util.Log
-import be.technifutur.devmob9.projet_cantinapp_android.interfaces.CalendarListener
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.CalendarModel
-import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.COLLECTION_ID
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.COLLECTION_ID_DAYS
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.FIREBASE_TAG
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.WORKDAY
 import com.google.firebase.firestore.*
-import com.google.firebase.firestore.EventListener
 import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.ResolverStyle
+import org.threeten.bp.format.TextStyle
 import java.lang.Exception
 import java.util.*
 
 class CalendarDayManager {
-
-    companion object {
-        fun getInstance() =
-            CalendarDayManager()
-    }
-
     private val db = FirebaseFirestore.getInstance()
     private val calendarList = ArrayList<CalendarModel>()
-    var calendarListener: CalendarListener? = null
 
-    init {
-        getFirebaseQuery()
-    }
-
-    private fun getFirebaseQuery() {
-        db.collection(COLLECTION_ID).addSnapshotListener(object : EventListener<QuerySnapshot> {
-            override fun onEvent(query: QuerySnapshot?, exception: FirebaseFirestoreException?) {
-                if (exception != null) {
-                    return
+    fun fetchCalendarDays(onComplete: (List<CalendarModel>) -> Unit) {
+        val daysDataList = ArrayList<CalendarModel>()
+        db.collection(COLLECTION_ID_DAYS)
+            .addSnapshotListener { query, e ->
+                e?.let {
+                    return@addSnapshotListener
                 }
-                query?.let { it ->
-                    for (dc: DocumentChange in it.documentChanges) {
-                        when (dc.type) {
-                            DocumentChange.Type.ADDED -> {
-                                formattingRawDataToDate(dc.document.id).forEach { calendarModel ->
-                                    calendarListener?.onCalendarReceived(CalendarModel(calendarModel.dayName, calendarModel.dayNumber))
-                                }
-                            }
-
-                            else -> Log.d(FIREBASE_TAG, "")
+                query?.let {
+                    it.documents.forEach { document ->
+                        formattingRawDataToDate(document.id).forEach { calendar ->
+                            daysDataList.add(CalendarModel(calendar.dayName, calendar.dayNumber, calendar.date, document.getBoolean(WORKDAY)))
                         }
                     }
                 }
+                onComplete(daysDataList)
             }
-        })
     }
 
     private fun formattingRawDataToDate(date: String): List<CalendarModel> {
@@ -60,9 +46,9 @@ class CalendarDayManager {
                  * Regarder pour les traductions des jours en fonction du langage du téléphone
                  */
 
-                val toDateConversion = LocalDate.parse(date, DateTimeFormatter.ofPattern("uuuu-MM-dd", Locale.ROOT).withResolverStyle(ResolverStyle.STRICT))
+                val toDateConversion = LocalDate.parse(date, DateTimeFormatter.ofPattern("uuuu-MM-dd", Locale.FRENCH).withResolverStyle(ResolverStyle.STRICT))
 
-                val toDayOfWeekConversion = toDateConversion.dayOfWeek.name
+                val toDayOfWeekConversion = toDateConversion.dayOfWeek.getDisplayName(TextStyle.FULL, Locale.FRENCH)
 
                 //TOUT KAKER (optmisation)
                 val toDayNumberConversion = toDateConversion.toString().split("-")
@@ -76,7 +62,8 @@ class CalendarDayManager {
                     calendarList.add(
                         CalendarModel(
                             toDayOfWeekConversion,
-                            toDayNumberConversion[2]
+                            toDayNumberConversion[2],
+                            toDateConversion
                         )
                     )
                 }

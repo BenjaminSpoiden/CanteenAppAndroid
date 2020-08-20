@@ -4,13 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.AuthListener
-import be.technifutur.devmob9.projet_cantinapp_android.model.repositories.UserRepository
+import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.AuthManager
 import com.google.firebase.auth.FirebaseUser
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class AuthViewModel(private val userRepository: UserRepository): ViewModel() {
+class AuthViewModel(private val authManager: AuthManager): ViewModel() {
     var email: String? = null
     var password: String? = null
     var confirmPassword: String? = null
@@ -22,7 +22,7 @@ class AuthViewModel(private val userRepository: UserRepository): ViewModel() {
 
     private val disposables = CompositeDisposable()
 
-    val user: FirebaseUser? = userRepository.currentUser()
+    val user: FirebaseUser? = authManager.currentUser()
 
     fun login(){
         if(email.isNullOrEmpty() || password.isNullOrEmpty()){
@@ -31,7 +31,7 @@ class AuthViewModel(private val userRepository: UserRepository): ViewModel() {
         }
         authListener?.onStarted()
 
-        val disposable = userRepository
+        val disposable = authManager
             .login(email!!, password!!)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -54,7 +54,7 @@ class AuthViewModel(private val userRepository: UserRepository): ViewModel() {
         }
         authListener?.onStarted()
 
-        val disposable = userRepository
+        val disposable = authManager
             .register(email!!, password!!)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -67,7 +67,7 @@ class AuthViewModel(private val userRepository: UserRepository): ViewModel() {
     }
 
     fun logout(){
-        userRepository.logout()
+        authManager.logout()
         isUserLoggedIn.value = false
     }
 

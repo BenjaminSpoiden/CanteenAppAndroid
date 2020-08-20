@@ -6,76 +6,95 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
-import be.technifutur.devmob9.projet_cantinapp_android.model.data.MenuItemModel
-import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.SandwichItem
-import com.google.android.material.card.MaterialCardView
-import com.mikepenz.fastadapter.FastAdapter
-import com.mikepenz.fastadapter.adapters.ItemAdapter
-import com.mikepenz.fastadapter.listeners.ClickEventHook
+import be.technifutur.devmob9.projet_cantinapp_android.model.data.Sandwich
+import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.SandwichItemBinder
+import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.CartBadgeViewModel
+import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.SandwichViewModel
+import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.SharedDateViewModel
+import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.SandwichViewModelFactory
+import mva2.adapter.ListSection
+import mva2.adapter.MultiViewAdapter
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.kodein
+import org.kodein.di.generic.instance
 
-class MenuSandwichFragment: BaseFragment() {
+class MenuSandwichFragment: BaseFragment(), KodeinAware {
+
     companion object {
         fun getInstance() = MenuSandwichFragment()
     }
     override val title: String
         get() = "Sandwich"
 
-    private lateinit var sandwichRecyclerView: RecyclerView
-    private val itemAdapter = ItemAdapter<SandwichItem>()
-    private val fastAdapter = FastAdapter.with(itemAdapter)
+    override val kodein by kodein()
+    private val sandwichViewModelFactory by instance<SandwichViewModelFactory>()
+    private val sandwichViewModel by lazy {
+        ViewModelProvider(viewModelStore, sandwichViewModelFactory).get(SandwichViewModel::class.java)
+    }
+
+    private var sandwichRecyclerView: RecyclerView? = null
+    private lateinit var sandwichAdapter: MultiViewAdapter
+    private val sandwichList = ListSection<Sandwich>()
     private var fragmentListener: FragmentListener? = null
 
-    private var isSelected: Boolean = false
+    private val sharedDateViewModel by activityViewModels<SharedDateViewModel>()
+    private val cartBadgeViewModel  by activityViewModels<CartBadgeViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_menu_sandwich, container, false)
     }
 
-    /**
-     * Faire une sorte d'extension pour centraliser le code qui se ressemble
-     * Potentiel section comme sur iOs
-     */
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         sandwichRecyclerView = view.findViewById(R.id.sandwich_recycler_view)
-        sandwichRecyclerView.apply {
-            this.adapter = fastAdapter
+
+        initAdapter()
+
+        sandwichRecyclerView?.apply {
+            this.adapter = sandwichAdapter
             this.layoutManager = GridLayoutManager(context, 2)
         }
-        mockDataItemAdapter()
 
-        fastAdapter.addEventHook(object: ClickEventHook<SandwichItem>() {
-            override fun onBind(viewHolder: RecyclerView.ViewHolder): View? {
-                return if(viewHolder is SandwichItem.ViewHolder){
-                    viewHolder.detail
-                }else {
-                    null
-                }
+        sharedDateViewModel.sharedDate.observe(viewLifecycleOwner) {
+            onRefreshList()
+            sandwichViewModel.fetchingSandwiches(it)
+        }
+        fetchingSandwiches()
+    }
+
+    private fun fetchingSandwiches() {
+        sandwichViewModel.fetchedSandwiches.observe(viewLifecycleOwner) { sandwichListData ->
+            sandwichListData.forEach {
+                sandwichList.add(it)
+                sandwichAdapter.notifyDataSetChanged()
             }
+        }
+    }
 
-            override fun onClick(v: View, position: Int, fastAdapter: FastAdapter<SandwichItem>, item: SandwichItem) {
-                fragmentListener?.openDetailFragment()
+    private fun initAdapter() {
+        sandwichAdapter = MultiViewAdapter()
+        sandwichAdapter.registerItemBinders(SandwichItemBinder {
+            it.sandwichCard.isChecked = !it.sandwichCard.isChecked
+            if(it.sandwichCard.isChecked) {
+                it.sandwichCard.setCardBackgroundColor(resources.getColor(R.color.tameGreen, resources.newTheme()))
+                cartBadgeViewModel.onAddingMenuItem(it.item)
+            }else {
+                it.sandwichCard.setCardBackgroundColor(Color.WHITE)
+                cartBadgeViewModel.onDeleteMenuItem(it.item)
             }
         })
+        sandwichAdapter.addSection(sandwichList)
+    }
 
-        fastAdapter.onClickListener = { v, adapter, item, position ->
-            val check = v?.findViewById<ImageView>(R.id.selected_sandwich_item)
-            val sandwichBackground = v?.findViewById<MaterialCardView>(R.id.sandwich_menu_bg)
-
-            if(check != null && sandwichBackground != null) {
-                this.isSelected = !this.isSelected
-                isMenuItemSelected(isSelected, check, sandwichBackground)
-            }
-
-            true
-        }
-
+    private fun onRefreshList() {
+        sandwichList.clear()
     }
 
     override fun onAttach(context: Context) {
@@ -83,33 +102,20 @@ class MenuSandwichFragment: BaseFragment() {
         if(context is FragmentListener){
             fragmentListener = context
         }
+
     }
 
     override fun onDetach() {
         super.onDetach()
-        sandwichRecyclerView.adapter = null
-        sandwichRecyclerView.layoutManager = null
         fragmentListener = null
     }
 
-    private fun isMenuItemSelected(isSelected: Boolean, check: ImageView, background: MaterialCardView) {
-        if(isSelected) {
-            check.visibility = View.VISIBLE
-            background.setCardBackgroundColor(Color.parseColor("#DBF9D8"))
-
-        }else {
-            check.visibility = View.INVISIBLE
-            background.setCardBackgroundColor(Color.parseColor("#FFFFFF"))
+    override fun onDestroyView() {
+        sandwichRecyclerView?.apply {
+            this.adapter = null
+            this.layoutManager = null
         }
-    }
-
-    private fun mockDataItemAdapter() {
-        itemAdapter.add(SandwichItem(MenuItemModel("DAGOBERT", getString(R.string.sandwich_desc), R.drawable.sandwich_illustration)))
-        itemAdapter.add(SandwichItem(MenuItemModel("THON", getString(R.string.sandwich_desc), R.drawable.sandwich_illustration)))
-        itemAdapter.add(SandwichItem(MenuItemModel("JAMBOM FROMAGE", getString(R.string.sandwich_desc), R.drawable.sandwich_illustration)))
-        itemAdapter.add(SandwichItem(MenuItemModel("DAGOBERT", getString(R.string.sandwich_desc), R.drawable.sandwich_illustration)))
-        itemAdapter.add(SandwichItem(MenuItemModel("THON", getString(R.string.sandwich_desc), R.drawable.sandwich_illustration)))
-        itemAdapter.add(SandwichItem(MenuItemModel("JAMBOM FROMAGE", getString(R.string.sandwich_desc), R.drawable.sandwich_illustration)))
-        fastAdapter.notifyAdapterDataSetChanged()
+        sandwichRecyclerView = null
+        super.onDestroyView()
     }
 }

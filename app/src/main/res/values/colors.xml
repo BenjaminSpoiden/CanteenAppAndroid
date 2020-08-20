@@ -20,4 +20,7 @@
     <color name="darkTurquoise">#1D6476</color>
     <color name="GreenishTurquoise">#37BA89</color>
     <color name="tameBlue">#DAF2FF</color>
+    <color name="bone">#A1AF9F</color>
+    <color name="tameGreen">#DBF9D8</color>
+    <color name="tameBlack">#2F4858</color>
 </resources>

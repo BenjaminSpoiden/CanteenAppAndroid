@@ -8,10 +8,11 @@ import be.technifutur.devmob9.projet_cantinapp_android.model.data.MenuItemModel
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.items.AbstractItem
 
+@Deprecated("Implemented Generic Adapter")
 class CroissantItem(val menuItemModel: MenuItemModel): AbstractItem<CroissantItem.CroissantViewHolder>() {
 
     override val layoutRes: Int
-        get() = R.layout.recyclerview_croissant_item
+        get() = R.layout.recyclerview_others_item
     override val type: Int
         get() = R.id.recycler_view_croissant_item_id
 

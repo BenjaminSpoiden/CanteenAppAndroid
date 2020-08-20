@@ -1,6 +1,7 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -60,20 +61,29 @@ class ContactFragment: BaseFragment(), KodeinAware {
         settingUpArrayAdapter(listOfString, person_contact_dropdown)
         settingUpArrayAdapter(listOfString2, type_contact_dropdown)
 
-        contact_send_btn.isEnabled = false
+//        contact_send_btn.isEnabled = false
 
-        contactPageViewModel.serviceToContact.observe(viewLifecycleOwner, Observer { service ->
-            contactPageViewModel.objectContact.observe(viewLifecycleOwner, Observer { objectContact ->
-                contactPageViewModel.message.observe(viewLifecycleOwner, Observer { message ->
-                    contact_send_btn.isEnabled = !service.isNullOrEmpty() && !objectContact.isNullOrEmpty() && !message.isNullOrEmpty()
-                })
-            })
-        })
+
+        contactPageViewModel.serviceToContact.observe(viewLifecycleOwner) {
+            onUpdateButtonState()
+        }
+        contactPageViewModel.objectContact.observe(viewLifecycleOwner) {
+            onUpdateButtonState()
+        }
+        contactPageViewModel.message.observe(viewLifecycleOwner) {
+            onUpdateButtonState()
+        }
 
         contactPageViewModel.isCheckboxChecked.observe(viewLifecycleOwner, Observer {
             Toast.makeText(requireContext(), "$it", Toast.LENGTH_SHORT).show()
         })
+    }
 
+    private fun onUpdateButtonState() {
+        val service = contactPageViewModel.serviceToContact.value
+        val objectContact = contactPageViewModel.objectContact.value
+        val message = contactPageViewModel.message.value
+        contact_send_btn.isEnabled = !service.isNullOrEmpty() && !objectContact.isNullOrEmpty() && !message.isNullOrEmpty()
     }
 
     private fun settingUpArrayAdapter(list: List<String>, autoCompleteTextView: AutoCompleteTextView) {
