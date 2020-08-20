@@ -30,7 +30,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.root_layout
 import kotlinx.android.synthetic.main.fragment_main.*
 
-
 class MainActivity: AppCompatActivity(), FragmentListener{
 
     companion object {
@@ -108,11 +107,12 @@ class MainActivity: AppCompatActivity(), FragmentListener{
                 replaceFragmentWithBackStack(OrdersFragment.getInstance())
             }else {
                 Snackbar
-                    .make(this.root_layout, "You don't have anything in your cart", Snackbar.LENGTH_LONG)
+                    .make(this.root_layout, "You don't have anything in your cart", Snackbar.LENGTH_SHORT)
                     .setAnchorView(bottomBar)
-                    .setAction("Close") {
-                        //...
-                    }.show()
+                    .setAction("CLOSE") {
+
+                    }
+                    .show()
             }
         }
     }
@@ -121,7 +121,6 @@ class MainActivity: AppCompatActivity(), FragmentListener{
         if(toggle.onOptionsItemSelected(item)){
             return true
         }
-
         return super.onOptionsItemSelected(item)
     }
 
@@ -194,9 +193,9 @@ class MainActivity: AppCompatActivity(), FragmentListener{
                 R.id.activity_main_drawer_tos -> {
                     drawerFragmentImpl(TermsOfServicesFragment.getInstance())
                 }
-                R.id.activity_main_drawer_tutorial -> {
-                    // Onboarding
-                }
+//                R.id.activity_main_drawer_tutorial -> {
+//                    // Onboarding
+//                }
             }
             true
         }

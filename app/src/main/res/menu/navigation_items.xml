@@ -28,10 +28,10 @@
                     android:id="@+id/activity_main_drawer_tos"
                     android:icon="@drawable/ic_terms_of_services"
                     android:title="Conditions d'utilisation"/>
-                <item
-                    android:id="@+id/activity_main_drawer_tutorial"
-                    android:icon="@drawable/ic_info_outline_white_24dp"
-                    android:title="Tutoriel d'utilisation"/>
+<!--                <item-->
+<!--                    android:id="@+id/activity_main_drawer_tutorial"-->
+<!--                    android:icon="@drawable/ic_info_outline_white_24dp"-->
+<!--                    android:title="Tutoriel d'utilisation"/>-->
             </group>
         </menu>
     </item>
