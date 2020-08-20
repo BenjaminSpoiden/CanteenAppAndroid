@@ -1,5 +1,6 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.adapter
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -14,7 +15,8 @@ import mva2.adapter.ItemViewHolder
 class OthersItemBinder(): ItemBinder<Others, OthersItemBinder.OthersViewHolder>() {
 
     override fun createViewHolder(parent: ViewGroup?): OthersViewHolder {
-        return OthersViewHolder(inflate(parent!!, R.layout.recyclerview_others_item))
+        val view = LayoutInflater.from(parent?.context).inflate(R.layout.recyclerview_others_item, parent, false)
+        return OthersViewHolder(view)
     }
 
     override fun canBindData(item: Any?): Boolean {

@@ -137,6 +137,7 @@ class MenuRepasFragment: BaseFragment(), KodeinAware {
             this.layoutManager = null
         }
         menuRecyclerView = null
+        menuAdapter.removeAllSections()
         super.onDestroyView()
     }
 

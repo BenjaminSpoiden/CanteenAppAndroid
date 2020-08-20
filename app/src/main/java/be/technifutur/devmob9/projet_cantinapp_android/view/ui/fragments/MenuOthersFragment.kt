@@ -103,6 +103,7 @@ class MenuOthersFragment: BaseFragment(), KodeinAware {
             this.layoutManager = null
         }
         othersRecyclerView = null
+        othersAdapter.removeAllSections()
         super.onDestroyView()
     }
 }

@@ -115,6 +115,7 @@ class MenuSandwichFragment: BaseFragment(), KodeinAware {
             this.adapter = null
             this.layoutManager = null
         }
+        sandwichAdapter.removeAllSections()
         sandwichRecyclerView = null
         super.onDestroyView()
     }

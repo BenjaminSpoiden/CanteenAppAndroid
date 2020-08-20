@@ -3,6 +3,7 @@ package be.technifutur.devmob9.projet_cantinapp_android.view.adapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -26,7 +27,8 @@ class MenuItemBinder(context: Context, private val onItemClick: (MenuItemViewHol
     private val fragmentListener = context as FragmentListener?
 
     override fun createViewHolder(parent: ViewGroup?): MenuItemViewHolder {
-        return MenuItemViewHolder(inflate(parent!!, R.layout.recyclerview_menu_item))
+        val view = LayoutInflater.from(parent?.context).inflate(R.layout.recyclerview_menu_item, parent, false)
+        return MenuItemViewHolder(view)
     }
 
     @SuppressLint("SetTextI18n")

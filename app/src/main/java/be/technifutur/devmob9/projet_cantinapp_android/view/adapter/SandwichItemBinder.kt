@@ -1,5 +1,6 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.adapter
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -15,7 +16,8 @@ import mva2.adapter.ItemViewHolder
 class SandwichItemBinder(private val onItemClick: (SandwichViewHolder) -> Unit): ItemBinder<Sandwich, SandwichItemBinder.SandwichViewHolder>() {
 
     override fun createViewHolder(parent: ViewGroup?): SandwichViewHolder {
-        return  SandwichViewHolder(inflate(parent!!, R.layout.recyclerview_sandwich_item))
+        val view = LayoutInflater.from(parent?.context).inflate(R.layout.recyclerview_sandwich_item, parent, false)
+        return SandwichViewHolder(view)
     }
 
     override fun canBindData(item: Any?): Boolean {
