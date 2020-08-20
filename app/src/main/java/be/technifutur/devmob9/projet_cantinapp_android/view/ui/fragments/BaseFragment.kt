@@ -25,9 +25,6 @@ abstract class BaseFragment: Fragment() {
     private lateinit var mainFragmentViewModel: MainFragmentViewModel
     abstract val title: String
 
-//    private var listener: FragmentListener? = null
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.isClickable = true
@@ -36,7 +33,6 @@ abstract class BaseFragment: Fragment() {
         }?.let {
             view.setBackgroundColor(it)
         }
-//        listener?.getFragmentTitle(title)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -46,22 +42,4 @@ abstract class BaseFragment: Fragment() {
         } ?: throw Throwable("Invalid Activity")
         mainFragmentViewModel.onUpdateActionBarTitle(title)
     }
-
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        Log.d("Attached", "onAttach from $context")
-    }
-
-//    override fun onAttach(context: Context) {
-//        super.onAttach(context)
-//        if(context is FragmentListener){
-//            listener = context
-//        }
-//    }
-//
-//    override fun onDetach() {
-//        super.onDetach()
-//        listener = null
-//    }
 }
