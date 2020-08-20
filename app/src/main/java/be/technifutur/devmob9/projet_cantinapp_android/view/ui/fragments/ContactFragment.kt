@@ -21,7 +21,7 @@ import org.kodein.di.generic.instance
 class ContactFragment: BaseFragment(), KodeinAware {
 
     override val kodein by kodein()
-    private val contactPageVMFactory: ContactPageVMFactory by instance()
+    private val contactPageVMFactory: ContactPageVMFactory by instance<ContactPageVMFactory>()
 
     private lateinit var contactPageViewModel: ContactPageViewModel
 
