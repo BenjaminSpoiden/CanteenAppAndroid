@@ -27,12 +27,15 @@ class MainFragment: BaseFragment() {
         bottomBar.onItemSelected = {
             fragmentListener?.onFragmentSelectedFromMenu(it)
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
         initFirstFragment()
     }
 
     private fun initFirstFragment(){
-        activity?.supportFragmentManager?.beginTransaction()
-            ?.add(R.id.fragment_container_main, HomeFragment.getInstance())?.commit()
+        activity?.supportFragmentManager?.beginTransaction()?.add(R.id.fragment_container_main, HomeFragment.getInstance())?.commit()
         fragmentListener?.onFragmentSelectedFromMenu(0)
     }
 
