@@ -15,6 +15,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -33,6 +34,7 @@ import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.MainFragmentVie
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.drawer_layout
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainActivity: AppCompatActivity(), FragmentListener {
@@ -47,6 +49,12 @@ class MainActivity: AppCompatActivity(), FragmentListener {
     private lateinit var mainFragmentViewModel: MainFragmentViewModel
     private lateinit var appBarConfiguration: AppBarConfiguration
 
+
+    private val fragmentMenu = MenuRepasFragment.getInstance()
+    private val fragmentSandwich = MenuSandwichFragment.getInstance()
+    private val fragmentOthers = MenuOthersFragment.getInstance()
+    private var activeFragment: Fragment = MenuRepasFragment.getInstance()
+
     private val cartBadgeViewModel by lazy {
         ViewModelProviders.of(this).get(CartBadgeViewModel::class.java)
     }
@@ -55,7 +63,12 @@ class MainActivity: AppCompatActivity(), FragmentListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        supportFragmentManager.beginTransaction().add(R.id.fragment_container_main, HomeFragment.getInstance()).commit()
+        supportFragmentManager.beginTransaction().apply {
+            add(R.id.fragment_container_mainMenu, fragmentOthers, "2").hide(fragmentOthers)
+            add(R.id.fragment_container_mainMenu, fragmentSandwich, "1").hide(fragmentSandwich)
+            add(R.id.fragment_container_mainMenu, fragmentMenu, "0")
+        }.commit()
         val navController = findNavController(R.id.nav_host_fragment)
         navigationView.setupWithNavController(navController)
         appBarConfiguration = AppBarConfiguration(navController.graph, drawer_layout)
@@ -103,6 +116,9 @@ class MainActivity: AppCompatActivity(), FragmentListener {
         val textCart: TextView? = actionView?.findViewById(R.id.cart_badge)
 
         textCart?.text = 0.toString()
+        actionView?.let { _ ->
+            onActionViewClick(actionView, 0)
+        }
         cartBadgeViewModel.foodItems.observe(this) {
             textCart?.text = it.size.toString()
 
@@ -143,19 +159,35 @@ class MainActivity: AppCompatActivity(), FragmentListener {
     override fun onFragmentSelectedFromMenu(position: Int) {
         when(position) {
             0 ->  {
-                replaceFragmentMenu(MenuRepasFragment.getInstance())
+                supportFragmentManager
+                    .beginTransaction()
+                    .hide(activeFragment).show(fragmentMenu)
+                    .commit()
+                activeFragment = fragmentMenu
+                supportActionBar?.title = "Menu"
             }
             1 -> {
-                replaceFragmentMenu(MenuSandwichFragment.getInstance())
+                supportFragmentManager
+                    .beginTransaction()
+                    .hide(activeFragment).show(fragmentSandwich)
+                    .commit()
+                activeFragment = fragmentSandwich
+                supportActionBar?.title = "Sandwich"
             }
             2 -> {
-                replaceFragmentMenu(MenuOthersFragment.getInstance())
+                supportFragmentManager
+                    .beginTransaction()
+                    .hide(activeFragment).show(fragmentOthers)
+                    .commit()
+                activeFragment = fragmentOthers
+                supportActionBar?.title = "Autres"
             }
         }
     }
 
     override fun openDetailFragment() {
-        replaceFragmentWithBackStack(DetailsFragment.getInstance())
+//        replaceFragmentWithBackStack(DetailsFragment.getInstance())
+        Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.NavigationToDetail)
     }
 
     override fun openDetailFragmentWithDetails(itemClicked: MenuItemModel) {

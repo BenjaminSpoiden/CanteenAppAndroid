@@ -35,7 +35,6 @@ class MainFragment: BaseFragment() {
     }
 
     private fun initFirstFragment(){
-        activity?.supportFragmentManager?.beginTransaction()?.add(R.id.fragment_container_main, HomeFragment.getInstance())?.commit()
         fragmentListener?.onFragmentSelectedFromMenu(0)
     }
 

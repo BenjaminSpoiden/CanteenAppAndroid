@@ -55,6 +55,7 @@ class HomeFragment: BaseFragment(), KodeinAware {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         calendarRecyclerView = view.findViewById(R.id.calendar_recyclerview)
         multiViewAdapter = MultiViewAdapter()
         listSection =  ListSection()

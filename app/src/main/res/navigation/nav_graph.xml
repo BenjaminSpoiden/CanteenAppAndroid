@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment"
+    app:startDestination="@id/homeFragment"
     xmlns:tools="http://schemas.android.com/tools">
     <fragment
         android:id="@+id/mainFragment"
@@ -17,7 +17,11 @@
         android:id="@+id/homeFragment"
         android:name="be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/NavigationToDetail"
+            app:destination="@id/detailsFragment" />
+    </fragment>
     <fragment
         android:id="@id/activity_main_drawer_gdpr"
         android:name="be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments.MenuGDPRFragment"
@@ -43,6 +47,9 @@
         android:name="be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments.TermsOfServicesFragment"
         android:label="@string/tos"
         tools:layout="@layout/fragment_tos"/>
-
-
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments.DetailsFragment"
+        android:label="DetailsFragment"
+        tools:layout="@layout/fragment_details"/>
 </navigation>
