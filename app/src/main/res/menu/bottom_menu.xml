@@ -3,15 +3,15 @@
     <item
         android:id="@+id/repasFragment"
         android:icon="@drawable/ic_menu_repas"
-        android:title=""/>
+        android:title="@string/menu"/>
     <item
         android:id="@+id/sandwichFragment"
         android:icon="@drawable/ic_menu_sandwich"
-        android:title=""/>
+        android:title="@string/sandwich"/>
     <item
-        android:id="@+id/croissantFragment"
+        android:id="@+id/othersFragment"
         android:icon="@drawable/ic_menu_croissant"
-        android:title=""/>
+        android:title="@string/autre"/>
 
 <!--    <item-->
 <!--        android:id="@+id/moreMenuFragment"-->

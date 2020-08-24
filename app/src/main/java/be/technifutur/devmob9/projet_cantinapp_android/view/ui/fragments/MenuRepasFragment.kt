@@ -2,6 +2,7 @@ package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.DishesType
 import be.technifutur.devmob9.projet_cantinapp_android.R
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.FIREBASE_TAG
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.MenuHeaderBinder
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.MenuItemBinder
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.SharedDateViewModel
@@ -93,8 +95,8 @@ class MenuRepasFragment: BaseFragment(), KodeinAware {
             placeholder.visibility = View.GONE
             onRefreshListsAndSection()
             dishesViewModel.fetchingDishes(it)
-            sharedDateViewModel.sharedDate.removeObservers(this)
         }
+        sharedDateViewModel.sharedDate.removeObservers(this)
     }
 
     private fun fetchingDishes() {
@@ -118,8 +120,8 @@ class MenuRepasFragment: BaseFragment(), KodeinAware {
                     }
                 }
             }
-            dishesViewModel.fetchedDishes.removeObservers(this)
         }
+        dishesViewModel.fetchedDishes.removeObservers(this)
     }
 
     private fun onRefreshListsAndSection(){
@@ -140,5 +142,4 @@ class MenuRepasFragment: BaseFragment(), KodeinAware {
         menuAdapter.removeAllSections()
         super.onDestroyView()
     }
-
 }

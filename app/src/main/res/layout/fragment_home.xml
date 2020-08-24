@@ -69,12 +69,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spacer" />
 
-    <FrameLayout
-        android:id="@+id/fragment_container_mainMenu"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/fragment_bottom_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layoutAnimation="@anim/menu_recyclerview_animation"
+        app:layout_constraintBottom_toTopOf="@id/bottomBar"
+        app:layout_constraintTop_toBottomOf="@id/dayOfWeek"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:backgroundColor="@android:color/white"
+        app:itemIconTint="@drawable/bottom_nav_tint"
+        app:itemTextColor="@drawable/bottom_nav_tint"
+        app:elevation="16dp"
+        app:labelVisibilityMode="selected"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dayOfWeek" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_menu"
+        app:textColor="@android:color/black"
+        app:textSize="12sp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 

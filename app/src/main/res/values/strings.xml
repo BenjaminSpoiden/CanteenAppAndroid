@@ -16,5 +16,8 @@
     <string name="contact">Contact</string>
     <string name="info_allergenes">Info Allergènes</string>
     <string name="tos">Conditions d\'utilisation</string>
+    <string name="menu">Menu</string>
+    <string name="sandwich">Sandwich</string>
+    <string name="autre">Autre</string>
 
 </resources>

@@ -1,21 +1,30 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.IdRes
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.CalendarModel
+import be.technifutur.devmob9.projet_cantinapp_android.utils.BottomNavigationScreens
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.FIREBASE_TAG
+import be.technifutur.devmob9.projet_cantinapp_android.utils.getMainScreen
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.CalendarBinder
+import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.MainPagerAdapter
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.SharedDateViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.HomeViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.CalendarViewModelFactory
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.fragment_home.*
 import mva2.adapter.ListSection
 import mva2.adapter.MultiViewAdapter
@@ -28,7 +37,12 @@ import org.threeten.bp.format.TextStyle
 import java.lang.StringBuilder
 import java.util.*
 
-class HomeFragment: BaseFragment(), KodeinAware {
+class HomeFragment: BaseFragment(), KodeinAware, BottomNavigationView.OnNavigationItemSelectedListener {
+
+    private lateinit var viewPager2: ViewPager2
+    private lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var mainPagerAdapter: MainPagerAdapter
+
     companion object {
         fun getInstance() =
             HomeFragment()
@@ -47,6 +61,7 @@ class HomeFragment: BaseFragment(), KodeinAware {
     private lateinit var multiViewAdapter: MultiViewAdapter
     private lateinit var listSection: ListSection<CalendarModel>
 
+
     private val sharedDateViewModel by activityViewModels<SharedDateViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -55,6 +70,33 @@ class HomeFragment: BaseFragment(), KodeinAware {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewPager2 = view.findViewById(R.id.fragment_bottom_pager)
+        bottomNavigationView = view.findViewById(R.id.bottomBar)
+        mainPagerAdapter = MainPagerAdapter(requireActivity())
+
+        mainPagerAdapter.setItems(listOf(
+            BottomNavigationScreens.MENU,
+            BottomNavigationScreens.SANDWICH,
+            BottomNavigationScreens.OTHERS
+        ))
+
+        val defaultScreen = BottomNavigationScreens.MENU
+        onSelectBottomNavMenu(defaultScreen.menuItemID)
+        requireActivity().actionBar?.setTitle(defaultScreen.menuTitle)
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(this)
+
+        viewPager2.adapter = mainPagerAdapter
+        viewPager2.isUserInputEnabled = true
+        viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                val selectedScreen = mainPagerAdapter.getItems()[position]
+                onSelectBottomNavMenu(selectedScreen.menuItemID)
+                requireActivity().actionBar?.setTitle(selectedScreen.menuTitle)
+            }
+        })
 
         calendarRecyclerView = view.findViewById(R.id.calendar_recyclerview)
         multiViewAdapter = MultiViewAdapter()
@@ -109,5 +151,27 @@ class HomeFragment: BaseFragment(), KodeinAware {
             this.layoutManager = null
         }
         super.onDestroyView()
+    }
+
+    private fun toScreen(bottomNavigationScreens: BottomNavigationScreens) {
+        val bottomScreenPosition = mainPagerAdapter.getItems().indexOf(bottomNavigationScreens)
+        if(bottomScreenPosition != viewPager2.currentItem) {
+            viewPager2.currentItem = bottomScreenPosition
+        }
+    }
+
+    private fun onSelectBottomNavMenu(@IdRes menuItemID: Int) {
+//        bottomNavigationView.setOnNavigationItemSelectedListener(null)
+        bottomNavigationView.selectedItemId = menuItemID
+//        bottomNavigationView.setOnNavigationItemSelectedListener(this)
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        getMainScreen(item.itemId)?.let {
+            toScreen(it)
+            requireActivity().actionBar?.setTitle(it.menuTitle)
+            return true
+        }
+        return false
     }
 }

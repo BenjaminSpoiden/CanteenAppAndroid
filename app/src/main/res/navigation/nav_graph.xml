@@ -4,11 +4,6 @@
     app:startDestination="@id/homeFragment"
     xmlns:tools="http://schemas.android.com/tools">
     <fragment
-        android:id="@+id/mainFragment"
-        android:name="be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments.MainFragment"
-        android:label="MainFragment"
-        tools:layout="@layout/fragment_main"/>
-    <fragment
         android:id="@+id/ordersFragment"
         android:name="be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments.OrdersFragment"
         android:label="OrdersFragment"
