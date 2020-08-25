@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.R
@@ -23,9 +24,6 @@ class DetailsFragment: BaseFragment() {
         fun getInstance() = DetailsFragment()
     }
 
-    override val title: String
-        get() = "Details"
-
     private lateinit var allergiesRecyclerView: RecyclerView
     private val itemAdapter = ItemAdapter<AllergiesItem>()
     private val fastAdapter = FastAdapter.with(itemAdapter)
@@ -42,8 +40,8 @@ class DetailsFragment: BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        callback.fragmentTitle("Details")
         allergiesRecyclerView = view.findViewById(R.id.allergies_recyclerview)
-
         allergiesRecyclerView.apply {
             this.adapter = fastAdapter
             this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)

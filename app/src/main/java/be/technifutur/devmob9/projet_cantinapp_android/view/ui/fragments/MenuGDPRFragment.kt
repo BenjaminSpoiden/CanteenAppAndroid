@@ -12,9 +12,6 @@ class MenuGDPRFragment: BaseFragment() {
         fun getInstance() = MenuGDPRFragment()
     }
 
-    override val title: String
-        get() = "GDPR"
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

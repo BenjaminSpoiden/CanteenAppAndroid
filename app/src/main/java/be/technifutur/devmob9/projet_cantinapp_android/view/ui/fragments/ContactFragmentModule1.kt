@@ -32,10 +32,6 @@ class ContactFragmentModule1: BaseFragment(), KodeinAware {
         fun getInstance() = ContactFragmentModule1()
     }
 
-    override val title: String
-        get() = "Contact"
-
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

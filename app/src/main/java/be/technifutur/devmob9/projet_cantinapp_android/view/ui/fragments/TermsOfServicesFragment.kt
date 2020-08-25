@@ -15,8 +15,6 @@ class TermsOfServicesFragment: BaseFragment() {
         fun getInstance() = TermsOfServicesFragment()
     }
 
-    override val title: String
-        get() = "Conditions d'utilisation"
 
     override fun onCreateView(
         inflater: LayoutInflater,

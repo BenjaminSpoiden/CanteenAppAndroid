@@ -30,8 +30,6 @@ class MenuSandwichFragment: BaseFragment(), KodeinAware {
     companion object {
         fun getInstance() = MenuSandwichFragment()
     }
-    override val title: String
-        get() = "Sandwich"
 
     override val kodein by kodein()
     private val sandwichViewModelFactory by instance<SandwichViewModelFactory>()
@@ -53,6 +51,7 @@ class MenuSandwichFragment: BaseFragment(), KodeinAware {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        callback.fragmentTitle("Sandwich")
         sandwichRecyclerView = view.findViewById(R.id.sandwich_recycler_view)
 
         initAdapter()
@@ -118,5 +117,10 @@ class MenuSandwichFragment: BaseFragment(), KodeinAware {
         sandwichAdapter.removeAllSections()
         sandwichRecyclerView = null
         super.onDestroyView()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        callback.fragmentTitle("Sandwich")
     }
 }

@@ -40,9 +40,6 @@ class MenuRepasFragment: BaseFragment(), KodeinAware {
         fun getInstance() = MenuRepasFragment()
     }
 
-    override val title: String
-        get() = "Menu"
-
     private var menuRecyclerView: RecyclerView? = null
     private lateinit var menuAdapter: MultiViewAdapter
 
@@ -62,6 +59,7 @@ class MenuRepasFragment: BaseFragment(), KodeinAware {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        callback.fragmentTitle("Repas")
         menuRecyclerView = view.findViewById(R.id.menu_recycler_view)
         menuAdapter = MultiViewAdapter()
         menuAdapter.registerItemBinders(MenuHeaderBinder(), MenuItemBinder(requireContext()){ holder ->
@@ -141,5 +139,16 @@ class MenuRepasFragment: BaseFragment(), KodeinAware {
         menuRecyclerView = null
         menuAdapter.removeAllSections()
         super.onDestroyView()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(FIREBASE_TAG, "onStop")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(FIREBASE_TAG, "onResume")
+        callback.fragmentTitle("Repas")
     }
 }

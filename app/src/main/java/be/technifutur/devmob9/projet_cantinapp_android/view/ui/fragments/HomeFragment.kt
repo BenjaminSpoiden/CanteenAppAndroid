@@ -1,7 +1,6 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -17,7 +16,6 @@ import androidx.viewpager2.widget.ViewPager2
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.CalendarModel
 import be.technifutur.devmob9.projet_cantinapp_android.utils.BottomNavigationScreens
-import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.FIREBASE_TAG
 import be.technifutur.devmob9.projet_cantinapp_android.utils.getMainScreen
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.CalendarBinder
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.MainPagerAdapter
@@ -48,8 +46,6 @@ class HomeFragment: BaseFragment(), KodeinAware, BottomNavigationView.OnNavigati
             HomeFragment()
     }
 
-    override val title: String
-    get() = ""
 
     override val kodein by kodein()
     private val calendarFactory: CalendarViewModelFactory by instance()
@@ -94,7 +90,6 @@ class HomeFragment: BaseFragment(), KodeinAware, BottomNavigationView.OnNavigati
                 super.onPageSelected(position)
                 val selectedScreen = mainPagerAdapter.getItems()[position]
                 onSelectBottomNavMenu(selectedScreen.menuItemID)
-                requireActivity().actionBar?.setTitle(selectedScreen.menuTitle)
             }
         })
 
@@ -161,15 +156,14 @@ class HomeFragment: BaseFragment(), KodeinAware, BottomNavigationView.OnNavigati
     }
 
     private fun onSelectBottomNavMenu(@IdRes menuItemID: Int) {
-//        bottomNavigationView.setOnNavigationItemSelectedListener(null)
+        bottomNavigationView.setOnNavigationItemSelectedListener(null)
         bottomNavigationView.selectedItemId = menuItemID
-//        bottomNavigationView.setOnNavigationItemSelectedListener(this)
+        bottomNavigationView.setOnNavigationItemSelectedListener(this)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         getMainScreen(item.itemId)?.let {
             toScreen(it)
-            requireActivity().actionBar?.setTitle(it.menuTitle)
             return true
         }
         return false

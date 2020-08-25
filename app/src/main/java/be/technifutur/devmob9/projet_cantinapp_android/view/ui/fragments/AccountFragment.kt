@@ -18,9 +18,6 @@ class AccountFragment: BaseFragment() {
         fun getInstance() = AccountFragment()
     }
 
-    override val title: String
-        get() = "Profil"
-
     private var listener: FragmentListener? = null
 
     override fun onCreateView(

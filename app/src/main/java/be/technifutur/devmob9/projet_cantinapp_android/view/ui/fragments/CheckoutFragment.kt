@@ -18,8 +18,6 @@ class CheckoutFragment: BaseFragment() {
     companion object {
         fun getInstance() = CheckoutFragment()
     }
-    override val title: String
-        get() = "Payment"
 
     private lateinit var allergyDialog: Dialog
 

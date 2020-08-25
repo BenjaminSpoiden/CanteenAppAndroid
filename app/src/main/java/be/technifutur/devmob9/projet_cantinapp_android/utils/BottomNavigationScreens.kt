@@ -1,13 +1,16 @@
 package be.technifutur.devmob9.projet_cantinapp_android.utils
 
+import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import be.technifutur.devmob9.projet_cantinapp_android.R
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.FIREBASE_TAG
 import be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments.MenuOthersFragment
 import be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments.MenuRepasFragment
 import be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments.MenuSandwichFragment
+import java.lang.Exception
 
 private val menuRepasFragment = MenuRepasFragment.getInstance()
 private val menuSandwichFragment = MenuSandwichFragment.getInstance()
@@ -25,10 +28,13 @@ enum class BottomNavigationScreens(
 }
 
 fun getMainScreen(menuItemID: Int): BottomNavigationScreens? {
+    Log.d(FIREBASE_TAG, "mainScreenTop")
     for (bottomScreens in BottomNavigationScreens.values()) {
         if(bottomScreens.menuItemID == menuItemID) {
+            Log.d(FIREBASE_TAG, "mainScreenMiddle")
             return bottomScreens
         }
     }
+    Log.d(FIREBASE_TAG, "mainScreenBottom")
     return null
 }

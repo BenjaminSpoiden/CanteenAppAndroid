@@ -30,9 +30,6 @@ class AllergiesAccountFragment : BaseFragment() {
         fun getInstance() = AllergiesAccountFragment()
     }
 
-    override val title: String
-        get() = "Mes Allergies"
-
     private lateinit var selectionRecyclerView: RecyclerView
     private lateinit var selectedRecyclerView: RecyclerView
 

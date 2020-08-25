@@ -22,9 +22,6 @@ class AllergiesInfoFragment : BaseFragment() {
         fun getInstance() = AllergiesInfoFragment()
     }
 
-    override val title: String
-        get() = "Allergies"
-
     private lateinit var allergiesRecyclerView: RecyclerView
     private val itemAdapter = ItemAdapter<AllergiesDetailItem>()
     private val fastAdapter = FastAdapter.with(itemAdapter)
