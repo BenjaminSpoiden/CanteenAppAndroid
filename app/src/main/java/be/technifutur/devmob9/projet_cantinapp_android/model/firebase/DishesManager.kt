@@ -21,7 +21,7 @@ class DishesManager {
 
     private val db = FirebaseFirestore.getInstance()
 
-    fun onFetchingDishesFromDate(date: String, onComplete: (List<DishesType?>) -> Boolean){
+    fun onFetchingDishesFromDate(date: String, onComplete: (List<DishesType?>) -> Unit, areDishesAvailable: (MenusModel?) -> Unit){
         db.collection(ID_DAYS_MEALS)
             .document(date)
             .addSnapshotListener { documentSnapshot, firebaseFirestoreException ->
@@ -39,11 +39,13 @@ class DishesManager {
                     foodModel?.menu?.desserts?.forEach {
                         fetchingDesserts(it, onComplete)
                     }
+
+                    areDishesAvailable(foodModel?.menu)
                 }
             }
     }
 
-    private fun fetchingStarters(starterName: String, onComplete: (List<DishesType?>) -> Boolean){
+    private fun fetchingStarters(starterName: String, onComplete: (List<DishesType?>) -> Unit){
         val startersList = ArrayList<DishesType>()
         db.collection(ID_STARTERS)
             .document(starterName)
@@ -59,7 +61,7 @@ class DishesManager {
             }
     }
 
-    private fun fetchingMainCourses(mainsName: String, onComplete: (List<DishesType?>) -> Boolean) {
+    private fun fetchingMainCourses(mainsName: String, onComplete: (List<DishesType?>) -> Unit) {
         val mainsList = ArrayList<DishesType>()
         db.collection(ID_MAIN_COURSES)
             .document(mainsName)
@@ -75,7 +77,7 @@ class DishesManager {
             }
     }
 
-    private fun fetchingDesserts(dessertsName: String, onComplete: (List<DishesType?>) -> Boolean){
+    private fun fetchingDesserts(dessertsName: String, onComplete: (List<DishesType?>) -> Unit){
         val dessertList = ArrayList<DishesType>()
         db.collection(ID_DESSERTS)
             .document(dessertsName)

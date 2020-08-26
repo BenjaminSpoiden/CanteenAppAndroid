@@ -11,12 +11,23 @@ import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.FIREBASE_
 class DishesViewModel(private val dishesManager: DishesManager): ViewModel() {
 
     var fetchedDishes = MediatorLiveData<List<DishesType?>>()
+    var isStarterEmpty = MediatorLiveData<Boolean>()
+    var isMainCoursesEmpty = MediatorLiveData<Boolean>()
+    var isDessertEmpty = MediatorLiveData<Boolean>()
 
     fun fetchingDishes(date: String) {
-        dishesManager.onFetchingDishesFromDate(date) {
+        dishesManager.onFetchingDishesFromDate(date, {
             fetchedDishes.value = it
             fetchedDishes.removeSource(fetchedDishes)
-            true
-        }
+        }, {
+            isStarterEmpty.value = it?.starters.isNullOrEmpty()
+            isStarterEmpty.removeSource(isStarterEmpty)
+
+            isMainCoursesEmpty.value = it?.main_courses.isNullOrEmpty()
+            isMainCoursesEmpty.removeSource(isMainCoursesEmpty)
+
+            isDessertEmpty.value = it?.desserts.isNullOrEmpty()
+            isDessertEmpty.removeSource(isDessertEmpty)
+        })
     }
 }
