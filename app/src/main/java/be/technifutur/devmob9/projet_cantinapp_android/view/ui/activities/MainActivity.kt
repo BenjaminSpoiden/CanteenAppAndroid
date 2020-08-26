@@ -65,14 +65,6 @@ class MainActivity: AppCompatActivity(), FragmentListener, BaseFragment.OnSettin
 
     }
 
-    override fun onBackPressed() {
-        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
-            drawerLayout.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
-        }
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(toggle.onOptionsItemSelected(item)){
             return true
@@ -186,7 +178,7 @@ class MainActivity: AppCompatActivity(), FragmentListener, BaseFragment.OnSettin
     }
 
     private fun drawerFragmentImpl(fragment: Fragment){
-        supportFragmentManager.popBackStack()
+//        supportFragmentManager.popBackStack()
         replaceFragmentWithBackStack(fragment)
         drawer_layout.closeDrawer(GravityCompat.START)
     }

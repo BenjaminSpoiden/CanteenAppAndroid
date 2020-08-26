@@ -98,7 +98,6 @@ class HomeFragment: BaseFragment(), KodeinAware, BottomNavigationView.OnNavigati
         listSection =  ListSection()
 
         multiViewAdapter.registerItemBinders(CalendarBinder {
-            Toast.makeText(requireContext(), "${it.adapterPosition}", Toast.LENGTH_SHORT).show()
             dateBuilder(it.item.date)
             onDateClick(it.item.date.toString())
             it.toggleItemSelection()

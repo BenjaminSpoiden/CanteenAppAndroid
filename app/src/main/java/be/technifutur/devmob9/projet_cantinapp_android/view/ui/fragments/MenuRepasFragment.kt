@@ -46,9 +46,10 @@ class MenuRepasFragment: BaseFragment(), KodeinAware {
     private val startersSection = ItemSection<String>()
     private val mainCoursesSection = ItemSection<String>()
     private val dessertsSection = ItemSection<String>()
-    private val startersList = ListSection<DishesType.Starters>()
+    private val startersList = ListSection<DishesType.Starters?>()
     private val mainCoursesList = ListSection<DishesType.MainCourses>()
     private val dessertsList = ListSection<DishesType.Desserts>()
+
 
     private val cartBadgeViewModel  by activityViewModels<CartBadgeViewModel>()
     private val sharedDateViewModel by activityViewModels<SharedDateViewModel>()
@@ -59,7 +60,6 @@ class MenuRepasFragment: BaseFragment(), KodeinAware {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        callback.fragmentTitle("Repas")
         menuRecyclerView = view.findViewById(R.id.menu_recycler_view)
         menuAdapter = MultiViewAdapter()
         menuAdapter.registerItemBinders(MenuHeaderBinder(), MenuItemBinder(requireContext()){ holder ->
@@ -78,6 +78,7 @@ class MenuRepasFragment: BaseFragment(), KodeinAware {
         menuAdapter.addSection(mainCoursesList)
         menuAdapter.addSection(dessertsSection)
         menuAdapter.addSection(dessertsList)
+
 
         menuRecyclerView?.apply {
             this.adapter = menuAdapter
@@ -101,7 +102,7 @@ class MenuRepasFragment: BaseFragment(), KodeinAware {
         dishesViewModel.fetchedDishes.observe(viewLifecycleOwner) { dishesList ->
             dishesList.forEach {
                 when(it) {
-                    is DishesType.Starters -> {
+                    is DishesType.Starters? -> {
                         startersSection.setItem("Entrées")
                         startersList.add(it)
                         menuAdapter.notifyDataSetChanged()
@@ -129,6 +130,7 @@ class MenuRepasFragment: BaseFragment(), KodeinAware {
         mainCoursesSection.removeItem()
         dessertsList.clear()
         dessertsSection.removeItem()
+
     }
 
     override fun onDestroyView() {
@@ -141,14 +143,8 @@ class MenuRepasFragment: BaseFragment(), KodeinAware {
         super.onDestroyView()
     }
 
-    override fun onStop() {
-        super.onStop()
-        Log.d(FIREBASE_TAG, "onStop")
-    }
-
     override fun onResume() {
         super.onResume()
-        Log.d(FIREBASE_TAG, "onResume")
         callback.fragmentTitle("Repas")
     }
 }

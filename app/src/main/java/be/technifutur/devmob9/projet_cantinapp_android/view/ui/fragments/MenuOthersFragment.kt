@@ -54,7 +54,7 @@ class MenuOthersFragment: BaseFragment(), KodeinAware {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        callback.fragmentTitle("Condiments")
+//        callback.fragmentTitle("Condiments")
         othersRecyclerView = view.findViewById(R.id.croissant_recycler_view)
 
         initAdapter()

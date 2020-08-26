@@ -1,8 +1,11 @@
+@file:Suppress("IMPLICIT_CAST_TO_ANY")
+
 package be.technifutur.devmob9.projet_cantinapp_android.model.firebase
 
 import android.util.Log
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.DishesType
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.FoodModel
+import be.technifutur.devmob9.projet_cantinapp_android.model.data.MenusModel
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.Sandwich
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.FIREBASE_TAG
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.ID_DAYS_MEALS
@@ -18,7 +21,7 @@ class DishesManager {
 
     private val db = FirebaseFirestore.getInstance()
 
-    fun onFetchingDishesFromDate(date: String, onComplete: (List<DishesType>) -> Unit){
+    fun onFetchingDishesFromDate(date: String, onComplete: (List<DishesType?>) -> Boolean){
         db.collection(ID_DAYS_MEALS)
             .document(date)
             .addSnapshotListener { documentSnapshot, firebaseFirestoreException ->
@@ -27,7 +30,6 @@ class DishesManager {
                 }
                 documentSnapshot?.let {
                     val foodModel = it.toObject<FoodModel>()
-                    Log.d(FIREBASE_TAG, "$foodModel")
                     foodModel?.menu?.starters?.forEach {
                         fetchingStarters(it, onComplete)
                     }
@@ -41,7 +43,7 @@ class DishesManager {
             }
     }
 
-    private fun fetchingStarters(starterName: String, onComplete: (List<DishesType>) -> Unit){
+    private fun fetchingStarters(starterName: String, onComplete: (List<DishesType?>) -> Boolean){
         val startersList = ArrayList<DishesType>()
         db.collection(ID_STARTERS)
             .document(starterName)
@@ -57,7 +59,7 @@ class DishesManager {
             }
     }
 
-    private fun fetchingMainCourses(mainsName: String, onComplete: (List<DishesType>) -> Unit) {
+    private fun fetchingMainCourses(mainsName: String, onComplete: (List<DishesType?>) -> Boolean) {
         val mainsList = ArrayList<DishesType>()
         db.collection(ID_MAIN_COURSES)
             .document(mainsName)
@@ -73,7 +75,7 @@ class DishesManager {
             }
     }
 
-    private fun fetchingDesserts(dessertsName: String, onComplete: (List<DishesType>) -> Unit){
+    private fun fetchingDesserts(dessertsName: String, onComplete: (List<DishesType?>) -> Boolean){
         val dessertList = ArrayList<DishesType>()
         db.collection(ID_DESSERTS)
             .document(dessertsName)

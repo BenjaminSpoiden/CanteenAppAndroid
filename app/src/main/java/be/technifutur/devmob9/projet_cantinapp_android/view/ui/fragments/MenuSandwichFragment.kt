@@ -51,7 +51,7 @@ class MenuSandwichFragment: BaseFragment(), KodeinAware {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        callback.fragmentTitle("Sandwich")
+//        callback.fragmentTitle("Sandwich")
         sandwichRecyclerView = view.findViewById(R.id.sandwich_recycler_view)
 
         initAdapter()
