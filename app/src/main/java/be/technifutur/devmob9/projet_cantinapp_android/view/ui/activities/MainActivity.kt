@@ -3,7 +3,6 @@ package be.technifutur.devmob9.projet_cantinapp_android.view.ui.activities
 import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -18,7 +17,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
-import be.technifutur.devmob9.projet_cantinapp_android.model.data.MenuItemModel
+import be.technifutur.devmob9.projet_cantinapp_android.model.data.Food
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_1_PAYMENTS
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_2_ALLERGIES
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_3_SETTINGS
@@ -125,14 +124,10 @@ class MainActivity: AppCompatActivity(), FragmentListener, BaseFragment.OnSettin
         supportActionBar?.title = title
     }
 
-    override fun openDetailFragment() {
-        replaceFragmentWithBackStack(DetailsFragment.getInstance())
+    override fun openMenuDetail(foodItem: Food) {
+        replaceFragmentWithBackStack(DetailsFragment.getInstance(foodItem))
     }
 
-    override fun openDetailFragmentWithDetails(itemClicked: MenuItemModel) {
-        Log.d("MenuData", "Clicked on card: $itemClicked")
-        replaceFragmentWithBackStack(DetailsFragment.getInstance())
-    }
 
     override fun openCheckoutFragment() {
         replaceFragmentWithBackStack(CheckoutFragment.getInstance())

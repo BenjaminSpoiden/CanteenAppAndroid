@@ -1,8 +1,10 @@
 package be.technifutur.devmob9.projet_cantinapp_android.model.data
 
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Sandwich(
-    val name: String? = null,
-    val description: String? = null,
-    val picture_path: String? = null
+    override val name: String? = null,
+    override val description: String? = null,
+    override val picture_path: String? = null
 ): Food()

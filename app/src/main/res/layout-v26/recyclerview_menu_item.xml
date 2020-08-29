@@ -107,6 +107,8 @@
                 android:scrollbars="horizontal"
                 android:text="Soupe de Cyprine sur son nid de giclette"
                 android:textColor="@color/darkTurquoise"
+                android:ellipsize="end"
+                android:maxLines="4"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"

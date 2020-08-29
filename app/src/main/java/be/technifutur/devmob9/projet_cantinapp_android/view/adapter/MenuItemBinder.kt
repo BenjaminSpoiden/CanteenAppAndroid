@@ -2,25 +2,18 @@ package be.technifutur.devmob9.projet_cantinapp_android.view.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.drawable.Drawable
-import android.util.Log
+import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
 import be.technifutur.devmob9.projet_cantinapp_android.GlideApp
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.DishesType
 import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.PicturesManager
-import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.FIREBASE_TAG
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
 import com.google.android.material.card.MaterialCardView
 import mva2.adapter.ItemBinder
 import mva2.adapter.ItemViewHolder
@@ -83,7 +76,7 @@ class MenuItemBinder(context: Context, private val onItemClick: (MenuItemViewHol
             onItemClick(holder)
         }
         holder?.detailButton?.setOnClickListener {
-            fragmentListener?.openDetailFragment()
+            fragmentListener?.openMenuDetail(holder.item)
         }
     }
 

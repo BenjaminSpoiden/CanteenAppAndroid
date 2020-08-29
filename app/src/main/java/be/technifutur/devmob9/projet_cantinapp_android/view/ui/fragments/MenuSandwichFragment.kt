@@ -61,7 +61,7 @@ class MenuSandwichFragment: BaseFragment(), KodeinAware {
             this.layoutManager = GridLayoutManager(context, 2)
         }
 
-        sharedDateViewModel.sharedDate.observe(viewLifecycleOwner) {
+        sharedDateViewModel.sharedDishesFromDateClick.observe(viewLifecycleOwner) {
             onRefreshList()
             sandwichViewModel.fetchingSandwiches(it)
         }

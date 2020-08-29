@@ -1,12 +1,15 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.IdRes
+import androidx.core.view.doOnLayout
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
@@ -16,6 +19,8 @@ import androidx.viewpager2.widget.ViewPager2
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.CalendarModel
 import be.technifutur.devmob9.projet_cantinapp_android.utils.BottomNavigationScreens
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.FIREBASE_TAG
+import be.technifutur.devmob9.projet_cantinapp_android.utils.colorSelection
 import be.technifutur.devmob9.projet_cantinapp_android.utils.getMainScreen
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.CalendarBinder
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.MainPagerAdapter
@@ -23,6 +28,7 @@ import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.SharedDateViewM
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.HomeViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.CalendarViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.card.MaterialCardView
 import kotlinx.android.synthetic.main.fragment_home.*
 import mva2.adapter.ListSection
 import mva2.adapter.MultiViewAdapter
@@ -96,12 +102,10 @@ class HomeFragment: BaseFragment(), KodeinAware, BottomNavigationView.OnNavigati
         calendarRecyclerView = view.findViewById(R.id.calendar_recyclerview)
         multiViewAdapter = MultiViewAdapter()
         listSection =  ListSection()
+        multiViewAdapter.registerItemBinders(CalendarBinder())
+        observeData()
 
-        multiViewAdapter.registerItemBinders(CalendarBinder {
-            dateBuilder(it.item.date)
-            onDateClick(it.item.date.toString())
-            it.toggleItemSelection()
-        })
+        textShimmer.startShimmer()
 
         multiViewAdapter.setSelectionMode(Mode.SINGLE)
         multiViewAdapter.addSection(listSection)
@@ -110,24 +114,32 @@ class HomeFragment: BaseFragment(), KodeinAware, BottomNavigationView.OnNavigati
             this.adapter = multiViewAdapter
             this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
-        observeData()
     }
 
     private fun observeData() {
         shimmerFrameLayout.startShimmer()
         homeViewModel.getCalendarDaysData()
-        homeViewModel.fetchedDates.observe(viewLifecycleOwner) {
+        homeViewModel.fetchedDates.observe(viewLifecycleOwner) { calendarModelList ->
             shimmerFrameLayout.stopShimmer()
             shimmerFrameLayout.visibility = View.GONE
-            it.forEach { calendarModel ->
-                listSection.add(calendarModel)
-                multiViewAdapter.notifyDataSetChanged()
+            listSection.addAll(calendarModelList)
+            multiViewAdapter.notifyDataSetChanged()
+
+            dateBuilder(listSection.get(0).date)
+            onFetchingDishesFromDateClick(listSection.get(0).date.toString())
+
+            CalendarBinder.dateListener = { date->
+                dateBuilder(date)
+                onFetchingDishesFromDateClick(date.toString())
             }
+
+
             homeViewModel.fetchedDates.removeObservers(this)
         }
     }
-
     private fun dateBuilder(date: LocalDate?){
+        textShimmer.stopShimmer()
+        textShimmer.visibility = View.GONE
         val stringBuilder = StringBuilder()
         stringBuilder.append(date?.dayOfWeek?.getDisplayName(TextStyle.FULL, Locale.FRENCH))
         stringBuilder.append(" ")
@@ -137,7 +149,7 @@ class HomeFragment: BaseFragment(), KodeinAware, BottomNavigationView.OnNavigati
         dayOfWeek.text = stringBuilder
     }
 
-    private fun onDateClick(dateClick: String) = sharedDateViewModel.onSharedDateClick(dateClick)
+    private fun onFetchingDishesFromDateClick(dateClick: String) = sharedDateViewModel.onFetchingDishesFromDateClick(dateClick)
 
     override fun onDestroyView() {
         calendarRecyclerView.apply {

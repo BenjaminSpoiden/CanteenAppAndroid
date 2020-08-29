@@ -29,8 +29,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <include layout="@layout/loading_placeholder_text" />
-
             <include layout="@layout/loading_placeholder_header" />
 
             <include layout="@layout/loading_placeholder_menu" />

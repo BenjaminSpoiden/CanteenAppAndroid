@@ -2,7 +2,6 @@ package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.Others
-import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.FIREBASE_TAG
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.OthersItemBinder
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.OthersViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.SharedDateViewModel
@@ -64,7 +62,7 @@ class MenuOthersFragment: BaseFragment(), KodeinAware {
             this.layoutManager = GridLayoutManager(context, 2)
         }
 
-        sharedDateViewModel.sharedDate.observe(viewLifecycleOwner) {
+        sharedDateViewModel.sharedDishesFromDateClick.observe(viewLifecycleOwner) {
             othersViewModel.fetchingOthers(it)
             othersList.clear()
         }

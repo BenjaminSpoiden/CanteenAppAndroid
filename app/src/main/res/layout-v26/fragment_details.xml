@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout>
     <data>
         <variable
             name="detailViewModel"
             type="be.technifutur.devmob9.projet_cantinapp_android.viewmodel.DetailViewModel" />
     </data>
     <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -76,6 +77,7 @@
 
                     <TextView
                         android:id="@+id/detail_description"
+                        android:scrollbars="vertical"
                         android:layout_width="346dp"
                         android:layout_height="135dp"
                         android:layout_marginTop="16dp"
@@ -83,7 +85,6 @@
                         android:textStyle="bold"
                         android:textColor="@color/darkTurquoise"
                         android:justificationMode="inter_word"
-                        android:scrollbars="vertical"
                         android:text="@{detailViewModel.detailDescription}"
                         app:layout_constraintEnd_toEndOf="@+id/container"
                         app:layout_constraintStart_toStartOf="@+id/container"
@@ -181,200 +182,177 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.card.MaterialCardView
+            <ImageView
                 android:id="@+id/detail_nutriment_bg"
-                android:layout_width="70dp"
-                android:layout_height="172dp"
-                android:layout_marginStart="35dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="10dp"
-                app:cardCornerRadius="10dp"
+                android:src="@drawable/detail_nutriment_bg"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardview_detail_holder">
+                app:layout_constraintTop_toBottomOf="@+id/cardview_detail_holder" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <ImageView
-                        android:id="@+id/sugar_amount_vw"
-                        android:layout_width="wrap_content"
-                        android:layout_height="91dp"
-                        android:layout_gravity="bottom"
-                        android:src="@drawable/ic_nutrient_vector"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
-                    <ImageView
-                        android:id="@+id/sugar"
-                        android:layout_width="42dp"
-                        android:layout_height="42dp"
-                        android:src="@drawable/sugar"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:layout_marginTop="20dp"/>
-                    <TextView
-                        android:id="@+id/sugar_amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:textColor="@android:color/black"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/sugar"
-                        android:text="@{detailViewModel.sugarAmount}" />
+            <ImageView
+                android:id="@+id/sugar_amount_vw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red_amount"
+                app:layout_constraintBottom_toBottomOf="@+id/detail_nutriment_bg"
+                app:layout_constraintEnd_toEndOf="@+id/detail_nutriment_bg"
+                app:layout_constraintStart_toStartOf="@+id/detail_nutriment_bg"
+                app:layout_constraintTop_toTopOf="@+id/detail_nutriment_bg" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/sugar"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:src="@drawable/sugar"
+                app:layout_constraintEnd_toEndOf="@+id/detail_nutriment_bg"
+                app:layout_constraintStart_toStartOf="@id/detail_nutriment_bg"
+                app:layout_constraintTop_toTopOf="@id/detail_nutriment_bg"
+                android:layout_marginTop="20dp"/>
 
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
+            <ImageView
                 android:id="@+id/detail_nutriment_bg2"
-                android:layout_width="70dp"
-                android:layout_height="172dp"
-                android:layout_marginStart="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
                 android:layout_marginTop="10dp"
+                android:src="@drawable/detail_nutriment_bg"
                 app:layout_constraintStart_toEndOf="@+id/detail_nutriment_bg"
-                app:layout_constraintTop_toBottomOf="@+id/cardview_detail_holder">
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                app:layout_constraintTop_toBottomOf="@+id/cardview_detail_holder" />
 
-                    <ImageView
-                        android:id="@+id/orange_amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/orange_amount"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/orange_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/orange_amount"
+                app:layout_constraintBottom_toBottomOf="@+id/detail_nutriment_bg2"
+                app:layout_constraintEnd_toEndOf="@+id/detail_nutriment_bg2"
+                app:layout_constraintStart_toStartOf="@+id/detail_nutriment_bg2"
+                app:layout_constraintTop_toTopOf="@+id/detail_nutriment_bg2" />
 
-                    <ImageView
-                        android:id="@+id/fat"
-                        android:layout_width="42dp"
-                        android:layout_height="42dp"
-                        android:src="@drawable/fat"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:layout_marginTop="20dp"/>
+            <ImageView
+                android:id="@+id/fat"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:src="@drawable/fat"
+                app:layout_constraintEnd_toEndOf="@+id/detail_nutriment_bg2"
+                app:layout_constraintStart_toStartOf="@id/detail_nutriment_bg2"
+                app:layout_constraintTop_toTopOf="@id/detail_nutriment_bg2"
+                android:layout_marginTop="20dp"/>
 
-                    <TextView
-                        android:id="@+id/fat_amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@android:color/black"
-                        android:layout_marginTop="10dp"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/fat"
-                        android:text="@{detailViewModel.fatAmount}" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-
-            <com.google.android.material.card.MaterialCardView
+            <ImageView
                 android:id="@+id/detail_nutriment_bg3"
-                android:layout_width="70dp"
-                android:layout_height="172dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginStart="20dp"
+                android:src="@drawable/detail_nutriment_bg"
+                app:layout_constraintEnd_toStartOf="@+id/detail_nutriment_bg4"
                 app:layout_constraintStart_toEndOf="@+id/detail_nutriment_bg2"
-                app:layout_constraintTop_toBottomOf="@+id/cardview_detail_holder">
+                app:layout_constraintTop_toBottomOf="@+id/cardview_detail_holder" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/green_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/green_amount"
+                app:layout_constraintBottom_toBottomOf="@+id/detail_nutriment_bg3"
+                app:layout_constraintEnd_toEndOf="@+id/detail_nutriment_bg3"
+                app:layout_constraintStart_toStartOf="@+id/detail_nutriment_bg3"
+                app:layout_constraintTop_toTopOf="@+id/detail_nutriment_bg3" />
 
-                    <ImageView
-                        android:id="@+id/green_amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/green_amount"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/protein"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:src="@drawable/protein"
+                app:layout_constraintEnd_toEndOf="@+id/detail_nutriment_bg3"
+                app:layout_constraintStart_toStartOf="@id/detail_nutriment_bg3"
+                app:layout_constraintTop_toTopOf="@id/detail_nutriment_bg3"
+                android:layout_marginTop="20dp"/>
 
-                    <ImageView
-                        android:id="@+id/protein"
-                        android:layout_width="42dp"
-                        android:layout_height="42dp"
-                        android:layout_marginTop="20dp"
-                        android:src="@drawable/protein"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/protein_amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="@{detailViewModel.proteinsAmount}"
-                        android:textColor="@android:color/black"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/protein" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-
-            <com.google.android.material.card.MaterialCardView
+            <ImageView
                 android:id="@+id/detail_nutriment_bg4"
-                android:layout_width="70dp"
-                android:layout_height="172dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginStart="20dp"
-                app:layout_constraintStart_toEndOf="@+id/detail_nutriment_bg3"
-                app:layout_constraintTop_toBottomOf="@+id/cardview_detail_holder">
+                android:layout_marginEnd="32dp"
+                android:src="@drawable/detail_nutriment_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardview_detail_holder" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/orange_amount2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/orange_amount2"
+                app:layout_constraintBottom_toBottomOf="@+id/detail_nutriment_bg4"
+                app:layout_constraintEnd_toEndOf="@+id/detail_nutriment_bg4"
+                app:layout_constraintStart_toStartOf="@+id/detail_nutriment_bg4"
+                app:layout_constraintTop_toTopOf="@+id/detail_nutriment_bg4" />
 
-                    <ImageView
-                        android:id="@+id/orange_amount2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/orange_amount2"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/cal"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:src="@drawable/calories"
+                app:layout_constraintEnd_toEndOf="@+id/detail_nutriment_bg4"
+                app:layout_constraintStart_toStartOf="@id/detail_nutriment_bg4"
+                app:layout_constraintTop_toTopOf="@id/detail_nutriment_bg4"
+                android:layout_marginTop="20dp"/>
 
-                    <ImageView
-                        android:id="@+id/cal"
-                        android:layout_width="42dp"
-                        android:layout_height="42dp"
-                        android:layout_marginTop="20dp"
-                        android:src="@drawable/calories"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/sugar_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="@android:color/black"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/detail_nutriment_bg"
+                app:layout_constraintStart_toStartOf="@+id/detail_nutriment_bg"
+                app:layout_constraintTop_toBottomOf="@+id/sugar"
+                android:text="@{detailViewModel.sugarAmount}" />
 
-                    <TextView
-                        android:id="@+id/cal_amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="@{detailViewModel.kCalAmount}"
-                        android:textColor="@android:color/black"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/cal" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </com.google.android.material.card.MaterialCardView>
+            <TextView
+                android:id="@+id/fat_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="10dp"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/detail_nutriment_bg2"
+                app:layout_constraintStart_toStartOf="@+id/detail_nutriment_bg2"
+                app:layout_constraintTop_toBottomOf="@+id/fat"
+                android:text="@{detailViewModel.fatAmount}" />
+
+            <TextView
+                android:id="@+id/protein_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="@+id/detail_nutriment_bg3"
+                app:layout_constraintStart_toStartOf="@+id/detail_nutriment_bg3"
+                app:layout_constraintTop_toBottomOf="@+id/protein"
+                android:text="@{detailViewModel.proteinsAmount}" />
+
+            <TextView
+                android:id="@+id/cal_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="@+id/detail_nutriment_bg4"
+                app:layout_constraintStart_toStartOf="@+id/detail_nutriment_bg4"
+                app:layout_constraintTop_toBottomOf="@+id/cal"
+                android:text="@{detailViewModel.kCalAmount}" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

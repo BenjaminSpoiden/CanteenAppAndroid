@@ -1,97 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/drawer_layout"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundAppColor"
+    android:orientation="vertical">
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerFrameLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/backgroundAppColor"
-        android:orientation="vertical">
+        android:layout_height="100dp"
+        android:layout_margin="10dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginEnd="7dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/shimmerFrameLayout"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_margin="10dp"
-            android:layout_marginStart="7dp"
-            android:layout_marginEnd="7dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <include layout="@layout/loading_placeholder_calendar" />
-
-                <include layout="@layout/loading_placeholder_calendar" />
-
-                <include layout="@layout/loading_placeholder_calendar" />
-
-                <include layout="@layout/loading_placeholder_calendar" />
-
-                <include layout="@layout/loading_placeholder_calendar" />
-            </LinearLayout>
-        </com.facebook.shimmer.ShimmerFrameLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/calendar_recyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_margin="10dp"
-            android:layout_marginStart="7dp"
-            android:layout_marginEnd="7dp"
-            android:layoutAnimation="@anim/menu_recyclerview_animation"
-            app:layout_constraintEnd_toStartOf="@+id/shimmerFrameLayout"
-            app:layout_constraintStart_toEndOf="@+id/shimmerFrameLayout"
-            app:layout_constraintTop_toTopOf="parent"
-            app:spanCount="5" />
-        <View
-            android:id="@+id/spacer"
-            android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:layout_marginTop="7dp"
-            android:background="@color/spacerColor"
-            app:layout_constraintTop_toBottomOf="@id/calendar_recyclerview" />
-
-        <TextView
-            android:id="@+id/dayOfWeek"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text=""
-            android:textColor="@color/textDayColor"
-            android:textSize="36sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spacer" />
+            android:orientation="horizontal">
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/fragment_bottom_pager"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/bottomBar"
-            app:layout_constraintTop_toBottomOf="@id/dayOfWeek"/>
+            <include layout="@layout/loading_placeholder_calendar" />
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottomBar"
+            <include layout="@layout/loading_placeholder_calendar" />
+
+            <include layout="@layout/loading_placeholder_calendar" />
+
+            <include layout="@layout/loading_placeholder_calendar" />
+
+            <include layout="@layout/loading_placeholder_calendar" />
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/calendar_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_margin="10dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginEnd="7dp"
+        android:layoutAnimation="@anim/menu_recyclerview_animation"
+        app:layout_constraintEnd_toStartOf="@+id/shimmerFrameLayout"
+        app:layout_constraintStart_toEndOf="@+id/shimmerFrameLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:spanCount="5" />
+
+    <View
+        android:id="@+id/spacer"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_marginTop="7dp"
+        android:background="@color/spacerColor"
+        app:layout_constraintTop_toBottomOf="@id/calendar_recyclerview" />
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/textShimmer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/dayOfWeek"
+        app:layout_constraintTop_toBottomOf="@+id/spacer">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:backgroundColor="@android:color/white"
-            app:itemIconTint="@drawable/bottom_nav_tint"
-            app:itemTextColor="@drawable/bottom_nav_tint"
-            app:elevation="16dp"
-            app:labelVisibilityMode="selected"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:menu="@menu/bottom_menu"
-            app:textColor="@android:color/black"
-            app:textSize="12sp" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="match_parent">
+
+            <include layout="@layout/loading_placeholder_text" />
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+    <TextView
+        android:id="@+id/dayOfWeek"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text=""
+        android:textColor="@color/textDayColor"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spacer" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/fragment_bottom_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/bottomBar"
+        app:layout_constraintTop_toBottomOf="@id/dayOfWeek" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:backgroundColor="@android:color/white"
+        app:elevation="16dp"
+        app:itemIconTint="@drawable/bottom_nav_tint"
+        app:itemTextColor="@drawable/bottom_nav_tint"
+        app:labelVisibilityMode="selected"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_menu"
+        app:textColor="@android:color/black"
+        app:textSize="12sp" />
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 
 

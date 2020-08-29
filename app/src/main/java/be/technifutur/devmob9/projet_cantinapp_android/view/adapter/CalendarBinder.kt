@@ -1,16 +1,24 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.adapter
 
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.CalendarModel
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.FIREBASE_TAG
 import be.technifutur.devmob9.projet_cantinapp_android.utils.colorSelection
 import com.google.android.material.card.MaterialCardView
 import mva2.adapter.ItemBinder
 import mva2.adapter.ItemViewHolder
+import org.threeten.bp.LocalDate
 
-class CalendarBinder(private val onDayClick: (CalendarViewHolder) -> Unit): ItemBinder<CalendarModel, CalendarBinder.CalendarViewHolder>() {
+class CalendarBinder: ItemBinder<CalendarModel, CalendarBinder.CalendarViewHolder>() {
+
+    companion object {
+        var dateListener: ((LocalDate?) -> Unit)? = null
+    }
 
     override fun bindViewHolder(holder: CalendarViewHolder?, item: CalendarModel?) {
         holder?.calendarDayName?.text = item?.dayName
@@ -28,13 +36,21 @@ class CalendarBinder(private val onDayClick: (CalendarViewHolder) -> Unit): Item
         } else {
             setCardState(holder.calendarCard, holder.calendarDayName, holder.calendarDayNumber, false)
             holder.calendarCard.isEnabled = true
+
+            if(holder.adapterPosition == 0) {
+                Log.d(FIREBASE_TAG, "${holder.adapterPosition}")
+                setCardState(holder.calendarCard, holder.calendarDayName, holder.calendarDayNumber, true)
+                holder.calendarCard.isEnabled = false
+            }
         }
+
     }
 
     override fun initViewHolder(holder: CalendarViewHolder?) {
         super.initViewHolder(holder)
         holder?.calendarCard?.setOnClickListener {
-            onDayClick(holder)
+            dateListener?.invoke(holder.item.date)
+            holder.toggleItemSelection()
         }
     }
 
@@ -58,10 +74,8 @@ class CalendarBinder(private val onDayClick: (CalendarViewHolder) -> Unit): Item
     }
 
     override fun createViewHolder(parent: ViewGroup?): CalendarViewHolder {
-        val view = parent?.let {
-            inflate(it, R.layout.calendar_item)
-        }
-        return CalendarViewHolder(view!!)
+        val view = LayoutInflater.from(parent?.context).inflate(R.layout.calendar_item, parent, false)
+        return CalendarViewHolder(view)
     }
 
     inner class CalendarViewHolder(view: View): ItemViewHolder<CalendarModel>(view){

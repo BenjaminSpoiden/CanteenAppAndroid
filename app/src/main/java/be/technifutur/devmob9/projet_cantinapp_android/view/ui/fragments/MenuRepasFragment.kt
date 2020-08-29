@@ -2,7 +2,6 @@ package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.DishesType
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.PlaceholderModel
-import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.FIREBASE_TAG
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.MenuHeaderBinder
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.MenuItemBinder
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.PlaceholderBinder
@@ -104,13 +102,13 @@ class MenuRepasFragment: BaseFragment(), KodeinAware {
         fetchingDishes()
     }
     private fun observingClick() {
-        sharedDateViewModel.sharedDate.observe(viewLifecycleOwner) {
+        sharedDateViewModel.sharedDishesFromDateClick.observe(viewLifecycleOwner) {
             placeholder.stopShimmer()
             placeholder.visibility = View.GONE
             onRefreshListsAndSection()
             dishesViewModel.fetchingDishes(it)
         }
-        sharedDateViewModel.sharedDate.removeObservers(this)
+        sharedDateViewModel.sharedDishesFromDateClick.removeObservers(this)
     }
 
     private fun fetchingDishes() {

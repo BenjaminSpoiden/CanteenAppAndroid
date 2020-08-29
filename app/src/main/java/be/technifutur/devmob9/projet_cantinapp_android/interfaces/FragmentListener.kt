@@ -1,6 +1,6 @@
 package be.technifutur.devmob9.projet_cantinapp_android.interfaces
 
-import be.technifutur.devmob9.projet_cantinapp_android.model.data.MenuItemModel
+import be.technifutur.devmob9.projet_cantinapp_android.model.data.Food
 
 
 interface FragmentListener {
@@ -8,9 +8,7 @@ interface FragmentListener {
 
 //    fun getFragmentTitle(title: String)
 
-    fun openDetailFragment()
-
-    fun openDetailFragmentWithDetails(itemClicked: MenuItemModel)
+    fun openMenuDetail(foodItem: Food)
 
     fun openCheckoutFragment()
 
