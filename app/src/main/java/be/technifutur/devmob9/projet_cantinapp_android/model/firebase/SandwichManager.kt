@@ -9,6 +9,7 @@ import com.google.firebase.firestore.ktx.toObject
 import java.util.*
 
 class SandwichManager {
+
     private val db = FirebaseFirestore.getInstance()
     fun onFetchingSandwichFromDate(date: String, onComplete: (List<Sandwich>) -> Unit) {
         db.collection(ID_DAYS_MEALS)

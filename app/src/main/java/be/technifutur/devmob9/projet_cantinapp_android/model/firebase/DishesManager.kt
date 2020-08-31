@@ -28,68 +28,30 @@ class DishesManager {
                 firebaseFirestoreException?.let {
                     return@addSnapshotListener
                 }
-                documentSnapshot?.let {
-                    val foodModel = it.toObject<FoodModel>()
-                    foodModel?.menu?.starters?.forEach {
-                        fetchingStarters(it, onComplete)
-                    }
-                    foodModel?.menu?.main_courses?.forEach {
-                        fetchingMainCourses(it, onComplete)
-                    }
-                    foodModel?.menu?.desserts?.forEach {
-                        fetchingDesserts(it, onComplete)
-                    }
+                documentSnapshot?.let { data ->
+                    val foodModel = data.toObject<FoodModel>()
+                    foodModel?.menu?.starters?.forEach { fetchingDishes<DishesType.Starters>(ID_STARTERS, it, onComplete) }
+                    foodModel?.menu?.main_courses?.forEach { fetchingDishes<DishesType.MainCourses>(ID_MAIN_COURSES, it, onComplete) }
+                    foodModel?.menu?.desserts?.forEach { fetchingDishes<DishesType.Desserts>(ID_DESSERTS, it, onComplete) }
 
                     areDishesAvailable(foodModel?.menu)
                 }
             }
     }
 
-    private fun fetchingStarters(starterName: String, onComplete: (List<DishesType?>) -> Unit){
-        val startersList = ArrayList<DishesType>()
-        db.collection(ID_STARTERS)
-            .document(starterName)
-            .addSnapshotListener { documentSnapshot, e ->
-                e?.let {
-                    return@let
+    private inline fun <reified M> fetchingDishes(dishID: String, dishType: String, crossinline onComplete: (List<M?>) -> Unit) {
+        val dishesData = ArrayList<M>()
+        db.collection(dishID)
+            .document(dishType)
+            .addSnapshotListener { value, error ->
+                error?.let {
+                    return@addSnapshotListener
                 }
-                documentSnapshot?.let {
-                    val starterData = it.toObject<DishesType.Starters>()
-                    if(starterData != null) startersList.add(starterData)
+                value?.let {
+                    val dishesTypeModel = it.toObject<M>()
+                    if(dishesTypeModel != null) dishesData.add(dishesTypeModel)
                 }
-                onComplete(startersList)
-            }
-    }
-
-    private fun fetchingMainCourses(mainsName: String, onComplete: (List<DishesType?>) -> Unit) {
-        val mainsList = ArrayList<DishesType>()
-        db.collection(ID_MAIN_COURSES)
-            .document(mainsName)
-            .addSnapshotListener { documentSnapshot, e ->
-                e?.let {
-                    return@let
-                }
-                documentSnapshot?.let {
-                    val mainsData = it.toObject<DishesType.MainCourses>()
-                    if(mainsData != null) mainsList.add(mainsData)
-                }
-                onComplete(mainsList)
-            }
-    }
-
-    private fun fetchingDesserts(dessertsName: String, onComplete: (List<DishesType?>) -> Unit){
-        val dessertList = ArrayList<DishesType>()
-        db.collection(ID_DESSERTS)
-            .document(dessertsName)
-            .addSnapshotListener { documentSnapshot, e ->
-                e?.let {
-                    return@let
-                }
-                documentSnapshot?.let {
-                    val dessertsData = it.toObject<DishesType.Desserts>()
-                    if(dessertsData != null) dessertList.add(dessertsData)
-                }
-                onComplete(dessertList)
+                onComplete(dishesData)
             }
     }
 }

@@ -6,5 +6,5 @@ data class FoodModel(
     @DocumentId val id: String? = null,
     val menu: MenusModel? = null,
     val sandwiches: List<String>? = null,
-    val others: List<String>? = null
+    val others: OthersModel? = null
 )

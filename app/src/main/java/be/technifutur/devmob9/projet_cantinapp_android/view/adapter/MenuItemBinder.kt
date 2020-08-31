@@ -18,7 +18,11 @@ import com.google.android.material.card.MaterialCardView
 import mva2.adapter.ItemBinder
 import mva2.adapter.ItemViewHolder
 
-class MenuItemBinder(context: Context, private val onItemClick: (MenuItemViewHolder) -> Unit): ItemBinder<DishesType, MenuItemBinder.MenuItemViewHolder>(){
+class MenuItemBinder(context: Context): ItemBinder<DishesType, MenuItemBinder.MenuItemViewHolder>(){
+
+    companion object {
+        var onItemClick: ((MenuItemViewHolder) -> Unit)? = null
+    }
 
     private val fragmentListener = context as FragmentListener?
 
@@ -73,7 +77,7 @@ class MenuItemBinder(context: Context, private val onItemClick: (MenuItemViewHol
     override fun initViewHolder(holder: MenuItemViewHolder?) {
         super.initViewHolder(holder)
         holder?.menuCard?.setOnClickListener {
-            onItemClick(holder)
+            onItemClick?.invoke(holder)
         }
         holder?.detailButton?.setOnClickListener {
             fragmentListener?.openMenuDetail(holder.item)

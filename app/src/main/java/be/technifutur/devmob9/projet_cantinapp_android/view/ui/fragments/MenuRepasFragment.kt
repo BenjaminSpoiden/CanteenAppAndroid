@@ -66,16 +66,7 @@ class MenuRepasFragment: BaseFragment(), KodeinAware {
         super.onViewCreated(view, savedInstanceState)
         menuRecyclerView = view.findViewById(R.id.menu_recycler_view)
         menuAdapter = MultiViewAdapter()
-        menuAdapter.registerItemBinders(MenuItemBinder(requireContext()){ holder ->
-            holder.menuCard.isChecked = !holder.menuCard.isChecked
-            if(holder.menuCard.isChecked) {
-                cartBadgeViewModel.onAddingMenuItem(holder.item)
-                holder.menuCard.setCardBackgroundColor(resources.getColor(R.color.tameGreen, resources.newTheme()))
-            }else {
-                holder.menuCard.setCardBackgroundColor(Color.WHITE)
-                cartBadgeViewModel.onDeleteMenuItem(holder.item)
-            }
-        }, MenuHeaderBinder(), PlaceholderBinder())
+        menuAdapter.registerItemBinders(MenuItemBinder(requireContext()), MenuHeaderBinder(), PlaceholderBinder())
 
         menuAdapter.addSection(startersSection)
         menuAdapter.addSection(startersList)
@@ -92,6 +83,16 @@ class MenuRepasFragment: BaseFragment(), KodeinAware {
 
         menuAdapter.addSection(dessertsPlaceholder)
 
+        MenuItemBinder.onItemClick = { holder ->
+            holder.menuCard.isChecked = !holder.menuCard.isChecked
+            if(holder.menuCard.isChecked) {
+                cartBadgeViewModel.onAddingMenuItem(holder.item)
+                holder.menuCard.setCardBackgroundColor(resources.getColor(R.color.tameGreen, resources.newTheme()))
+            }else {
+                holder.menuCard.setCardBackgroundColor(Color.WHITE)
+                cartBadgeViewModel.onDeleteMenuItem(holder.item)
+            }
+        }
 
         menuRecyclerView?.apply {
             this.adapter = menuAdapter

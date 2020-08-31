@@ -1,7 +1,9 @@
 package be.technifutur.devmob9.projet_cantinapp_android
 
 import android.app.Application
+import android.util.Log
 import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.*
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.FIREBASE_TAG
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.*
 import com.jakewharton.threetenabp.AndroidThreeTen
 import org.kodein.di.Kodein

@@ -13,7 +13,11 @@ object Constants {
     const val ID_DESSERTS = "desserts"
     const val ID_DAYS_MEALS = "days_meals"
     const val ID_SANDWICHES = "sandwiches"
-    const val ID_OTHERS = "others"
+    const val ID_CROISSANTS = "croissants"
+    const val ID_DRESSINGS = "dressings"
+    const val ID_DRINKS = "drinks"
+    const val ID_FRUITS = "fruit"
+    const val ID_YOGHURTS = "yoghurts"
     const val PICTURES = "food"
 
     const val TYPE_HEADER = 0
