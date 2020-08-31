@@ -7,7 +7,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import be.technifutur.devmob9.projet_cantinapp_android.GlideApp
 import be.technifutur.devmob9.projet_cantinapp_android.R
-import be.technifutur.devmob9.projet_cantinapp_android.model.data.Others
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.OthersType
 import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.PicturesManager
 import mva2.adapter.ItemBinder
