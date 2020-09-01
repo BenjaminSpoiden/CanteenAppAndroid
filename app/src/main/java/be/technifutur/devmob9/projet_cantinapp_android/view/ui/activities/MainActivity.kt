@@ -141,6 +141,10 @@ class MainActivity: AppCompatActivity(), FragmentListener, BaseFragment.OnSettin
         }
     }
 
+    override fun openAllergiesFragment(fragment: Fragment) {
+        replaceFragmentWithBackStack(fragment)
+    }
+
     private fun replaceFragmentWithBackStack(fragment: Fragment) {
         supportFragmentManager
             .beginTransaction()

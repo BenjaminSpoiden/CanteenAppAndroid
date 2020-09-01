@@ -1,15 +1,13 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
 import android.animation.LayoutTransition
-import android.animation.ObjectAnimator
-import android.animation.ValueAnimator
+import android.content.Context
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.LinearInterpolator
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -18,15 +16,17 @@ import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.GlideApp
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.databinding.FragmentDetailsBinding
+import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
+import be.technifutur.devmob9.projet_cantinapp_android.model.data.AllergiesModel
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.Food
 import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.PicturesManager
-import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.listOfAllergies
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.FIREBASE_TAG
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.hashMapOfAllergies
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.AllergiesItem
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.DetailViewModel
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import kotlinx.android.synthetic.main.fragment_details.*
-
 
 class DetailsFragment: BaseFragment() {
 
@@ -38,6 +38,9 @@ class DetailsFragment: BaseFragment() {
             }
         }
     }
+
+    private var fragmentListener: FragmentListener? = null
+
     private lateinit var detailViewModel: DetailViewModel
     private lateinit var allergiesRecyclerView: RecyclerView
     private val itemAdapter = ItemAdapter<AllergiesItem>()
@@ -60,6 +63,10 @@ class DetailsFragment: BaseFragment() {
         arguments?.let { bundle ->
             bundle.getParcelable<Food>(KEY)?.apply {
                 detailViewModel.setFoodItem(this)
+                Log.d(FIREBASE_TAG, "${this.allergens}")
+                this.allergens?.forEach {
+                    itemAdapter.add(AllergiesItem(hashMapOfAllergies[it]))
+                }
                 GlideApp.with(requireContext())
                     .load(PicturesManager().fetchDishesPictures(this.picture_path))
                     .error(R.drawable.no_picture_found)
@@ -87,16 +94,16 @@ class DetailsFragment: BaseFragment() {
             this.adapter = fastAdapter
             this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
-        setupMockAllergies()
 
         fastAdapter.onClickListener = { _, _, item, position ->
-            allergies_image.setImageResource(item.allergiesModel.allergyIllustration)
+            item.allergyIllustration?.let { allergies_image.setImageResource(it) }
             container.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
 
             togglingVisibility()
 
             allergies_detail.setOnClickListener {
                 Toast.makeText(context, "$position", Toast.LENGTH_SHORT).show()
+                fragmentListener?.openAllergiesFragment(AllergiesInfoFragment.getInstance())
             }
 
             true
@@ -113,16 +120,21 @@ class DetailsFragment: BaseFragment() {
         }
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if(context is FragmentListener) fragmentListener = context
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        fragmentListener = null
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         allergiesRecyclerView.apply {
             this.adapter = null
             this.layoutManager = null
-        }
-    }
-    private fun setupMockAllergies() {
-        listOfAllergies.forEach {
-            itemAdapter.add(AllergiesItem(it))
         }
     }
 }

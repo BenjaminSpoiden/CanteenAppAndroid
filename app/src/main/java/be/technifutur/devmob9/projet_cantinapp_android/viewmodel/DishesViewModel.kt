@@ -17,7 +17,6 @@ class DishesViewModel(private val dishesManager: DishesManager): ViewModel() {
     fun fetchingDishes(date: String) {
         dishesManager.onFetchingDishesFromDate(date, {
             fetchedDishes.value = it
-            Log.d(FIREBASE_TAG, "viewmodel: $it")
             fetchedDishes.removeSource(fetchedDishes)
         }, {
             isStarterEmpty.value = it?.starters.isNullOrEmpty()

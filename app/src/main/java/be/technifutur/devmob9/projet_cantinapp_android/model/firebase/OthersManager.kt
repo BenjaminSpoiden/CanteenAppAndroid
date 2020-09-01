@@ -27,28 +27,34 @@ class OthersManager{
                 }
                 documentSnapshot?.let { docData ->
                     val othersModel = docData.toObject<FoodModel>()
-                    othersModel?.others?.croissants?.forEach { fetchingOthers<OthersType.Croissants>(ID_CROISSANTS, it, onComplete) }
-                    othersModel?.others?.dressings?.forEach { fetchingOthers<OthersType.Dressings>(ID_DRESSINGS, it, onComplete) }
-                    othersModel?.others?.drinks?.forEach { fetchingOthers<OthersType.Drinks>(ID_DRINKS, it, onComplete) }
-                    othersModel?.others?.fruit?.forEach { fetchingOthers<OthersType.Fruits>(ID_FRUITS, it, onComplete) }
-                    othersModel?.others?.yoghurts?.forEach { fetchingOthers<OthersType.Yoghurts>(ID_YOGHURTS, it, onComplete) }
+//                    othersModel?.others?.croissants?.forEach { fetchingOthers<OthersType.Croissants>(ID_CROISSANTS, it, onComplete) }
+//                    othersModel?.others?.dressings?.forEach { fetchingOthers<OthersType.Dressings>(ID_DRESSINGS, it, onComplete) }
+//                    othersModel?.others?.drinks?.forEach { fetchingOthers<OthersType.Drinks>(ID_DRINKS, it, onComplete) }
+//                    othersModel?.others?.fruit?.forEach { fetchingOthers<OthersType.Fruits>(ID_FRUITS, it, onComplete) }
+//                    othersModel?.others?.yoghurts?.forEach { fetchingOthers<OthersType.Yoghurts>(ID_YOGHURTS, it, onComplete) }
+
+                    othersModel?.others?.croissants?.forEach { FoodManager.fetchingFood<OthersType.Croissants>(db, ID_CROISSANTS, it, onComplete) }
+                    othersModel?.others?.dressings?.forEach { FoodManager.fetchingFood<OthersType.Dressings>(db, ID_DRESSINGS, it, onComplete) }
+                    othersModel?.others?.drinks?.forEach { FoodManager.fetchingFood<OthersType.Drinks>(db, ID_DRINKS, it, onComplete) }
+                    othersModel?.others?.fruit?.forEach { FoodManager.fetchingFood<OthersType.Fruits>(db, ID_FRUITS, it, onComplete) }
+                    othersModel?.others?.yoghurts?.forEach { FoodManager.fetchingFood<OthersType.Yoghurts>(db, ID_YOGHURTS, it, onComplete) }
                 }
             }
     }
 
-    private inline fun <reified M> fetchingOthers(otherID: String, otherType: String, crossinline onComplete: (List<M?>) -> Unit) {
-        val othersData = ArrayList<M>()
-        db.collection(otherID)
-            .document(otherType)
-            .addSnapshotListener { value, error ->
-                error?.let {
-                    return@addSnapshotListener
-                }
-                value?.let {
-                    val otherTypeModel = it.toObject<M>()
-                    if(otherTypeModel != null) othersData.add(otherTypeModel)
-                }
-                onComplete.invoke(othersData)
-            }
-    }
+//    private inline fun <reified M> fetchingOthers(otherID: String, otherType: String, crossinline onComplete: (List<M?>) -> Unit) {
+//        val othersData = ArrayList<M>()
+//        db.collection(otherID)
+//            .document(otherType)
+//            .addSnapshotListener { value, error ->
+//                error?.let {
+//                    return@addSnapshotListener
+//                }
+//                value?.let {
+//                    val otherTypeModel = it.toObject<M>()
+//                    if(otherTypeModel != null) othersData.add(otherTypeModel)
+//                }
+//                onComplete.invoke(othersData)
+//            }
+//    }
 }

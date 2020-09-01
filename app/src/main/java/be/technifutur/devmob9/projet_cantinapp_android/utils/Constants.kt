@@ -48,17 +48,17 @@ object Constants {
     )
 
     val hashMapOfAllergies = hashMapOf(
-        "Gluten" to R.drawable.ic_gluten,
-        "Céleri" to R.drawable.ic_celery,
-        "Amande" to R.drawable.ic_almond,
-        "Crustacée" to R.drawable.ic_crustaceans,
-        "Oeufs" to R.drawable.ic_egg,
-        "Poisson" to R.drawable.ic_fish,
-        "Lait" to R.drawable.ic_milk,
-        "Mollusque" to R.drawable.ic_mollusc,
-        "Moutarde" to R.drawable.ic_mustard,
-        "Graine de sésame" to R.drawable.ic_sesame,
-        "Grain de soja" to R.drawable.ic_soybean,
-        "Sulfite" to R.drawable.ic_sulfide
+        "gluten" to R.drawable.ic_gluten,
+        "celery" to R.drawable.ic_celery,
+        "almond" to R.drawable.ic_almond,
+        "crustaceans" to R.drawable.ic_crustaceans,
+        "egg" to R.drawable.ic_egg,
+        "fish" to R.drawable.ic_fish,
+        "milk" to R.drawable.ic_milk,
+        "mollusc" to R.drawable.ic_mollusc,
+        "mustard" to R.drawable.ic_mustard,
+        "sesame seed" to R.drawable.ic_sesame,
+        "soy bean" to R.drawable.ic_soybean,
+        "sulfide" to R.drawable.ic_sulfide
     )
 }

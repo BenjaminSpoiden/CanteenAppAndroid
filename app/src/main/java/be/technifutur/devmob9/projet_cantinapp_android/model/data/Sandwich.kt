@@ -1,6 +1,7 @@
 package be.technifutur.devmob9.projet_cantinapp_android.model.data
 
 import kotlinx.android.parcel.Parcelize
+import kotlin.Int
 
 @Parcelize
 data class Sandwich(
