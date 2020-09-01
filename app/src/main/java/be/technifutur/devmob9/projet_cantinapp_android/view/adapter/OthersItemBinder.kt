@@ -1,5 +1,6 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,12 +8,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import be.technifutur.devmob9.projet_cantinapp_android.GlideApp
 import be.technifutur.devmob9.projet_cantinapp_android.R
+import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.OthersType
 import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.PicturesManager
 import mva2.adapter.ItemBinder
 import mva2.adapter.ItemViewHolder
 
-class OthersItemBinder(): ItemBinder<OthersType, OthersItemBinder.OthersViewHolder>() {
+class OthersItemBinder(context: Context): ItemBinder<OthersType, OthersItemBinder.OthersViewHolder>() {
+
+    private val fragmentListener = context as FragmentListener?
 
     override fun createViewHolder(parent: ViewGroup?): OthersViewHolder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.recyclerview_others_item, parent, false)
@@ -23,14 +27,19 @@ class OthersItemBinder(): ItemBinder<OthersType, OthersItemBinder.OthersViewHold
         return item is OthersType
     }
 
-    override fun bindViewHolder(holder: OthersViewHolder?, item: OthersType) {
+    override fun initViewHolder(holder: OthersViewHolder?) {
+        super.initViewHolder(holder)
 
+    }
+
+    override fun bindViewHolder(holder: OthersViewHolder?, item: OthersType) {
         when(item) {
             is OthersType.Croissants -> {
                 holder?.othersName?.text = item.name
                 holder?.othersDescription?.text = item.description
                 GlideApp.with(holder?.itemView!!)
                     .load(PicturesManager().fetchDishesPictures(item.picture_path))
+                    .placeholder(R.drawable.menu_illustration)
                     .error(R.drawable.no_picture_found)
                     .centerCrop()
                     .into(holder.othersIllustration)

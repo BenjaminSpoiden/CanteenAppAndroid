@@ -1,15 +1,11 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import android.widget.Toast
 import androidx.annotation.IdRes
-import androidx.core.view.doOnLayout
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
@@ -17,22 +13,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import be.technifutur.devmob9.projet_cantinapp_android.R
-import be.technifutur.devmob9.projet_cantinapp_android.model.data.CalendarModel
 import be.technifutur.devmob9.projet_cantinapp_android.utils.BottomNavigationScreens
-import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.FIREBASE_TAG
-import be.technifutur.devmob9.projet_cantinapp_android.utils.colorSelection
 import be.technifutur.devmob9.projet_cantinapp_android.utils.getMainScreen
-import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.CalendarBinder
+import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.CalendarAdapter
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.MainPagerAdapter
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.SharedDateViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.HomeViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.CalendarViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.card.MaterialCardView
 import kotlinx.android.synthetic.main.fragment_home.*
-import mva2.adapter.ListSection
-import mva2.adapter.MultiViewAdapter
-import mva2.adapter.util.Mode
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
@@ -60,8 +49,10 @@ class HomeFragment: BaseFragment(), KodeinAware, BottomNavigationView.OnNavigati
 
     }
     private lateinit var calendarRecyclerView: RecyclerView
-    private lateinit var multiViewAdapter: MultiViewAdapter
-    private lateinit var listSection: ListSection<CalendarModel>
+//    private lateinit var multiViewAdapter: MultiViewAdapter
+//    private lateinit var listSection: ListSection<CalendarModel>
+
+    private lateinit var calendarAdapter: CalendarAdapter
 
 
     private val sharedDateViewModel by activityViewModels<SharedDateViewModel>()
@@ -100,18 +91,20 @@ class HomeFragment: BaseFragment(), KodeinAware, BottomNavigationView.OnNavigati
         })
 
         calendarRecyclerView = view.findViewById(R.id.calendar_recyclerview)
-        multiViewAdapter = MultiViewAdapter()
-        listSection =  ListSection()
-        multiViewAdapter.registerItemBinders(CalendarBinder())
+        calendarAdapter = CalendarAdapter()
+//        multiViewAdapter = MultiViewAdapter()
+//        listSection =  ListSection()
+//        multiViewAdapter.registerItemBinders(CalendarBinder())
         observeData()
 
         textShimmer.startShimmer()
 
-        multiViewAdapter.setSelectionMode(Mode.SINGLE)
-        multiViewAdapter.addSection(listSection)
+//        multiViewAdapter.setSelectionMode(Mode.SINGLE)
+//        multiViewAdapter.addSection(listSection)
+
 
         calendarRecyclerView.apply {
-            this.adapter = multiViewAdapter
+            this.adapter = calendarAdapter
             this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
     }
@@ -122,17 +115,15 @@ class HomeFragment: BaseFragment(), KodeinAware, BottomNavigationView.OnNavigati
         homeViewModel.fetchedDates.observe(viewLifecycleOwner) { calendarModelList ->
             shimmerFrameLayout.stopShimmer()
             shimmerFrameLayout.visibility = View.GONE
-            listSection.addAll(calendarModelList)
-            multiViewAdapter.notifyDataSetChanged()
+            calendarAdapter.addAll(calendarModelList)
 
-            dateBuilder(listSection.get(0).date)
-            onFetchingDishesFromDateClick(listSection.get(0).date.toString())
+            dateBuilder(calendarAdapter.get(0).date)
+            onFetchingDishesFromDateClick(calendarAdapter.get(0).date.toString())
 
-            CalendarBinder.dateListener = { date->
+            CalendarAdapter.onDateListener = { date ->
                 dateBuilder(date)
                 onFetchingDishesFromDateClick(date.toString())
             }
-
 
             homeViewModel.fetchedDates.removeObservers(this)
         }

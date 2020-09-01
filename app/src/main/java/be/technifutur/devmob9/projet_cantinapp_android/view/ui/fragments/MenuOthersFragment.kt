@@ -40,6 +40,7 @@ class MenuOthersFragment: BaseFragment(), KodeinAware {
 
     private var othersRecyclerView: RecyclerView? = null
     private lateinit var othersAdapter: MultiViewAdapter
+    private lateinit var gridLayoutManager: GridLayoutManager
 
     private val croissantSection = ItemSection<String>()
     private val dressingsSection = ItemSection<String>()
@@ -74,7 +75,7 @@ class MenuOthersFragment: BaseFragment(), KodeinAware {
 
         othersRecyclerView?.apply {
             this.adapter = othersAdapter
-            this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            this.layoutManager = gridLayoutManager
 
         }
 
@@ -87,7 +88,7 @@ class MenuOthersFragment: BaseFragment(), KodeinAware {
             drinksSection.removeItem()
             drinksList.clear()
             fruitsSection.removeItem()
-            drinksList.clear()
+            fruitsList.clear()
             yoghurtsSection.removeItem()
             yoghurtsList.clear()
         }
@@ -95,18 +96,13 @@ class MenuOthersFragment: BaseFragment(), KodeinAware {
     }
     private fun initAdapter() {
         othersAdapter = MultiViewAdapter()
-        othersAdapter.registerItemBinders(OthersItemBinder(), MenuHeaderBinder())
-        othersAdapter.addSection(croissantSection)
-        othersAdapter.addSection(croissantList)
-        othersAdapter.addSection(dressingsSection)
-        othersAdapter.addSection(dressingsList)
-        othersAdapter.addSection(drinksSection)
-        othersAdapter.addSection(drinksList)
-        othersAdapter.addSection(fruitsSection)
-        othersAdapter.addSection(fruitsList)
-        othersAdapter.addSection(yoghurtsSection)
-        othersAdapter.addSection(yoghurtsList)
-
+        othersAdapter.setSpanCount(4)
+        gridLayoutManager = GridLayoutManager(context, 4).apply {
+            this.spanCount = 4
+            this.spanSizeLookup = othersAdapter.spanSizeLookup
+        }
+        othersAdapter.registerItemBinders(OthersItemBinder(requireContext()), MenuHeaderBinder())
+        setSections()
     }
 
     private fun fetchingOthers() {
@@ -168,5 +164,28 @@ class MenuOthersFragment: BaseFragment(), KodeinAware {
     override fun onResume() {
         super.onResume()
         callback.fragmentTitle("Condiments")
+    }
+
+    private fun setSections() {
+        croissantSection.setSpanCount(1)
+        othersAdapter.addSection(croissantSection)
+        croissantList.setSpanCount(2)
+        othersAdapter.addSection(croissantList)
+        dressingsSection.setSpanCount(1)
+        othersAdapter.addSection(dressingsSection)
+        dressingsList.setSpanCount(2)
+        othersAdapter.addSection(dressingsList)
+        drinksSection.setSpanCount(1)
+        othersAdapter.addSection(drinksSection)
+        drinksList.setSpanCount(2)
+        othersAdapter.addSection(drinksList)
+        fruitsSection.setSpanCount(1)
+        othersAdapter.addSection(fruitsSection)
+        fruitsList.setSpanCount(2)
+        othersAdapter.addSection(fruitsList)
+        yoghurtsSection.setSpanCount(1)
+        othersAdapter.addSection(yoghurtsSection)
+        yoghurtsList.setSpanCount(2)
+        othersAdapter.addSection(yoghurtsList)
     }
 }

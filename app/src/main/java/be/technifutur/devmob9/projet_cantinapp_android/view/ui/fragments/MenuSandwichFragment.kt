@@ -78,7 +78,10 @@ class MenuSandwichFragment: BaseFragment(), KodeinAware {
 
     private fun initAdapter() {
         sandwichAdapter = MultiViewAdapter()
-        sandwichAdapter.registerItemBinders(SandwichItemBinder {
+        sandwichAdapter.registerItemBinders(SandwichItemBinder(requireContext()))
+        sandwichAdapter.addSection(sandwichList)
+
+        SandwichItemBinder.onItemClick = {
             it.sandwichCard.isChecked = !it.sandwichCard.isChecked
             if(it.sandwichCard.isChecked) {
                 it.sandwichCard.setCardBackgroundColor(resources.getColor(R.color.tameGreen, resources.newTheme()))
@@ -87,8 +90,7 @@ class MenuSandwichFragment: BaseFragment(), KodeinAware {
                 it.sandwichCard.setCardBackgroundColor(Color.WHITE)
                 cartBadgeViewModel.onDeleteMenuItem(it.item)
             }
-        })
-        sandwichAdapter.addSection(sandwichList)
+        }
     }
 
     private fun onRefreshList() {

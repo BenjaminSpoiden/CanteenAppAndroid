@@ -2,6 +2,7 @@ package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.DishesType
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.PlaceholderModel
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.FIREBASE_TAG
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.MenuHeaderBinder
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.MenuItemBinder
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.PlaceholderBinder
@@ -86,9 +88,11 @@ class MenuRepasFragment: BaseFragment(), KodeinAware {
         MenuItemBinder.onItemClick = { holder ->
             holder.menuCard.isChecked = !holder.menuCard.isChecked
             if(holder.menuCard.isChecked) {
-                cartBadgeViewModel.onAddingMenuItem(holder.item)
+                MenuItemBinder.checkedState.add(holder.adapterPosition, true)
                 holder.menuCard.setCardBackgroundColor(resources.getColor(R.color.tameGreen, resources.newTheme()))
+                cartBadgeViewModel.onAddingMenuItem(holder.item)
             }else {
+                MenuItemBinder.checkedState.add(holder.adapterPosition, false)
                 holder.menuCard.setCardBackgroundColor(Color.WHITE)
                 cartBadgeViewModel.onDeleteMenuItem(holder.item)
             }
@@ -121,12 +125,12 @@ class MenuRepasFragment: BaseFragment(), KodeinAware {
                         startersList.add(it)
                         menuAdapter.notifyDataSetChanged()
                     }
-                    is DishesType.MainCourses -> {
+                    is DishesType.MainCourses? -> {
                         mainCoursesSection.setItem("Plats")
                         mainCoursesList.add(it)
                         menuAdapter.notifyDataSetChanged()
                     }
-                    is DishesType.Desserts -> {
+                    is DishesType.Desserts? -> {
                         dessertsSection.setItem("Desserts")
                         dessertsList.add(it)
                         menuAdapter.notifyDataSetChanged()

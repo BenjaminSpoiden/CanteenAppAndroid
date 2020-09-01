@@ -39,7 +39,7 @@ class DishesManager {
             }
     }
 
-    private inline fun <reified M> fetchingDishes(dishID: String, dishType: String, crossinline onComplete: (List<M?>) -> Unit) {
+    private inline fun <reified M> fetchingDishes(dishID: String, dishType: String, crossinline onComplete: ((List<M?>) -> Unit)) {
         val dishesData = ArrayList<M>()
         db.collection(dishID)
             .document(dishType)
@@ -51,7 +51,7 @@ class DishesManager {
                     val dishesTypeModel = it.toObject<M>()
                     if(dishesTypeModel != null) dishesData.add(dishesTypeModel)
                 }
-                onComplete(dishesData)
+                onComplete.invoke(dishesData)
             }
     }
 }

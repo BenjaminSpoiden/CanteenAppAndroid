@@ -48,7 +48,7 @@ class OthersManager{
                     val otherTypeModel = it.toObject<M>()
                     if(otherTypeModel != null) othersData.add(otherTypeModel)
                 }
-                onComplete(othersData)
+                onComplete.invoke(othersData)
             }
     }
 }

@@ -3,17 +3,21 @@ package be.technifutur.devmob9.projet_cantinapp_android.view.adapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.text.method.ScrollingMovementMethod
+import android.util.Log
+import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.GlideApp
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.DishesType
 import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.PicturesManager
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.FIREBASE_TAG
 import com.google.android.material.card.MaterialCardView
 import mva2.adapter.ItemBinder
 import mva2.adapter.ItemViewHolder
@@ -22,6 +26,7 @@ class MenuItemBinder(context: Context): ItemBinder<DishesType, MenuItemBinder.Me
 
     companion object {
         var onItemClick: ((MenuItemViewHolder) -> Unit)? = null
+        var checkedState = ArrayList<Boolean>()
     }
 
     private val fragmentListener = context as FragmentListener?
@@ -33,6 +38,8 @@ class MenuItemBinder(context: Context): ItemBinder<DishesType, MenuItemBinder.Me
 
     @SuppressLint("SetTextI18n")
     override fun bindViewHolder(holder: MenuItemViewHolder?, item: DishesType) {
+        holder?.menuCard?.setCheckedIconResource(R.drawable.ic_check)
+
         when(item) {
             is DishesType.Starters -> {
                 holder?.menuName?.text = item.name
@@ -68,6 +75,7 @@ class MenuItemBinder(context: Context): ItemBinder<DishesType, MenuItemBinder.Me
                 holder.progressBar.visibility = View.GONE
             }
         }
+//        holder.menuCard.isChecked = checkedState[holder.adapterPosition]
     }
 
     override fun canBindData(item: Any?): Boolean {
@@ -79,6 +87,8 @@ class MenuItemBinder(context: Context): ItemBinder<DishesType, MenuItemBinder.Me
         holder?.menuCard?.setOnClickListener {
             onItemClick?.invoke(holder)
         }
+
+
         holder?.detailButton?.setOnClickListener {
             fragmentListener?.openMenuDetail(holder.item)
         }

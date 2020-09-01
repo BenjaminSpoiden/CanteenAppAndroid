@@ -20,6 +20,8 @@ class CalendarBinder: ItemBinder<CalendarModel, CalendarBinder.CalendarViewHolde
         var dateListener: ((LocalDate?) -> Unit)? = null
     }
 
+    private var checkedPosition = 0
+
     override fun bindViewHolder(holder: CalendarViewHolder?, item: CalendarModel?) {
         holder?.calendarDayName?.text = item?.dayName
         holder?.calendarDayNumber?.text = item?.dayNumber
@@ -28,6 +30,7 @@ class CalendarBinder: ItemBinder<CalendarModel, CalendarBinder.CalendarViewHolde
                 holder?.calendarCard?.alpha = 0.5F
                 holder?.calendarCard?.isEnabled = false
                 holder?.calendarCard?.isClickable = false
+                holder?.calendarCard?.isFocusable = false
             }
         }
         if(holder!!.isItemSelected) {
@@ -36,14 +39,7 @@ class CalendarBinder: ItemBinder<CalendarModel, CalendarBinder.CalendarViewHolde
         } else {
             setCardState(holder.calendarCard, holder.calendarDayName, holder.calendarDayNumber, false)
             holder.calendarCard.isEnabled = true
-
-            if(holder.adapterPosition == 0) {
-                Log.d(FIREBASE_TAG, "${holder.adapterPosition}")
-                setCardState(holder.calendarCard, holder.calendarDayName, holder.calendarDayNumber, true)
-                holder.calendarCard.isEnabled = false
-            }
         }
-
     }
 
     override fun initViewHolder(holder: CalendarViewHolder?) {
@@ -82,6 +78,5 @@ class CalendarBinder: ItemBinder<CalendarModel, CalendarBinder.CalendarViewHolde
         val calendarDayName: TextView = view.findViewById(R.id.day_tv)
         val calendarDayNumber: TextView = view.findViewById(R.id.day_number_tv)
         val calendarCard: MaterialCardView = view.findViewById(R.id.calendar_card_view)
-
     }
 }
