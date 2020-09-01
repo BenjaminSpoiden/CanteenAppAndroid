@@ -6,12 +6,10 @@ import android.util.Log
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.DishesType
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.FoodModel
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.MenusModel
-import be.technifutur.devmob9.projet_cantinapp_android.model.data.Sandwich
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.FIREBASE_TAG
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.ID_DAYS_MEALS
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.ID_DESSERTS
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.ID_MAIN_COURSES
-import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.ID_SANDWICHES
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.ID_STARTERS
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
@@ -45,10 +43,12 @@ class DishesManager {
             .document(dishType)
             .addSnapshotListener { value, error ->
                 error?.let {
+                    Log.d(FIREBASE_TAG, "${error.cause}")
                     return@addSnapshotListener
                 }
                 value?.let {
                     val dishesTypeModel = it.toObject<M>()
+                    Log.d(FIREBASE_TAG, "value: $dishesTypeModel")
                     if(dishesTypeModel != null) dishesData.add(dishesTypeModel)
                 }
                 onComplete.invoke(dishesData)

@@ -88,11 +88,9 @@ class MenuRepasFragment: BaseFragment(), KodeinAware {
         MenuItemBinder.onItemClick = { holder ->
             holder.menuCard.isChecked = !holder.menuCard.isChecked
             if(holder.menuCard.isChecked) {
-                MenuItemBinder.checkedState.add(holder.adapterPosition, true)
                 holder.menuCard.setCardBackgroundColor(resources.getColor(R.color.tameGreen, resources.newTheme()))
                 cartBadgeViewModel.onAddingMenuItem(holder.item)
             }else {
-                MenuItemBinder.checkedState.add(holder.adapterPosition, false)
                 holder.menuCard.setCardBackgroundColor(Color.WHITE)
                 cartBadgeViewModel.onDeleteMenuItem(holder.item)
             }

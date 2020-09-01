@@ -26,7 +26,6 @@ class MenuItemBinder(context: Context): ItemBinder<DishesType, MenuItemBinder.Me
 
     companion object {
         var onItemClick: ((MenuItemViewHolder) -> Unit)? = null
-        var checkedState = ArrayList<Boolean>()
     }
 
     private val fragmentListener = context as FragmentListener?
@@ -75,7 +74,6 @@ class MenuItemBinder(context: Context): ItemBinder<DishesType, MenuItemBinder.Me
                 holder.progressBar.visibility = View.GONE
             }
         }
-//        holder.menuCard.isChecked = checkedState[holder.adapterPosition]
     }
 
     override fun canBindData(item: Any?): Boolean {

@@ -1,6 +1,7 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,7 @@ import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListen
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.OthersType
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.MenuHeaderBinder
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.OthersItemBinder
+import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.CartBadgeViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.OthersViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.SharedDateViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.OthersViewModelFactory
@@ -58,6 +60,7 @@ class MenuOthersFragment: BaseFragment(), KodeinAware {
     private var fragmentListener: FragmentListener? = null
 
     private val sharedDateViewModel by activityViewModels<SharedDateViewModel>()
+    private val cartBadgeViewModel  by activityViewModels<CartBadgeViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -72,6 +75,19 @@ class MenuOthersFragment: BaseFragment(), KodeinAware {
         othersRecyclerView = view.findViewById(R.id.croissant_recycler_view)
 
         initAdapter()
+
+        OthersItemBinder.onItemCLick = { holder ->
+            holder.othersCard.isChecked = !holder.othersCard.isChecked
+            if(holder.othersCard.isChecked) {
+                holder.othersCard.setCardBackgroundColor(resources.getColor(R.color.tameGreen, resources.newTheme()))
+                cartBadgeViewModel.onAddingMenuItem(holder.item)
+            }else {
+                holder.othersCard.setCardBackgroundColor(Color.WHITE)
+                cartBadgeViewModel.onDeleteMenuItem(holder.item)
+            }
+        }
+
+
 
         othersRecyclerView?.apply {
             this.adapter = othersAdapter

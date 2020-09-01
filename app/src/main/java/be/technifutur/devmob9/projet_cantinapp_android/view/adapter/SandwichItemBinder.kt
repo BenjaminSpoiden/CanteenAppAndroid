@@ -35,6 +35,7 @@ class SandwichItemBinder(context: Context): ItemBinder<Sandwich, SandwichItemBin
 
     @SuppressLint("SetTextI18n")
     override fun bindViewHolder(holder: SandwichViewHolder?, item: Sandwich?) {
+        holder?.sandwichCard?.setCheckedIconResource(R.drawable.ic_check)
         holder?.sandwichName?.text = item?.name
         holder?.sandwichDesc?.text = item?.description
         holder?.sandwichPrice?.text = "${item?.price},00 €"

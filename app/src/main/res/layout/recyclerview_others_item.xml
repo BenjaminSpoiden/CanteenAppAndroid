@@ -11,7 +11,7 @@
     android:id="@+id/recycler_view_croissant_item_id">
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/croissant_menu_bg"
+        android:id="@+id/others_menu_bg"
         android:layout_width="match_parent"
         android:layout_height="240dp"
         android:layout_marginTop="15dp"
@@ -41,6 +41,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
+                    android:id="@+id/others_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="2,99 €"
@@ -54,7 +55,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <ImageView
-                android:id="@+id/croissant_illustration"
+                android:id="@+id/others_illustration"
                 android:layout_width="match_parent"
                 android:layout_height="114dp"
                 android:src="@drawable/croissant_illustration"
@@ -63,17 +64,17 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/croissant_detail_btn"
+                android:id="@+id/others_detail_btn"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:src="@drawable/info_btn"
                 android:layout_margin="10dp"
-                app:layout_constraintBottom_toBottomOf="@+id/type_croissant"
+                app:layout_constraintBottom_toBottomOf="@+id/type_others"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/croissant_illustration" />
+                app:layout_constraintTop_toBottomOf="@+id/others_illustration" />
 
             <TextView
-                android:id="@+id/type_croissant"
+                android:id="@+id/type_others"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -85,13 +86,13 @@
                 android:ellipsize="end"
                 android:gravity="center|start"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/croissant_detail_btn"
-                app:layout_constraintStart_toStartOf="@id/croissant_illustration"
-                app:layout_constraintTop_toBottomOf="@id/croissant_illustration"
+                app:layout_constraintEnd_toStartOf="@+id/others_detail_btn"
+                app:layout_constraintStart_toStartOf="@id/others_illustration"
+                app:layout_constraintTop_toBottomOf="@id/others_illustration"
                 tools:ignore="RtlSymmetry" />
 
             <TextView
-                android:id="@+id/croissant_description"
+                android:id="@+id/others_description"
                 android:layout_width="0dp"
                 android:layout_height="75dp"
                 android:layout_marginBottom="10dp"
@@ -104,9 +105,9 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@id/croissant_illustration"
-                app:layout_constraintStart_toStartOf="@id/croissant_illustration"
-                app:layout_constraintTop_toBottomOf="@id/type_croissant" />
+                app:layout_constraintEnd_toEndOf="@id/others_illustration"
+                app:layout_constraintStart_toStartOf="@id/others_illustration"
+                app:layout_constraintTop_toBottomOf="@id/type_others" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </LinearLayout>
