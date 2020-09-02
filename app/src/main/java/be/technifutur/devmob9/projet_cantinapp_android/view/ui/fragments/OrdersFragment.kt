@@ -72,15 +72,15 @@ class OrdersFragment : BaseFragment() {
         OrdersModel(isHeader = true, headerName = "23/07"),
         OrdersModel(null, "Boulet Frite", 4, 0),
         OrdersModel(null, "Soupe d'oignon", 6, 8),
-        OrdersModel(null, "Viande de Cathy", 4, 99),
+        OrdersModel(null, "Viande de Boeuf", 4, 99),
         OrdersModel(isHeader = true, headerName = "24/07"),
         OrdersModel(null, "Boulet Frite", 4, 0),
         OrdersModel(null, "Soupe d'oignon", 6, 8),
-        OrdersModel(null, "Viande de Cathy", 4, 99),
+        OrdersModel(null, "Viande de Boeuf", 4, 99),
         OrdersModel(isHeader = true, headerName = "25/07"),
         OrdersModel(null, "Boulet Frite", 4, 0),
         OrdersModel(null, "Soupe d'oignon", 6, 8),
-        OrdersModel(null, "Viande de Cathy", 4, 99)
+        OrdersModel(null, "Viande de Boeuf", 4, 99)
     )
 
     override fun onAttach(context: Context) {
