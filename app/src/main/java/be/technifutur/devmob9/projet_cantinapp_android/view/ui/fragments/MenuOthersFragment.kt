@@ -1,7 +1,6 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,13 +9,19 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.OthersType
+import be.technifutur.devmob9.projet_cantinapp_android.model.data.PlaceholderModel
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.ID_CROISSANTS
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.ID_DRESSINGS
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.ID_DRINKS
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.ID_FRUITS
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.ID_YOGHURTS
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.MenuHeaderBinder
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.OthersItemBinder
+import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.PlaceholderBinder
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.CartBadgeViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.OthersViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.SharedDateViewModel
@@ -56,6 +61,12 @@ class MenuOthersFragment: BaseFragment(), KodeinAware {
     private val fruitsList = ListSection<OthersType.Fruits>()
     private val yoghurtsList = ListSection<OthersType.Yoghurts>()
 
+    private val croissantPlaceHolder = ItemSection<PlaceholderModel>()
+    private val dressingsPlaceHolder = ItemSection<PlaceholderModel>()
+    private val drinksPlaceholder = ItemSection<PlaceholderModel>()
+    private val fruitsPlaceholder = ItemSection<PlaceholderModel>()
+    private val yoghurtsPlaceholder = ItemSection<PlaceholderModel>()
+
 
     private var fragmentListener: FragmentListener? = null
 
@@ -77,14 +88,14 @@ class MenuOthersFragment: BaseFragment(), KodeinAware {
         initAdapter()
 
         OthersItemBinder.onItemCLick = { holder ->
-            holder.othersCard.isChecked = !holder.othersCard.isChecked
-            if(holder.othersCard.isChecked) {
-                holder.othersCard.setCardBackgroundColor(resources.getColor(R.color.tameGreen, resources.newTheme()))
-                cartBadgeViewModel.onAddingMenuItem(holder.item)
-            }else {
-                holder.othersCard.setCardBackgroundColor(Color.WHITE)
-                cartBadgeViewModel.onDeleteMenuItem(holder.item)
-            }
+//            holder.othersCard.isChecked = !holder.othersCard.isChecked
+//            if(holder.othersCard.isChecked) {
+//                holder.othersCard.setCardBackgroundColor(resources.getColor(R.color.tameGreen, resources.newTheme()))
+//                cartBadgeViewModel.onAddingMenuItem(holder.item)
+//            }else {
+//                holder.othersCard.setCardBackgroundColor(Color.WHITE)
+//                cartBadgeViewModel.onDeleteMenuItem(holder.item)
+//            }
         }
 
 
@@ -107,17 +118,22 @@ class MenuOthersFragment: BaseFragment(), KodeinAware {
             fruitsList.clear()
             yoghurtsSection.removeItem()
             yoghurtsList.clear()
+            croissantPlaceHolder.removeItem()
+            dressingsPlaceHolder.removeItem()
+            drinksPlaceholder.removeItem()
+            fruitsPlaceholder.removeItem()
+            yoghurtsPlaceholder.removeItem()
         }
         fetchingOthers()
     }
     private fun initAdapter() {
         othersAdapter = MultiViewAdapter()
-        othersAdapter.setSpanCount(4)
-        gridLayoutManager = GridLayoutManager(context, 4).apply {
-            this.spanCount = 4
+        othersAdapter.setSpanCount(2)
+        gridLayoutManager = GridLayoutManager(context, 2).apply {
+            this.spanCount = 2
             this.spanSizeLookup = othersAdapter.spanSizeLookup
         }
-        othersAdapter.registerItemBinders(OthersItemBinder(requireContext()), MenuHeaderBinder())
+        othersAdapter.registerItemBinders(OthersItemBinder(requireContext()), MenuHeaderBinder(), PlaceholderBinder())
         setSections()
     }
 
@@ -149,6 +165,33 @@ class MenuOthersFragment: BaseFragment(), KodeinAware {
                         yoghurtsSection.setItem("Yaourts")
                         yoghurtsList.add(it)
                         othersAdapter.notifyDataSetChanged()
+                    }
+                }
+            }
+        }
+
+        othersViewModel.checkingEmpty.observe(viewLifecycleOwner) {
+            it.forEach {
+                when(it) {
+                    ID_CROISSANTS -> {
+                        croissantSection.setItem("Croissants")
+                        croissantPlaceHolder.setItem(PlaceholderModel("Pas de croissants pour aujourd'hui"))
+                    }
+                    ID_DRESSINGS -> {
+                        dressingsSection.setItem("Sauces")
+                        dressingsPlaceHolder.setItem(PlaceholderModel("Pas de sauces pour aujourd'hui"))
+                    }
+                    ID_DRINKS -> {
+                        drinksSection.setItem("Boissons")
+                        drinksPlaceholder.setItem(PlaceholderModel("Pas de boissons pour aujourd'hui"))
+                    }
+                    ID_FRUITS -> {
+                        fruitsSection.setItem("Fruits")
+                        fruitsPlaceholder.setItem(PlaceholderModel("Pas de fruits pour aujourd'hui"))
+                    }
+                    ID_YOGHURTS -> {
+                        yoghurtsSection.setItem("Yaourts")
+                        yoghurtsPlaceholder.setItem(PlaceholderModel("Pas de yaourts pour aujourd'hui"))
                     }
                 }
             }
@@ -187,21 +230,41 @@ class MenuOthersFragment: BaseFragment(), KodeinAware {
         othersAdapter.addSection(croissantSection)
         croissantList.setSpanCount(2)
         othersAdapter.addSection(croissantList)
+
+        croissantPlaceHolder.setSpanCount(1)
+        othersAdapter.addSection(croissantPlaceHolder)
+
         dressingsSection.setSpanCount(1)
         othersAdapter.addSection(dressingsSection)
         dressingsList.setSpanCount(2)
         othersAdapter.addSection(dressingsList)
+
+        dressingsPlaceHolder.setSpanCount(1)
+        othersAdapter.addSection(dressingsPlaceHolder)
+
         drinksSection.setSpanCount(1)
         othersAdapter.addSection(drinksSection)
         drinksList.setSpanCount(2)
         othersAdapter.addSection(drinksList)
+
+        drinksPlaceholder.setSpanCount(1)
+        othersAdapter.addSection(drinksPlaceholder)
+
         fruitsSection.setSpanCount(1)
         othersAdapter.addSection(fruitsSection)
         fruitsList.setSpanCount(2)
         othersAdapter.addSection(fruitsList)
+
+        fruitsPlaceholder.setSpanCount(1)
+        othersAdapter.addSection(fruitsPlaceholder)
+
         yoghurtsSection.setSpanCount(1)
         othersAdapter.addSection(yoghurtsSection)
         yoghurtsList.setSpanCount(2)
         othersAdapter.addSection(yoghurtsList)
+
+        yoghurtsPlaceholder.setSpanCount(1)
+        othersAdapter.addSection(yoghurtsPlaceholder)
+
     }
 }

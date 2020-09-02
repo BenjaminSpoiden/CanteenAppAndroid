@@ -2,6 +2,7 @@ package be.technifutur.devmob9.projet_cantinapp_android.model.firebase
 
 import android.util.Log
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.FoodModel
+import be.technifutur.devmob9.projet_cantinapp_android.model.data.OthersModel
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.OthersType
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.FIREBASE_TAG
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.ID_CROISSANTS
@@ -17,7 +18,7 @@ import java.util.ArrayList
 class OthersManager{
     private val db = FirebaseFirestore.getInstance()
 
-    fun onFetchingOthersFromDate(date: String, onComplete: (List<OthersType?>) -> Unit) {
+    fun onFetchingOthersFromDate(date: String, onComplete: (List<OthersType?>) -> Unit, areOthersAvailable: (OthersModel?) -> Unit) {
         db.collection(ID_DAYS_MEALS)
             .document(date)
             .addSnapshotListener { documentSnapshot, e ->
@@ -27,34 +28,14 @@ class OthersManager{
                 }
                 documentSnapshot?.let { docData ->
                     val othersModel = docData.toObject<FoodModel>()
-//                    othersModel?.others?.croissants?.forEach { fetchingOthers<OthersType.Croissants>(ID_CROISSANTS, it, onComplete) }
-//                    othersModel?.others?.dressings?.forEach { fetchingOthers<OthersType.Dressings>(ID_DRESSINGS, it, onComplete) }
-//                    othersModel?.others?.drinks?.forEach { fetchingOthers<OthersType.Drinks>(ID_DRINKS, it, onComplete) }
-//                    othersModel?.others?.fruit?.forEach { fetchingOthers<OthersType.Fruits>(ID_FRUITS, it, onComplete) }
-//                    othersModel?.others?.yoghurts?.forEach { fetchingOthers<OthersType.Yoghurts>(ID_YOGHURTS, it, onComplete) }
-
                     othersModel?.others?.croissants?.forEach { FoodManager.fetchingFood<OthersType.Croissants>(db, ID_CROISSANTS, it, onComplete) }
                     othersModel?.others?.dressings?.forEach { FoodManager.fetchingFood<OthersType.Dressings>(db, ID_DRESSINGS, it, onComplete) }
                     othersModel?.others?.drinks?.forEach { FoodManager.fetchingFood<OthersType.Drinks>(db, ID_DRINKS, it, onComplete) }
                     othersModel?.others?.fruit?.forEach { FoodManager.fetchingFood<OthersType.Fruits>(db, ID_FRUITS, it, onComplete) }
                     othersModel?.others?.yoghurts?.forEach { FoodManager.fetchingFood<OthersType.Yoghurts>(db, ID_YOGHURTS, it, onComplete) }
+
+                    areOthersAvailable(othersModel?.others)
                 }
             }
     }
-
-//    private inline fun <reified M> fetchingOthers(otherID: String, otherType: String, crossinline onComplete: (List<M?>) -> Unit) {
-//        val othersData = ArrayList<M>()
-//        db.collection(otherID)
-//            .document(otherType)
-//            .addSnapshotListener { value, error ->
-//                error?.let {
-//                    return@addSnapshotListener
-//                }
-//                value?.let {
-//                    val otherTypeModel = it.toObject<M>()
-//                    if(otherTypeModel != null) othersData.add(otherTypeModel)
-//                }
-//                onComplete.invoke(othersData)
-//            }
-//    }
 }

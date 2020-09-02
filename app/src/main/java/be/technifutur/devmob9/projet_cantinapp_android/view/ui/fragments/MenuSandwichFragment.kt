@@ -13,12 +13,15 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
+import be.technifutur.devmob9.projet_cantinapp_android.model.data.PlaceholderModel
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.Sandwich
+import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.PlaceholderBinder
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.SandwichItemBinder
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.CartBadgeViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.SandwichViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.SharedDateViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.SandwichViewModelFactory
+import mva2.adapter.ItemSection
 import mva2.adapter.ListSection
 import mva2.adapter.MultiViewAdapter
 import org.kodein.di.KodeinAware
@@ -39,7 +42,9 @@ class MenuSandwichFragment: BaseFragment(), KodeinAware {
 
     private var sandwichRecyclerView: RecyclerView? = null
     private lateinit var sandwichAdapter: MultiViewAdapter
+    private lateinit var gridLayoutManager: GridLayoutManager
     private val sandwichList = ListSection<Sandwich>()
+    private val sandwichPlaceholder = ItemSection<PlaceholderModel>()
     private var fragmentListener: FragmentListener? = null
 
     private val sharedDateViewModel by activityViewModels<SharedDateViewModel>()
@@ -57,7 +62,7 @@ class MenuSandwichFragment: BaseFragment(), KodeinAware {
 
         sandwichRecyclerView?.apply {
             this.adapter = sandwichAdapter
-            this.layoutManager = GridLayoutManager(context, 2)
+            this.layoutManager = gridLayoutManager
         }
 
         sharedDateViewModel.sharedDishesFromDateClick.observe(viewLifecycleOwner) {
@@ -74,22 +79,38 @@ class MenuSandwichFragment: BaseFragment(), KodeinAware {
                 sandwichAdapter.notifyDataSetChanged()
             }
         }
+        sandwichViewModel.areSandwichEmpty.observe(viewLifecycleOwner) {
+            if(it){
+                sandwichPlaceholder.setItem(PlaceholderModel("Pas de sandwichs disponible pour aujourd'hui"))
+            }else {
+                sandwichPlaceholder.removeItem()
+            }
+        }
     }
 
     private fun initAdapter() {
         sandwichAdapter = MultiViewAdapter()
-        sandwichAdapter.registerItemBinders(SandwichItemBinder(requireContext()))
+        sandwichAdapter.setSpanCount(4)
+
+        gridLayoutManager = GridLayoutManager(context, 4).apply {
+            this.spanCount = 4
+            this.spanSizeLookup = sandwichAdapter.spanSizeLookup
+        }
+        sandwichAdapter.registerItemBinders(SandwichItemBinder(requireContext()), PlaceholderBinder())
+        sandwichList.setSpanCount(2)
         sandwichAdapter.addSection(sandwichList)
+        sandwichPlaceholder.setSpanCount(1)
+        sandwichAdapter.addSection(sandwichPlaceholder)
 
         SandwichItemBinder.onItemClick = {
-            it.sandwichCard.isChecked = !it.sandwichCard.isChecked
-            if(it.sandwichCard.isChecked) {
-                it.sandwichCard.setCardBackgroundColor(resources.getColor(R.color.tameGreen, resources.newTheme()))
-                cartBadgeViewModel.onAddingMenuItem(it.item)
-            }else {
-                it.sandwichCard.setCardBackgroundColor(Color.WHITE)
-                cartBadgeViewModel.onDeleteMenuItem(it.item)
-            }
+//            it.sandwichCard.isChecked = !it.sandwichCard.isChecked
+//            if(it.sandwichCard.isChecked) {
+//                it.sandwichCard.setCardBackgroundColor(resources.getColor(R.color.tameGreen, resources.newTheme()))
+//                cartBadgeViewModel.onAddingMenuItem(it.item)
+//            }else {
+//                it.sandwichCard.setCardBackgroundColor(Color.WHITE)
+//                cartBadgeViewModel.onDeleteMenuItem(it.item)
+//            }
         }
     }
 

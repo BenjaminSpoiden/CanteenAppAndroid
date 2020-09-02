@@ -10,7 +10,7 @@
 
     <View
         android:id="@+id/header_menu_cardview"
-        android:layout_width="120dp"
+        android:layout_width="140dp"
         android:layout_height="50dp"
         android:background="@drawable/corner_radius_header"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,8 +24,8 @@
         android:layout_margin="5dp"
         android:gravity="center"
         android:textColor="@android:color/white"
+        android:fontFamily="@font/righteous"
         android:textSize="20sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/header_menu_cardview"
         app:layout_constraintStart_toStartOf="parent"

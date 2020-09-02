@@ -48,13 +48,13 @@ class SandwichItemBinder(context: Context): ItemBinder<Sandwich, SandwichItemBin
 
     override fun initViewHolder(holder: SandwichViewHolder?) {
         super.initViewHolder(holder)
-        holder?.sandwichCard?.setOnClickListener {
-            onItemClick?.invoke(holder)
-        }
-
-        holder?.sandwichDetail?.setOnClickListener {
-            fragmentListener?.openMenuDetail(holder.item)
-        }
+//        holder?.sandwichCard?.setOnClickListener {
+//            onItemClick?.invoke(holder)
+//        }
+//
+//        holder?.sandwichDetail?.setOnClickListener {
+//            fragmentListener?.openMenuDetail(holder.item)
+//        }
     }
     inner class SandwichViewHolder(v: View): ItemViewHolder<Sandwich>(v) {
         val sandwichName: TextView = v.findViewById(R.id.type_sandwich)

@@ -28,10 +28,6 @@ class DishesManager {
                 }
                 documentSnapshot?.let { data ->
                     val foodModel = data.toObject<FoodModel>()
-//                    foodModel?.menu?.starters?.forEach { fetchingDishes<DishesType.Starters>(ID_STARTERS, it, onComplete) }
-//                    foodModel?.menu?.main_courses?.forEach { fetchingDishes<DishesType.MainCourses>(ID_MAIN_COURSES, it, onComplete) }
-//                    foodModel?.menu?.desserts?.forEach { fetchingDishes<DishesType.Desserts>(ID_DESSERTS, it, onComplete) }
-
                     foodModel?.menu?.starters?.forEach { FoodManager.fetchingFood<DishesType.Starters>(db, ID_STARTERS, it, onComplete) }
                     foodModel?.menu?.main_courses?.forEach { FoodManager.fetchingFood<DishesType.MainCourses>(db, ID_MAIN_COURSES, it, onComplete) }
                     foodModel?.menu?.desserts?.forEach { FoodManager.fetchingFood<DishesType.Desserts>(db, ID_DESSERTS, it, onComplete) }
@@ -40,22 +36,4 @@ class DishesManager {
                 }
             }
     }
-
-//    private inline fun <reified M> fetchingDishes(dishID: String, dishType: String, crossinline onComplete: ((List<M?>) -> Unit)) {
-//        val dishesData = ArrayList<M>()
-//        db.collection(dishID)
-//            .document(dishType)
-//            .addSnapshotListener { value, error ->
-//                error?.let {
-//                    Log.d(FIREBASE_TAG, "${error.cause}")
-//                    return@addSnapshotListener
-//                }
-//                value?.let {
-//                    val dishesTypeModel = it.toObject<M>()
-//                    Log.d(FIREBASE_TAG, "value: $dishesTypeModel")
-//                    if(dishesTypeModel != null) dishesData.add(dishesTypeModel)
-//                }
-//                onComplete.invoke(dishesData)
-//            }
-//    }
 }

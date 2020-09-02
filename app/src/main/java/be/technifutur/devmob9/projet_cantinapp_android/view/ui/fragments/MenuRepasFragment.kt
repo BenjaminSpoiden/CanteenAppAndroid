@@ -15,6 +15,9 @@ import be.technifutur.devmob9.projet_cantinapp_android.model.data.DishesType
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.PlaceholderModel
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.FIREBASE_TAG
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.ID_DESSERTS
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.ID_MAIN_COURSES
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.ID_STARTERS
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.MenuHeaderBinder
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.MenuItemBinder
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.PlaceholderBinder
@@ -86,14 +89,14 @@ class MenuRepasFragment: BaseFragment(), KodeinAware {
         menuAdapter.addSection(dessertsPlaceholder)
 
         MenuItemBinder.onItemClick = { holder ->
-            holder.menuCard.isChecked = !holder.menuCard.isChecked
-            if(holder.menuCard.isChecked) {
-                holder.menuCard.setCardBackgroundColor(resources.getColor(R.color.tameGreen, resources.newTheme()))
-                cartBadgeViewModel.onAddingMenuItem(holder.item)
-            }else {
-                holder.menuCard.setCardBackgroundColor(Color.WHITE)
-                cartBadgeViewModel.onDeleteMenuItem(holder.item)
-            }
+//            holder.menuCard.isChecked = !holder.menuCard.isChecked
+//            if(holder.menuCard.isChecked) {
+//                holder.menuCard.setCardBackgroundColor(resources.getColor(R.color.tameGreen, resources.newTheme()))
+//                cartBadgeViewModel.onAddingMenuItem(holder.item)
+//            }else {
+//                holder.menuCard.setCardBackgroundColor(Color.WHITE)
+//                cartBadgeViewModel.onDeleteMenuItem(holder.item)
+//            }
         }
 
         menuRecyclerView?.apply {
@@ -137,38 +140,25 @@ class MenuRepasFragment: BaseFragment(), KodeinAware {
             }
         }
         dishesViewModel.fetchedDishes.removeObservers(this)
-        dishesViewModel.isStarterEmpty.observe(viewLifecycleOwner) {
-            if(it){
-                startersSection.setItem("Entrées")
-                startersPlaceholder.setItem(PlaceholderModel("Pas d'entrées disponible aujourd'hui"))
-            }else {
-                startersSection.removeItem()
-                startersPlaceholder.removeItem()
+        dishesViewModel.checkingEmpty.observe(viewLifecycleOwner) {
+            it.forEach {
+                when(it) {
+                    ID_STARTERS -> {
+                        startersSection.setItem("Entrées")
+                        startersPlaceholder.setItem(PlaceholderModel("Pas d'entrées disponible aujourd'hui"))
+                    }
+                    ID_MAIN_COURSES -> {
+                        mainCoursesSection.setItem("Plats")
+                        mainsPlaceholder.setItem(PlaceholderModel("Pas de plats disponible aujourd'hui"))
+                    }
+                    ID_DESSERTS -> {
+                        dessertsSection.setItem("Desserts")
+                        dessertsPlaceholder.setItem(PlaceholderModel("Pas de desserts disponible aujourd'hui"))
+                    }
+                }
             }
         }
-        dishesViewModel.isStarterEmpty.removeObservers(this)
-
-        dishesViewModel.isMainCoursesEmpty.observe(viewLifecycleOwner) {
-            if(it){
-                mainCoursesSection.setItem("Plats")
-                mainsPlaceholder.setItem(PlaceholderModel("Pas de plats disponible aujourd'hui"))
-            }else {
-                mainCoursesSection.removeItem()
-                mainsPlaceholder.removeItem()
-            }
-        }
-        dishesViewModel.isMainCoursesEmpty.removeObservers(this)
-
-        dishesViewModel.isDessertEmpty.observe(viewLifecycleOwner) {
-            if(it){
-                dessertsSection.setItem("Desserts")
-                dessertsPlaceholder.setItem(PlaceholderModel("Pas de desserts disponible aujourd'hui"))
-            }else {
-                dessertsSection.removeItem()
-                dessertsPlaceholder.removeItem()
-            }
-        }
-        dishesViewModel.isDessertEmpty.removeObservers(this)
+        dishesViewModel.checkingEmpty.removeObservers(this)
 
     }
 
@@ -179,6 +169,9 @@ class MenuRepasFragment: BaseFragment(), KodeinAware {
         mainCoursesSection.removeItem()
         dessertsList.clear()
         dessertsSection.removeItem()
+        startersPlaceholder.removeItem()
+        mainsPlaceholder.removeItem()
+        dessertsPlaceholder.removeItem()
     }
 
     override fun onDestroyView() {

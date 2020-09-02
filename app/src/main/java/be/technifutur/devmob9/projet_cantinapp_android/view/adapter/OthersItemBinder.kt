@@ -36,13 +36,13 @@ class OthersItemBinder(context: Context): ItemBinder<OthersType, OthersItemBinde
 
     override fun initViewHolder(holder: OthersViewHolder?) {
         super.initViewHolder(holder)
-        holder?.othersDetail?.setOnClickListener {
-            fragmentListener?.openMenuDetail(holder.item)
-        }
-
-        holder?.othersCard?.setOnClickListener {
-            onItemCLick?.invoke(holder)
-        }
+//        holder?.othersDetail?.setOnClickListener {
+//            fragmentListener?.openMenuDetail(holder.item)
+//        }
+//
+//        holder?.othersCard?.setOnClickListener {
+//            onItemCLick?.invoke(holder)
+//        }
     }
 
     @SuppressLint("SetTextI18n")

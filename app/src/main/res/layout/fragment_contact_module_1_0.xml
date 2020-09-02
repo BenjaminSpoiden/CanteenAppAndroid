@@ -31,6 +31,8 @@
                 android:layout_marginTop="50dp"
                 android:text="Si vous constatez un problème quelconque ou si vous voulez tout simplement nous faire coucou, vous pouvez nous contacter à l'adresse suivante:"
                 android:textColor="@android:color/black"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view3" />

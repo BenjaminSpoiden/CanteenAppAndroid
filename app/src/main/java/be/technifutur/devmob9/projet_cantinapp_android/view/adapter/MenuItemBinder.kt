@@ -38,7 +38,6 @@ class MenuItemBinder(context: Context): ItemBinder<DishesType, MenuItemBinder.Me
     @SuppressLint("SetTextI18n")
     override fun bindViewHolder(holder: MenuItemViewHolder?, item: DishesType) {
         holder?.menuCard?.setCheckedIconResource(R.drawable.ic_check)
-
         when(item) {
             is DishesType.Starters -> {
                 holder?.menuName?.text = item.name
@@ -82,14 +81,13 @@ class MenuItemBinder(context: Context): ItemBinder<DishesType, MenuItemBinder.Me
 
     override fun initViewHolder(holder: MenuItemViewHolder?) {
         super.initViewHolder(holder)
-        holder?.menuCard?.setOnClickListener {
-            onItemClick?.invoke(holder)
-        }
-
-
-        holder?.detailButton?.setOnClickListener {
-            fragmentListener?.openMenuDetail(holder.item)
-        }
+//        holder?.menuCard?.setOnClickListener {
+//            onItemClick?.invoke(holder)
+//        }
+//
+//        holder?.detailButton?.setOnClickListener {
+//            fragmentListener?.openMenuDetail(holder.item)
+//        }
     }
 
     inner class MenuItemViewHolder(v: View): ItemViewHolder<DishesType>(v){

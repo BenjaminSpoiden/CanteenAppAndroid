@@ -11,9 +11,12 @@ import kotlin.math.log
 class SandwichViewModel(private val sandwichManager: SandwichManager): ViewModel() {
 
     var fetchedSandwiches = MediatorLiveData<List<Sandwich?>>()
+    var areSandwichEmpty = MediatorLiveData<Boolean>()
 
-    fun fetchingSandwiches(date: String) = sandwichManager.onFetchingSandwichFromDate(date) {
+    fun fetchingSandwiches(date: String) = sandwichManager.onFetchingSandwichFromDate(date, {
         fetchedSandwiches.value = it
-        fetchedSandwiches.removeSource(fetchedSandwiches)
-    }
+    }, {
+        Log.d(FIREBASE_TAG, "$it")
+        areSandwichEmpty.value = it.isNullOrEmpty()
+    })
 }

@@ -2,38 +2,54 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/activity_main_drawer_profile"
-            android:icon="@drawable/ic_account_circle_black_24dp"
-            android:title="@string/profil" />
-    </group>
+<!--    <group android:checkableBehavior="single">-->
+<!--        <item-->
+<!--            android:id="@+id/activity_main_drawer_profile"-->
+<!--            android:icon="@drawable/ic_account_circle_black_24dp"-->
+<!--            android:title="@string/profil" />-->
+<!--    </group>-->
 
-    <item android:title="Paramètres">
-        <menu>
-            <group android:checkableBehavior="single">
-                <item
-                    android:id="@+id/activity_main_drawer_gdpr"
-                    android:icon="@drawable/ic_gdpr"
-                    android:title="@string/gdpr"/>
-                <item
-                    android:id="@+id/activity_main_drawer_contact"
-                    android:icon="@drawable/ic_email"
-                    android:title="@string/contact"/>
-                <item
-                    android:id="@+id/activity_main_drawer_allergies"
-                    android:icon="@drawable/ic_gluten_free"
-                    android:title="@string/info_allergenes"/>
-                <item
-                    android:id="@+id/activity_main_drawer_tos"
-                    android:icon="@drawable/ic_terms_of_services"
-                    android:title="@string/tos"/>
+    <item
+        android:id="@+id/activity_main_drawer_gdpr"
+        android:icon="@drawable/ic_gdpr"
+        android:title="@string/gdpr"/>
+    <item
+        android:id="@+id/activity_main_drawer_contact"
+        android:icon="@drawable/ic_email"
+        android:title="@string/contact"/>
+    <item
+        android:id="@+id/activity_main_drawer_allergies"
+        android:icon="@drawable/ic_gluten_free"
+        android:title="@string/info_allergenes"/>
+    <item
+        android:id="@+id/activity_main_drawer_tos"
+        android:icon="@drawable/ic_terms_of_services"
+        android:title="@string/tos"/>
+
+<!--    <item android:title="Paramètres">-->
+<!--        <menu>-->
+<!--            <group android:checkableBehavior="single">-->
 <!--                <item-->
-<!--                    android:id="@+id/activity_main_drawer_tutorial"-->
-<!--                    android:icon="@drawable/ic_info_outline_white_24dp"-->
-<!--                    android:title="Tutoriel d'utilisation"/>-->
-            </group>
-        </menu>
-    </item>
-
+<!--                    android:id="@+id/activity_main_drawer_gdpr"-->
+<!--                    android:icon="@drawable/ic_gdpr"-->
+<!--                    android:title="@string/gdpr"/>-->
+<!--                <item-->
+<!--                    android:id="@+id/activity_main_drawer_contact"-->
+<!--                    android:icon="@drawable/ic_email"-->
+<!--                    android:title="@string/contact"/>-->
+<!--                <item-->
+<!--                    android:id="@+id/activity_main_drawer_allergies"-->
+<!--                    android:icon="@drawable/ic_gluten_free"-->
+<!--                    android:title="@string/info_allergenes"/>-->
+<!--                <item-->
+<!--                    android:id="@+id/activity_main_drawer_tos"-->
+<!--                    android:icon="@drawable/ic_terms_of_services"-->
+<!--                    android:title="@string/tos"/>-->
+<!--&lt;!&ndash;                <item&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:id="@+id/activity_main_drawer_tutorial"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:icon="@drawable/ic_info_outline_white_24dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:title="Tutoriel d'utilisation"/>&ndash;&gt;-->
+<!--            </group>-->
+<!--        </menu>-->
+<!--    </item>-->
 </menu>
