@@ -22,9 +22,6 @@ class PaymentHistory : BaseFragment() {
         fun getInstance() = PaymentHistory()
     }
 
-    override val title: String
-        get() = "Historique de Payment"
-
     private lateinit var recyclerView: RecyclerView
     private val itemAdapter = ItemAdapter<PaymentHistoriqueItem>()
     private val fastAdapter = FastAdapter.with(itemAdapter)

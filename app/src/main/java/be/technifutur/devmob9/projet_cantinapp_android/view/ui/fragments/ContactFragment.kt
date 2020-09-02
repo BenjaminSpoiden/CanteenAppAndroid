@@ -30,8 +30,6 @@ class ContactFragment: BaseFragment(), KodeinAware {
         fun getInstance() = ContactFragment()
     }
 
-    override val title: String
-        get() = "Contact"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = DataBindingUtil.inflate<FragmentContactBinding>(inflater, R.layout.fragment_contact, container, false)

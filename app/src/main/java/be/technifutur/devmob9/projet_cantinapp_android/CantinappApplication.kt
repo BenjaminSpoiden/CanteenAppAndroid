@@ -5,7 +5,6 @@ import android.util.Log
 import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.*
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.FIREBASE_TAG
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.*
-import com.google.firebase.iid.FirebaseInstanceId
 import com.jakewharton.threetenabp.AndroidThreeTen
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -50,6 +49,5 @@ class CantinappApplication: Application(), KodeinAware {
     override fun onCreate() {
         super.onCreate()
         AndroidThreeTen.init(this)
-        FirebaseInstanceId.getInstance().instanceId
     }
 }

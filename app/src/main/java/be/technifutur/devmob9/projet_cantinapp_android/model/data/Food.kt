@@ -1,8 +1,22 @@
 package be.technifutur.devmob9.projet_cantinapp_android.model.data
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+import kotlin.Int
+
 /**
  * Superclass that will be used for the food related models, allowing us to aggregate all the food related items in the same list
  */
-open class Food {
 
-}
+@Parcelize
+open class Food(
+    open val allergens: List<String>? = null,
+    open val name: String? = null,
+    open val description: String? = null,
+    open val price: Int? = null,
+    open val energy: Int? = null,
+    open val sugar: Int? = null,
+    open val lipids: Int? = null,
+    open val proteins: Int? = null,
+    open val picture_path: String? = null
+): Parcelable

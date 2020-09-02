@@ -7,23 +7,18 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.R
-import be.technifutur.devmob9.projet_cantinapp_android.model.data.AllergiesModel
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.listOfAllergies
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.AllergiesDetailItem
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.AllergiesDetailItemLeftLayout
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.AllergiesDetailItemRightLayout
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
-import kotlinx.android.synthetic.main.custom_snackbar.*
 
 class AllergiesInfoFragment : BaseFragment() {
 
     companion object {
         fun getInstance() = AllergiesInfoFragment()
     }
-
-    override val title: String
-        get() = "Allergies"
 
     private lateinit var allergiesRecyclerView: RecyclerView
     private val itemAdapter = ItemAdapter<AllergiesDetailItem>()
@@ -47,6 +42,8 @@ class AllergiesInfoFragment : BaseFragment() {
             this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
         setupMockAllergies()
+
+//        allergiesRecyclerView.layoutManager?.scrollToPosition(6)
     }
 
 
@@ -58,9 +55,6 @@ class AllergiesInfoFragment : BaseFragment() {
                 itemAdapter.add(AllergiesDetailItemRightLayout(it))
             }
         }
-
-
-
         fastAdapter.notifyAdapterDataSetChanged()
     }
 

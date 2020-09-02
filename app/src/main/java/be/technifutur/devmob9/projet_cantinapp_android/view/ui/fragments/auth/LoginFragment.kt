@@ -40,12 +40,12 @@ class LoginFragment: Fragment(), AuthListener, KodeinAware {
         //Allow to check if the user is logged in, if so we directly load the MainMenuFragment
         viewModel.userLoggedIn.observe(viewLifecycleOwner, Observer {
             if(it){
-                fragmentTransaction(HomeFragment.getInstance(), R.id.fragment_container)
+                fragmentTransaction(HomeFragment.getInstance(), R.id.main_fragment_container)
             }
         })
         val registerButton: Button = view.findViewById(R.id.register_button)
         registerButton.setOnClickListener {
-            fragmentTransaction(SignupFragment(), R.id.fragment_container)
+            fragmentTransaction(SignupFragment(), R.id.main_fragment_container)
         }
         return view
     }

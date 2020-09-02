@@ -2,35 +2,43 @@ package be.technifutur.devmob9.projet_cantinapp_android.view.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.drawable.Drawable
+import android.text.method.ScrollingMovementMethod
+import android.util.Log
+import android.util.SparseBooleanArray
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.GlideApp
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.DishesType
 import be.technifutur.devmob9.projet_cantinapp_android.model.firebase.PicturesManager
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.FIREBASE_TAG
 import com.google.android.material.card.MaterialCardView
 import mva2.adapter.ItemBinder
 import mva2.adapter.ItemViewHolder
 
-class MenuItemBinder(context: Context, private val onItemClick: (MenuItemViewHolder) -> Unit): ItemBinder<DishesType, MenuItemBinder.MenuItemViewHolder>(){
+class MenuItemBinder(context: Context): ItemBinder<DishesType, MenuItemBinder.MenuItemViewHolder>(){
+
+    companion object {
+        var onItemClick: ((MenuItemViewHolder) -> Unit)? = null
+    }
 
     private val fragmentListener = context as FragmentListener?
 
     override fun createViewHolder(parent: ViewGroup?): MenuItemViewHolder {
-        return MenuItemViewHolder(inflate(parent!!, R.layout.recyclerview_menu_item))
+        val view = LayoutInflater.from(parent?.context).inflate(R.layout.recyclerview_menu_item, parent, false)
+        return MenuItemViewHolder(view)
     }
 
     @SuppressLint("SetTextI18n")
     override fun bindViewHolder(holder: MenuItemViewHolder?, item: DishesType) {
+        holder?.menuCard?.setCheckedIconResource(R.drawable.ic_check)
+
         when(item) {
             is DishesType.Starters -> {
                 holder?.menuName?.text = item.name
@@ -75,10 +83,12 @@ class MenuItemBinder(context: Context, private val onItemClick: (MenuItemViewHol
     override fun initViewHolder(holder: MenuItemViewHolder?) {
         super.initViewHolder(holder)
         holder?.menuCard?.setOnClickListener {
-            onItemClick(holder)
+            onItemClick?.invoke(holder)
         }
+
+
         holder?.detailButton?.setOnClickListener {
-            fragmentListener?.openDetailFragment()
+            fragmentListener?.openMenuDetail(holder.item)
         }
     }
 

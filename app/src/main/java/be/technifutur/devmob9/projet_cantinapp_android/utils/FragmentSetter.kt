@@ -5,6 +5,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import be.technifutur.devmob9.projet_cantinapp_android.R
+import be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments.MenuOthersFragment
+import be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments.MenuRepasFragment
+import be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments.MenuSandwichFragment
 
 /**
  * Permet de rajouter des functions utilitaire à la classe [AppCompatActivity]

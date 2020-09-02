@@ -29,7 +29,7 @@ open class AllergiesDetailItem(val allergiesModel: AllergiesModel): AbstractItem
         private val allergiesDescription: TextView = v.findViewById(R.id.allergiesDescription)
 
         override fun bindView(item: AllergiesDetailItem, payloads: List<Any>) {
-            allergiesIllustration.setImageResource(item.allergiesModel.allergyIllustration)
+            item.allergiesModel.allergyIllustration?.let { allergiesIllustration.setImageResource(it) }
             allergiesName.setText(item.allergiesModel.allergyName)
             allergiesDescription.setText(item.allergiesModel.allergyDescription)
             // add allergene title & text here

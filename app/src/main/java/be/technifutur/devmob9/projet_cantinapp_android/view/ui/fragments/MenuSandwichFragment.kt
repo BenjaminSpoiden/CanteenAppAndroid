@@ -30,8 +30,6 @@ class MenuSandwichFragment: BaseFragment(), KodeinAware {
     companion object {
         fun getInstance() = MenuSandwichFragment()
     }
-    override val title: String
-        get() = "Sandwich"
 
     override val kodein by kodein()
     private val sandwichViewModelFactory by instance<SandwichViewModelFactory>()
@@ -62,7 +60,7 @@ class MenuSandwichFragment: BaseFragment(), KodeinAware {
             this.layoutManager = GridLayoutManager(context, 2)
         }
 
-        sharedDateViewModel.sharedDate.observe(viewLifecycleOwner) {
+        sharedDateViewModel.sharedDishesFromDateClick.observe(viewLifecycleOwner) {
             onRefreshList()
             sandwichViewModel.fetchingSandwiches(it)
         }
@@ -80,7 +78,10 @@ class MenuSandwichFragment: BaseFragment(), KodeinAware {
 
     private fun initAdapter() {
         sandwichAdapter = MultiViewAdapter()
-        sandwichAdapter.registerItemBinders(SandwichItemBinder {
+        sandwichAdapter.registerItemBinders(SandwichItemBinder(requireContext()))
+        sandwichAdapter.addSection(sandwichList)
+
+        SandwichItemBinder.onItemClick = {
             it.sandwichCard.isChecked = !it.sandwichCard.isChecked
             if(it.sandwichCard.isChecked) {
                 it.sandwichCard.setCardBackgroundColor(resources.getColor(R.color.tameGreen, resources.newTheme()))
@@ -89,8 +90,7 @@ class MenuSandwichFragment: BaseFragment(), KodeinAware {
                 it.sandwichCard.setCardBackgroundColor(Color.WHITE)
                 cartBadgeViewModel.onDeleteMenuItem(it.item)
             }
-        })
-        sandwichAdapter.addSection(sandwichList)
+        }
     }
 
     private fun onRefreshList() {
@@ -115,7 +115,13 @@ class MenuSandwichFragment: BaseFragment(), KodeinAware {
             this.adapter = null
             this.layoutManager = null
         }
+        sandwichAdapter.removeAllSections()
         sandwichRecyclerView = null
         super.onDestroyView()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        callback.fragmentTitle("Sandwich")
     }
 }

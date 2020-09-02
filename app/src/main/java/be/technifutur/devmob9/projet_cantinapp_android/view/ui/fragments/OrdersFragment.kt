@@ -18,8 +18,6 @@ class OrdersFragment : BaseFragment() {
     companion object {
         fun getInstance() = OrdersFragment()
     }
-    override val title: String
-        get() = "Panier"
 
     private lateinit var orderRecyclerView: RecyclerView
     private lateinit var ordersItemAdapter: OrdersItemAdapter

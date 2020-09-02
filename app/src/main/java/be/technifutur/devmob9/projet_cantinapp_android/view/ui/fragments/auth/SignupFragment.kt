@@ -38,7 +38,7 @@ class SignupFragment: Fragment(), AuthListener, KodeinAware {
 
         val backToLoginButton: Button = view.findViewById(R.id.backToLogin_button)
         backToLoginButton.setOnClickListener {
-            fragmentTransaction(LoginFragment(), R.id.fragment_container)
+            fragmentTransaction(LoginFragment(), R.id.main_fragment_container)
         }
         return view
     }

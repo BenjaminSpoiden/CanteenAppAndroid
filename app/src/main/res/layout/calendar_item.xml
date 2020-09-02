@@ -16,6 +16,7 @@
         android:layout_height="90dp"
         android:clickable="true"
         android:focusable="true"
+        android:checkable="true"
         app:cardBackgroundColor="@android:color/white"
         android:background="@drawable/shadow_bg"
         app:cardCornerRadius="5dp"

@@ -17,6 +17,10 @@ class MenuHeaderBinder: ItemBinder<String, MenuHeaderBinder.MenuHeaderViewHolder
         holder?.headerText?.text = item
     }
 
+    override fun getSpanSize(maxSpanCount: Int): Int {
+        return 1
+    }
+
     override fun canBindData(item: Any?): Boolean {
         return item is String
     }

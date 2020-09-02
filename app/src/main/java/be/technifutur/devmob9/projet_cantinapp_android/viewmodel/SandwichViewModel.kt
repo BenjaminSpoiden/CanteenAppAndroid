@@ -10,7 +10,7 @@ import kotlin.math.log
 
 class SandwichViewModel(private val sandwichManager: SandwichManager): ViewModel() {
 
-    var fetchedSandwiches = MediatorLiveData<List<Sandwich>>()
+    var fetchedSandwiches = MediatorLiveData<List<Sandwich?>>()
 
     fun fetchingSandwiches(date: String) = sandwichManager.onFetchingSandwichFromDate(date) {
         fetchedSandwiches.value = it

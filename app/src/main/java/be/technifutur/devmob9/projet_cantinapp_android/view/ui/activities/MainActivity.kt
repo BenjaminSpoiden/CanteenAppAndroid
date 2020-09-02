@@ -3,7 +3,6 @@ package be.technifutur.devmob9.projet_cantinapp_android.view.ui.activities
 import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -14,24 +13,23 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.*
+import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.observe
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
-import be.technifutur.devmob9.projet_cantinapp_android.model.data.MenuItemModel
+import be.technifutur.devmob9.projet_cantinapp_android.model.data.Food
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_1_PAYMENTS
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_2_ALLERGIES
 import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.POSITION_3_SETTINGS
 import be.technifutur.devmob9.projet_cantinapp_android.utils.addFragment
 import be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments.*
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.CartBadgeViewModel
-import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.MainFragmentViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.root_layout
-import kotlinx.android.synthetic.main.fragment_main.*
+import kotlinx.android.synthetic.main.activity_main.drawer_layout
+import kotlinx.android.synthetic.main.fragment_home.*
 
-
-class MainActivity: AppCompatActivity(), FragmentListener{
+class MainActivity: AppCompatActivity(), FragmentListener, BaseFragment.OnSettingFragmentTitle {
 
     companion object {
         fun getInstance() = MainActivity()
@@ -40,7 +38,6 @@ class MainActivity: AppCompatActivity(), FragmentListener{
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var drawerLayout: DrawerLayout
 
-    private lateinit var mainFragmentViewModel: MainFragmentViewModel
 
     private val cartBadgeViewModel by lazy {
         ViewModelProviders.of(this).get(CartBadgeViewModel::class.java)
@@ -50,10 +47,11 @@ class MainActivity: AppCompatActivity(), FragmentListener{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        addFragment(MainFragment.getInstance(), R.id.fragment_container)
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        drawerLayout = findViewById(R.id.root_layout)
+        addFragment(HomeFragment.getInstance(), R.id.main_fragment_container)
 
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+
+        drawerLayout = findViewById(R.id.drawer_layout)
         toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         toggle.isDrawerIndicatorEnabled = true
         toggle.syncState()
@@ -64,18 +62,14 @@ class MainActivity: AppCompatActivity(), FragmentListener{
 
         setupBurgerMenuItems()
 
-        mainFragmentViewModel = ViewModelProviders.of(this).get(MainFragmentViewModel::class.java)
-        mainFragmentViewModel.title.observe(this, Observer {
-            supportActionBar?.title = it
-        })
     }
 
-    override fun onBackPressed() {
-        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
-            drawerLayout.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(toggle.onOptionsItemSelected(item)){
+            return true
         }
+
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -88,6 +82,9 @@ class MainActivity: AppCompatActivity(), FragmentListener{
         val textCart: TextView? = actionView?.findViewById(R.id.cart_badge)
 
         textCart?.text = 0.toString()
+        actionView?.let { _ ->
+            onActionViewClick(actionView, 0)
+        }
         cartBadgeViewModel.foodItems.observe(this) {
             textCart?.text = it.size.toString()
 
@@ -108,45 +105,29 @@ class MainActivity: AppCompatActivity(), FragmentListener{
                 replaceFragmentWithBackStack(OrdersFragment.getInstance())
             }else {
                 Snackbar
-                    .make(this.root_layout, "You don't have anything in your cart", Snackbar.LENGTH_LONG)
+                    .make(this.drawer_layout, "You don't have anything in your cart", Snackbar.LENGTH_SHORT)
                     .setAnchorView(bottomBar)
-                    .setAction("Close") {
-                        //...
-                    }.show()
+                    .setAction("CLOSE") {
+
+                    }
+                    .show()
             }
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(toggle.onOptionsItemSelected(item)){
-            return true
-        }
-
-        return super.onOptionsItemSelected(item)
+    override fun onAttachFragment(fragment: Fragment) {
+        super.onAttachFragment(fragment)
+        if(fragment is BaseFragment) fragment.setTitleListener(this)
     }
 
-    override fun onFragmentSelectedFromMenu(position: Int) {
-        when(position) {
-            0 ->  {
-                replaceFragmentMenu(MenuRepasFragment.getInstance())
-            }
-            1 -> {
-                replaceFragmentMenu(MenuSandwichFragment.getInstance())
-            }
-            2 -> {
-                replaceFragmentMenu(MenuOthersFragment.getInstance())
-            }
-        }
+    override fun fragmentTitle(title: String) {
+        supportActionBar?.title = title
     }
 
-    override fun openDetailFragment() {
-        replaceFragmentWithBackStack(DetailsFragment.getInstance())
+    override fun openMenuDetail(foodItem: Food) {
+        replaceFragmentWithBackStack(DetailsFragment.getInstance(foodItem))
     }
 
-    override fun openDetailFragmentWithDetails(itemClicked: MenuItemModel) {
-        Log.d("MenuData", "Clicked on card: $itemClicked")
-        replaceFragmentWithBackStack(DetailsFragment.getInstance())
-    }
 
     override fun openCheckoutFragment() {
         replaceFragmentWithBackStack(CheckoutFragment.getInstance())
@@ -160,19 +141,15 @@ class MainActivity: AppCompatActivity(), FragmentListener{
         }
     }
 
-    private fun replaceFragmentMenu(fragment: Fragment, layout: Int = R.id.fragment_container_mainMenu) {
-        supportFragmentManager
-            .beginTransaction()
-            .addToBackStack("menus_fragment")
-            .replace(layout, fragment)
-            .commit()
+    override fun openAllergiesFragment(fragment: Fragment) {
+        replaceFragmentWithBackStack(fragment)
     }
 
     private fun replaceFragmentWithBackStack(fragment: Fragment) {
         supportFragmentManager
             .beginTransaction()
             .addToBackStack(null)
-            .add(R.id.fragment_container, fragment)
+            .add(R.id.main_fragment_container, fragment)
             .commit()
     }
 
@@ -194,18 +171,14 @@ class MainActivity: AppCompatActivity(), FragmentListener{
                 R.id.activity_main_drawer_tos -> {
                     drawerFragmentImpl(TermsOfServicesFragment.getInstance())
                 }
-                R.id.activity_main_drawer_tutorial -> {
-                    // Onboarding
-                }
             }
             true
         }
     }
 
     private fun drawerFragmentImpl(fragment: Fragment){
-        supportFragmentManager.popBackStack()
+//        supportFragmentManager.popBackStack()
         replaceFragmentWithBackStack(fragment)
-        root_layout.closeDrawer(GravityCompat.START)
+        drawer_layout.closeDrawer(GravityCompat.START)
     }
-
 }

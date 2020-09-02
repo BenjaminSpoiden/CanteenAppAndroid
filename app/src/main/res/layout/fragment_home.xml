@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/root_layout"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundAppColor"
@@ -57,6 +56,19 @@
         android:background="@color/spacerColor"
         app:layout_constraintTop_toBottomOf="@id/calendar_recyclerview" />
 
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/textShimmer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/dayOfWeek"
+        app:layout_constraintTop_toBottomOf="@+id/spacer">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include layout="@layout/loading_placeholder_text" />
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
     <TextView
         android:id="@+id/dayOfWeek"
         android:layout_width="wrap_content"
@@ -70,12 +82,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spacer" />
 
-    <FrameLayout
-        android:id="@+id/fragment_container_mainMenu"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/fragment_bottom_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layoutAnimation="@anim/menu_recyclerview_animation"
+        app:layout_constraintBottom_toTopOf="@id/bottomBar"
+        app:layout_constraintTop_toBottomOf="@id/dayOfWeek" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:backgroundColor="@android:color/white"
+        app:elevation="16dp"
+        app:itemIconTint="@drawable/bottom_nav_tint"
+        app:itemTextColor="@drawable/bottom_nav_tint"
+        app:labelVisibilityMode="selected"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dayOfWeek" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_menu"
+        app:textColor="@android:color/black"
+        app:textSize="12sp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
 

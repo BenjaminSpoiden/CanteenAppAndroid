@@ -5,10 +5,10 @@ import androidx.lifecycle.ViewModel
 
 class SharedDateViewModel: ViewModel() {
 
-    val sharedDate = MediatorLiveData<String>()
+    val sharedDishesFromDateClick = MediatorLiveData<String>()
 
-    fun onSharedDateClick(onDateClick: String) {
-        sharedDate.value = onDateClick
-        sharedDate.removeSource(sharedDate)
+    fun onFetchingDishesFromDateClick(onDateClick: String) {
+        sharedDishesFromDateClick.value = onDateClick
+        sharedDishesFromDateClick.removeSource(sharedDishesFromDateClick)
     }
 }
