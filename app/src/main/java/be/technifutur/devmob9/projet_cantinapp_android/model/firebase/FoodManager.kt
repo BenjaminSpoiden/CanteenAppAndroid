@@ -20,7 +20,10 @@ class FoodManager private constructor(){
                     }
                     value?.let {
                         val dishesTypeModel = it.toObject<M>()
-                        if(dishesTypeModel != null) dishesData.add(dishesTypeModel)
+                        if(dishesTypeModel != null) {
+                            dishesData.clear()
+                            dishesData.add(dishesTypeModel)
+                        }
                     }
                     onComplete.invoke(dishesData)
                 }
