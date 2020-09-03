@@ -29,7 +29,6 @@ class SplashActivity: AppCompatActivity() {
         val sharedPreferences: SharedPreferences = getSharedPreferences("prefs", Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         isFirstTime = sharedPreferences.getBoolean("FirstTime", true) //Set isFirstTime to true
-        isFirstTime = false
 
         if(isFirstTime){
             //3 seconds splashScreen

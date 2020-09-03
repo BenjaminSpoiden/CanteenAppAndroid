@@ -17,9 +17,7 @@ import kotlinx.android.synthetic.main.activity_onboarding.*
 
 
 class OnboardingActivity : AppCompatActivity() {
-
     private val items: ArrayList<OnboardingData> = ArrayList()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,8 +31,6 @@ class OnboardingActivity : AppCompatActivity() {
         recyclerViewOnboarding.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         recyclerViewOnboarding.adapter = onboardingAdapter
         val arIndicatorView: ARIndicatorView = findViewById(R.id.indicator_recyclerview)
-
-
 
         fillingOnboardingList("TIME", "loremipsumlenrjenjjejejnfjnfjofneizonfezfnezebdfebdeuirbebzeiebizuerieuziuerbuzeiziuehr", R.drawable.time_logo)
         fillingOnboardingList("INFO", "loremipsumlenrjenjjejejnfjnfjonfezfnezebdfebdeuirbebzeiebizuerieuziuerbuzeiziuehr", R.drawable.info_logo)
