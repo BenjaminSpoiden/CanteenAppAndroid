@@ -35,6 +35,7 @@ class AllergiesInfoFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        callback.fragmentTitle("Info Allergènes")
         allergiesRecyclerView = view.findViewById(R.id.allergie_info_recyclerview)
 
         allergiesRecyclerView.apply {
@@ -64,5 +65,6 @@ class AllergiesInfoFragment : BaseFragment() {
             this.adapter = null
             this.layoutManager = null
         }
+        observeMenuPosition()
     }
 }

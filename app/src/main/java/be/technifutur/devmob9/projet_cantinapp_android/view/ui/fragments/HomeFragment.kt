@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +22,7 @@ import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.CalendarAdap
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.MainPagerAdapter
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.SharedDateViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.HomeViewModel
+import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.MenuPositionViewModel
 import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.factory.CalendarViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -50,8 +52,10 @@ class HomeFragment: BaseFragment(), KodeinAware, BottomNavigationView.OnNavigati
     private val calendarFactory: CalendarViewModelFactory by instance()
     private val homeViewModel: HomeViewModel by lazy {
         ViewModelProvider(this, calendarFactory).get(HomeViewModel::class.java)
-
     }
+
+    private val menuPositionViewModel by activityViewModels<MenuPositionViewModel>()
+
     private lateinit var calendarRecyclerView: RecyclerView
 //    private lateinit var multiViewAdapter: MultiViewAdapter
 //    private lateinit var listSection: ListSection<CalendarModel>
@@ -119,6 +123,7 @@ class HomeFragment: BaseFragment(), KodeinAware, BottomNavigationView.OnNavigati
         homeViewModel.fetchedDates.observe(viewLifecycleOwner) { calendarModelList ->
             shimmerFrameLayout.stopShimmer()
             shimmerFrameLayout.visibility = View.GONE
+            calendarAdapter.clear()
             calendarAdapter.addAll(calendarModelList)
             calendarModelList.forEach {
                 if(it.date.toString() == currentDate()){
@@ -161,6 +166,7 @@ class HomeFragment: BaseFragment(), KodeinAware, BottomNavigationView.OnNavigati
     private fun toScreen(bottomNavigationScreens: BottomNavigationScreens) {
         val bottomScreenPosition = mainPagerAdapter.getItems().indexOf(bottomNavigationScreens)
         if(bottomScreenPosition != viewPager2.currentItem) {
+            menuPositionViewModel.getMenuPosition(bottomScreenPosition)
             viewPager2.currentItem = bottomScreenPosition
         }
     }

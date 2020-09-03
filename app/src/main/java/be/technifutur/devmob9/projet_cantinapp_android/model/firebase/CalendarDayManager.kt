@@ -29,7 +29,9 @@ class CalendarDayManager {
                 query?.let {
                     it.documents.forEach { document ->
                         formattingRawDataToDate(document.id).forEach { calendar ->
-                            daysDataList.add(CalendarModel(calendar.dayName, calendar.dayNumber, calendar.date, document.getBoolean(WORKDAY)))
+                            if(document.getBoolean(WORKDAY) != null) {
+                                daysDataList.add(CalendarModel(calendar.dayName, calendar.dayNumber, calendar.date, document.getBoolean(WORKDAY)))
+                            }
                         }
                     }
                 }

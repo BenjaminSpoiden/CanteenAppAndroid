@@ -41,7 +41,7 @@ class ContactFragment: BaseFragment(), KodeinAware {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        callback.fragmentTitle("Contact")
         val listOfString = listOf(
             "Item 1",
             "Item 2",

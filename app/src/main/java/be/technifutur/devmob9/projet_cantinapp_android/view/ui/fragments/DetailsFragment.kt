@@ -136,5 +136,6 @@ class DetailsFragment: BaseFragment() {
             this.adapter = null
             this.layoutManager = null
         }
+        observeMenuPosition()
     }
 }

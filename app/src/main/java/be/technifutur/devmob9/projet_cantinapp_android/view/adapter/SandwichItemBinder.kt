@@ -52,9 +52,9 @@ class SandwichItemBinder(context: Context): ItemBinder<Sandwich, SandwichItemBin
 //            onItemClick?.invoke(holder)
 //        }
 //
-//        holder?.sandwichDetail?.setOnClickListener {
-//            fragmentListener?.openMenuDetail(holder.item)
-//        }
+        holder?.sandwichDetail?.setOnClickListener {
+            fragmentListener?.openMenuDetail(holder.item)
+        }
     }
     inner class SandwichViewHolder(v: View): ItemViewHolder<Sandwich>(v) {
         val sandwichName: TextView = v.findViewById(R.id.type_sandwich)

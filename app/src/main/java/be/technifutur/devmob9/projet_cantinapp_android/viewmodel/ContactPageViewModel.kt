@@ -27,4 +27,6 @@ class ContactPageViewModel(private val contactPageManager: ContactPageManager): 
 
     fun onClickChoosingFile() = contactPageManager.onChangedDocument()
 
+
+
 }

@@ -33,6 +33,10 @@ class CalendarAdapter: RecyclerView.Adapter<CalendarAdapter.CalendarViewHolder>(
         return calendarModelList.lastIndexOf(calendarModel)
     }
 
+    fun clear() {
+        calendarModelList.clear()
+    }
+
     private var checkedPosition = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalendarViewHolder {

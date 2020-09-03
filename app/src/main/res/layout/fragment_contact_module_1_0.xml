@@ -69,6 +69,20 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/welcomeText" />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/androidGitHubButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="GitHub Android"
+                android:layout_marginTop="20dp"
+                android:textColor="@android:color/white"
+                app:backgroundTint="#1B1A1A"
+                app:icon="@drawable/ic_github_image"
+                app:iconSize="24dp"
+                app:iconTint="@android:color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sendMailButton" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

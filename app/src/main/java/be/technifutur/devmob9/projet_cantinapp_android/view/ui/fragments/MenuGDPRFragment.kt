@@ -22,7 +22,7 @@ class MenuGDPRFragment: BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        callback.fragmentTitle("GDPR")
         context?.let { fillConditionText(it) }
     }
 
@@ -51,6 +51,11 @@ class MenuGDPRFragment: BaseFragment() {
         dataUseText.text = useData
         marketingText.text = market
         dataProtectionRightsText.text = dpr
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        observeMenuPosition()
     }
 
 }

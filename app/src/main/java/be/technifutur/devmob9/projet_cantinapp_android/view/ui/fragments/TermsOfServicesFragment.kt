@@ -26,7 +26,7 @@ class TermsOfServicesFragment: BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        callback.fragmentTitle("Conditions d'utilisation")
         context?.let { fillConditionText(it) }
 
 
@@ -53,5 +53,10 @@ class TermsOfServicesFragment: BaseFragment() {
         warrantyLimitationLiabilityText.text = warLimLiab
         contactText.text = contact
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        observeMenuPosition()
     }
 }
