@@ -13,7 +13,7 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/menu_bg"
         android:layout_width="match_parent"
-        android:layout_height="240dp"
+        android:layout_height="220dp"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="10dp"
         app:cardBackgroundColor="@android:color/white"
@@ -25,7 +25,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="240dp">
+            android:layout_height="220dp">
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/item_price_menu"
@@ -86,6 +86,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="ENTREE"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:fontFamily="@font/righteous"
                 android:layout_marginEnd="10dp"
                 android:textColor="@android:color/black"
@@ -105,7 +107,7 @@
                 android:text="Soupe de Cyprine sur son nid de giclette"
                 android:textColor="@color/darkTurquoise"
                 android:ellipsize="end"
-                android:maxLines="4"
+                android:maxLines="3"
                 android:textSize="16sp"
                 android:fontFamily="@font/righteous"
                 android:textStyle="bold"

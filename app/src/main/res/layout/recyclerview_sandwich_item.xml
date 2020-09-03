@@ -13,7 +13,7 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/sandwich_menu_bg"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="220dp"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="10dp"
         app:cardBackgroundColor="@android:color/white"
@@ -25,7 +25,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="220dp">
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/item_price_sandwich"
@@ -81,7 +81,7 @@
                 android:layout_marginEnd="10dp"
                 android:textColor="@android:color/black"
                 android:textSize="18sp"
-                android:maxLines="2"
+                android:maxLines="1"
                 android:ellipsize="end"
                 app:layout_constraintEnd_toStartOf="@+id/sandwich_detail_btn"
                 app:layout_constraintStart_toStartOf="@id/sandwich_illustration"
@@ -99,6 +99,8 @@
                 android:textColor="@color/darkTurquoise"
                 android:textSize="16sp"
                 android:textStyle="bold"
+                android:maxLines="3"
+                android:ellipsize="end"
                 android:fontFamily="@font/righteous"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/sandwich_illustration"
