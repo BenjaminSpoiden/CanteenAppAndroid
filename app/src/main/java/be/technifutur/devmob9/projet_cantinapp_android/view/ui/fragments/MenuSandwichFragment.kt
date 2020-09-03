@@ -143,6 +143,6 @@ class MenuSandwichFragment: BaseFragment(), KodeinAware {
 
     override fun onResume() {
         super.onResume()
-        callback.fragmentTitle("Sandwich")
+        callback.fragmentTitle("Sandwichs")
     }
 }

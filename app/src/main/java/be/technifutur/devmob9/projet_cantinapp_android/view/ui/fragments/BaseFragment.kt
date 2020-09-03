@@ -38,9 +38,9 @@ abstract class BaseFragment: Fragment() {
         menuPositionViewModel.menuPosition.observe(requireActivity()) {
             Log.d(Constants.FIREBASE_TAG, "from contact: $it")
             when(it) {
-                0 -> callback.fragmentTitle("Repas")
-                1 -> callback.fragmentTitle("Sandwich")
-                2 -> callback.fragmentTitle("Condiments")
+                0 -> callback.fragmentTitle("Menu")
+                1 -> callback.fragmentTitle("Sandwichs")
+                2 -> callback.fragmentTitle("Autres")
             }
             menuPositionViewModel.menuPosition.removeSource(menuPositionViewModel.menuPosition)
             menuPositionViewModel.menuPosition.removeObservers(requireActivity())

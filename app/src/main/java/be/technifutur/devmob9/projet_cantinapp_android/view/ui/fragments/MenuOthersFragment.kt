@@ -222,7 +222,7 @@ class MenuOthersFragment: BaseFragment(), KodeinAware {
 
     override fun onResume() {
         super.onResume()
-        callback.fragmentTitle("Condiments")
+        callback.fragmentTitle("Autres")
     }
 
     private fun setSections() {
