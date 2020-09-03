@@ -39,10 +39,10 @@ class OthersItemBinder(context: Context): ItemBinder<OthersType, OthersItemBinde
         holder?.othersDetail?.setOnClickListener {
             fragmentListener?.openMenuDetail(holder.item)
         }
-//
-//        holder?.othersCard?.setOnClickListener {
-//            onItemCLick?.invoke(holder)
-//        }
+
+        holder?.othersCard?.setOnClickListener {
+            onItemCLick?.invoke(holder)
+        }
     }
 
     @SuppressLint("SetTextI18n")

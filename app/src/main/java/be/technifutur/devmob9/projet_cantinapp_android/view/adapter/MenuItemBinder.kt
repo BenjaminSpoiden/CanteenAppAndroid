@@ -81,10 +81,10 @@ class MenuItemBinder(context: Context): ItemBinder<DishesType, MenuItemBinder.Me
 
     override fun initViewHolder(holder: MenuItemViewHolder?) {
         super.initViewHolder(holder)
-//        holder?.menuCard?.setOnClickListener {
-//            onItemClick?.invoke(holder)
-//        }
-//
+        holder?.menuCard?.setOnClickListener {
+            onItemClick?.invoke(holder)
+        }
+
         holder?.detailButton?.setOnClickListener {
             fragmentListener?.openMenuDetail(holder.item)
         }

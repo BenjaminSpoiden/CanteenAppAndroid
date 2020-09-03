@@ -72,48 +72,48 @@ class MainActivity: AppCompatActivity(), FragmentListener, BaseFragment.OnSettin
         return super.onOptionsItemSelected(item)
     }
 
-//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//        menuInflater.inflate(R.menu.toolbar_menu, menu)
-//
-//        val menuItem = menu?.findItem(R.id.toolbar_cart)
-//        menuItem?.setActionView(R.layout.custom_action_item)
-//
-//        val actionView = menuItem?.actionView
-//        val textCart: TextView? = actionView?.findViewById(R.id.cart_badge)
-//
-//        textCart?.text = 0.toString()
-//        actionView?.let { _ ->
-//            onActionViewClick(actionView, 0)
-//        }
-//        cartBadgeViewModel.foodItems.observe(this) {
-//            textCart?.text = it.size.toString()
-//
-//            /**
-//             * Can only Access [OrdersFragment] if there's an item in the cart
-//             */
-//
-//            actionView?.let { _ ->
-//                onActionViewClick(actionView, it.size)
-//            }
-//        }
-//        return super.onCreateOptionsMenu(menu)
-//    }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
 
-//    private fun onActionViewClick(view: View, numberOfItems: Int) {
-//        view.setOnClickListener {
-//            if(numberOfItems > 0) {
-//                replaceFragmentWithBackStack(OrdersFragment.getInstance())
-//            }else {
-//                Snackbar
-//                    .make(this.drawer_layout, "You don't have anything in your cart", Snackbar.LENGTH_SHORT)
-//                    .setAnchorView(bottomBar)
-//                    .setAction("CLOSE") {
-//
-//                    }
-//                    .show()
-//            }
-//        }
-//    }
+        val menuItem = menu?.findItem(R.id.toolbar_cart)
+        menuItem?.setActionView(R.layout.custom_action_item)
+
+        val actionView = menuItem?.actionView
+        val textCart: TextView? = actionView?.findViewById(R.id.cart_badge)
+
+        textCart?.text = 0.toString()
+        actionView?.let { _ ->
+            onActionViewClick(actionView, 0)
+        }
+        cartBadgeViewModel.foodItems.observe(this) {
+            textCart?.text = it.size.toString()
+
+            /**
+             * Can only Access [OrdersFragment] if there's an item in the cart
+             */
+
+            actionView?.let { _ ->
+                onActionViewClick(actionView, it.size)
+            }
+        }
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    private fun onActionViewClick(view: View, numberOfItems: Int) {
+        view.setOnClickListener {
+            if(numberOfItems > 0) {
+                replaceFragmentWithBackStack(OrdersFragment.getInstance())
+            }else {
+                Snackbar
+                    .make(this.drawer_layout, "Votre panier est vide", Snackbar.LENGTH_INDEFINITE)
+                    .setAnchorView(bottomBar)
+                    .setAction("CLOSE") {
+
+                    }
+                    .show()
+            }
+        }
+    }
 
     override fun onAttachFragment(fragment: Fragment) {
         super.onAttachFragment(fragment)

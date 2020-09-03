@@ -3,19 +3,26 @@ package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.interfaces.FragmentListener
+import be.technifutur.devmob9.projet_cantinapp_android.model.data.Food
 import be.technifutur.devmob9.projet_cantinapp_android.model.data.OrdersModel
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.FIREBASE_TAG
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.OrdersItemAdapter
+import be.technifutur.devmob9.projet_cantinapp_android.viewmodel.CartBadgeViewModel
 import kotlinx.android.synthetic.main.fragment_orders.*
 
 class OrdersFragment : BaseFragment() {
     companion object {
+        const val ORDER_KEY = "order_key"
         fun getInstance() = OrdersFragment()
     }
 
@@ -24,15 +31,29 @@ class OrdersFragment : BaseFragment() {
 
     private var listener: FragmentListener? = null
 
+    private val cartBadgeViewModel  by activityViewModels<CartBadgeViewModel>()
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_orders, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        callback.fragmentTitle("Panier")
         super.onViewCreated(view, savedInstanceState)
-
         orderRecyclerView = view.findViewById(R.id.order_recyclerview)
+        ordersItemAdapter = OrdersItemAdapter()
+//        ordersItemAdapter.addAll(mockInitData())
+//        ordersItemAdapter.notifyDataSetChanged()
+        orderRecyclerView.apply {
+            this.adapter = ordersItemAdapter
+            this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        }
+
+        cartBadgeViewModel.foodItems.observe(viewLifecycleOwner) {
+            ordersItemAdapter.addAll(it)
+            ordersItemAdapter.notifyDataSetChanged()
+        }
 
         payment_checkout_btn.setOnClickListener {
             listener?.openCheckoutFragment()
@@ -42,7 +63,7 @@ class OrdersFragment : BaseFragment() {
         val uncheckedDrawable = requireContext().resources.getDrawable(R.drawable.ic_unchecked, resources.newTheme())
 
 
-        a_emporte_cb.isEnabled = false
+        a_emporte_cb.isEnabled = true
         if(!a_emporte_cb.isEnabled) {
             a_emporte_cb.setTextColor(resources.getColor(R.color.bone, resources.newTheme()))
         }
@@ -58,15 +79,6 @@ class OrdersFragment : BaseFragment() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        ordersItemAdapter = OrdersItemAdapter(mockInitData())
-        ordersItemAdapter.notifyDataSetChanged()
-        orderRecyclerView.apply {
-            this.adapter = ordersItemAdapter
-            this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        }
-    }
 
     private fun mockInitData() = mutableListOf(
         OrdersModel(isHeader = true, headerName = "23/07"),
@@ -101,5 +113,10 @@ class OrdersFragment : BaseFragment() {
             this.adapter = null
             this.layoutManager = null
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        observeMenuPosition()
     }
 }

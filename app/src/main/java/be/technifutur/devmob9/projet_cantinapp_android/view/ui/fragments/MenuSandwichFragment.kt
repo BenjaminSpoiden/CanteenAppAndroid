@@ -103,14 +103,14 @@ class MenuSandwichFragment: BaseFragment(), KodeinAware {
         sandwichAdapter.addSection(sandwichPlaceholder)
 
         SandwichItemBinder.onItemClick = {
-//            it.sandwichCard.isChecked = !it.sandwichCard.isChecked
-//            if(it.sandwichCard.isChecked) {
-//                it.sandwichCard.setCardBackgroundColor(resources.getColor(R.color.tameGreen, resources.newTheme()))
-//                cartBadgeViewModel.onAddingMenuItem(it.item)
-//            }else {
-//                it.sandwichCard.setCardBackgroundColor(Color.WHITE)
-//                cartBadgeViewModel.onDeleteMenuItem(it.item)
-//            }
+            it.sandwichCard.isChecked = !it.sandwichCard.isChecked
+            if(it.sandwichCard.isChecked) {
+                it.sandwichCard.setCardBackgroundColor(resources.getColor(R.color.tameGreen, resources.newTheme()))
+                cartBadgeViewModel.onAddingMenuItem(it.item)
+            }else {
+                it.sandwichCard.setCardBackgroundColor(Color.WHITE)
+                cartBadgeViewModel.onDeleteMenuItem(it.item)
+            }
         }
     }
 

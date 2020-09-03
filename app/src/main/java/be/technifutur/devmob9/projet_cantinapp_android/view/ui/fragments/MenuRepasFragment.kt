@@ -93,9 +93,9 @@ class MenuRepasFragment: BaseFragment(), KodeinAware {
             if(holder.menuCard.isChecked) {
                 holder.menuCard.setCardBackgroundColor(resources.getColor(R.color.tameGreen, resources.newTheme()))
                 cartBadgeViewModel.onAddingMenuItem(holder.item)
-//            }else {
-//                holder.menuCard.setCardBackgroundColor(Color.WHITE)
-//                cartBadgeViewModel.onDeleteMenuItem(holder.item)
+            }else {
+                holder.menuCard.setCardBackgroundColor(Color.WHITE)
+                cartBadgeViewModel.onDeleteMenuItem(holder.item)
             }
         }
 

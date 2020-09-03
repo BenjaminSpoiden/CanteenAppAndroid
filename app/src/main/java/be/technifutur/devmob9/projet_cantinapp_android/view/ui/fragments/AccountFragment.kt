@@ -69,4 +69,9 @@ class AccountFragment: BaseFragment() {
         super.onDetach()
         listener = null
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        observeMenuPosition()
+    }
 }

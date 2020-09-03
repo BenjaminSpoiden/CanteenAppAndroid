@@ -27,6 +27,7 @@ class CheckoutFragment: BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        callback.fragmentTitle("Enregistrer un compte")
         closeKeyboard(view)
 
         allergyDialog = context?.let { Dialog(it) }!!
@@ -58,5 +59,10 @@ class CheckoutFragment: BaseFragment() {
             }
             allergyDialog.show()
         }
+    }
+
+    override fun onDestroyView() {
+        callback.fragmentTitle("Panier")
+        super.onDestroyView()
     }
 }

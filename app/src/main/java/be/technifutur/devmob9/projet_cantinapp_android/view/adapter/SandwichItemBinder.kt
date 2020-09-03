@@ -48,10 +48,10 @@ class SandwichItemBinder(context: Context): ItemBinder<Sandwich, SandwichItemBin
 
     override fun initViewHolder(holder: SandwichViewHolder?) {
         super.initViewHolder(holder)
-//        holder?.sandwichCard?.setOnClickListener {
-//            onItemClick?.invoke(holder)
-//        }
-//
+        holder?.sandwichCard?.setOnClickListener {
+            onItemClick?.invoke(holder)
+        }
+
         holder?.sandwichDetail?.setOnClickListener {
             fragmentListener?.openMenuDetail(holder.item)
         }

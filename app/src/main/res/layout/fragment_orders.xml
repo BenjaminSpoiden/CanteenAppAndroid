@@ -65,7 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="18dp"
-                android:text="Sous-total"
+                android:text="Sous-total "
                 android:fontFamily="@font/righteous"
                 android:textColor="@android:color/black"
                 android:textSize="14sp"
@@ -79,7 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="30dp"
-                android:text="4,00 €"
+                android:text="1,00 €"
                 android:fontFamily="@font/righteous"
                 android:layout_marginTop="10dp"
                 android:textColor="@android:color/black"
@@ -99,7 +99,7 @@
                 android:layout_marginTop="5dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/sub_total"
-                android:text="Taux TVA" />
+                android:text="Taux TVA " />
 
             <TextView
                 android:id="@+id/tva_price"
@@ -113,7 +113,7 @@
                 android:layout_marginEnd="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/sub_total_price"
-                android:text="0,84 €" />
+                android:text="0,06 €" />
 
             <TextView
                 android:id="@+id/total"
@@ -121,13 +121,13 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/lightGreen"
                 android:textStyle="bold"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:layout_marginStart="18dp"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/righteous"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tva"
-                android:text="Total" />
+                android:text="Total " />
 
             <TextView
                 android:id="@+id/total_price"
@@ -135,13 +135,13 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/lightGreen"
                 android:textStyle="bold"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:fontFamily="@font/righteous"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tva_price"
-                android:text="4,84 €" />
+                android:text="1,06 €" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/payment_checkout_btn"

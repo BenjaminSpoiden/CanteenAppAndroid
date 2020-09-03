@@ -1,6 +1,7 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -88,14 +89,14 @@ class MenuOthersFragment: BaseFragment(), KodeinAware {
         initAdapter()
 
         OthersItemBinder.onItemCLick = { holder ->
-//            holder.othersCard.isChecked = !holder.othersCard.isChecked
-//            if(holder.othersCard.isChecked) {
-//                holder.othersCard.setCardBackgroundColor(resources.getColor(R.color.tameGreen, resources.newTheme()))
-//                cartBadgeViewModel.onAddingMenuItem(holder.item)
-//            }else {
-//                holder.othersCard.setCardBackgroundColor(Color.WHITE)
-//                cartBadgeViewModel.onDeleteMenuItem(holder.item)
-//            }
+            holder.othersCard.isChecked = !holder.othersCard.isChecked
+            if(holder.othersCard.isChecked) {
+                holder.othersCard.setCardBackgroundColor(resources.getColor(R.color.tameGreen, resources.newTheme()))
+                cartBadgeViewModel.onAddingMenuItem(holder.item)
+            }else {
+                holder.othersCard.setCardBackgroundColor(Color.WHITE)
+                cartBadgeViewModel.onDeleteMenuItem(holder.item)
+            }
         }
 
 

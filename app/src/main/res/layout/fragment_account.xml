@@ -50,8 +50,7 @@
                 <ImageView
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/meufbonne" />
+                    android:src="@drawable/user" />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -67,7 +66,7 @@
                     style="@style/FirebaseUI.Text.Heading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Kimberley"
+                    android:text="John"
                     android:textColor="@android:color/black"
                     android:textSize="24sp"
                     android:textStyle="bold"
@@ -80,7 +79,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:text="Harrison"
+                    android:text="Smith"
                     android:textColor="@android:color/black"
                     android:textSize="24sp"
                     android:textStyle="bold"
