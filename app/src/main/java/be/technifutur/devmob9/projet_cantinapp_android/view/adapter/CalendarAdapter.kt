@@ -28,6 +28,11 @@ class CalendarAdapter: RecyclerView.Adapter<CalendarAdapter.CalendarViewHolder>(
         return calendarModelList[position]
     }
 
+    fun getPositionFromItem(calendarModel: CalendarModel): Int {
+        checkedPosition = calendarModelList.lastIndexOf(calendarModel)
+        return calendarModelList.lastIndexOf(calendarModel)
+    }
+
     private var checkedPosition = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalendarViewHolder {

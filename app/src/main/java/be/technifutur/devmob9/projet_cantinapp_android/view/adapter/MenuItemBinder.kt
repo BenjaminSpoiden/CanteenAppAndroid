@@ -85,9 +85,9 @@ class MenuItemBinder(context: Context): ItemBinder<DishesType, MenuItemBinder.Me
 //            onItemClick?.invoke(holder)
 //        }
 //
-//        holder?.detailButton?.setOnClickListener {
-//            fragmentListener?.openMenuDetail(holder.item)
-//        }
+        holder?.detailButton?.setOnClickListener {
+            fragmentListener?.openMenuDetail(holder.item)
+        }
     }
 
     inner class MenuItemViewHolder(v: View): ItemViewHolder<DishesType>(v){

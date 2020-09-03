@@ -7,5 +7,5 @@ data class CalendarModel(
     val dayName: String? = null,
     val dayNumber: String? = null,
     val date: LocalDate? = null,
-    val isWorkday: Boolean? = false
+    val isWorkday: Boolean? = null
 )

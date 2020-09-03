@@ -89,14 +89,14 @@ class MenuRepasFragment: BaseFragment(), KodeinAware {
         menuAdapter.addSection(dessertsPlaceholder)
 
         MenuItemBinder.onItemClick = { holder ->
-//            holder.menuCard.isChecked = !holder.menuCard.isChecked
-//            if(holder.menuCard.isChecked) {
-//                holder.menuCard.setCardBackgroundColor(resources.getColor(R.color.tameGreen, resources.newTheme()))
-//                cartBadgeViewModel.onAddingMenuItem(holder.item)
+            holder.menuCard.isChecked = !holder.menuCard.isChecked
+            if(holder.menuCard.isChecked) {
+                holder.menuCard.setCardBackgroundColor(resources.getColor(R.color.tameGreen, resources.newTheme()))
+                cartBadgeViewModel.onAddingMenuItem(holder.item)
 //            }else {
 //                holder.menuCard.setCardBackgroundColor(Color.WHITE)
 //                cartBadgeViewModel.onDeleteMenuItem(holder.item)
-//            }
+            }
         }
 
         menuRecyclerView?.apply {

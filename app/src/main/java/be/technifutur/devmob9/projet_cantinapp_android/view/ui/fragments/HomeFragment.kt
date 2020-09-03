@@ -1,6 +1,7 @@
 package be.technifutur.devmob9.projet_cantinapp_android.view.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import be.technifutur.devmob9.projet_cantinapp_android.R
 import be.technifutur.devmob9.projet_cantinapp_android.utils.BottomNavigationScreens
+import be.technifutur.devmob9.projet_cantinapp_android.utils.Constants.FIREBASE_TAG
 import be.technifutur.devmob9.projet_cantinapp_android.utils.getMainScreen
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.CalendarAdapter
 import be.technifutur.devmob9.projet_cantinapp_android.view.adapter.MainPagerAdapter
@@ -26,6 +28,8 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
 import org.threeten.bp.LocalDate
+import org.threeten.bp.LocalDateTime
+import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.TextStyle
 import java.lang.StringBuilder
 import java.util.*
@@ -116,9 +120,13 @@ class HomeFragment: BaseFragment(), KodeinAware, BottomNavigationView.OnNavigati
             shimmerFrameLayout.stopShimmer()
             shimmerFrameLayout.visibility = View.GONE
             calendarAdapter.addAll(calendarModelList)
-
-            dateBuilder(calendarAdapter.get(0).date)
-            onFetchingDishesFromDateClick(calendarAdapter.get(0).date.toString())
+            calendarModelList.forEach {
+                if(it.date.toString() == currentDate()){
+                    dateBuilder(it.date)
+                    onFetchingDishesFromDateClick(currentDate())
+                    calendarRecyclerView.scrollToPosition(calendarAdapter.getPositionFromItem(it))
+                }
+            }
 
             CalendarAdapter.onDateListener = { date ->
                 dateBuilder(date)
@@ -169,5 +177,9 @@ class HomeFragment: BaseFragment(), KodeinAware, BottomNavigationView.OnNavigati
             return true
         }
         return false
+    }
+
+    private fun currentDate(): String {
+        return LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE)
     }
 }
